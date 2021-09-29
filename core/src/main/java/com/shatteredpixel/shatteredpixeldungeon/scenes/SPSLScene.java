@@ -5,12 +5,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton3;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.input.PointerEvent;
@@ -74,16 +71,7 @@ public class SPSLScene extends PixelScene {
         align(title);
         add(title);
 
-        ExitButton btnExit = new ExitButton() {
-            @Override
-            protected void onClick() {
-                if (Game.scene() instanceof TitleScene) {
-                    Game.instance.finish();
-                } else {
-                    ShatteredPixelDungeon.switchNoFade( AboutSelectScene.class );
-                }
-            }
-        };
+        ExitButton3 btnExit = new ExitButton3();
         btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
         add( btnExit );
 
@@ -123,7 +111,7 @@ public class SPSLScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        ShatteredPixelDungeon.switchNoFade( AboutSelectScene.class );
+        ShatteredPixelDungeon.switchNoFade( TitleScene.class );
     }
 
 

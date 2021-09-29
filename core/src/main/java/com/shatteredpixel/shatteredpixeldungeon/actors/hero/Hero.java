@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -143,7 +144,7 @@ public class Hero extends Char {
 		
 		alignment = Alignment.ALLY;
 	}
-	
+
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
@@ -1696,9 +1697,17 @@ public class Hero extends Char {
 		}
 	}
 
+
+
 	@Override
 	public void move( int step ) {
 		boolean wasHighGrass = Dungeon.level.map[step] == Terrain.HIGH_GRASS;
+		if (Dungeon.isChallenged(Challenges.AQUAPHOBIA)
+				&& Dungeon.level.water[pos]){
+			damage(Dungeon.depth/2+1,this);
+			this.sprite.showStatus( CharSprite.WATERDAMAGE, Messages.get(Char.class, "aquaphobia") );
+		}
+
 
 		super.move( step );
 		

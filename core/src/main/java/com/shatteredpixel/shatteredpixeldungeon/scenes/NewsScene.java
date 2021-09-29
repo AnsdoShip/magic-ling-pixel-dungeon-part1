@@ -31,18 +31,15 @@ import com.shatteredpixel.shatteredpixeldungeon.services.news.NewsArticle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
-import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.DeviceCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -242,7 +239,7 @@ public class NewsScene extends PixelScene {
 
 		NewsArticle article;
 
-		BitmapText date;
+
 
 		public ArticleButton(NewsArticle article) {
 			super(Chrome.Type.GREY_BUTTON_TR, article.title, 6);
@@ -256,11 +253,7 @@ public class NewsScene extends PixelScene {
 
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(article.date);
-			date = new BitmapText( News.parseArticleDate(article), pixelFont);
-			date.scale.set(PixelScene.align(0.5f));
-			date.hardlight( 0x888888 );
-			date.measure();
-			add(date);
+
 		}
 
 		@Override
@@ -271,11 +264,6 @@ public class NewsScene extends PixelScene {
 			PixelScene.align(icon);
 			text.setPos(x + bg.marginLeft() + 18, text.top());
 
-			if (date != null) {
-				date.x = x + width - bg.marginRight() - date.width() + 1;
-				date.y = y + height - bg.marginBottom() - date.height() + 2.5f;
-				align(date);
-			}
 		}
 
 		@Override

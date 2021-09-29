@@ -58,7 +58,7 @@ public class Item implements Bundlable {
 
 	protected static final String TXT_TO_STRING_LVL		= "%s %+d";
 	protected static final String TXT_TO_STRING_X		= "%s x%d";
-	
+	protected String name = Messages.get(this, "name");
 	protected static final float TIME_TO_THROW		= 1.0f;
 	protected static final float TIME_TO_PICK_UP	= 1.0f;
 	protected static final float TIME_TO_DROP		= 1.0f;
@@ -68,6 +68,10 @@ public class Item implements Bundlable {
 	
 	public String defaultAction;
 	public boolean usesTargeting;
+
+	public int price() {
+		return 0;
+	}
 
 	//TODO should these be private and accessed through methods?
 	public int image = 0;

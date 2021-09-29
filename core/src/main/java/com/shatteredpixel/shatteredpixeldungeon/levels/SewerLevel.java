@@ -21,11 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.FZLL;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
@@ -100,6 +105,14 @@ public class SewerLevel extends RegularLevel {
 
 	@Override
 	protected float[] trapChances() {
+		if (Dungeon.isChallenged(FZLL)) {
+			return Dungeon.depth == 1 ?
+					new float[]{1} :
+					new float[]{
+							4, 4, 4, 4,
+							4, 2,
+							1, 1, 1, 1};
+		}
 		return Dungeon.depth == 1 ?
 				new float[]{1} :
 				new float[]{

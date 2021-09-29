@@ -34,6 +34,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -97,16 +99,16 @@ public class WndBag extends WndTabbed {
 	}
 
 	protected static final int COLS_P   = 5;
-	protected static final int COLS_L   = 5;
-	
-	protected static int SLOT_WIDTH_P   = 28;
-	protected static int SLOT_WIDTH_L   = 28;
+	protected static final int COLS_L   = 7;
+
+	protected static int SLOT_WIDTH_P   = 20;
+	protected static int SLOT_WIDTH_L   = 20;
 
 	protected static int SLOT_HEIGHT_P	= 28;
 	protected static int SLOT_HEIGHT_L	= 28;
 
-	protected static final int SLOT_MARGIN	= 1;
-	
+	protected static final int SLOT_MARGIN	= 3;
+
 	protected static final int TITLE_HEIGHT	= 14;
 	
 	private Listener listener;
@@ -174,6 +176,8 @@ public class WndBag extends WndTabbed {
 			stuff.backpack,
 			stuff.getItem( VelvetPouch.class ),
 			stuff.getItem( ScrollHolder.class ),
+				stuff.getItem( HerbBag.class ),
+				stuff.getItem( KingBag.class ),
 			stuff.getItem( PotionBandolier.class ),
 			stuff.getItem( MagicalHolster.class )};
 

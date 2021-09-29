@@ -25,28 +25,56 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
+import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.GoldBAo;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfScale;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BlackDog;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BoomSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dairikyan;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.GreenSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.IceSan;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.LockSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagicBlueSword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RedBloodMoon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RunicBlade;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.SkyShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
@@ -68,6 +96,8 @@ public enum HeroClass {
 		this.title = title;
 		this.subClasses = subClasses;
 	}
+
+
 
 	public void initHero( Hero hero ) {
 
@@ -104,6 +134,57 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) i.collect();
 
 		new ScrollOfIdentify().identify();
+
+		if (Dungeon.isChallenged(Challenges.NO_GOLD)){
+			hero.lvl = -6;
+			hero.HP = 50;
+			hero.HT = 50;
+			hero.exp = -114514;
+		}
+
+		if (Dungeon.isChallenged(Challenges.PRO)){
+			new PotionOfMindVision().quantity(50).identify().collect();
+			new PotionOfStrength().quantity(50).identify().collect();
+			new PotionOfHealing().quantity(50).identify().collect();
+			new PotionOfLiquidFlame().quantity(50).identify().collect();
+			new MagicBlueSword().quantity(1).identify().collect();
+			new BlackDog().quantity(1).identify().collect();
+			new RedBloodMoon().quantity(1).identify().collect();
+			new Dairikyan().quantity(1).identify().collect();
+			new BoomSword().quantity(1).identify().collect();
+			new RunicBlade().quantity(1).identify().collect();
+			new LockSword().quantity(1).identify().collect();
+			new DewVial().quantity(1).identify().collect();
+			new Ankh().quantity(1).identify().collect();
+			new PotionOfNoWater().quantity(100).identify().collect();
+			new HerbBag().quantity(1).identify().collect();
+			new KingBag().quantity(1).identify().collect();
+			new PotionOfExperience().quantity(100).identify().collect();
+			new ScrollOfMagicMapping().quantity(100).identify().collect();
+			new ScrollOfUpgrade().quantity(100).identify().collect();
+			new TalismanOfForesight().quantity(1).identify().collect();
+			new MeatPie().quantity(100).identify().collect();
+			new GreenSword().quantity(1).identify().collect();
+			new SkyShield().quantity(1).identify().collect();
+			new IceSan().quantity(1).identify().collect();
+			new GoldBAo().quantity(9999).identify().collect();
+			new Amulet().quantity(1).identify().collect();
+			new WandOfScale().quantity(1).identify().collect();
+			new WandOfRegrowth().quantity(1).identify().collect();
+			new WandOfFrost().quantity(1).identify().collect();
+			new MagicalInfusion().quantity(1).identify().collect();
+			new ScrollOfMysticalEnergy().quantity(1).identify().collect();
+			new AquaBlast().quantity(1).identify().collect();
+			new ReclaimTrap().quantity(1).identify().collect();
+			Dungeon.gold = 600000000;
+			hero.lvl = 0;
+			hero.HP = 65536;
+			hero.HT = 65536;
+			hero.exp = -999999;
+			hero.STR = 27;
+
+		}
+
 
 	}
 

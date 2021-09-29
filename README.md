@@ -1,24 +1,26 @@
-[**简体中文**](https://github.com/AnsdoShip/MagicLingPixelDungeon/blob/master/README-zh_CN.md)
-# Magic Ling Pixel Dungeon
 
-[**Discord server (coming soon)**]()
+# 魔绫像素地牢
 
-* A **ROGUELIKE RPG**, with randomly generated dungeon! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon) **v0.9.3c**, by [**ShatteredPixel**](http://www.shatteredpixel.com).
+[**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* Currently compiles for **Android** platform. It is available from [**GitHub**](https://github.com/AnsdoShip/MagicLingPixelDungeon/releases).
+* **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/00-Evan/shattered-pixel-dungeon)**v0.9.2b**，作者[**ShatteredPixel**](http://www.shatteredpixel.com)。
 
-* If you like this game, please consider [**buy us a coffee**](https://ko-fi.com/Tianscar)!
+* 现支持**安卓**平台。可在[**GitHub**](https://github.com/AnsdoShip/MagicLingPixelDungeon/releases)下载。
 
-# Producers
+* 如果曾经碳酸帮过我忙，如果你恰巧财力足够，能否[**前往Ko-fi**](https://ko-fi.com/Tianscar)留下一份心意？
+* 同时，我的爱发电[**前往爱发电**](https://afdian.net/@jdsaling)支持总设计中二绫。
 
-* **Design**</br>
+
+# 制作人名单
+
+* **策划**</br>
 JDSA Ling
-* **Code**</br>
-JDSA Ling & Tianscar
-* **Music**</br>
+* **程序**</br>
+JDSA Ling & 碳酸天剑
+* **音乐**</br>
 Prohonor
-* **Graphics**</br>
-JDSA Ling, Tianscar, Daniel_Clan, REN, 冷群怪 & 奈亚子
+* **美工**</br>
+JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
 
-# License
+# 许可证
 * [**GPL-3.0**](https://github.com/AnsdoShip/MagicLingPixelDungeon/blob/master/LICENSE.txt) © **AnsdoShip Studio**

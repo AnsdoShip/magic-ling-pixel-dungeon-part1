@@ -21,4 +21,4 @@ Prohonor
 JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
 
 # 许可证
-* [**GPL-3.0**](https://github.com/AnsdoShip/MagicLingPixelDungeon/blob/master/LICENSE.txt) © **AnsdoShip Studio**
+* [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE) © **AnsdoShip Studio**

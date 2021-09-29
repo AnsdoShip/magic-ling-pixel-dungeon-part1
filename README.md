@@ -1,19 +1,24 @@
-# Shattered Pixel Dungeon
 
-A Roguelike RPG, with randomly generated levels, items, enemies, and traps! Based on the [source code of Pixel Dungeon](https://github.com/00-Evan/pixel-dungeon-gradle), by [Watabou](https://www.watabou.ru).
+# 魔绫像素地牢
 
-Shattered Pixel Dungeon currently compiles for Android and desktop platforms. It is available from [GitHub](https://github.com/00-Evan/shattered-pixel-dungeon/releases), [Google Play](https://play.google.com/store/apps/details?id=com.shatteredpixel.shatteredpixeldungeon), [Amazon](https://www.amazon.com/Shattered-Pixel-Dungeon/dp/B00OH2C21M), and [F-Droid](https://f-droid.org/repository/browse/?fdid=com.shatteredpixel.shatteredpixeldungeon).
+[**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-If you like this game, please consider [supporting me on Patreon](https://www.patreon.com/ShatteredPixel)!
+* **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/00-Evan/shattered-pixel-dungeon)**v0.9.2b**，作者[**ShatteredPixel**](http://www.shatteredpixel.com)。
 
-There is an official blog for this project at [ShatteredPixel.com](http://www.shatteredpixel.com).
+* 如果曾经碳酸帮过我忙，如果你恰巧财力足够，能否[**前往Ko-fi**](https://ko-fi.com/Tianscar)留下一份心意？
+* 同时，我的爱发电[**前往爱发电**](https://afdian.net/@jdsaling)支持总设计中二绫。
 
-The game also has a translation project hosted on [Transifex](https://www.transifex.com/shattered-pixel/shattered-pixel-dungeon/).
 
-Note that **this repository does not accept pull requests!** The code here is provided in hopes that others may find it useful for their own projects, not to allow community contribution. Issue reports of all kinds (bug reports, feature requests, etc.) are welcome.
+# 制作人名单
 
-If you'd like to work with the code, you can find the following guides in `/docs`:
-- [Compiling for Android.](docs/getting-started-android.md)
-    - **[If you plan to distribute on Google Play please read the end of this guide.](docs/getting-started-android.md#distributing-your-apk)**
-- [Compiling for desktop platforms.](docs/getting-started-desktop.md)
-- [Recommended changes for making your own mod.](docs/recommended-changes.md)
+* **策划**</br>
+JDSA Ling
+* **程序**</br>
+JDSA Ling & 碳酸天剑
+* **音乐**</br>
+Prohonor
+* **美工**</br>
+JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
+
+# 许可证
+* [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE) © **AnsdoShip Studio**

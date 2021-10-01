@@ -18,7 +18,7 @@ JDSA Ling & 碳酸天剑
 * **音乐**</br>
 Prohonor
 * **美工**</br>
-JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
+JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子 & 被子
 
 # 许可证
 * [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE) © **AnsdoShip Studio**

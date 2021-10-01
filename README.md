@@ -5,7 +5,7 @@
 
 * **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/00-Evan/shattered-pixel-dungeon)**v0.9.2b**，作者[**ShatteredPixel**](http://www.shatteredpixel.com)。
 
-* 如果曾经碳酸帮过我忙，如果你恰巧财力足够，能否[**前往Ko-fi**](https://ko-fi.com/Tianscar)留下一份心意？
+* 曾经碳酸帮过我忙，如果你恰巧财力足够，能否[**前往Ko-fi**](https://ko-fi.com/Tianscar)留下一份心意？
 * 同时，我的爱发电[**前往爱发电**](https://afdian.net/@jdsaling)支持总设计中二绫。
 
 

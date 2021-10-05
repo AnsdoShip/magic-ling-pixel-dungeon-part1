@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.painters;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.FZLL;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -44,77 +46,77 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class RegularPainter extends Painter {
-	
+
 	private float waterFill = 0f;
 	private int waterSmoothness;
-	
+
 	public RegularPainter setWater(float fill, int smoothness){
 		waterFill = fill;
 		waterSmoothness = smoothness;
 		return this;
 	}
-	
+
 	private float grassFill = 0f;
 	private int grassSmoothness;
-	
+
 	public RegularPainter setGrass(float fill, int smoothness){
 		grassFill = fill;
 		grassSmoothness = smoothness;
 		return this;
 	}
-	
+
 	private int nTraps = 0;
 	private Class<? extends Trap>[] trapClasses;
 	private float[] trapChances;
-	
+
 	public RegularPainter setTraps(int num, Class<?>[] classes, float[] chances){
 		nTraps = num;
 		trapClasses = (Class<? extends Trap>[]) classes;
 		trapChances = chances;
 		return this;
 	}
-	
+
 	@Override
 	public boolean paint(Level level, ArrayList<Room> rooms) {
-		
+
 		//painter can be used without rooms
 		if (rooms != null) {
-			
+
 			int padding = level.feeling == Level.Feeling.CHASM ? 2 : 1;
-			
+
 			int leftMost = Integer.MAX_VALUE, topMost = Integer.MAX_VALUE;
-			
+
 			for (Room r : rooms) {
 				if (r.left < leftMost) leftMost = r.left;
 				if (r.top < topMost) topMost = r.top;
 			}
-			
+
 			leftMost -= padding;
 			topMost -= padding;
-			
+
 			int rightMost = 0, bottomMost = 0;
-			
+
 			for (Room r : rooms) {
 				r.shift(-leftMost, -topMost);
 				if (r.right > rightMost) rightMost = r.right;
 				if (r.bottom > bottomMost) bottomMost = r.bottom;
 			}
-			
+
 			rightMost += padding;
 			bottomMost += padding;
-			
+
 			//add 1 to account for 0 values
 			level.setSize(rightMost + 1, bottomMost + 1);
 		} else {
 			//check if the level's size was already initialized by something else
 			if (level.length() == 0) return false;
-			
+
 			//easier than checking for null everywhere
 			rooms = new ArrayList<>();
 		}
-		
+
 		Random.shuffle(rooms);
-		
+
 		for (Room r : rooms.toArray(new Room[0])) {
 			if (r.connected.isEmpty()){
 				Game.reportException( new RuntimeException("Painting a room with no connections! Room:" + r.getClass().getSimpleName() + " Seed:" + Dungeon.seed + " Depth:" + Dungeon.depth));
@@ -123,33 +125,33 @@ public abstract class RegularPainter extends Painter {
 			placeDoors( r );
 			r.paint( level );
 		}
-		
+
 		paintDoors( level, rooms );
-		
+
 		if (waterFill > 0f) {
 			paintWater( level, rooms );
 		}
-		
+
 		if (grassFill > 0f){
 			paintGrass( level, rooms );
 		}
-		
+
 		if (nTraps > 0){
 			paintTraps( level, rooms );
 		}
-		
+
 		decorate( level, rooms );
-		
+
 		return true;
 	}
-	
+
 	protected abstract void decorate(Level level, ArrayList<Room> rooms);
-	
+
 	private void placeDoors( Room r ) {
 		for (Room n : r.connected.keySet()) {
 			Room.Door door = r.connected.get( n );
 			if (door == null) {
-				
+
 				Rect i = r.intersect( n );
 				ArrayList<Point> doorSpots = new ArrayList<>();
 				for (Point p : i.getPoints()){
@@ -164,13 +166,13 @@ public abstract class RegularPainter extends Painter {
 					continue;
 				}
 				door = new Room.Door(Random.element(doorSpots));
-				
+
 				r.connected.put( n, door );
 				n.connected.put( r, door );
 			}
 		}
 	}
-	
+
 	protected void paintDoors( Level l, ArrayList<Room> rooms ) {
 
 		float hiddenDoorChance = 0;
@@ -197,10 +199,10 @@ public abstract class RegularPainter extends Painter {
 					if (((StandardRoom) n).sizeCat == StandardRoom.SizeCategory.NORMAL) roomMerges.put(n, r);
 					continue;
 				}
-				
+
 				Room.Door d = r.connected.get(n);
 				int door = d.x + d.y * l.width();
-				
+
 				if (d.type == Room.Door.Type.REGULAR){
 					if (Random.Float() < hiddenDoorChance) {
 						d.type = Room.Door.Type.HIDDEN;
@@ -221,7 +223,7 @@ public abstract class RegularPainter extends Painter {
 						d.type = Room.Door.Type.HIDDEN;
 					}
 				}
-				
+
 				switch (d.type) {
 					case EMPTY:
 						l.map[door] = Terrain.EMPTY;
@@ -304,10 +306,10 @@ public abstract class RegularPainter extends Painter {
 		}
 
 	}
-	
+
 	protected void paintWater( Level l, ArrayList<Room> rooms ){
 		boolean[] lake = Patch.generate( l.width(), l.height(), waterFill, waterSmoothness, true );
-		
+
 		if (!rooms.isEmpty()){
 			for (Room r : rooms){
 				for (Point p : r.waterPlaceablePoints()){
@@ -324,14 +326,14 @@ public abstract class RegularPainter extends Painter {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	protected void paintGrass( Level l, ArrayList<Room> rooms ) {
 		boolean[] grass = Patch.generate( l.width(), l.height(), grassFill, grassSmoothness, true );
-		
+
 		ArrayList<Integer> grassCells = new ArrayList<>();
-		
+
 		if (!rooms.isEmpty()){
 			for (Room r : rooms){
 				for (Point p : r.grassPlaceablePoints()){
@@ -348,7 +350,7 @@ public abstract class RegularPainter extends Painter {
 				}
 			}
 		}
-		
+
 		//Adds chaos to grass height distribution. Ratio of high grass depends on fill and smoothing
 		//Full range is 8.3% to 75%, but most commonly (20% fill with 3 smoothing) is around 60%
 		//low smoothing, or very low fill, will begin to push the ratio down, normally to 50-30%
@@ -357,7 +359,7 @@ public abstract class RegularPainter extends Painter {
 				l.map[i] = Terrain.GRASS;
 				continue;
 			}
-			
+
 			int count = 1;
 			for (int n : PathFinder.NEIGHBOURS8) {
 				if (grass[i + n]) {
@@ -367,10 +369,10 @@ public abstract class RegularPainter extends Painter {
 			l.map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
 		}
 	}
-	
+
 	protected void paintTraps( Level l, ArrayList<Room> rooms ) {
 		ArrayList<Integer> validCells = new ArrayList<>();
-		
+
 		if (!rooms.isEmpty()){
 			for (Room r : rooms){
 				for (Point p : r.trapPlaceablePoints()){
@@ -387,15 +389,15 @@ public abstract class RegularPainter extends Painter {
 				}
 			}
 		}
-		
+
 		//no more than one trap every 5 valid tiles.
 		nTraps = Math.min(nTraps, validCells.size()/5);
-		
+
 		for (int i = 0; i < nTraps; i++) {
-			
+
 			Integer trapPos = Random.element(validCells);
 			validCells.remove(trapPos); //removes the integer object, not at the index
-			
+
 			Trap trap = Reflection.newInstance(trapClasses[Random.chances( trapChances )]).hide();
 			l.setTrap( trap, trapPos );
 			//some traps will not be hidden
@@ -403,18 +405,27 @@ public abstract class RegularPainter extends Painter {
 		}
 
 		//4x regular trap count of visible traps on traps level feeling
-		if (l.feeling == Level.Feeling.TRAPS){
-			for (int i = 0; i < 4*nTraps; i++) {
+		if (Dungeon.isChallenged(FZLL)) {
+			for (int i = 0; i < 16 * nTraps; i++) {
 
 				Integer trapPos = Random.element(validCells);
 				validCells.remove(trapPos); //removes the integer object, not at the index
 
-				Trap trap = Reflection.newInstance(trapClasses[Random.chances( trapChances )]).reveal();
-				l.setTrap( trap, trapPos );
+				Trap trap = Reflection.newInstance(trapClasses[Random.chances(trapChances)]).reveal();
 				//some traps will not be hidden
-				l.map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
+				}
+				if (l.feeling == Level.Feeling.TRAPS)
+					for (int i = 0; i < 8 * nTraps; i++) {
+
+						Integer trapPos = Random.element(validCells);
+						validCells.remove(trapPos); //removes the integer object, not at the index
+
+						Trap trap = Reflection.newInstance(trapClasses[Random.chances(trapChances)]).reveal();
+						l.setTrap(trap, trapPos);
+						//some traps will not be hidden
+						l.map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
+					}
 			}
 		}
 	}
-	
-}
+

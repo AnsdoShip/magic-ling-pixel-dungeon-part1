@@ -21,9 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.LYSL;
-
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -43,16 +40,15 @@ public class Bestiary {
 	private static ArrayList<Class<? extends Mob>> standardMobRotation(int i) {
 		switch (i) {
 			case 1:
-				if (Dungeon.isChallenged(LYSL)) {
-					return new ArrayList<>(Arrays.asList(Yog.class));
-				}
-
 				//3x rat, 1x snake
 				return new ArrayList<>(Arrays.asList(
 						Rat.class, Rat.class,
 						Rat.class, OGPDZSLS.class, Rat.class,
 						Snake.class));
 			case 2:
+				return new ArrayList<>(Arrays.asList(Rat.class,
+						Rat.class, Rat.class, Gnoll.class, Gnoll.class,
+						Gnoll.class, OGPDLLS.class, OGPDNQHZ.class,ColdMagicRat.class));
 			case 3:
 				return new ArrayList<>(Arrays.asList(Rat.class,
 						Rat.class, Rat.class, Gnoll.class, Gnoll.class,
@@ -66,10 +62,10 @@ public class Bestiary {
 						, OGPDLLS.class,
 						Snake.class,
 						OGPDNQHZ.class, OGPDZSLS.class,
-						OGPDLLS.class, Snake.class, Slime_Lg.class, Slime_Qs.class,
-						Slime_Orange.class, RedSwarm.class, RedSwarm.class, Albino.class));
+						OGPDLLS.class, Snake.class,
+						Slime_Orange.class, Swarm.class,RedSwarm.class));
 			case 5:
-				return new ArrayList<>(Arrays.asList(Rat.class, Slime_Orange.class, Swarm.class, CausticSlime.class, Snake.class, Rat.class, GreatCrab.class, Slime.class, OGPDZSLS.class, Snake.class, RedSwarm.class));
+				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,Slime.class,Slime.class));
 			case 6:
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
 						KagenoNusujin.class, BlackHost.class,

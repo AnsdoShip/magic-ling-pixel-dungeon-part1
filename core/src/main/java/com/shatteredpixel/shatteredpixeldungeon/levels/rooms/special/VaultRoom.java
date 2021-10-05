@@ -41,12 +41,7 @@ import java.util.Arrays;
 
 public class VaultRoom extends SpecialRoom {
 
-	//fixed size to improve presentation and provide space for crystal mimics
-	@Override
-	public int minHeight() { return 7; }
-	public int maxHeight() { return 7; }
-	public int minWidth() { return 7; }
-	public int maxWidth() { return 7; }
+	//fixed size to improve presentation and provide space for crystal mimic
 
 	public void paint( Level level ) {
 

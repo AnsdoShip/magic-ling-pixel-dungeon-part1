@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
@@ -73,11 +74,9 @@ public class HallsLevel extends RegularLevel {
 
 		return rooms;
 	}
-
 	@Override
-	public int nMobs() {
-		//remove one mob to account for ripper demon spawners
-		return super.nMobs()-1;
+	public int nMobs(){
+		return Dungeon.isChallenged( Challenges.LYSL ) ? 31 : 15;
 	}
 
 	@Override

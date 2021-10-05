@@ -10,13 +10,19 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.AvailableUpdateData;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.EyeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SpinnerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndSettings;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.BitmapText;
@@ -56,6 +62,12 @@ public class TitleScene extends PixelScene {
 
 		placeTorch(title.x + 22, title.y + 46);
 		placeTorch(title.x + title.width - 22, title.y + 46);
+
+		placeTorch2(title.x + -5, title.y + 63);
+		placeTorch2(title.x + title.width - 15, title.y + 63);
+
+		placeTorch3(title.x + -10, title.y + 46);
+		placeTorch3(title.x + title.width - 10, title.y + 46);
 
 		Image swordLeft = new Image( BannerSprites.get( BannerSprites.Type.SWORD ) ) {
 			private float preCurTime = 0;
@@ -111,15 +123,21 @@ public class TitleScene extends PixelScene {
 		add( title );
 
 		Flare flare = new Flare( 7, 128 ) {
-			private float time = 0;
+			private float time1 = 0;
+			private float time2 = 0;
+			private float time3 = 0;
 			@Override
 			public void update() {
 				super.update();
-				am = Math.max(0f, (float)Math.sin(time += Game.elapsed));
-				if (time >= 1.5f * Math.PI) time = 0;
+				am = Math.max(0f, (float)Math.sin(time1 += Game.elapsed));
+				if (time1 >= 1.5f * Math.PI) time1 = 0;
+				rm = Math.max(0f, (float)Math.sin(time2 += Game.elapsed));
+				if (time2 >= 1.0f * Math.E) time2 = 5;
+				ra = Math.max(0f, (float)Math.sin(time3 += Game.elapsed));
+				if (time3 >= 1.0f * Math.PI) time3 = 1;
 			}
 		};
-		flare.color( Window.MLPD_COLOR, true ).show( title, 0 ).angularSpeed = +20;
+		flare.color( Window.BLUE_COLOR, true ).show( title, 0 ).angularSpeed = +27;
 
 		Archs archs = new Archs();
 		archs.setSize( w, h );
@@ -168,7 +186,7 @@ public class TitleScene extends PixelScene {
 				return super.onLongClick();
 			}
 		};
-		btnPlay.icon(Icons.get(Icons.ENTER));
+		btnPlay.icon(new WandmakerSprite());
 		add(btnPlay);
 
 		StyledButton btnRankings = new StyledButton(GREY_TR,Messages.get(this, "rankings")) {
@@ -177,7 +195,7 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade(RankingsScene.class);
 			}
 		};
-		btnRankings.icon(Icons.get(Icons.RANKINGS));
+		btnRankings.icon(new SRPDHBLRTT());
 		add(btnRankings);
 
 		StyledButton btnBadges = new StyledButton(GREY_TR, Messages.get(this, "badges")) {
@@ -186,14 +204,14 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade(BadgesScene.class);
 			}
 		};
-		btnBadges.icon(Icons.get(Icons.BADGES));
+		btnBadges.icon(new KagenoNusujinSprite());
 		add(btnBadges);
 
 		StyledButton btnSupport = new SupportButton(GREY_TR, Messages.get(this, "support"));
 		add(btnSupport);
 
 		StyledButton btnChanges = new ChangesButton(GREY_TR, Messages.get(this, "changes"));
-		btnChanges.icon(Icons.get(Icons.CHANGES));
+		btnChanges.icon(new SpinnerSprite());
 		add(btnChanges);
 
 		StyledButton btnSettings = new SettingsButton(GREY_TR, Messages.get(this, "settings"));
@@ -205,11 +223,11 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade( AboutSelectScene.class );
 			}
 		};
-		btnAbout.icon(Icons.get(Icons.SHPX));
+		btnAbout.icon(new PoltergeistSprite());
 		add(btnAbout);
 
 		StyledButton btnNews = new NewsButton(GREY_TR, Messages.get(this, "news"));
-		btnNews.icon(Icons.get(Icons.TALENT));
+		btnNews.icon(new RedSwarmSprite());
 		add(btnNews);
 
 		final int BTN_HEIGHT = 20;
@@ -253,7 +271,19 @@ public class TitleScene extends PixelScene {
 	}
 
 	private void placeTorch( float x, float y ) {
-		Fireball fb = new Fireball();
+		Fireball fb2 = new Fireball();
+		fb2.setPos( x, y );
+		add( fb2 );
+	}
+
+	private void placeTorch2( float x, float y ) {
+		Image fb = (new EyeSprite());
+		fb.setPos( x, y );
+		add( fb );
+	}
+
+	private void placeTorch3( float x, float y ) {
+		Image fb = (new KingSprite());
 		fb.setPos( x, y );
 		add( fb );
 	}
@@ -302,62 +332,21 @@ public class TitleScene extends PixelScene {
 
 		public ChangesButton( Chrome.Type type, String label ){
 			super(type, label);
-			if (SPDSettings.updates()) Updates.checkForUpdate();
-		}
-
-		boolean updateShown = false;
-
-		@Override
-		public void update() {
-			super.update();
-
-			if (!updateShown && (Updates.updateAvailable())){
-				updateShown = true;
-				text(Messages.get(WelcomeScene.class, "update"));
-			}
-
-			if (updateShown){
-				textColor(ColorMath.interpolate( 0xFFFFFF, Window.SHPX_COLOR, 0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
-			}
 		}
 
 		@Override
 		protected void onClick() {
-			if (Updates.isInstallable()){
-				Updates.launchInstall();
-
-			} else if (Updates.updateAvailable()){
-				AvailableUpdateData update = Updates.updateData();
-
-				ShatteredPixelDungeon.scene().addToFront(new WndOptions(
-						Icons.get(Icons.CHANGES),
-						update.versionName == null ? Messages.get(this,"title") : Messages.get(this,"versioned_title", update.versionName),
-						update.desc == null ? Messages.get(this,"desc") : update.desc,
-						Messages.get(this,"update"),
-						Messages.get(this,"changes")
-				) {
-					@Override
-					protected void onSelect(int index) {
-						if (index == 0) {
-							Updates.launchUpdate(Updates.updateData());
-						} else if (index == 1){
-							ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-						}
-					}
-				});
-
-			} else {
-				ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
-			}
+			super.onClick();
+			ShatteredPixelDungeon.switchNoFade( ChangesScene.class );
 		}
-
 	}
 
 	private static class SettingsButton extends StyledButton {
 
 		public SettingsButton(Chrome.Type type, String label){
 			super(type, label);
-			icon(Icons.get(Icons.PREFS));
+			icon(new BlacksmithSprite());
+			textColor(Window.Pink_COLOR);
 		}
 
 		@Override
@@ -375,7 +364,7 @@ public class TitleScene extends PixelScene {
 
 		public SupportButton( Chrome.Type type, String label ){
 			super(type, label);
-			icon(Icons.get(Icons.GOLD));
+			icon(new ShopkeeperSprite());
 			textColor(Window.TITLE_COLOR);
 		}
 

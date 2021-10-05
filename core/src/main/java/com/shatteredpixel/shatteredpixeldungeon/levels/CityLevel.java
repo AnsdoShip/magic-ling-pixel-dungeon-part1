@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CityPainter;
@@ -54,6 +55,11 @@ public class CityLevel extends RegularLevel {
 	{
 		color1 = 0x4b6636;
 		color2 = 0xf2f2f2;
+	}
+
+	@Override
+	public int nMobs(){
+		return Dungeon.isChallenged( Challenges.LYSL ) ? 29 : 12;
 	}
 	
 	@Override

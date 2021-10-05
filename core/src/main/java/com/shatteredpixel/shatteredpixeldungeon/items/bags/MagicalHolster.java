@@ -46,9 +46,9 @@ public class MagicalHolster extends Bag {
 	}
 
 	public int capacity(){
-		return 19;
+		return 43;
 	}
-	
+
 	@Override
 	public boolean collect( Bag container ) {
 		if (super.collect( container )) {

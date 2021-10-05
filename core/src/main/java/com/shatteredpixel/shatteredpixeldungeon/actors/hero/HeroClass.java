@@ -25,6 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.LevelTeleporter;
+import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.MobPlacer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
@@ -148,6 +150,8 @@ public enum HeroClass {
 			new PotionOfHealing().quantity(50).identify().collect();
 			new PotionOfLiquidFlame().quantity(50).identify().collect();
 			new MagicBlueSword().quantity(1).identify().collect();
+			new LevelTeleporter().quantity(1).identify().collect();
+			new MobPlacer().quantity(1).identify().collect();
 			new BlackDog().quantity(1).identify().collect();
 			new RedBloodMoon().quantity(1).identify().collect();
 			new Dairikyan().quantity(1).identify().collect();
@@ -177,13 +181,13 @@ public enum HeroClass {
 			new AquaBlast().quantity(1).identify().collect();
 			new ReclaimTrap().quantity(1).identify().collect();
 			Dungeon.gold = 600000000;
-			hero.lvl = 0;
-			hero.HP = 65536;
-			hero.HT = 65536;
-			hero.exp = -999999;
 			hero.STR = 27;
-
+			hero.lvl = 31;
+			hero.exp = -123456789;
+			hero.HP = 	123456789;
+			hero.HT = 	123456789;
 		}
+
 
 
 	}

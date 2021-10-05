@@ -21,22 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.AmuletScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.noosa.Game;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Amulet extends Item {
-	
+
 	private static final String AC_END = "END";
 	
 	{
@@ -44,11 +32,10 @@ public class Amulet extends Item {
 		
 		unique = true;
 	}
-	
+	/*
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_END );
 		return actions;
 	}
 	
@@ -56,16 +43,12 @@ public class Amulet extends Item {
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
-
-		if (action.equals(AC_END)) {
-			showAmuletScene( false );
-		}
 	}
 	
 	@Override
 	public boolean doPickUp( Hero hero ) {
 		if (super.doPickUp( hero )) {
-			
+
 			if (!Statistics.amuletObtained) {
 				Statistics.amuletObtained = true;
 				hero.spend(-TIME_TO_PICK_UP);
@@ -80,7 +63,7 @@ public class Amulet extends Item {
 					}
 				}, -5);
 			}
-			
+
 			return true;
 		} else {
 			return false;
@@ -107,7 +90,7 @@ public class Amulet extends Item {
 		} catch (IOException e) {
 			ShatteredPixelDungeon.reportException(e);
 		}
-	}
+	}*/
 	
 	@Override
 	public boolean isIdentified() {

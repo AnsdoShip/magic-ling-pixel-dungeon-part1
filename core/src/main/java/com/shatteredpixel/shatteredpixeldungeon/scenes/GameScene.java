@@ -111,7 +111,6 @@ import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.noosa.Visual;
-import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.GameMath;
@@ -1008,7 +1007,7 @@ public class GameScene extends PixelScene {
 		gameOver.show( 0x000000, 1f );
 		scene.showBanner( gameOver );
 		
-		Sample.INSTANCE.play( Assets.Sounds.DEATH );
+		Sample.INSTANCE.play( Assets.DEATHA);
 	}
 	
 	public static void bossSlain() {

@@ -25,6 +25,7 @@ public class Nxhy extends NPC {
         properties.add(Property.IMMOVABLE);
     }
     private boolean seenBefore = false;
+    private boolean seenBeforeq= false;
     @Override
     protected boolean act() {
         if (!seenBefore && Dungeon.level.heroFOV[pos]) {

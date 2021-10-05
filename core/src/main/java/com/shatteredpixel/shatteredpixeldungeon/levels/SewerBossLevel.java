@@ -96,14 +96,6 @@ public class SewerBossLevel extends SewerLevel {
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	
-	protected int nTraps() {
-		return 0;
-	}
-
-	@Override
-	protected void createMobs() {
-	}
-	
 	public Actor addRespawner() {
 		return null;
 	}

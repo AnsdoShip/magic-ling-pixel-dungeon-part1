@@ -34,14 +34,6 @@ import com.watabou.utils.Random;
 public class RunestoneRoom extends SpecialRoom {
 	
 	@Override
-	public int minWidth() { return 6; }
-	
-	@Override
-	public int minHeight() {
-		return 6;
-	}
-	
-	@Override
 	public void paint( Level level) {
 		
 		Painter.fill( level, this, Terrain.WALL );

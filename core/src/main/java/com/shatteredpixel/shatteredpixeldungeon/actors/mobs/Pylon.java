@@ -38,7 +38,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -49,7 +52,7 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Pylon extends Mob {
-
+	private int var2;
 	{
 		spriteClass = PylonSprite.class;
 
@@ -113,6 +116,67 @@ public class Pylon extends Mob {
 			if (ch == Dungeon.hero && !ch.isAlive()){
 				Dungeon.fail(NewDM300.class);
 				GLog.n( Messages.get(Electricity.class, "ondeath") );
+				for(int i = 0;i <= (6 + (1 -(float)HP/HT)) ; i++){
+					int newPos = 0;
+					do {
+						newPos = Random.Int(Dungeon.level.length());
+					} while (
+							Dungeon.level.solid[newPos] ||
+									Dungeon.level.distance(newPos, enemy.pos) < 12 ||
+									Actor.findChar(newPos) != null);
+					if (Random.Int(1000) <= 500){
+						FlameB01 rat = new FlameB01();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else if(Random.Int(500) <= 250){
+						MolotovHuntsman rat = new MolotovHuntsman();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else if(Random.Int(250) <= 125){
+						FetidRat rat = new FetidRat ();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else if(Random.Int(125) <= 75){
+						Spinner rat = new Spinner();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else if(Random.Int(75) <= 37){
+						DM100 rat = new DM100();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else if(Random.Int(37) <= 18){
+						BlackHost rat = new BlackHost();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+					}else{
+						FireGhost rat = new FireGhost();
+						rat.state = rat.WANDERING;
+						rat.pos = newPos;
+						GameScene.add(rat);
+						rat.beckon(pos );
+						int i2 = this.var2 + 10;
+						SummoningTrap one = new SummoningTrap();
+						one.pos = this.pos;
+						one.activate();
+						AlarmTrap two = new AlarmTrap();
+						two.pos = this.pos;
+						two.activate();
+					}
+					yell( Messages.get(this, "arise") );
+
+				}
 			}
 		}
 	}

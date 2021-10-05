@@ -28,7 +28,7 @@ public class MLPDChangesScene extends PixelScene {
     @Override
     public void create() {
         super.create();
-        Music.INSTANCE.play( Assets.Music.Dragon, true );
+
         int w = Camera.main.width;
         int h = Camera.main.height;
 

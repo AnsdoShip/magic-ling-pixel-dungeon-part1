@@ -52,7 +52,7 @@ import com.watabou.utils.DeviceCompat;
 public class WndStartGame extends Window {
 	
 	private static final int WIDTH    = 120;
-	private static final int HEIGHT   = 140;
+	private static final int HEIGHT   = 160;
 
 	public WndStartGame(final int slot){
 		
@@ -218,6 +218,7 @@ public class WndStartGame extends Window {
 		private IconButton heroLoadout;
 		private IconButton heroMisc;
 		private IconButton heroSubclass;
+		private IconButton Telnetsc;
 		
 		private RenderedTextBlock name;
 		
@@ -274,6 +275,16 @@ public class WndStartGame extends Window {
 			};
 			heroSubclass.setSize(BTN_SIZE, BTN_SIZE);
 			add(heroSubclass);
+
+			Telnetsc = new IconButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_SPELLBOOK, null)){
+				@Override
+				protected void onClick() {
+					if (cl == null) return;
+					ShatteredPixelDungeon.scene().addToFront(new WndMessage(Messages.get(cl, cl.name() + "_story")));
+				}
+			};
+			Telnetsc.setSize(BTN_SIZE, BTN_SIZE);
+			add(Telnetsc);
 			
 			name = PixelScene.renderTextBlock(12);
 			add(name);
@@ -299,6 +310,7 @@ public class WndStartGame extends Window {
 			heroLoadout.setPos(x + width - BTN_SIZE, heroItem.bottom());
 			heroMisc.setPos(x + width - BTN_SIZE, heroLoadout.bottom());
 			heroSubclass.setPos(x + width - BTN_SIZE, heroMisc.bottom());
+			Telnetsc.setPos(x + width - BTN_SIZE, heroSubclass.bottom());
 		}
 		
 		@Override

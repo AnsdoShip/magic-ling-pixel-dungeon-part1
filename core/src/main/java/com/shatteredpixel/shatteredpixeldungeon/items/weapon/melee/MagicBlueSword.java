@@ -33,7 +33,7 @@ public class MagicBlueSword extends MeleeWeapon {
         hitSound = Assets.Sounds.HIT_SLASH;
         hitSoundPitch = 1f;
 
-        tier = 4;
+        tier = 3;
     }
 
     //Essentially it's a tier 4 weapon, with tier 3 base max damage, and tier 5 scaling.

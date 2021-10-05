@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -558,8 +559,8 @@ public class Item implements Bundlable {
 									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
-									Buff.affect(enemy, Blindness.class, 1f + curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
-									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 30f);
+									Buff.affect(enemy, Frost.class, 1f + curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
+									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 15f);
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){

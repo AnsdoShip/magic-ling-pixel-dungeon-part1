@@ -133,9 +133,8 @@ public abstract class StandardRoom extends Room {
 		rooms.add(ChasmRoom.class);
 		rooms.add(SkullsRoom.class);
 
-
 		rooms.add(PlantsRoom.class);
-		rooms.add(AquariumRoom.class);
+		rooms.add(PlantsRoom.class);
 		rooms.add(PlatformRoom.class);
 		rooms.add(BurnedRoom.class);
 		rooms.add(FissureRoom.class);

@@ -35,10 +35,10 @@ public class OGPDZSLS extends Rat {
     {
         spriteClass = OGPDZSLSTT.class;
 
-        HP = HT = 15;
-        EXP = 7;
+        HP = HT = 8;
+        EXP = 3;
         this.maxLvl = 12;
-        this.EXP = 7;
+        this.EXP = 3;
     }
 
     @Override

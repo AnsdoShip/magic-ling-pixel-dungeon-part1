@@ -45,7 +45,7 @@ public class ChangesScene extends PixelScene {
 	public void create() {
 		super.create();
 		uiCamera.visible = false;
-		Music.INSTANCE.play( Assets.Music.Dragon, true );
+
 		int w = Camera.main.width;
 		int h = Camera.main.height;
 

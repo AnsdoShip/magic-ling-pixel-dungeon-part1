@@ -5,6 +5,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
+import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.GameMath;
 
@@ -48,7 +49,8 @@ public class SRPDHBLRTT extends MobSprite {
         return 0xFFcdcdb7;
     }
 
-    public void setPos(float x, float y) {
+    public Image setPos(float x, float y) {
+        return null;
     }
 }
 

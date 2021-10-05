@@ -30,12 +30,12 @@ public class AquariumRoom extends StandardRoom {
 	
 	@Override
 	public int minWidth() {
-		return Math.max(super.minWidth(), 7);
+		return Math.max(super.minWidth(), 5);
 	}
 	
 	@Override
 	public int minHeight() {
-		return Math.max(super.minHeight(), 7);
+		return Math.max(super.minHeight(), 5);
 	}
 	
 	@Override

@@ -24,9 +24,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
@@ -46,10 +46,10 @@ public class ColdMagicRat extends Mob implements Callback {
     {
         spriteClass = ColdRatSprite.class;
 
-        HP = HT = 18;
+        HP = HT = 6;
         defenseSkill = 4;
 
-        EXP = 11;
+        EXP = 3;
         maxLvl = 8;
 
         loot = Generator.Category.POTION;
@@ -60,17 +60,17 @@ public class ColdMagicRat extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 2, 6 );
+        return Random.NormalIntRange( 0, 2 );
     }
 
     @Override
     public int attackSkill( Char target ) {
-        return 25;
+        return 1;
     }
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 8);
+        return Random.NormalIntRange(0, 1);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ColdMagicRat extends Mob implements Callback {
         if (hit( this, enemy, true )) {
             //TODO would be nice for this to work on ghost/statues too
             if (enemy == Dungeon.hero && Random.Int( 2 ) == 0) {
-                Buff.prolong( enemy, Frost.class, Degrade.DURATION );
+                Buff.prolong( enemy, Blindness.class, Degrade.DURATION );
                 Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
             }
 

@@ -71,7 +71,6 @@ public class NxhyNpc extends NPC {
     public boolean interact(Char c) {
 
         sprite.turnTo(pos, Dungeon.hero.pos);
-
         if(first) {
             first=false;
             tell(Messages.get(NxhyNpc.class, "message1"));

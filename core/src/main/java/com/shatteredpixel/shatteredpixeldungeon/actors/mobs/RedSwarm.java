@@ -46,10 +46,10 @@ public class RedSwarm extends Mob implements Callback {
     {
         spriteClass = RedSwarmSprite.class;
 
-        HP = HT = 18;
+        HP = HT = 12;
         defenseSkill = 4;
 
-        EXP = 11;
+        EXP = 5;
         maxLvl = 8;
 
         loot = Generator.Category.POTION;
@@ -60,17 +60,17 @@ public class RedSwarm extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 2, 6 );
+        return Random.NormalIntRange( 0, 2 );
     }
 
     @Override
     public int attackSkill( Char target ) {
-        return 25;
+        return 1;
     }
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 8);
+        return Random.NormalIntRange(0, 1);
     }
 
     @Override

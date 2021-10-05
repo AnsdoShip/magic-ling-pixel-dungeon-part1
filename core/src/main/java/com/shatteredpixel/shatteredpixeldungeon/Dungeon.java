@@ -58,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.ZeroLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -208,7 +209,7 @@ public class Dungeon {
 		quickslot.reset();
 		QuickSlotButton.reset();
 		
-		depth = 0;
+		depth = -1;
 		gold = 0;
 
 		droppedItems = new SparseArray<>();
@@ -254,6 +255,9 @@ public class Dungeon {
 		
 		Level level;
 		switch (depth) {
+			case 0:
+				level = new ZeroLevel();
+				break;
 		case 1:
 		case 2:
 		case 3:

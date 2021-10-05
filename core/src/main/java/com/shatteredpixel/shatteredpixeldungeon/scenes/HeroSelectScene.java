@@ -328,7 +328,7 @@ public class HeroSelectScene extends PixelScene {
 		}
 	}
 
-	private static class WndHeroInfo extends WndTabbed {
+	public static class WndHeroInfo extends WndTabbed {
 
 		private RenderedTextBlock title;
 		private RenderedTextBlock info;

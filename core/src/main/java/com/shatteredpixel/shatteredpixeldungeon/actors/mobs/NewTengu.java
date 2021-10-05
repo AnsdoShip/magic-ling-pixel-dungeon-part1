@@ -65,6 +65,7 @@ import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
@@ -318,6 +319,7 @@ public class NewTengu extends Mob {
 			if (HP <= HT/2) BossHealthBar.bleed(true);
 			if (HP == HT) {
 				yell(Messages.get(this, "notice_gotcha", Dungeon.hero.name()));
+				Music.INSTANCE.play(Assets.BGM_BOSSB, true);
 				for (Char ch : Actor.chars()){
 					if (ch instanceof DriedRose.GhostHero){
 						((DriedRose.GhostHero) ch).sayBoss();

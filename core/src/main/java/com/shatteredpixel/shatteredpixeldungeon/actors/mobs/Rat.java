@@ -33,17 +33,17 @@ public class Rat extends Mob {
 	private String[] deathCurse = {"快停下...", "猎杀结束了", "啊...你这个怪物", "你这怪物", "神啊...帮帮我吧...", "四周好冷", "诅咒你这怪物", "相信我的同伴今晚会为我复仇"};
 	public Rat() {
 		this.spriteClass = RatSprite.class;
-		this.HT = 9;
-		this.HP = 9;
+		this.HT = 3;
+		this.HP = 3;
 		this.defenseSkill = 4;
-		this.EXP = 3;
+		this.EXP = 1;
 		this.maxLvl = 15;
 		this.state = this.SLEEPING;
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange( 1, 4 );
+		return Random.NormalIntRange( 1, 2 );
 	}
 
 	public int attackProc(Char enemy, int damage) {

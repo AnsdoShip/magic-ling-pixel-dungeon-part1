@@ -21,16 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.FZLL;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
-import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
@@ -60,21 +55,26 @@ public class SewerLevel extends RegularLevel {
 		color1 = 0x48763c;
 		color2 = 0x59994a;
 	}
-	
+
+	@Override
+	public int nMobs(){
+		return Dungeon.isChallenged( Challenges.LYSL ) ? 10 : 8;
+	}
+
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 7;
-		//5 to 7, average 5.57
-		return 5+Random.chances(new float[]{4, 2, 1});
+		if (forceMax) return 6;
+		//4 to 6, average 5
+		return 4+Random.chances(new float[]{1, 3, 1});
 	}
-	
+
 	@Override
 	protected int specialRooms(boolean forceMax) {
-		if (forceMax) return 3;
-		//1 to 3, average 1.8
-		return 1+Random.chances(new float[]{4, 4, 2});
+		if (forceMax) return 2;
+		//1 to 2, average 1.8
+		return 1+Random.chances(new float[]{1, 4});
 	}
-	
+
 	@Override
 	protected Painter painter() {
 		return new SewerPainter()
@@ -82,17 +82,17 @@ public class SewerLevel extends RegularLevel {
 				.setGrass(feeling == Feeling.GRASS ? 0.80f : 0.20f, 4)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
-	
+
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_SEWERS;
+		return Assets.Environment.TILES_COLD;
 	}
-	
+
 	@Override
 	public String waterTex() {
-		return Assets.Environment.WATER_SEWERS;
+		return Assets.Environment.WATER_COLD;
 	}
-	
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
@@ -101,18 +101,10 @@ public class SewerLevel extends RegularLevel {
 						ChillingTrap.class, ShockingTrap.class, ToxicTrap.class, WornDartTrap.class,
 						AlarmTrap.class, OozeTrap.class,
 						ConfusionTrap.class, FlockTrap.class, SummoningTrap.class, TeleportationTrap.class };
-}
+	}
 
 	@Override
 	protected float[] trapChances() {
-		if (Dungeon.isChallenged(FZLL)) {
-			return Dungeon.depth == 1 ?
-					new float[]{1} :
-					new float[]{
-							4, 4, 4, 4,
-							4, 2,
-							1, 1, 1, 1};
-		}
 		return Dungeon.depth == 1 ?
 				new float[]{1} :
 				new float[]{
@@ -120,26 +112,21 @@ public class SewerLevel extends RegularLevel {
 						2, 2,
 						1, 1, 1, 1};
 	}
-	
+
 	@Override
 	protected void createItems() {
-		if (!Dungeon.LimitedDrops.DEW_VIAL.dropped()) {
-			addItemToSpawn( new DewVial() );
-			Dungeon.LimitedDrops.DEW_VIAL.drop();
-		}
-
 		Ghost.Quest.spawn( this );
-		
+
 		super.createItems();
 	}
-	
+
 	@Override
 	public Group addVisuals() {
 		super.addVisuals();
 		addSewerVisuals(this, visuals);
 		return visuals;
 	}
-	
+
 	public static void addSewerVisuals( Level level, Group group ) {
 		for (int i=0; i < level.length(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
@@ -147,7 +134,7 @@ public class SewerLevel extends RegularLevel {
 			}
 		}
 	}
-	
+
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {
@@ -157,7 +144,7 @@ public class SewerLevel extends RegularLevel {
 				return super.tileName( tile );
 		}
 	}
-	
+
 	@Override
 	public String tileDesc(int tile) {
 		switch (tile) {
@@ -169,38 +156,38 @@ public class SewerLevel extends RegularLevel {
 				return super.tileDesc( tile );
 		}
 	}
-	
+
 	private static class Sink extends Emitter {
-		
+
 		private int pos;
 		private float rippleDelay = 0;
-		
+
 		private static final Emitter.Factory factory = new Factory() {
-			
+
 			@Override
 			public void emit( Emitter emitter, int index, float x, float y ) {
 				WaterParticle p = (WaterParticle)emitter.recycle( WaterParticle.class );
 				p.reset( x, y );
 			}
 		};
-		
+
 		public Sink( int pos ) {
 			super();
-			
+
 			this.pos = pos;
-			
+
 			PointF p = DungeonTilemap.tileCenterToWorld( pos );
 			pos( p.x - 2, p.y + 3, 4, 0 );
-			
+
 			pour( factory, 0.1f );
 		}
-		
+
 		@Override
 		public void update() {
 			if (visible = (pos < Dungeon.level.heroFOV.length && Dungeon.level.heroFOV[pos])) {
-				
+
 				super.update();
-				
+
 				if (!isFrozen() && (rippleDelay -= Game.elapsed) <= 0) {
 					Ripple ripple = GameScene.ripple( pos + Dungeon.level.width() );
 					if (ripple != null) {
@@ -211,27 +198,27 @@ public class SewerLevel extends RegularLevel {
 			}
 		}
 	}
-	
+
 	public static final class WaterParticle extends PixelParticle {
-		
+
 		public WaterParticle() {
 			super();
-			
+
 			acc.y = 50;
 			am = 0.5f;
-			
+
 			color( ColorMath.random( 0xb6ccc2, 0x3b6653 ) );
 			size( 2 );
 		}
-		
+
 		public void reset( float x, float y ) {
 			revive();
-			
+
 			this.x = x;
 			this.y = y;
-			
+
 			speed.set( Random.Float( -2, +2 ), 0 );
-			
+
 			left = lifespan = 0.4f;
 		}
 	}

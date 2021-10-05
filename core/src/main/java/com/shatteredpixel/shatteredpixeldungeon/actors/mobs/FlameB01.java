@@ -65,13 +65,13 @@ public class FlameB01 extends Mob {
         spriteClass = FlameBoiSprite.class;
         properties.add(Property.INORGANIC);
 
-        HP = HT = 40;
+        HP = HT = 140;
         defenseSkill = 15;
 
         EXP = 10;
         maxLvl = 27;
 
-        gasTankPressure = Random.Int(100, 150);
+        gasTankPressure = Random.Int(100, 250);
     }
 
     @Override
@@ -250,7 +250,7 @@ public class FlameB01 extends Mob {
         affectedCells = new HashSet<>();
         visualCells = new HashSet<>();
 
-        int maxDist = 2 + 2*2;
+        int maxDist = 4 + 4*4;
         int dist = Math.min(bolt.dist, maxDist);
 
         for (int i = 0; i < PathFinder.CIRCLE8.length; i++){

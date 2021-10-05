@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -1003,7 +1005,7 @@ public class Hero extends Char {
 		//TODO this is slightly brittle, it assumes there are no disjointed sets of entrance tiles
 		} else if (Dungeon.level.map[pos] == Terrain.ENTRANCE) {
 			
-			if (Dungeon.depth == 1) {
+			if (Dungeon.depth == 0) {
 				
 				if (belongings.getItem( Amulet.class ) == null) {
 					Game.runOnRenderThread(new Callback() {
@@ -1177,8 +1179,8 @@ public class Hero extends Char {
 		}
 
 		if (buff(Talent.WarriorFoodImmunity.class) != null){
-			if (pointsInTalent(Talent.IRON_STOMACH) == 1)       dmg = Math.round(dmg*0.25f);
-			else if (pointsInTalent(Talent.IRON_STOMACH) == 2)  dmg = Math.round(dmg*0.00f);
+			if (pointsInTalent(IRON_STOMACH) == 1)       dmg = Math.round(dmg*0.00f);
+			else if (pointsInTalent(IRON_STOMACH) == 2)  dmg = Math.round(dmg*-1.00f);
 		}
 
 		int preHP = HP + shielding();

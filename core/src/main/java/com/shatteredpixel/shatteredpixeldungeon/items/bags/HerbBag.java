@@ -41,7 +41,7 @@ public class HerbBag extends Bag {
     }
 
     public int capacity(){
-        return 31;
+        return 43;
     }
 
     public int price() {

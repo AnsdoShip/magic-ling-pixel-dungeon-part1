@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 import com.watabou.utils.Bundle;
 
 public class Statistics {
-	
+	public static long real_seconds = 0;
 	public static int goldCollected;
 	public static int deepestFloor;
 	public static int enemiesSlain;
@@ -32,7 +32,7 @@ public class Statistics {
 	public static int potionsCooked;
 	public static int piranhasKilled;
 	public static int ankhsUsed;
-	
+	public static boolean isCustomSeed = false;
 	//used for hero unlock badges
 	public static int upgradesUsed;
 	public static int sneakAttacks;
@@ -50,7 +50,7 @@ public class Statistics {
 	public static void reset() {
 		
 		goldCollected	= 0;
-		deepestFloor	= 0;
+		deepestFloor	= -1;
 		enemiesSlain	= 0;
 		foodEaten		= 0;
 		potionsCooked	= 0;

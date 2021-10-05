@@ -28,9 +28,44 @@ import java.util.ArrayList;
 public class vM0_5_X_Changes {
 
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_5_5_Changes(changeInfos);
         add_v0_5_4_Changes(changeInfos);
         add_v0_5_2_Changes(changeInfos);
         add_v0_5_1_Changes(changeInfos);
+    }
+
+    public static void add_v0_5_5_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+        ChangeInfo changes = new ChangeInfo("v0.5.2.0", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.LING), (Messages.get(vM0_5_X_Changes.class, "dev6")),
+                Messages.get(vM0_5_X_Changes.class, "dev6logs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.TALENT), (Messages.get(vM0_5_X_Changes.class, "j1")),
+                Messages.get(vM0_5_X_Changes.class, "j1logs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "new1cs")),
+                Messages.get(vM0_5_X_Changes.class, "new1cslogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHANGES), (Messages.get(vM0_5_X_Changes.class, "new2cs")),
+                Messages.get(vM0_5_X_Changes.class, "new2cslogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.KOTLIN), (Messages.get(vM0_5_X_Changes.class, "kotlinss")),
+                Messages.get(vM0_5_X_Changes.class, "kotlinsslogs")));
+
+        changes.addButton(new ChangeButton(new Image(Assets.Environment.TILES_SEWERS, 48, 48, 16
+                        , 16), (Messages.get(vM0_5_X_Changes.class, "sss")),
+                Messages.get(vM0_5_X_Changes.class, "ssslogs")));
     }
 
     public static void add_v0_5_4_Changes( ArrayList<ChangeInfo> changeInfos ) {

@@ -28,6 +28,7 @@ public class Assets {
 	public static final String BGM_4 = "music/Level4.ogg";
 	public static final String BGM_5 = "music/Level5.ogg";
 	public static final String BGM_0 = "music/Level0.ogg";
+	public static final String DEATHA	= "sounds/death.mp3";
 	public static final String TOWN = "music/town.ogg";
 	public static final String BGM_BOSSA = "music/Boss1.ogg";
 	public static final String BGM_BOSSB = "music/Boss2.ogg";
@@ -55,6 +56,7 @@ public class Assets {
 		public static final String TILES_CITY	= "environment/tiles_city.png";
 		public static final String TILES_HALLS	= "environment/tiles_halls.png";
 
+		public static final String WATER_COLD= "environment/water-1.png";
 		public static final String WATER_SEWERS	= "environment/water0.png";
 		public static final String WATER_PRISON	= "environment/water1.png";
 		public static final String WATER_CAVES	= "environment/water2.png";

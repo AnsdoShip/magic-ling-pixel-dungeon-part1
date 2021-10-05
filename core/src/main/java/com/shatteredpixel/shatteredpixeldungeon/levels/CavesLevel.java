@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CavesPainter;
@@ -60,12 +61,12 @@ public class CavesLevel extends RegularLevel {
 	protected ArrayList<Room> initRooms() {
 		return Blacksmith.Quest.spawn(super.initRooms());
 	}
-	
+
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 9;
-		//6 to 9, average 7.333
-		return 6+Random.chances(new float[]{2, 3, 3, 1});
+		if (forceMax) return 1;
+		//5 to 7, average 5.57
+		return 1+Random.chances(new float[]{1, 1, 1});
 	}
 	
 	@Override
@@ -73,6 +74,11 @@ public class CavesLevel extends RegularLevel {
 		if (forceMax) return 3;
 		//1 to 3, average 2.2
 		return 1+Random.chances(new float[]{2, 4, 4});
+	}
+
+	@Override
+	public int nMobs(){
+		return Dungeon.isChallenged( Challenges.LYSL ) ? 24 : 8;
 	}
 	
 	@Override
@@ -92,7 +98,7 @@ public class CavesLevel extends RegularLevel {
 	public String waterTex() {
 		return Assets.Environment.WATER_CAVES;
 	}
-	
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{
@@ -106,9 +112,9 @@ public class CavesLevel extends RegularLevel {
 		return new float[]{
 				4, 4, 4, 4, 4,
 				2, 2, 2,
-				1, 1, 1, 1};
+				1, 1, 1, 1 };
 	}
-	
+
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {

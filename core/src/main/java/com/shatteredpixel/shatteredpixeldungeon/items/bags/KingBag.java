@@ -50,7 +50,7 @@ public class KingBag extends Bag {
     }
 
     public int capacity(){
-        return 41;
+        return 43;
     }
 
     public int price() {

@@ -21,17 +21,24 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FrostTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -39,16 +46,20 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class Goo extends Mob {
+public class Goo extends Mob implements Callback {
 
+	private int var2;
+	private static final float TIME_TO_ZAP	= 1f;
 	{
-		HP = HT = 100;
+		HP = HT = 80;
 		EXP = 10;
-		defenseSkill = 8;
+		defenseSkill = 12;
 		spriteClass = GooSprite.class;
 
 		properties.add(Property.BOSS);
@@ -61,7 +72,7 @@ public class Goo extends Mob {
 	@Override
 	public int damageRoll() {
 		int min = 1;
-		int max = (HP*2 <= HT) ? 12 : 8;
+		int max = (HP*2 <= HT) ? 14 : 8;
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
 			return Random.NormalIntRange( min*3, max*3 );
@@ -100,6 +111,7 @@ public class Goo extends Mob {
 				((GooSprite)sprite).spray(false);
 			}
 			HP++;
+			Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 		}
 		
 		if (state != SLEEPING){
@@ -110,23 +122,93 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	protected boolean canAttack( Char enemy ) {
-		return (pumpedUp > 0) ? distance( enemy ) <= 2 : super.canAttack(enemy);
+	public void call() {
+
 	}
 
+	public static class LightningBolt{}
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
-		if (Random.Int( 3 ) == 0) {
-			Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
-			enemy.sprite.burst( 0x000000, 5 );
+	protected boolean canAttack( Char enemy ) {
+		if (Dungeon.level.distance( pos, enemy.pos ) <= 1) {
+		return (pumpedUp > 0) ? distance( enemy ) <= 2 : super.canAttack(enemy);
+	} else {
+
+		spend( TIME_TO_ZAP );
+
+		if (hit( this, enemy, true )) {
+			int dmg = Random.NormalIntRange(3, 10);
+			enemy.damage( dmg, new LightningBolt() );
+
+			if (enemy.sprite.visible) {
+				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
+				enemy.sprite.flash();
+			}
+
+			if (enemy == Dungeon.hero) {
+
+				Camera.main.shake( 2, 0.3f );
+
+				if (!enemy.isAlive()) {
+					Dungeon.fail( getClass() );
+					GLog.n( Messages.get(this, "zap_kill") );
+				}
+			}
+		} else {
+			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
 		}
 
-		if (pumpedUp > 0) {
-			Camera.main.shake( 3, 0.2f );
+		if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+			sprite.zap( enemy.pos );
+			return false;
+		} else {
+			return true;
 		}
+	}
+}
 
-		return damage;
+	public int attackProc(Char enemy, int damage) {
+		int damage2 = Goo.super.attackProc(enemy, damage);
+		if (Random.Int(3) == 0) {
+			Buff.affect(enemy, Ooze.class).set(20.0f);
+			Buff.affect(enemy, Poison.class).set(10.0f);
+			enemy.sprite.burst(61166, 9);
+		} else {
+			Buff.affect(enemy, Blindness.class).set(10.0f);
+			enemy.sprite.burst(15597568, 9);
+		}
+		if (this.pumpedUp > 0) {
+			Camera.main.shake(3.0f, 0.2f);
+		}
+		int i = this.var2;
+		if (Random.Int(3) == 0) {
+			int i2 = this.var2 + 10;
+			SummoningTrap one = new SummoningTrap();
+			one.pos = this.pos;
+			one.activate();
+			AlarmTrap two = new AlarmTrap();
+			two.pos = this.pos;
+			two.activate();
+			yell(Messages.get(this, "sr", new Object[0]));
+		} else {
+			int i3 = this.var2 + 10;
+			FrostTrap var4 = new FrostTrap();
+			var4.pos = this.pos;
+			var4.activate();
+			FrostTrap three = new FrostTrap();
+			three.pos = this.pos;
+			three.activate();
+			FrostTrap d = new FrostTrap();
+			d.pos = this.pos;
+			d.activate();
+			yell(Messages.get(this, "zl", new Object[0]));
+		}
+		int reg = Math.min(1 + 1, this.HT - this.HP);
+		if (reg > 0) {
+			this.HP += reg;
+			this.sprite.emitter().burst(Speck.factory(0), 1);
+		}
+		yell(Messages.get(this, "ss", new Object[0]));
+		return damage2;
 	}
 
 	@Override
@@ -239,7 +321,7 @@ public class Goo extends Mob {
 		}
 		
 		Badges.validateBossSlain();
-		
+
 		yell( Messages.get(this, "defeated") );
 	}
 	

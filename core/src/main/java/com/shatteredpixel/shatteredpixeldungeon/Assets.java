@@ -290,6 +290,7 @@ public class Assets {
 		public static final String SLIME	= "sprites/slime.png";
 		public static final String SNAKE	= "sprites/snake.png";
 		public static final String NECRO	= "sprites/necromancer.png";
+		public static final String NECRORED	= "sprites/rednecromancer.png";
 		public static final String GHOUL	= "sprites/ghoul.png";
 		public static final String RIPPER	= "sprites/ripper.png";
 		public static final String SPAWNER	= "sprites/spawner.png";

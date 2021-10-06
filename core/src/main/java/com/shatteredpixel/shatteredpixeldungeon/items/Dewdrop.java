@@ -67,13 +67,13 @@ public class Dewdrop extends Item {
 
 	public static boolean consumeDew(int quantity, Hero hero){
 		//20 drops for a full heal
-		int heal = Math.round( hero.HT * 0.05f * quantity );
+		int heal = Math.round( hero.HT * 0.25f * quantity );
 
 		int effect = Math.min( hero.HT - hero.HP, heal );
 		int shield = 0;
 		if (hero.hasTalent(Talent.SHIELDING_DEW)){
 			shield = heal - effect;
-			int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+			int maxShield = Math.round(hero.HT *0.3f*hero.pointsInTalent(Talent.SHIELDING_DEW));
 			int curShield = 0;
 			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
 			shield = Math.min(shield, maxShield-curShield);

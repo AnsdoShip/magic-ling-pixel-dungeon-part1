@@ -27,8 +27,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.Red;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfScale;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -72,6 +76,8 @@ public class WndWandmaker extends Window {
 			msg = Messages.get(this, "ember");
 		} else if (item instanceof Rotberry.Seed){
 			msg = Messages.get(this, "berry");
+		}	else if (item instanceof Red) {
+			msg = Messages.get(this, "red");
 		}
 
 		RenderedTextBlock message = PixelScene.renderTextBlock( msg, 6 );
@@ -88,6 +94,7 @@ public class WndWandmaker extends Window {
 		add(btnWand2);
 		
 		resize(WIDTH, (int) btnWand2.bottom());
+
 	}
 	
 	private void selectReward( Item reward ) {
@@ -105,13 +112,23 @@ public class WndWandmaker extends Window {
 			GLog.i( Messages.get(Dungeon.hero, "you_now_have", reward.name()) );
 		} else {
 			Dungeon.level.drop( reward, wandmaker.pos ).sprite.drop();
-		}
-		
+		} if (item instanceof Red) {
+			new WandOfScale().quantity(1).identify().collect();
+			new PotionOfHealing().quantity(5).identify().collect();
+			new Pasty().quantity(5).identify().collect();
+
+		wandmaker.yell( Messages.get(this, "farewell2", Dungeon.hero.name()) );
+		wandmaker.destroy();
+
+		wandmaker.sprite.die();
+
+		Wandmaker.Quest.complete();
+	}
 		wandmaker.yell( Messages.get(this, "farewell", Dungeon.hero.name()) );
 		wandmaker.destroy();
-		
+
 		wandmaker.sprite.die();
-		
+
 		Wandmaker.Quest.complete();
 	}
 

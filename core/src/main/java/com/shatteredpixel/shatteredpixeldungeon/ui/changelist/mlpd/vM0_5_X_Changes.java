@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300DeathBallSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -14,10 +15,12 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -57,6 +60,21 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.CHANGES), (Messages.get(vM0_5_X_Changes.class, "new2cs")),
                 Messages.get(vM0_5_X_Changes.class, "new2cslogs")));
 
+        changes.addButton(new ChangeButton(new TenguSprite(), (Messages.get(vM0_5_X_Changes.class, "bossc1")),
+                Messages.get(vM0_5_X_Changes.class, "bossc1logs")));
+
+        changes.addButton(new ChangeButton(new CausticSlimeSprite(), (Messages.get(vM0_5_X_Changes.class, "goo3")),
+                Messages.get(vM0_5_X_Changes.class, "goo4logs")));
+
+        changes.addButton(new ChangeButton(new DM300DeathBallSprite(), (Messages.get(vM0_5_X_Changes.class, "dm3004")),
+                Messages.get(vM0_5_X_Changes.class, "dm3004logs")));
+
+        changes.addButton(new ChangeButton(new WandmakerSprite(), (Messages.get(vM0_5_X_Changes.class, "newsc")),
+                Messages.get(vM0_5_X_Changes.class, "newsclogs")));
+
+        changes.addButton(new ChangeButton(new RedNecromancerSprite(), (Messages.get(vM0_5_X_Changes.class, "newsc1")),
+                Messages.get(vM0_5_X_Changes.class, "newsc1logs")));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
@@ -71,11 +89,9 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
                 Messages.get(vM0_5_X_Changes.class, "bug_0520")));
 
-        changes.addButton(new ChangeButton(new TenguSprite(), (Messages.get(vM0_5_X_Changes.class, "bossc1")),
-                Messages.get(vM0_5_X_Changes.class, "bossc1logs")));
+        changes.addButton(new ChangeButton(Icons.get(Icons.WARNING), (Messages.get(vM0_5_X_Changes.class, "newmisc1")),
+                Messages.get(vM0_5_X_Changes.class, "newmisc1logs")));
 
-        changes.addButton(new ChangeButton(new CausticSlimeSprite(), (Messages.get(vM0_5_X_Changes.class, "goo3")),
-                Messages.get(vM0_5_X_Changes.class, "goo3logs")));
     }
 
     public static void add_v0_5_4_Changes( ArrayList<ChangeInfo> changeInfos ) {

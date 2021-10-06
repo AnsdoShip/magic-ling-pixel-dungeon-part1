@@ -11,14 +11,14 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.EyeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpinnerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
@@ -277,13 +277,13 @@ public class TitleScene extends PixelScene {
 	}
 
 	private void placeTorch2( float x, float y ) {
-		Image fb = (new EyeSprite());
+		Image fb = (new RedNecromancerSprite());
 		fb.setPos( x, y );
 		add( fb );
 	}
 
 	private void placeTorch3( float x, float y ) {
-		Image fb = (new KingSprite());
+		Image fb = (new TenguSprite());
 		fb.setPos( x, y );
 		add( fb );
 	}

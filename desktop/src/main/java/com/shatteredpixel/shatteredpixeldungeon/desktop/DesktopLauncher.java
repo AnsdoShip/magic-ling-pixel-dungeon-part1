@@ -83,12 +83,12 @@ public class DesktopLauncher {
 									"If you're certain the game should be working on your computer, feel free to message the developer (Evan@ShatteredPixel.com)\n\n" +
 									"version: " + Game.version, "ok", "error", false);
 				} else {
-					TinyFileDialogs.tinyfd_messageBox(title + " Has Crashed!",
-							title + " has run into an error it can't recover from and has crashed, sorry about that!\n\n" +
-									"If you could, please email this error message to the developer (Evan@ShatteredPixel.com):\n\n" +
+					TinyFileDialogs.tinyfd_messageBox(title + " What?",
+							title + " 你的地牢崩溃了！\n\n" +
+									"加QQ给我发报告，QQ:2735951230:\n\n" +
 									"version: " + Game.version + "\n" +
 									exceptionMsg,
-							"ok", "error", false);
+							"ok", "info", false);
 				}
 				if (Gdx.app != null) Gdx.app.exit();
 			}
@@ -119,9 +119,9 @@ public class DesktopLauncher {
 		String basePath = "";
 		if (SharedLibraryLoader.isWindows) {
 			if (System.getProperties().getProperty("os.name").equals("Windows XP")) {
-				basePath = "Application Data/.shatteredpixel/Shattered Pixel Dungeon/";
+				basePath = "Application Data/.shatteredpixel/MagicLing Pixel Dungeon/";
 			} else {
-				basePath = "AppData/Roaming/.shatteredpixel/Shattered Pixel Dungeon/";
+				basePath = "AppData/Roaming/.shatteredpixel/MagicLing Pixel Dungeon/";
 			}
 		} else if (SharedLibraryLoader.isMac) {
 			basePath = "Library/Application Support/Shattered Pixel Dungeon/";

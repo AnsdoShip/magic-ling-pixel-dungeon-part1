@@ -31,11 +31,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -64,7 +62,7 @@ public class XTG100 extends Mob {
     {
         spriteClass = TenguSprite.class;
         properties.add(Property.INORGANIC);
-
+        properties.add(Property.FIERY);
         HP = HT = 25;
         defenseSkill = 15;
 
@@ -83,16 +81,6 @@ public class XTG100 extends Mob {
 
     @Override
     protected boolean act() {
-        if(buff(Burning.class) != null){
-            new Bomb().explode(this.pos);
-            this.die(Burning.class);
-            return true;
-        }
-        if(buff(Burning.class) != null){
-            new Bomb().explode(this.pos);
-            this.die(Burning.class);
-            return true;
-        }
         return super.act();
     }
 
@@ -109,7 +97,7 @@ public class XTG100 extends Mob {
             return super.doAttack( enemy );
 
         } else {
-
+            spend( attackDelay()*2f );
             boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];
             if (visible) {
                 sprite.attack( enemy.pos );

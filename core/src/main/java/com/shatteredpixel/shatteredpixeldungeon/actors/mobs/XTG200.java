@@ -8,7 +8,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.watabou.utils.Random;
 
@@ -18,7 +17,7 @@ public class XTG200 extends Mob {
         this.HT = 14;
         this.HP = 14;
         this.defenseSkill = 5;
-        this.EXP = 8;
+        this.EXP = 0;
         this.maxLvl = 15;
         this.flying = true;
     }
@@ -27,7 +26,6 @@ public class XTG200 extends Mob {
         var2 = super.attackProc(var1, var2 / 2);
         if (Random.Int(2) == 0) {
             ((Bleeding)Buff.affect(var1, Bleeding.class)).set((float)(var2 * 1));
-            ((Poison)Buff.affect(var1, Poison.class)).set((float)(var2 * 1));
         }
 
         return var2;

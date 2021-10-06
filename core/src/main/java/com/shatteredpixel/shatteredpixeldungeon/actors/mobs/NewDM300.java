@@ -151,7 +151,7 @@ public class NewDM300 extends Mob {
 
 		if (turnsSinceLastAbility != -1){
 			BossHealthBar.assignBoss(this);
-			if (!supercharged && pylonsActivated == 2) BossHealthBar.bleed(true);
+			if (!supercharged && pylonsActivated == 4) BossHealthBar.bleed(true);
 		}
 	}
 
@@ -560,7 +560,13 @@ public class NewDM300 extends Mob {
 
 	@Override
 	public void die( Object cause ) {
-
+		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+			if (mob instanceof MolotovHuntsman || mob instanceof FlameB01||
+					mob instanceof DM100|| mob instanceof FireGhost||mob instanceof BlackHost||
+			mob instanceof FetidRat||mob instanceof Spinner) {
+				mob.die( cause );
+			}
+		}
 		super.die( cause );
 
 		GameScene.bossSlain();

@@ -344,7 +344,7 @@ public class NewCavesBossLevel extends Level {
 				pylonsRemaining++;
 			}
 		}
-		if (pylonsRemaining > 2) {
+		if (pylonsRemaining > 4) {
 			blobs.get(PylonEnergy.class).fullyClear();
 		}
 	}

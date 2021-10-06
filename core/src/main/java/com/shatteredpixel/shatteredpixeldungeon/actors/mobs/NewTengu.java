@@ -91,7 +91,7 @@ public class NewTengu extends Mob {
 		HUNTING = new Hunting();
 
 		flying = true; //doesn't literally fly, but he is fleet-of-foot enough to avoid hazards
-
+		properties.add(Property.FIERY);
 		properties.add(Property.BOSS);
 		gasTankPressure = 5000;
 		viewDistance = 12;
@@ -860,7 +860,7 @@ public class NewTengu extends Mob {
 			if (candidates.size() > 0) {
 
 				XTG200 clone = split2();
-				clone.HP = 25;
+				clone.HP = 14;
 				clone.pos = Random.element( candidates );
 				clone.state = clone.HUNTING;
 

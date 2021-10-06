@@ -302,7 +302,11 @@ public class Goo extends Mob implements Callback {
 
 	@Override
 	public void die( Object cause ) {
-		
+		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+			if (mob instanceof Rat  ||mob instanceof Slime ) {
+				mob.die( cause );
+			}
+		}
 		super.die( cause );
 		
 		Dungeon.level.unseal();

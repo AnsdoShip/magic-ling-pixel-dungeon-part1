@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -36,7 +37,7 @@ public class vM0_5_X_Changes {
 
     public static void add_v0_5_5_Changes( ArrayList<ChangeInfo> changeInfos ) {
 
-        ChangeInfo changes = new ChangeInfo("v0.5.2.0", true, "");
+        ChangeInfo changes = new ChangeInfo("v0.5.2.0-Release", true, "");
         changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
 
@@ -66,6 +67,15 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new Image(Assets.Environment.TILES_SEWERS, 48, 48, 16
                         , 16), (Messages.get(vM0_5_X_Changes.class, "sss")),
                 Messages.get(vM0_5_X_Changes.class, "ssslogs")));
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_0520")));
+
+        changes.addButton(new ChangeButton(new TenguSprite(), (Messages.get(vM0_5_X_Changes.class, "bossc1")),
+                Messages.get(vM0_5_X_Changes.class, "bossc1logs")));
+
+        changes.addButton(new ChangeButton(new CausticSlimeSprite(), (Messages.get(vM0_5_X_Changes.class, "goo3")),
+                Messages.get(vM0_5_X_Changes.class, "goo3logs")));
     }
 
     public static void add_v0_5_4_Changes( ArrayList<ChangeInfo> changeInfos ) {

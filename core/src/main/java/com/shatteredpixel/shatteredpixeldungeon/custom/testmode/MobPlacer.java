@@ -285,7 +285,7 @@ public class MobPlacer extends TestItem{
             int selected = mobTier;
             StringBuilder sb = new StringBuilder();
             for(int i=1;i<=8;++i){
-                sb.append((i==selected? "_★_ ":"★ "));
+                sb.append((i==selected? "_*_ ":"* "));
             }
             selectedPage.text(sb.toString());
             selectedPage.maxWidth(WIDTH / 2);

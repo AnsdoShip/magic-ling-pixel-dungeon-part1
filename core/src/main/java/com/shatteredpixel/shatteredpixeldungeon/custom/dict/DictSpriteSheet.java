@@ -1,8 +1,19 @@
 package com.shatteredpixel.shatteredpixeldungeon.custom.dict;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FlameBoiSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDLLSTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDNQHZTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDZSLSTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.watabou.noosa.Image;
 
 public class DictSpriteSheet {
@@ -39,8 +50,30 @@ public class DictSpriteSheet {
 
             case RAT:
                 return new Image(Assets.Sprites.RAT, 0, 0, 16, 15);
+            case OGPDNQHZ:
+                return new OGPDNQHZTT();
+            case OGPDLLS:
+                return new OGPDLLSTT();
+            case OGPDZSLS:
+                return new OGPDZSLSTT();
+            case COLD:
+                return new ColdRatSprite();
+            case RED:
+                return new RedSwarmSprite();
+            case SHOW:
+                return new KagenoNusujinSprite();
+            case HBLR:
+                return new SRPDHBLRTT();
+            case BLACK:
+                return new PoltergeistSprite();
+            case MOLO:
+                return new MolotovHuntsmanSprite();
+            case FLAME:
+                return new FlameBoiSprite();
             case GNOLL:
                 return new Image(Assets.Sprites.GNOLL, 0, 0, 12, 15);
+            case XTG:
+                 return new TenguSprite();
             case SNAKE:
                 return new Image(Assets.Sprites.SNAKE, 0, 0, 12, 11);
             case ALBINO:
@@ -216,6 +249,17 @@ public class DictSpriteSheet {
     public static final int F_RAT           = 208 + 10000;
     public static final int GNOLL_DARTER    = 209 + 10000;
     public static final int GREAT_CRAB      = 210 + 10000;
+    public static final int OGPDNQHZ        = 211 + 10000;
+    public static final int OGPDLLS        =  212 + 10000;
+    public static final int OGPDZSLS        = 213 + 10000;
+    public static final int COLD        = 214 + 10000;
+    public static final int RED      = 215 + 10000;
+    public static final int SHOW      = 216 + 10000;
+    public static final int HBLR      = 217 + 10000;
+    public static final int BLACK      = 218 + 10000;
+    public static final int MOLO      = 219 + 10000;
+    public static final int FLAME      = 220 + 10000;
+    public static final int XTG      = 221 + 10000;
 
     public static final int THIEF           = 300 + 10000;
     public static final int BANDIT          = 301 + 10000;

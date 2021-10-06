@@ -12,7 +12,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredBrute;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bandit;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.BlackHost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Brute;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ColdMagicRat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM100;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM200;
@@ -21,20 +23,28 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FetidRat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FlameB01;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GreatCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.KagenoNusujin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MolotovHuntsman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDLLS;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDNQHZ;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDZSLS;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedSwarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.SRPDHBLR;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Scorpio;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Senior;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
@@ -48,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.XTG100;
 import com.shatteredpixel.shatteredpixeldungeon.custom.dict.DictSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.custom.messages.M;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -155,7 +166,9 @@ public class MobPlacer extends TestItem{
             case 3: return DataPack.DM201.ordinal() - DataPack.NEW_FIRE_ELE.ordinal() - 1;
             case 4: return DataPack.ELE_CHAOS.ordinal() - DataPack.DM201.ordinal() - 1;
             case 5: return DataPack.ACIDIC.ordinal() - DataPack.ELE_CHAOS.ordinal() - 1;
-            case 6: default: return DataPack.PIRANHA.ordinal() - DataPack.ACIDIC.ordinal() - 1;
+            case 6: return DataPack.PIRANHA.ordinal() - DataPack.ACIDIC.ordinal() - 1;
+            case 7: return DataPack.NQHZ.ordinal() - DataPack.PIRANHA.ordinal() - 1;
+            case 8: default: return DataPack.XTG.ordinal() - DataPack.NQHZ.ordinal() - 1;
         }
     }
     private int dataThreshold(int tier){
@@ -172,6 +185,10 @@ public class MobPlacer extends TestItem{
                 return DataPack.ELE_CHAOS.ordinal()+1;
             case 6:
                 return DataPack.ACIDIC.ordinal()+1;
+            case 7:
+                return DataPack.PIRANHA.ordinal()+1;
+            case 8:
+                return DataPack.NQHZ.ordinal()+1;
         }
     }
 
@@ -208,12 +225,12 @@ public class MobPlacer extends TestItem{
 
             resize(WIDTH, HEIGHT);
 
-            RedButton lhs = new RedButton("<<<", 8){
+            RedButton lhs = new RedButton("上一页", 6){
                 @Override
                 public void onClick(){
                     mobTier--;
-                    if(mobTier < 1 || mobTier>6){
-                        mobTier = 6;
+                    if(mobTier < 1 || mobTier>8){
+                        mobTier = 8;
                     }
                     mobIndex = Math.min(mobIndex, maxMobIndex(mobTier));
                     refreshImage();
@@ -223,11 +240,11 @@ public class MobPlacer extends TestItem{
             lhs.setRect(GAP, GAP, 24, 18);
             add(lhs);
 
-            RedButton rhs = new RedButton(">>>", 8){
+            RedButton rhs = new RedButton("下一页", 6){
                 @Override
                 public void onClick(){
                     mobTier++;
-                    if(mobTier < 1 || mobTier > 6){
+                    if(mobTier < 1 || mobTier > 8){
                         mobTier = 1;
                     }
                     mobIndex = Math.min(mobIndex, maxMobIndex(mobTier));
@@ -267,8 +284,8 @@ public class MobPlacer extends TestItem{
         private void updateSelectedMob(){
             int selected = mobTier;
             StringBuilder sb = new StringBuilder();
-            for(int i=1;i<=6;++i){
-                sb.append((i==selected? "* ":"- "));
+            for(int i=1;i<=8;++i){
+                sb.append((i==selected? "_★_ ":"★ "));
             }
             selectedPage.text(sb.toString());
             selectedPage.maxWidth(WIDTH / 2);
@@ -389,7 +406,21 @@ public class MobPlacer extends TestItem{
         STATUE(Statue.class, DictSpriteSheet.STATUE),
         ARMORED_STATUE(ArmoredStatue.class, DictSpriteSheet.ARMORED_STATUE),
         WRAITH(Wraith.class, DictSpriteSheet.WRAITH),
-        PIRANHA(Piranha.class, DictSpriteSheet.FISH);
+        PIRANHA(Piranha.class, DictSpriteSheet.FISH),
+
+        ZSLS(OGPDZSLS.class, DictSpriteSheet.OGPDZSLS),
+        LLS(OGPDLLS.class, DictSpriteSheet.OGPDLLS),
+        COLD(ColdMagicRat.class, DictSpriteSheet.COLD),
+        RED(RedSwarm.class, DictSpriteSheet.RED),
+        SHOW(KagenoNusujin.class, DictSpriteSheet.SHOW),
+        BLACK(BlackHost.class, DictSpriteSheet.BLACK),
+        HBLR(SRPDHBLR.class, DictSpriteSheet.HBLR),
+        MOlO(MolotovHuntsman.class, DictSpriteSheet.MOLO),
+        Flame(FlameB01.class, DictSpriteSheet.FLAME),
+        NQHZ(OGPDNQHZ.class, DictSpriteSheet.OGPDNQHZ),
+
+
+        XTG(XTG100.class, DictSpriteSheet.XTG);
 
         private Class<? extends Mob> mobClass;
         private int imageId;

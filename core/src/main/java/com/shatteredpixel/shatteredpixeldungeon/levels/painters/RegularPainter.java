@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.painters;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.FZLL;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -405,27 +403,18 @@ public abstract class RegularPainter extends Painter {
 		}
 
 		//4x regular trap count of visible traps on traps level feeling
-		if (Dungeon.isChallenged(FZLL)) {
-			for (int i = 0; i < 16 * nTraps; i++) {
+		if (l.feeling == Level.Feeling.TRAPS){
+			for (int i = 0; i < 4*nTraps; i++) {
 
 				Integer trapPos = Random.element(validCells);
 				validCells.remove(trapPos); //removes the integer object, not at the index
 
-				Trap trap = Reflection.newInstance(trapClasses[Random.chances(trapChances)]).reveal();
+				Trap trap = Reflection.newInstance(trapClasses[Random.chances( trapChances )]).reveal();
+				l.setTrap( trap, trapPos );
 				//some traps will not be hidden
-				}
-				if (l.feeling == Level.Feeling.TRAPS)
-					for (int i = 0; i < 8 * nTraps; i++) {
-
-						Integer trapPos = Random.element(validCells);
-						validCells.remove(trapPos); //removes the integer object, not at the index
-
-						Trap trap = Reflection.newInstance(trapClasses[Random.chances(trapChances)]).reveal();
-						l.setTrap(trap, trapPos);
-						//some traps will not be hidden
-						l.map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
-					}
+				l.map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
 			}
 		}
 	}
 
+}

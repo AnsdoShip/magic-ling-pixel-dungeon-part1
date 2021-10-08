@@ -694,6 +694,8 @@ public class NewDM300 extends Mob {
 				}
 			}
 
+
+
 			Camera.main.shake( 3, 0.7f );
 			Sample.INSTANCE.play(Assets.Sounds.ROCKS);
 

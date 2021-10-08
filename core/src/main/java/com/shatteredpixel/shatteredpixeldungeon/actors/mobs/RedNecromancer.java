@@ -52,9 +52,9 @@ public class RedNecromancer extends Mob {
 
         EXP = 7;
         maxLvl = 14;
-
+        flying = true;
         properties.add(Property.UNDEAD);
-
+        properties.add(Property.MINIBOSS);
         HUNTING = new Hunting();
     }
 
@@ -345,8 +345,10 @@ public class RedNecromancer extends Mob {
             lootChance = 1f;
             //20/25 health to start
             HP =HT= 120;
+            flying = true;
             properties.add(Property.INORGANIC);
             properties.add(Property.FIERY);
+            properties.add(Property.MINIBOSS);
         }
         @Override
         public void die( Object cause ) {

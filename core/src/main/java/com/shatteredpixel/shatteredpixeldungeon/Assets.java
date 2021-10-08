@@ -232,6 +232,7 @@ public class Assets {
 		public static final String ITEMS	    = "sprites/items.png";
 		public static final String ITEM_ICONS   = "sprites/item_icons.png";
 
+		public static final String MGAS	= "sprites/icemagicgirl.png";
 		public static final String WARRIOR	= "sprites/warrior.png";
 		public static final String MAGE		= "sprites/mage.png";
 		public static final String ROGUE	= "sprites/rogue.png";
@@ -249,6 +250,7 @@ public class Assets {
 		public static final String BRUTE	= "sprites/brute.png";
 		public static final String SPINNER	= "sprites/spinner.png";
 		public static final String DM300	= "sprites/dm300.png";
+		public static final String DM720	= "sprites/dm720.png";
 		public static final String WRAITH	= "sprites/wraith.png";
 		public static final String UNDEAD	= "sprites/undead.png";
 		public static final String KING		= "sprites/king.png";
@@ -296,6 +298,7 @@ public class Assets {
 		public static final String SPAWNER	= "sprites/spawner.png";
 		public static final String DM100	= "sprites/dm100.png";
 		public static final String PYLON	= "sprites/pylon.png";
+		public static final String PYLONCS	= "sprites/pylonks.png";
 		public static final String DM200	= "sprites/dm200.png";
 		public static final String LOTUS	= "sprites/lotus.png";
 	}

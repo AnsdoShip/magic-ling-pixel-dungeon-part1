@@ -46,7 +46,7 @@ public class MLPDAboutScene extends PixelScene {
         align( ling );
         add( ling );
 
-        new Flare( 7, 64 ).color( Window.MLPD_COLOR, true ).show( ling, 0 ).angularSpeed = +20;
+        new Flare( 12, 64 ).color( Window.BALCK_COLOR, true ).show( ling, 0 ).angularSpeed = +20;
 
         RenderedTextBlock mlpdtitle = renderTextBlock( TTL_MLPD(), 8 );
         mlpdtitle.hardlight( Window.MLPD_COLOR );

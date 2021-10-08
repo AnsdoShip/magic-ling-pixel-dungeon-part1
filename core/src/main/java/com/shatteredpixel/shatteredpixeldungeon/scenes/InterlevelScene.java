@@ -51,11 +51,26 @@ import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.NoosaScriptNoLighting;
 import com.watabou.noosa.SkinnedBlock;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.Random;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class InterlevelScene extends PixelScene {
+
+	private static final String[] LOADINGDIALOG = {
+			Messages.get( InterlevelScene.class,"dialog_1"),
+			Messages.get( InterlevelScene.class,"dialog_2"),
+			Messages.get( InterlevelScene.class,"dialog_3"),
+			Messages.get( InterlevelScene.class,"dialog_4"),
+			Messages.get( InterlevelScene.class,"dialog_5"),
+			Messages.get( InterlevelScene.class,"dialog_6"),
+			Messages.get( InterlevelScene.class,"dialog_7"),
+			Messages.get( InterlevelScene.class,"dialog_8"),
+			Messages.get( InterlevelScene.class,"dialog_9"),
+			Messages.get( InterlevelScene.class,"dialog_10"),
+			Messages.get( InterlevelScene.class,"dialog_11"),
+			Messages.get( InterlevelScene.class,"dialog_12")};
 
 	//slow fade on entering a new region
 	private static final float SLOW_FADE = 1f; //.33 in, 1.33 steady, .33 out, 2 seconds total
@@ -146,10 +161,10 @@ public class InterlevelScene extends PixelScene {
 
 		//slow down transition when displaying an install prompt
 		if (Updates.isInstallable()){
-			fadeTime += 0.5f; //adds 1 second total
+			fadeTime += 0.9f; //adds 1 second total
 		//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.3f;
+			fadeTime = 0.9f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
@@ -190,15 +205,16 @@ public class InterlevelScene extends PixelScene {
 		im.scale.y = Camera.main.width;
 		add(im);
 
-		String text = Messages.get(Mode.class, mode.name());
+		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(LOADINGDIALOG[Random.Int(LOADINGDIALOG.length)]);
 
-		message = PixelScene.renderTextBlock( text, 9 );
+		message = PixelScene.renderTextBlock( text, 6 );
 		message.setPos(
 				(Camera.main.width - message.width()) / 2,
 				(Camera.main.height - message.height()) / 2
 		);
 		align(message);
 		add( message );
+
 
 		if (Updates.isInstallable()){
 			StyledButton install = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "install")){

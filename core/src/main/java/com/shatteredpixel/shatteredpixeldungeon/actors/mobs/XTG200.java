@@ -8,12 +8,12 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.STenguSprite;
 import com.watabou.utils.Random;
 
 public class XTG200 extends Mob {
     public XTG200() {
-        this.spriteClass = TenguSprite.class;
+        this.spriteClass = STenguSprite.class;
         this.HT = 14;
         this.HP = 14;
         this.defenseSkill = 5;

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300DeathBallSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -48,6 +48,21 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG18), (Messages.get(vM0_5_X_Changes.class, "newitems")),
+                Messages.get(vM0_5_X_Changes.class, "newitemslogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "sca")),
+                Messages.get(vM0_5_X_Changes.class, "scalogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.PREFS), (Messages.get(vM0_5_X_Changes.class, "ksx")),
+                Messages.get(vM0_5_X_Changes.class, "ksxlogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.AUDIO), (Messages.get(vM0_5_X_Changes.class, "musica")),
+                Messages.get(vM0_5_X_Changes.class, "musicalogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.SCROLL_HOLDER), (Messages.get(vM0_5_X_Changes.class, "dev7")),
+                Messages.get(vM0_5_X_Changes.class, "dev7logs")));
+
         changes.addButton(new ChangeButton(Icons.get(Icons.LING), (Messages.get(vM0_5_X_Changes.class, "dev6")),
                 Messages.get(vM0_5_X_Changes.class, "dev6logs")));
 
@@ -66,7 +81,7 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new CausticSlimeSprite(), (Messages.get(vM0_5_X_Changes.class, "goo3")),
                 Messages.get(vM0_5_X_Changes.class, "goo4logs")));
 
-        changes.addButton(new ChangeButton(new DM300DeathBallSprite(), (Messages.get(vM0_5_X_Changes.class, "dm3004")),
+        changes.addButton(new ChangeButton(new DM720Sprite(), (Messages.get(vM0_5_X_Changes.class, "dm3004")),
                 Messages.get(vM0_5_X_Changes.class, "dm3004logs")));
 
         changes.addButton(new ChangeButton(new WandmakerSprite(), (Messages.get(vM0_5_X_Changes.class, "newsc")),

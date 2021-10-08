@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -39,10 +39,10 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class SlimeKing extends Slime {
+public class SlimeKing extends XTG100 {
 
 	{
-		HP = HT = 140;
+		HP = HT = 180;
 		EXP = 20;
 		defenseSkill = 34;
 		spriteClass = SlimeKingSprite.class;
@@ -76,6 +76,10 @@ public class SlimeKing extends Slime {
 			summon();
 			return true;
 		} else if(canAttack(enemy)){
+			spend( attackDelay()*10f );
+			summon();
+			return super.attack(enemy);
+		}else if(canAttack(enemy)) {
 			return super.attack(enemy);
 		}
 		else return false;
@@ -105,13 +109,13 @@ public class SlimeKing extends Slime {
 		sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
 		Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
 
-		for(int i = 0;i <= (6 + (1 -(float)HP/HT)) ; i++){
+		for(int i = 0;i <= (1 + (1 -(float)HP/HT)) ; i++){
 			int newPos = 0;
 			do {
 				newPos = Random.Int(Dungeon.level.length());
 			} while (
 					Dungeon.level.solid[newPos] ||
-							Dungeon.level.distance(newPos, enemy.pos) < 12 ||
+							Dungeon.level.distance(newPos, enemy.pos) < 4 ||
 							Actor.findChar(newPos) != null);
 			if (Random.Int(1000) <= 500){
 				Slime_Red rat = new Slime_Red();
@@ -176,7 +180,7 @@ public class SlimeKing extends Slime {
 		Dungeon.level.unseal();
 
 		GameScene.bossSlain();
-		Dungeon.level.drop( new IronKey( Dungeon.depth ), pos ).sprite.drop();
+		Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
 
 		//60% chance of 2 blobs, 30% chance of 3, 10% chance for 4. Average of 2.5
 		int blobs = Random.chances(new float[]{0, 0, 6, 3, 1});

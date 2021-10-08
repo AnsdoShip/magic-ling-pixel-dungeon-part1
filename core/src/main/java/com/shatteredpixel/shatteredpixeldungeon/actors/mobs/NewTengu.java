@@ -26,9 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blizzard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -146,7 +147,7 @@ public class NewTengu extends Mob {
 			//only ignite cells directly near caster if they are flammable
 			if (!Dungeon.level.adjacent(bolt.sourcePos, cell)
 					|| Dungeon.level.flamable[cell]){
-				GameScene.add( Blob.seed( cell, 1+2, Fire.class ) );
+				GameScene.add( Blob.seed( cell, 1+2, Blizzard.class ) );
 			}
 		}
 	}
@@ -223,7 +224,7 @@ public class NewTengu extends Mob {
 		for (int cell : visualCells){
 			//this way we only get the cells at the tip, much better performance.
 			((MagicMissile)ch.sprite.parent.recycle( MagicMissile.class )).reset(
-					MagicMissile.FIRE,
+					MagicMissile.FOLIAGE_CONE,
 					ch.sprite,
 					cell,
 					null
@@ -286,6 +287,7 @@ public class NewTengu extends Mob {
 			return;
 		}
 
+
 		//phase 1 of the fight is over
 		if (state == NewPrisonBossLevel.State.FIGHT_START && HP <= HT/2){
 			HP = (HT/2);
@@ -293,10 +295,13 @@ public class NewTengu extends Mob {
 			((NewPrisonBossLevel)Dungeon.level).progress();
 			BossHealthBar.bleed(true);
 
+
 			//if tengu has lost a certain amount of hp, jump
 		} else if (beforeHitHP / hpBracket != HP / hpBracket) {
 			jump();
 		}
+
+
 	}
 
 	@Override
@@ -478,11 +483,91 @@ public class NewTengu extends Mob {
 	}
 	public int gasTankPressure;
 	private static final float TIME_TO_BURN	= 1f;
-	
+	private Ballistica beam;
+	private int beamTarget = -1;
+	private int beamCooldown;
+	public boolean beamCharged;
 	//don't bother bundling this, as its purely cosmetic
 	private boolean yelledCoward = false;
 	
 	//tengu is always hunting
+	@Override
+	protected boolean doAttack( Char enemy ) {
+
+		if (beamCooldown > 0) {
+			return super.doAttack(enemy);
+		} else if (!beamCharged){
+			((TenguSprite)sprite).charge( enemy.pos );
+			spend( attackDelay()*2f );
+			beamCharged = true;
+			return true;
+		} else {
+
+			spend( attackDelay() );
+
+			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
+			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
+				sprite.zap( beam.collisionPos );
+				return false;
+			} else {
+				sprite.idle();
+				deathGaze();
+				return true;
+			}
+		}
+
+	}
+
+	public void deathGaze(){
+		if (!beamCharged || beamCooldown > 0 || beam == null)
+			return;
+
+		beamCharged = false;
+		beamCooldown = Random.IntRange(4, 6);
+
+		boolean terrainAffected = false;
+
+		for (int pos : beam.subPath(1, beam.dist)) {
+
+			if (Dungeon.level.flamable[pos]) {
+
+				Dungeon.level.destroy( pos );
+				GameScene.updateMap( pos );
+				terrainAffected = true;
+
+			}
+
+			Char ch = Actor.findChar( pos );
+			if (ch == null) {
+				continue;
+			}
+
+			if (hit( this, ch, true )) {
+				ch.damage( Random.NormalIntRange( 30, 50 ), new Eye.DeathGaze() );
+
+				if (Dungeon.level.heroFOV[pos]) {
+					ch.sprite.flash();
+					CellEmitter.center( pos ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
+				}
+
+				if (!ch.isAlive() && ch == Dungeon.hero) {
+					Dungeon.fail( getClass() );
+					GLog.n( Messages.get(this, "deathgaze_kill") );
+				}
+			} else {
+				ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
+			}
+		}
+
+		if (terrainAffected) {
+			Dungeon.observe();
+		}
+
+		beam = null;
+		beamTarget = -1;
+	}
+
+
 	private class Hunting extends Mob.Hunting{
 		
 		@Override
@@ -535,11 +620,11 @@ public class NewTengu extends Mob {
 	
 	//starts at 2, so one turn and then first ability
 	private int abilityCooldown = 2;
-	
+
 	private static final int BOMB_ABILITY    = 0;
 	private static final int FIRE_ABILITY    = 1;
 	private static final int SHOCKER_ABILITY = 2;
-	
+
 	//expects to be called once per turn;
 	public boolean canUseAbility(){
 		
@@ -548,17 +633,17 @@ public class NewTengu extends Mob {
 		if (abilitiesUsed >= targetAbilityUses()){
 			return false;
 		} else {
-			
+
 			abilityCooldown--;
-			
+
 			if (targetAbilityUses() - abilitiesUsed >= 4){
 				//Very behind in ability uses, use one right away!
 				abilityCooldown = 0;
-				
+
 			} else if (targetAbilityUses() - abilitiesUsed >= 3){
 				//moderately behind in uses, use one every other action.
 				if (abilityCooldown == -1 || abilityCooldown > 1) abilityCooldown = 1;
-				
+
 			} else {
 				//standard delay before ability use, 1-4 turns
 				if (abilityCooldown == -1) abilityCooldown = Random.IntRange(1, 4);
@@ -604,7 +689,7 @@ public class NewTengu extends Mob {
 			}
 		}
 	}
-	
+
 	private int targetAbilityUses(){
 		//1 base ability use, plus 2 uses per jump
 		int targetAbilityUses = 1 + 2*arenaJumps;
@@ -1019,7 +1104,7 @@ public class NewTengu extends Mob {
 						if (cur[cell] > 0 && off[cell] == 0){
 							
 							Char ch = Actor.findChar( cell );
-							if (ch != null && !ch.isImmune(Fire.class) && !(ch instanceof NewTengu)) {
+							if (ch != null && !ch.isImmune(Electricity.class) && !(ch instanceof NewTengu)) {
 								Buff.affect( ch, Burning.class ).reignite( ch );
 							}
 							

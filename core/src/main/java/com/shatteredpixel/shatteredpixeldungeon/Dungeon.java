@@ -44,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
+import com.shatteredpixel.shatteredpixeldungeon.levels.CaveTwoBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
@@ -55,7 +56,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.OldCavesBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.OldPrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.SLMKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.ZeroLevel;
@@ -238,43 +242,56 @@ public class Dungeon {
 	}
 	
 	public static Level newLevel() {
-		
+
 		Dungeon.level = null;
 		Actor.clear();
-		
+
 		depth++;
 		if (depth > Statistics.deepestFloor) {
 			Statistics.deepestFloor = depth;
-			
+
 			if (Statistics.qualifiedForNoKilling) {
 				Statistics.completedWithNoKilling = true;
 			} else {
 				Statistics.completedWithNoKilling = false;
 			}
 		}
-		
+
 		Level level;
 		switch (depth) {
 			case 0:
 				level = new ZeroLevel();
 				break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			level = new SewerLevel();
-			break;
-		case 5:
-			level = new SewerBossLevel();
-			break;
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-			level = new PrisonLevel();
-			break;
-		case 10:
-			level = new NewPrisonBossLevel();
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				level = new SewerLevel();
+				break;
+			case 5:
+				switch (Random.Int(2)){
+					case 0: default:
+						level = new SewerBossLevel();
+						//天痕粘咕
+						break;
+					case 1:
+						//史莱姆王
+						level = new SLMKingLevel();
+						}
+						break;
+
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				level = new PrisonLevel();
+				break;
+			case 10:
+				if (Random.Int(2) <= 1) {
+					level = new NewPrisonBossLevel();
+				} else  {
+					level = new OldPrisonBossLevel();
+			}
 			break;
 		case 11:
 		case 12:
@@ -283,7 +300,20 @@ public class Dungeon {
 			level = new CavesLevel();
 			break;
 		case 15:
-			level = new NewCavesBossLevel();
+			switch (Random.Int(3)){
+				case 0: default:
+					level = new CaveTwoBossLevel();
+					//DM720 T0
+					break;
+				case 1:
+					//新版本的DM300
+					level = new NewCavesBossLevel();
+					break;
+				case 2:
+					//老版本的DM300
+					level = new OldCavesBossLevel();
+					break;
+			}
 			break;
 		case 16:
 		case 17:

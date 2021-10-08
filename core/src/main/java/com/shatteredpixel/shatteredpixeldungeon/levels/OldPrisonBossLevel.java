@@ -69,34 +69,34 @@ public class OldPrisonBossLevel extends Level {
 		FIGHT_ARENA,
 		WON
 	}
-	
+
 	private static final int ARENA_CENTER = 5+28*32;
 	private static final int ARENA_DOOR = 5+25*32;
-	
+
 	private State state;
 	private OldTengu tengu;
-	
+
 	public State state(){
 		return state;
 	}
 
 	//keep track of that need to be removed as the level is changed. We dump 'em back into the level at the end.
 	private ArrayList<Item> storedItems = new ArrayList<>();
-	
+
 	@Override
 	public String tilesTex() {
 		return Assets.Environment.TILES_PRISON;
 	}
-	
+
 	@Override
 	public String waterTex() {
 		return Assets.Environment.WATER_PRISON;
 	}
-	
+
 	private static final String STATE	        = "state";
 	private static final String TENGU	        = "tengu";
 	private static final String STORED_ITEMS    = "storeditems";
-	
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
@@ -104,7 +104,7 @@ public class OldPrisonBossLevel extends Level {
 		bundle.put( TENGU, tengu );
 		bundle.put( STORED_ITEMS, storedItems);
 	}
-	
+
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
@@ -126,12 +126,12 @@ public class OldPrisonBossLevel extends Level {
 			storedItems.add( (Item)item );
 		}
 	}
-	
+
 	@Override
 	protected boolean build() {
-		
+
 		setSize(32, 32);
-		
+
 		map = MAP_START.clone();
 
 		buildFlagMaps();
@@ -145,12 +145,12 @@ public class OldPrisonBossLevel extends Level {
 
 		return true;
 	}
-	
+
 	@Override
 	protected void createMobs() {
 		tengu = new OldTengu(); //We want to keep track of tengu independently of other mobs, he's not always in the level.
 	}
-	
+
 	public Actor addRespawner() {
 		return null;
 	}
@@ -161,7 +161,7 @@ public class OldPrisonBossLevel extends Level {
 		if (item != null) {
 			drop( item, randomRespawnCell( null ) ).setHauntedIfCursed().type = Heap.Type.REMAINS;
 		}
-		drop(new IronKey(10), randomPrisonCell());
+		drop(new IronKey(0), randomPrisonCell());
 	}
 
 	private int randomPrisonCell(){
@@ -176,13 +176,13 @@ public class OldPrisonBossLevel extends Level {
 
 		return pos;
 	}
-	
+
 	private int randomTenguArenaCell(){
 		int pos = ARENA_CENTER - 2 - (2*32);//initial position at top-left of room
-		
+
 		pos += Random.Int(5)*32;
 		pos += Random.Int(5);
-		
+
 		//cannot choose the center
 		if (pos == ARENA_CENTER)    return randomTenguArenaCell();
 		else                        return pos;
@@ -190,7 +190,7 @@ public class OldPrisonBossLevel extends Level {
 
 	@Override
 	public void occupyCell( Char ch ) {
-		
+
 		super.occupyCell( ch );
 
 		if (ch == Dungeon.hero){
@@ -219,7 +219,7 @@ public class OldPrisonBossLevel extends Level {
 				|| Actor.findChar(cell) != null);
 		return cell;
 	}
-	
+
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {
@@ -229,7 +229,7 @@ public class OldPrisonBossLevel extends Level {
 				return super.tileName( tile );
 		}
 	}
-	
+
 	@Override
 	public String tileDesc(int tile) {
 		switch (tile) {
@@ -269,7 +269,7 @@ public class OldPrisonBossLevel extends Level {
 
 		BArray.setFalse(visited);
 		BArray.setFalse(mapped);
-		
+
 		for (Blob blob: blobs.values()){
 			blob.fullyClear();
 		}
@@ -288,13 +288,13 @@ public class OldPrisonBossLevel extends Level {
 				heap.destroy();
 			}
 		}
-		
+
 		for (HeavyBoomerang.CircleBack b : Dungeon.hero.buffs(HeavyBoomerang.CircleBack.class)){
 			if (safeArea == null || !safeArea.inside(cellToPoint(b.returnPos()))){
 				storedItems.add(b.cancel());
 			}
 		}
-		
+
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
 			if (mob != tengu && (safeArea == null || !safeArea.inside(cellToPoint(mob.pos)))){
 				mob.destroy();
@@ -313,12 +313,12 @@ public class OldPrisonBossLevel extends Level {
 		switch (state){
 			//moving to the beginning of the fight
 			case START:
-				
+
 				//if something is occupying Tengu's space, wait and do nothing.
 				if (Actor.findChar(ARENA_CENTER) != null){
 					return;
 				}
-				
+
 				seal();
 				set(ARENA_DOOR, Terrain.LOCKED_DOOR);
 				GameScene.updateMap(ARENA_DOOR);
@@ -331,7 +331,7 @@ public class OldPrisonBossLevel extends Level {
 						break;
 					}
 				}
-				
+
 				tengu.state = tengu.HUNTING;
 				tengu.pos = ARENA_CENTER; //in the middle of the fight room
 				GameScene.add( tengu );
@@ -375,7 +375,7 @@ public class OldPrisonBossLevel extends Level {
 
 				changeMap(MAP_ARENA);
 				clearEntities( (Room) new EmptyRoom().set(0, 0, 10, 4)); //clear all but the area right around the teleport spot
-				
+
 				//if any allies are left over, move them along the same way as the hero
 				for (Mob m : mobs){
 					if (m.alignment == Char.Alignment.ALLY) {
@@ -390,7 +390,7 @@ public class OldPrisonBossLevel extends Level {
 				} while (solid[tengu.pos] || distance(tengu.pos, Dungeon.hero.pos) < 8);
 				GameScene.add(tengu);
 				tengu.notice();
-				
+
 				GameScene.flash(0x80FFFFFF);
 				Sample.INSTANCE.play(Assets.Sounds.BLAST);
 
@@ -418,7 +418,7 @@ public class OldPrisonBossLevel extends Level {
 
 				tengu.pos = ARENA_CENTER;
 				tengu.sprite.place(ARENA_CENTER);
-				
+
 				//remove all mobs, but preserve allies
 				ArrayList<Mob> allies = new ArrayList<>();
 				for(Mob m : mobs.toArray(new Mob[0])){
@@ -427,9 +427,9 @@ public class OldPrisonBossLevel extends Level {
 						mobs.remove(m);
 					}
 				}
-				
+
 				changeMap(MAP_END);
-				
+
 				for (Mob m : allies){
 					do{
 						m.pos = randomTenguArenaCell();
@@ -439,15 +439,15 @@ public class OldPrisonBossLevel extends Level {
 				}
 
 				tengu.die(Dungeon.hero);
-				
+
 				clearEntities((Room) new EmptyRoom().set(2, 25, 8, 31)); //arena is safe
 
 				for (Item item : storedItems)
 					drop(item, randomTenguArenaCell());
-				
+
 				GameScene.flash(0x80FFFFFF);
 				Sample.INSTANCE.play(Assets.Sounds.BLAST);
-				
+
 				state = State.WON;
 				break;
 		}
@@ -514,9 +514,9 @@ public class OldPrisonBossLevel extends Level {
 					W, W, W, W, e, e, e, W, W, M, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W, W,
 					W, W, e, D, e, e, e, D, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
 					W, W, W, W, e, e, e, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
-					W, W, W, W, W, W, W, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
 					W, W, W, W, W, e, W, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
-					W, W, W, W, W, D, W, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
+					W, W, W, W, W, e, W, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
+					W, W, W, W, W, e, W, W, W, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
 					W, W, M, W, W, e, W, W, M, W, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
 					W, e, e, e, W, e, W, e, e, e, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
 					W, e, e, e, D, e, D, e, e, e, W, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, e, W, W,
@@ -613,16 +613,16 @@ public class OldPrisonBossLevel extends Level {
 
 
 	public static class exitVisual extends CustomTilemap {
-		
+
 		{
 			texture = Assets.Environment.PRISON_EXIT_OLD;
-			
+
 			tileW = 12;
 			tileH = 14;
 		}
-		
+
 		final int TEX_WIDTH = 256;
-		
+
 		private static short[] render = new short[]{
 				0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -639,16 +639,16 @@ public class OldPrisonBossLevel extends Level {
 				1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		};
-		
+
 		@Override
 		public Tilemap create() {
-			
+
 			Tilemap v = super.create();
 			int[] data = mapSimpleImage(0, 0, TEX_WIDTH);
 			for (int i = 0; i < data.length; i++){
 				if (render[i] == 0) data[i] = -1;
 			}
-			
+
 			v.map(data, tileW);
 			return v;
 		}
@@ -656,16 +656,16 @@ public class OldPrisonBossLevel extends Level {
 	}
 
 	public static class exitVisualWalls extends CustomTilemap {
-		
+
 		{
 			texture = Assets.Environment.PRISON_EXIT_OLD;
-			
+
 			tileW = 12;
 			tileH = 14;
 		}
-		
+
 		final int TEX_WIDTH = 256;
-		
+
 		private static short[] render = new short[]{
 				0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
@@ -685,14 +685,14 @@ public class OldPrisonBossLevel extends Level {
 
 		@Override
 		public Tilemap create() {
-			
+
 			Tilemap v = super.create();
-			
+
 			int[] data = mapSimpleImage(4, 0, TEX_WIDTH);
 			for (int i = 0; i < data.length; i++){
 				if (render[i] == 0) data[i] = -1;
 			}
-			
+
 			v.map(data, tileW);
 			return v;
 		}

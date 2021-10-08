@@ -85,7 +85,7 @@ public class DewVial extends Item {
 		if (action.equals( AC_DRINK )) {
 
 			if (volume > 0) {
-				
+
 				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
 
 				int curShield = 0;
@@ -98,7 +98,7 @@ public class DewVial extends Item {
 						missingHealthPercent += missingShieldPercent;
 					}
 				}
-				
+
 				//trimming off 0.01 drops helps with floating point errors
 				int dropsNeeded = (int)Math.ceil((missingHealthPercent / 0.05f) - 0.01f);
 				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
@@ -123,7 +123,27 @@ public class DewVial extends Item {
 		}
 	}
 
-	public void empty() {volume = 0; updateQuickslot();}
+	@Override
+	public String info() {
+		String info = desc();
+
+		if (volume == 0){
+			info += "\n\n" + Messages.get(this, "desc_water");
+		} else {
+			info += "\n\n" + Messages.get(this, "desc_heal");
+		}
+
+		if (isFull()){
+			info += "\n\n" + Messages.get(this, "desc_full");
+		}
+
+		return info;
+	}
+
+	public void empty() {
+		volume = 0;
+		updateQuickslot();
+	}
 
 	@Override
 	public boolean isUpgradable() {

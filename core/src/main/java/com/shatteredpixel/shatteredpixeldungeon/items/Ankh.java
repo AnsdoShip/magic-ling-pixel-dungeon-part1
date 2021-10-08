@@ -47,12 +47,12 @@ public class Ankh extends Item {
 	}
 
 	private boolean blessed = false;
-	
+
 	@Override
 	public boolean isUpgradable() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isIdentified() {
 		return true;
@@ -61,8 +61,8 @@ public class Ankh extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions(hero);
-		DewVial vial = hero.belongings.getItem(DewVial.class);
-		if (vial != null && vial.isFull() && !blessed)
+		DewVial waterskin = hero.belongings.getItem(DewVial.class);
+		if (waterskin != null && waterskin.isFull() && !blessed)
 			actions.add( AC_BLESS );
 		return actions;
 	}
@@ -74,10 +74,10 @@ public class Ankh extends Item {
 
 		if (action.equals( AC_BLESS )) {
 
-			DewVial vial = hero.belongings.getItem(DewVial.class);
-			if (vial != null){
+			DewVial waterskin = hero.belongings.getItem(DewVial.class);
+			if (waterskin != null){
 				blessed = true;
-				vial.empty();
+				waterskin.empty();
 				GLog.p( Messages.get(this, "bless") );
 				hero.spend( 1f );
 				hero.busy();
@@ -89,7 +89,7 @@ public class Ankh extends Item {
 			}
 		}
 	}
-	
+
 	@Override
 	public String desc() {
 		if (blessed)
@@ -126,7 +126,7 @@ public class Ankh extends Item {
 		super.restoreFromBundle( bundle );
 		blessed	= bundle.getBoolean( BLESSED );
 	}
-	
+
 	@Override
 	public int value() {
 		return 50 * quantity;

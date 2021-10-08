@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Inferno;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -38,7 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.STenguSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -60,7 +60,7 @@ public class XTG100 extends Mob {
     private int direction = 0;
 
     {
-        spriteClass = TenguSprite.class;
+        spriteClass = STenguSprite.class;
         properties.add(Property.INORGANIC);
         properties.add(Property.FIERY);
         HP = HT = 25;
@@ -97,7 +97,7 @@ public class XTG100 extends Mob {
             return super.doAttack( enemy );
 
         } else {
-            spend( attackDelay()*2f );
+            spend( attackDelay()*5f );
             boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];
             if (visible) {
                 sprite.attack( enemy.pos );
@@ -240,7 +240,7 @@ public class XTG100 extends Mob {
         affectedCells = new HashSet<>();
         visualCells = new HashSet<>();
 
-        int maxDist = 5 + 1*1;
+        int maxDist = 3 + 2*2;
         int dist = Math.min(bolt.dist, maxDist);
 
         for (int i = 0; i < PathFinder.CIRCLE8.length; i++){
@@ -269,14 +269,14 @@ public class XTG100 extends Mob {
         for (int cell : visualCells){
             //this way we only get the cells at the tip, much better performance.
             ((MagicMissile)ch.sprite.parent.recycle( MagicMissile.class )).reset(
-                    MagicMissile.FIRE,
+                    MagicMissile.FORCE,
                     ch.sprite,
                     cell,
                     null
             );
         }
         MagicMissile.boltFromChar( ch.sprite.parent,
-                MagicMissile.FIRE,
+                MagicMissile.FORCE,
                 ch.sprite,
                 bolt.path.get(dist/2),
                 callback );
@@ -289,11 +289,11 @@ public class XTG100 extends Mob {
     private void spreadFlames(int cell, float strength){
         if (strength >= 0 && (Dungeon.level.passable[cell] || Dungeon.level.flamable[cell])){
             affectedCells.add(cell);
-            if (strength >= 1.5f) {
+            if (strength >= 0.5f) {
                 visualCells.remove(cell);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[left(direction)], strength - 1.5f);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[direction], strength - 1.5f);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[right(direction)], strength - 1.5f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS9[left(direction)], strength - 1.0f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS9[direction], strength - 0.9f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS9[right(direction)], strength - 0.8f);
             } else {
                 visualCells.add(cell);
             }
@@ -320,8 +320,8 @@ public class XTG100 extends Mob {
 
             //only ignite cells directly near caster if they are flammable
             if (!Dungeon.level.adjacent(bolt.sourcePos, cell)
-                    || Dungeon.level.flamable[cell]){
-                GameScene.add( Blob.seed( cell, 1+2, Fire.class ) );
+                    || Dungeon.level.water[cell]){
+                GameScene.add( Blob.seed( cell, 1+2, Inferno.class ) );
             }
         }
     }

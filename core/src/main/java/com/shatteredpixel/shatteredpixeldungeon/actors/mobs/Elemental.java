@@ -40,9 +40,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutat
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -208,8 +210,8 @@ public abstract class Elemental extends Mob {
 		{
 			spriteClass = ElementalSprite.NewbornFire.class;
 			
-			HT = 60;
-			HP = HT/2; //30
+			HT = 120;
+			HP = HT/2; //^0
 			
 			defenseSkill = 12;
 			
@@ -221,6 +223,11 @@ public abstract class Elemental extends Mob {
 		@Override
 		public void die(Object cause) {
 			super.die(cause);
+			for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+				if (mob instanceof NewbornFireElementals) {
+					mob.die( cause );
+				}
+			}
 			Badges.KILL_COLDELE();
 			Dungeon.level.drop( new Embers(), pos ).sprite.drop();
 		}
@@ -229,9 +236,62 @@ public abstract class Elemental extends Mob {
 		public boolean reset() {
 			return true;
 		}
-		
+
 	}
-	
+
+
+	public static class NewbornFireElementals extends FrostElemental {
+
+		{
+			spriteClass = ElementalSprite.Frost.class;
+			HT = 12;
+			HP = HT;
+
+			defenseSkill = 32;
+
+			EXP = 7;
+
+			properties.add(Property.MINIBOSS);
+		}
+
+		@Override
+		public void die(Object cause) {
+
+			super.die(cause);
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange( 1, 5 );
+		}
+
+		@Override
+		public int attackSkill( Char target ) {
+			return 0;
+		}
+		@Override
+		public int drRoll() {
+			return Random.NormalIntRange(0, 1);
+		}
+		private static int dodges = 0;
+		@Override
+		public String defenseVerb() {
+			dodges++;
+			if (dodges >= 3 ){
+				GLog.h(Messages.get(this, "hint"));
+				dodges = 0;
+			}
+			return super.defenseVerb();
+		}
+
+		@Override
+		public boolean reset() {
+			return true;
+		}
+
+
+	}
+
 	public static class FrostElemental extends Elemental {
 		
 		{

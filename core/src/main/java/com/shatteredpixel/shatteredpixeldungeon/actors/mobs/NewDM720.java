@@ -532,7 +532,8 @@ public class NewDM720 extends XTG100 {
     public void die( Object cause ) {
 
         super.die(cause);
-
+        Badges.validateBossSlain();
+        Badges.KILLSDM720();
         GameScene.bossSlain();
         Dungeon.level.unseal();
 

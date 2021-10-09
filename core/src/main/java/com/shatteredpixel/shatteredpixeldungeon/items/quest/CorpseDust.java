@@ -121,7 +121,8 @@ public class CorpseDust extends Item {
 			detach();
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
 				if (mob instanceof Wraith){
-					Badges.GET_SC();
+
+
 					mob.die(null);
 				}
 			}

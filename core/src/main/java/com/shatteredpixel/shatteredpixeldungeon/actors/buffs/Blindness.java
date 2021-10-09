@@ -27,6 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Blindness extends FlavourBuff {
 
+
+
 	public static final float DURATION = 10f;
 
 	{

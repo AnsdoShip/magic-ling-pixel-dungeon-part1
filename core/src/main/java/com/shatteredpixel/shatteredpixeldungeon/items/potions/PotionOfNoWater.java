@@ -11,10 +11,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfEarthenArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -104,13 +104,13 @@ public class PotionOfNoWater extends Item {
     public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
         {
-            inputs =  new Class[]{PotionOfEarthenArmor.class, GooBlob.class};
+            inputs =  new Class[]{Firebloom.Seed.class, Blindweed.Seed.class};
             inQuantity = new int[]{1, 1};
 
-            cost = 8;
+            cost = 5;
 
             output = PotionOfNoWater.class;
-            outQuantity = 1;
+            outQuantity = 2;
         }
 
     }

@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.InfernalBrew;
@@ -63,6 +64,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -278,6 +281,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new MeatPie.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Pasty(), new Food(), new MysteryMeat.PlaceHolder())),
 						new MeatPie()));
+				result.add(new QuickRecipe( new PotionOfNoWater.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Blindweed.Seed(), new Firebloom.Seed())),
+						new PotionOfNoWater()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe( new Blandfruit.CookFruit(),

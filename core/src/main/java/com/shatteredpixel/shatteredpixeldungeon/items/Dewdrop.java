@@ -28,52 +28,54 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class Dewdrop extends Item {
-	
+
 	{
 		image = ItemSpriteSheet.DEWDROP;
-		
+
 		stackable = true;
 		dropsDownHeap = true;
 	}
-	
+
 	@Override
 	public boolean doPickUp( Hero hero ) {
-		
-		DewVial vial = hero.belongings.getItem( DewVial.class );
-		
-		if (vial != null && !vial.isFull()){
-			
-			vial.collectDew( this );
-			
+
+		DewVial flask = hero.belongings.getItem( DewVial.class );
+
+		if (flask != null && !flask.isFull()){
+
+			flask.collectDew( this );
+			GameScene.pickUp( this, hero.pos );
+
 		} else {
 
 			if (!consumeDew(1, hero)){
 				return false;
 			}
-			
+
 		}
-		
+
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
 		hero.spendAndNext( TIME_TO_PICK_UP );
-		
+
 		return true;
 	}
 
 	public static boolean consumeDew(int quantity, Hero hero){
 		//20 drops for a full heal
-		int heal = Math.round( hero.HT * 0.25f * quantity );
+		int heal = Math.round( hero.HT * 0.05f * quantity );
 
 		int effect = Math.min( hero.HT - hero.HP, heal );
 		int shield = 0;
 		if (hero.hasTalent(Talent.SHIELDING_DEW)){
 			shield = heal - effect;
-			int maxShield = Math.round(hero.HT *0.3f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+			int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
 			int curShield = 0;
 			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
 			shield = Math.min(shield, maxShield-curShield);

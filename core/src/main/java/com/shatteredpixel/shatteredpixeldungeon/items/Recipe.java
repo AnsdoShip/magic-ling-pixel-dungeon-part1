@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.InfernalBrew;
@@ -167,7 +168,8 @@ public abstract class Recipe {
 	private static Recipe[] oneIngredientRecipes = new Recipe[]{
 		new AlchemistsToolkit.upgradeKit(),
 		new Scroll.ScrollToStone(),
-		new StewedMeat.oneMeat()
+		new StewedMeat.oneMeat(),
+
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{
@@ -197,7 +199,8 @@ public abstract class Recipe {
 		new ReclaimTrap.Recipe(),
 		new Recycle.Recipe(),
 		new WildEnergy.Recipe(),
-		new StewedMeat.twoMeat()
+		new StewedMeat.twoMeat(),
+			new PotionOfNoWater.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
@@ -205,7 +208,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new StewedMeat.threeMeat(),
-		new MeatPie.Recipe()
+		new MeatPie.Recipe(),
 	};
 	
 	public static Recipe findRecipe(ArrayList<Item> ingredients){

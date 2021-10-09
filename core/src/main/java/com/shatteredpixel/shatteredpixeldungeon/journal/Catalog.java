@@ -89,6 +89,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfScale;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
@@ -202,6 +203,7 @@ public enum Catalog {
 		WANDS.seen.put( WandOfWarding.class,                false);
 		WANDS.seen.put( WandOfTransfusion.class,            false);
 		WANDS.seen.put( WandOfCorruption.class,             false);
+		WANDS.seen.put( WandOfScale.class,               false);
 		WANDS.seen.put( WandOfRegrowth.class,               false);
 	
 		RINGS.seen.put( RingOfAccuracy.class,               false);

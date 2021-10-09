@@ -9,10 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
@@ -35,10 +38,35 @@ import java.util.ArrayList;
 public class vM0_5_X_Changes {
 
     public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
+        add_v0_6_0_Changes(changeInfos);
         add_v0_5_5_Changes(changeInfos);
         add_v0_5_4_Changes(changeInfos);
         add_v0_5_2_Changes(changeInfos);
         add_v0_5_1_Changes(changeInfos);
+    }
+
+    public static void add_v0_6_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
+
+        ChangeInfo changes2 = new ChangeInfo("即将推出-V0.6.0", true, "");
+        changes2.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes2);
+
+        ChangeInfo changes = new ChangeInfo("Coming Soon-V0.6.0!!!", true, "");
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.SCROLL_HOLDER), (Messages.get(vM0_5_X_Changes.class, "axs")),
+                Messages.get(vM0_5_X_Changes.class, "axslogs")));
+
+        changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class, "ax")),
+                Messages.get(vM0_5_X_Changes.class, "axlogs")));
+
+        changes.addButton(new ChangeButton(new KingSprite(), (Messages.get(vM0_5_X_Changes.class, "axa")),
+                Messages.get(vM0_5_X_Changes.class, "axalogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
+                Messages.get(vM0_5_X_Changes.class, "axsslogs")));
+
     }
 
     public static void add_v0_5_5_Changes( ArrayList<ChangeInfo> changeInfos ) {
@@ -50,6 +78,15 @@ public class vM0_5_X_Changes {
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
         changes.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_OFF), (Messages.get(vM0_5_X_Changes.class, "new1css")),
+                Messages.get(vM0_5_X_Changes.class, "new1csslogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCH_PAGE), (Messages.get(vM0_5_X_Changes.class, "alks")),
+                Messages.get(vM0_5_X_Changes.class, "alkslogs")));
+
+        changes.addButton(new ChangeButton(new ElementalSprite.Fire(), (Messages.get(vM0_5_X_Changes.class, "eme")),
+                Messages.get(vM0_5_X_Changes.class, "emelogs")));
 
         changes.addButton(new ChangeButton(Icons.get(Icons.BADGES), (Messages.get(vM0_5_X_Changes.class, "bagsd")),
                 Messages.get(vM0_5_X_Changes.class, "bagsdlogs")));
@@ -67,7 +104,7 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(is, (Messages.get(vM0_5_X_Changes.class, "dm7204")),
                 Messages.get(vM0_5_X_Changes.class, "dm7204logs")));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "sca")),
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG12), (Messages.get(vM0_5_X_Changes.class, "sca")),
                 Messages.get(vM0_5_X_Changes.class, "scalogs")));
 
         changes.addButton(new ChangeButton(Icons.get(Icons.PREFS), (Messages.get(vM0_5_X_Changes.class, "ksx")),

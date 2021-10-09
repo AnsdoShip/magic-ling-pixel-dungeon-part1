@@ -81,6 +81,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortswor
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.DeviceCompat;
 
@@ -146,6 +149,9 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new Firebloom.Seed().quantity(50).identify().collect();
+			new Blindweed.Seed().quantity(50).identify().collect();
+			new Stormvine.Seed().quantity(50).identify().collect();
 			new PotionOfMindVision().quantity(50).identify().collect();
 			new PotionOfStrength().quantity(50).identify().collect();
 			new PotionOfHealing().quantity(50).identify().collect();

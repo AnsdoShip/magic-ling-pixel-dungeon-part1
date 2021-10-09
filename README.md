@@ -3,9 +3,7 @@
 
 [**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/00-Evan/shattered-pixel-dungeon)**v0.9.3c**，作者[**ShatteredPixel**](http://www.shatteredpixel.com)。
-
-* 现支持**安卓**平台。可在[**GitHub**](https://github.com/AnsdoShip/MagicLingPixelDungeon/releases)下载。
+* **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE)。
 
 # 制作人名单
 

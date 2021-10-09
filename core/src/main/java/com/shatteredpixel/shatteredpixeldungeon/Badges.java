@@ -70,6 +70,10 @@ public class Badges {
 		DEATH_FROM_GAS              ( 16 ),
 		DEATH_FROM_HUNGER           ( 17 ),
 		DEATH_FROM_FALLING          ( 18 ),
+		KILL_RED         			( 19 ),
+		KILL_ROTHEART         			( 20 ),
+		GET_SC        			( 21 ),
+		KILL_COLDELE        			( 22 ),
 
 		//silver
 		NO_MONSTERS_SLAIN           ( 32 ),
@@ -99,6 +103,7 @@ public class Badges {
 		BOSS_SLAIN_1_HUNTRESS,
 		BOSS_SLAIN_1_ALL_CLASSES    ( 53, true ),
 		GAMES_PLAYED_1              ( 54, true ),
+		GODD_MAKE					( 82 ),
 
 		//gold
 		PIRANHAS                    ( 64 ),
@@ -143,6 +148,7 @@ public class Badges {
 		VICTORY_ALL_CLASSES         ( 98, true ),
 		GAMES_PLAYED_3              ( 99, true ),
 		CHAMPION_1                  ( 100 ),
+		KILL_SLMKING				(101),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -512,6 +518,14 @@ public class Badges {
 		
 		validateYASD();
 	}
+
+	public static void DeathRedNercols() {
+		Badge badge = Badge.DEATH_FROM_FIRE;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateYASD();
+	}
 	
 	public static void validateDeathFromPoison() {
 		Badge badge = Badge.DEATH_FROM_POISON;
@@ -551,6 +565,49 @@ public class Badges {
 		displayBadge( badge );
 
 		validateYASD();
+	}
+
+	public static void KILL_DEATHRED() {
+		Badge badge = Badge.KILL_RED;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateGOODMAKE();
+	}
+
+	public static void KILL_ROTHEART() {
+		Badge badge = Badge.KILL_ROTHEART;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateGOODMAKE();
+	}
+
+	public static void GET_SC() {
+		Badge badge = Badge.GET_SC;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateGOODMAKE();
+	}
+
+	public static void KILL_COLDELE() {
+		Badge badge = Badge.KILL_COLDELE;
+		local.add( badge );
+		displayBadge( badge );
+
+		validateGOODMAKE();
+	}
+
+	private static void validateGOODMAKE() {
+		if (global.contains( Badge.KILL_RED ) &&
+				global.contains( Badge.KILL_ROTHEART ) &&
+				global.contains( Badge.GET_SC ) &&
+				global.contains( Badge.KILL_COLDELE)) {
+
+			Badge badge = Badge.GODD_MAKE;
+			displayBadge( badge );
+		}
 	}
 	
 	private static void validateYASD() {
@@ -804,6 +861,10 @@ public class Badges {
 	
 	public static void validateHappyEnd() {
 		displayBadge( Badge.HAPPY_END );
+	}
+
+	public static void KILLSLIMKING() {
+		displayBadge( Badge.KILL_SLMKING );
 	}
 
 	public static void validateChampion( int challenges ) {

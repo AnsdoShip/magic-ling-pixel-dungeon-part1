@@ -70,7 +70,9 @@ public class InterlevelScene extends PixelScene {
 			Messages.get( InterlevelScene.class,"dialog_9"),
 			Messages.get( InterlevelScene.class,"dialog_10"),
 			Messages.get( InterlevelScene.class,"dialog_11"),
-			Messages.get( InterlevelScene.class,"dialog_12")};
+			Messages.get( InterlevelScene.class,"dialog_12"),
+			Messages.get( InterlevelScene.class,"dialog_13"),
+			Messages.get( InterlevelScene.class,"dialog_14"),};
 
 	//slow fade on entering a new region
 	private static final float SLOW_FADE = 1f; //.33 in, 1.33 steady, .33 out, 2 seconds total

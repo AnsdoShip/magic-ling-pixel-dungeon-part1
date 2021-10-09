@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -94,6 +95,7 @@ public class RotHeart extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 		Dungeon.level.drop( new Rotberry.Seed(), pos ).sprite.drop();
+		Badges.KILL_ROTHEART();
 	}
 
 	@Override

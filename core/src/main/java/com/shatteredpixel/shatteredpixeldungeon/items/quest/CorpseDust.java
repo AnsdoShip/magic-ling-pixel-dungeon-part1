@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.quest;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -120,6 +121,7 @@ public class CorpseDust extends Item {
 			detach();
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
 				if (mob instanceof Wraith){
+					Badges.GET_SC();
 					mob.die(null);
 				}
 			}

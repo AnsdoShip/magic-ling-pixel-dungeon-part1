@@ -27,15 +27,21 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -48,7 +54,7 @@ public class SlimeKing extends XTG100 {
 		spriteClass = SlimeKingSprite.class;
 
 		lootChance = 1;
-
+		HUNTING = new Hunting();
 		properties.add(Property.BOSS);
 	}
 
@@ -83,6 +89,65 @@ public class SlimeKing extends XTG100 {
 			return super.attack(enemy);
 		}
 		else return false;
+	}
+	private boolean chainsUsed = false;
+	private boolean chain(int target){
+		if (chainsUsed || enemy.properties().contains(Property.IMMOVABLE))
+			return false;
+
+		Ballistica chain = new Ballistica(pos, target, Ballistica.PROJECTILE);
+
+		if (chain.collisionPos != enemy.pos
+				|| chain.path.size() < 2
+				|| Dungeon.level.pit[chain.path.get(1)])
+			return false;
+		else {
+			int newPos = -1;
+			for (int i : chain.subPath(1, chain.dist)){
+				if (!Dungeon.level.solid[i] && Actor.findChar(i) == null){
+					newPos = i;
+					break;
+				}
+			}
+
+			if (newPos == -1){
+				return false;
+			} else {
+				final int newPosFinal = newPos;
+				this.target = newPos;
+
+				if (sprite.visible || enemy.sprite.visible) {
+					yell(Messages.get(this, "scorpion"));
+					new Item().throwSound();
+					Sample.INSTANCE.play(Assets.Sounds.CHAINS);
+					sprite.parent.add(new Chains(sprite.center(), enemy.sprite.center(), new Callback() {
+						public void call() {
+							Actor.addDelayed(new Pushing(enemy, enemy.pos, newPosFinal, new Callback() {
+								public void call() {
+									pullEnemy(enemy, newPosFinal);
+								}
+							}), -1);
+							next();
+						}
+					}));
+				} else {
+					pullEnemy(enemy, newPos);
+				}
+			}
+		}
+		chainsUsed = true;
+		return true;
+	}
+
+	private void pullEnemy( Char enemy, int pullPos ){
+		enemy.pos = pullPos;
+		Dungeon.level.occupyCell(enemy);
+		Cripple.prolong(enemy, Cripple.class, 4f);
+		if (enemy == Dungeon.hero) {
+			Dungeon.hero.interrupt();
+			Dungeon.observe();
+			GameScene.updateFog();
+		}
 	}
 
     @Override
@@ -193,8 +258,19 @@ public class SlimeKing extends XTG100 {
 		}
 
 		Badges.validateBossSlain();
-
+			Badges.KILLSLIMKING();
 		yell( Messages.get(this, "defeated") );
+			for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+				if (	mob instanceof Slime_Lg||
+						mob instanceof Slime_Qs||
+						mob instanceof Slime_Sn||
+						mob instanceof Slime_Sz||
+						mob instanceof Slime_Lt||
+						mob instanceof Slime_Red||
+						mob instanceof Slime_Orange) {
+					mob.die( cause );
+				}
+			}
 	}
 
     @Override
@@ -209,4 +285,25 @@ public class SlimeKing extends XTG100 {
         } while (!Dungeon.level.passable[pos + ofs]);
         Dungeon.level.drop( new GooBlob(), pos + ofs ).sprite.drop( pos );
     }
+
+	private class Hunting extends Mob.Hunting{
+		@Override
+		public boolean act( boolean enemyInFOV, boolean justAlerted ) {
+			enemySeen = enemyInFOV;
+
+			if (!chainsUsed
+					&& enemyInFOV
+					&& !isCharmedBy( enemy )
+					&& !canAttack( enemy )
+					&& Dungeon.level.distance( pos, enemy.pos ) < 3
+					&& Random.Int(3) == 0
+
+					&& chain(enemy.pos)){
+				return !(sprite.visible || enemy.sprite.visible);
+			} else {
+				return super.act( enemyInFOV, justAlerted );
+			}
+
+		}
+	}
 }

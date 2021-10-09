@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -40,9 +41,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
@@ -550,7 +553,7 @@ public class Hero extends Char {
 			return true;
 		}
 
-		KindOfWeapon wep = Dungeon.hero.belongings.weapon;
+		KindOfWeapon wep = hero.belongings.weapon;
 
 		if (wep != null){
 			return wep.canReach(this, enemy.pos);
@@ -975,7 +978,7 @@ public class Hero extends Char {
 
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null) buff.detach();
-			buff = Dungeon.hero.buff(Swiftthistle.TimeBubble.class);
+			buff = hero.buff(Swiftthistle.TimeBubble.class);
 			if (buff != null) buff.detach();
 			
 			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
@@ -1028,7 +1031,7 @@ public class Hero extends Char {
 
 				Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null) buff.detach();
-				buff = Dungeon.hero.buff(Swiftthistle.TimeBubble.class);
+				buff = hero.buff(Swiftthistle.TimeBubble.class);
 				if (buff != null) buff.detach();
 
 				InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
@@ -1649,9 +1652,9 @@ public class Hero extends Char {
 		Dungeon.observe();
 		GameScene.updateFog();
 				
-		Dungeon.hero.belongings.identify();
+		hero.belongings.identify();
 
-		int pos = Dungeon.hero.pos;
+		int pos = hero.pos;
 
 		ArrayList<Integer> passable = new ArrayList<>();
 		for (Integer ofs : PathFinder.NEIGHBOURS8) {
@@ -1662,7 +1665,7 @@ public class Hero extends Char {
 		}
 		Collections.shuffle( passable );
 
-		ArrayList<Item> items = new ArrayList<>(Dungeon.hero.belongings.backpack.items);
+		ArrayList<Item> items = new ArrayList<>(hero.belongings.backpack.items);
 		for (Integer cell : passable) {
 			if (items.isEmpty()) {
 				break;
@@ -1706,8 +1709,8 @@ public class Hero extends Char {
 		boolean wasHighGrass = Dungeon.level.map[step] == Terrain.HIGH_GRASS;
 		if (Dungeon.isChallenged(Challenges.AQUAPHOBIA)
 				&& Dungeon.level.water[pos]){
-			damage(Dungeon.depth/2+1,this);
-			this.sprite.showStatus( CharSprite.WATERDAMAGE, Messages.get(Char.class, "aquaphobia") );
+			Buff.prolong( hero, Blindness.class, Blindness.DURATION );
+			Buff.prolong( hero, Cripple.class, Cripple.DURATION );
 		}
 
 

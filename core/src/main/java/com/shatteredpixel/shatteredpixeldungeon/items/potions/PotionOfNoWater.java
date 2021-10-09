@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfEarthenArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -99,6 +101,20 @@ public class PotionOfNoWater extends Item {
         return ItemSprite.pick(image, 5, 9);
     }
 
+    public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+        {
+            inputs =  new Class[]{PotionOfEarthenArmor.class, GooBlob.class};
+            inQuantity = new int[]{1, 1};
+
+            cost = 8;
+
+            output = PotionOfNoWater.class;
+            outQuantity = 1;
+        }
+
+    }
+
     @Override
     public boolean isUpgradable() {
         return false;
@@ -110,6 +126,6 @@ public class PotionOfNoWater extends Item {
     }
 
     public int price() {
-        return 10 * quantity;
+        return 100 * quantity;
     }
 }

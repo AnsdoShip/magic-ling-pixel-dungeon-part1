@@ -3,9 +3,11 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist.mlpd;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -18,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
@@ -48,8 +51,21 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton(new ChangeButton(Icons.get(Icons.BADGES), (Messages.get(vM0_5_X_Changes.class, "bagsd")),
+                Messages.get(vM0_5_X_Changes.class, "bagsdlogs")));
+
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG18), (Messages.get(vM0_5_X_Changes.class, "newitems")),
                 Messages.get(vM0_5_X_Changes.class, "newitemslogs")));
+
+        Image isa = new SlimeKingSprite();
+        isa.scale.set(PixelScene.align(0.49f));
+        changes.addButton(new ChangeButton(isa, (Messages.get(vM0_5_X_Changes.class, "king")),
+                Messages.get(vM0_5_X_Changes.class, "kinglogs")));
+
+        Image is = new DM720Sprite();
+        is.scale.set(PixelScene.align(0.74f));
+        changes.addButton(new ChangeButton(is, (Messages.get(vM0_5_X_Changes.class, "dm7204")),
+                Messages.get(vM0_5_X_Changes.class, "dm7204logs")));
 
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "sca")),
                 Messages.get(vM0_5_X_Changes.class, "scalogs")));
@@ -81,7 +97,9 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new CausticSlimeSprite(), (Messages.get(vM0_5_X_Changes.class, "goo3")),
                 Messages.get(vM0_5_X_Changes.class, "goo4logs")));
 
-        changes.addButton(new ChangeButton(new DM720Sprite(), (Messages.get(vM0_5_X_Changes.class, "dm3004")),
+        Image i = new DM300Sprite();
+        i.scale.set(PixelScene.align(0.74f));
+        changes.addButton(new ChangeButton(i, (Messages.get(vM0_5_X_Changes.class, "dm3004")),
                 Messages.get(vM0_5_X_Changes.class, "dm3004logs")));
 
         changes.addButton(new ChangeButton(new WandmakerSprite(), (Messages.get(vM0_5_X_Changes.class, "newsc")),

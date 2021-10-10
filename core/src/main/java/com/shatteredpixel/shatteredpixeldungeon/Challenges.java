@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -103,7 +104,11 @@ public class Challenges {
 			if (item instanceof Gold) {
 				return true;
 			}
-
+			if (Dungeon.isChallenged(NO_GOLD)) {
+				if (item instanceof Ankh) {
+					return true;
+				}
+			}
 			if (Dungeon.isChallenged(NO_HERBALISM)) {
 				if (item instanceof Dewdrop) {
 					return true;

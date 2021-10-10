@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.YogSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeButton;
@@ -57,6 +58,11 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.SCROLL_HOLDER), (Messages.get(vM0_5_X_Changes.class, "axs")),
                 Messages.get(vM0_5_X_Changes.class, "axslogs")));
+
+        Image isa = new YogSprite();
+        isa.scale.set(PixelScene.align(0.57f));
+        changes.addButton(new ChangeButton(isa, (Messages.get(vM0_5_X_Changes.class, "axx")),
+                Messages.get(vM0_5_X_Changes.class, "axxlogs")));
 
         changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class, "ax")),
                 Messages.get(vM0_5_X_Changes.class, "axlogs")));

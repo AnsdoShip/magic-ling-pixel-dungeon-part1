@@ -65,8 +65,8 @@ public class FlameB01 extends Mob {
         spriteClass = FlameBoiSprite.class;
         properties.add(Property.INORGANIC);
 
-        HP = HT = 140;
-        defenseSkill = 15;
+        HP = HT = 90;
+        defenseSkill = 23;
 
         EXP = 10;
         maxLvl = 27;

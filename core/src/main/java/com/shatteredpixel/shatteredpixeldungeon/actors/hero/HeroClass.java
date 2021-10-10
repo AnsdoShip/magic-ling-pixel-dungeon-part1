@@ -143,8 +143,8 @@ public enum HeroClass {
 
 		if (Dungeon.isChallenged(Challenges.NO_GOLD)){
 			hero.lvl = -100;
-			hero.HP = 50;
-			hero.HT = 50;
+			hero.HP = 120;
+			hero.HT = 120;
 			hero.exp = -114514;
 		}
 

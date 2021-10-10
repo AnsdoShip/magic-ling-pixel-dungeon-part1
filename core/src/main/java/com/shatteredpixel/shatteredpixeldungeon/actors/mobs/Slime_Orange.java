@@ -25,23 +25,20 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OrangeSprites;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSprites;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Slime_Orange extends Slime {
     {
         spriteClass = OrangeSprites.class;
-
+        lootChance = 0f; //by default, see rollToDropLoot()
         properties.add(Property.ACIDIC);
+        EXP=3;
     }
     private int combo = 0;
     @Override

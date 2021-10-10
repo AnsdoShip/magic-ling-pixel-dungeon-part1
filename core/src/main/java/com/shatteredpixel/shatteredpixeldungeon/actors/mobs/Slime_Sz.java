@@ -23,15 +23,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.LtSprites;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SzSprites;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -39,7 +33,7 @@ import com.watabou.utils.Random;
 public class Slime_Sz extends Slime {
     {
         spriteClass = SzSprites.class;
-
+        maxLvl = -200;
         properties.add(Property.ACIDIC);
     }
 

@@ -142,7 +142,7 @@ public enum HeroClass {
 		new ScrollOfIdentify().identify();
 
 		if (Dungeon.isChallenged(Challenges.NO_GOLD)){
-			hero.lvl = -6;
+			hero.lvl = -100;
 			hero.HP = 50;
 			hero.HT = 50;
 			hero.exp = -114514;

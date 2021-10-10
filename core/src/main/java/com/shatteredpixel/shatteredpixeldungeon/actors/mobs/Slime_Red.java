@@ -35,7 +35,7 @@ import com.watabou.utils.Random;
 public class Slime_Red extends Slime {
     {
         spriteClass = RedSprites.class;
-
+        maxLvl = -200;
         properties.add(Property.ACIDIC);
     }
 

@@ -424,18 +424,6 @@ public class HeroSelectScene extends PixelScene {
 					break;
 			}
 
-			tab = new IconTab( tabIcons[0] ){
-				@Override
-				protected void select(boolean value) {
-					super.select(value);
-					if (value){
-						title.text(Messages.titleCase(Messages.get(WndHeroInfo.class, "innate_title")));
-						info.text(Messages.get(cl, cl.name() + "_desc_innate"), INFO_WIDTH);
-					}
-				}
-			};
-			add(tab);
-
 			tab = new IconTab( tabIcons[1] ){
 				@Override
 				protected void select(boolean value) {

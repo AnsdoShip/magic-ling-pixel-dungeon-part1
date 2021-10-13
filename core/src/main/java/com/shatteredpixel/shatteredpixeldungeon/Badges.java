@@ -150,6 +150,7 @@ public class Badges {
 		CHAMPION_1                  ( 100 ),
 		KILL_SLMKING				(101),
 		KILL_DM720				(102),
+		RLPT				(103),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -871,6 +872,10 @@ public class Badges {
 	public static void KILLSDM720() {
 		displayBadge( Badge.KILL_DM720 );
 	}
+	public static void GOODRLPT() {
+		displayBadge( Badge.RLPT );
+	}
+
 
 	public static void validateChampion( int challenges ) {
 		if (challenges == 0) return;

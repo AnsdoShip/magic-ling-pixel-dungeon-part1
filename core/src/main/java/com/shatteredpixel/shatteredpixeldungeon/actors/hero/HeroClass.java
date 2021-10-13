@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -142,10 +143,17 @@ public enum HeroClass {
 		new ScrollOfIdentify().identify();
 
 		if (Dungeon.isChallenged(Challenges.NO_GOLD)){
-			hero.lvl = -100;
+			hero.lvl = -10;
 			hero.HP = 120;
 			hero.HT = 120;
 			hero.exp = -114514;
+		}
+
+		if ( Badges.isUnlocked(Badges.Badge.RLPT)){
+			new Stylus().quantity(1).identify().collect();
+			new Food().quantity(3).identify().collect();
+			new MeatPie().quantity(1).identify().collect();
+			new PotionOfHealing().quantity(3).identify().collect();
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){

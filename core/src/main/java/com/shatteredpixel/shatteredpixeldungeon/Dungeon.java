@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -122,33 +124,34 @@ public class Dungeon {
 		public int count = 0;
 
 		//for items which can only be dropped once, should directly access count otherwise.
-		public boolean dropped(){
+		public boolean dropped() {
 			return count != 0;
 		}
-		public void drop(){
+
+		public void drop() {
 			count = 1;
 		}
 
-		public static void reset(){
-			for (LimitedDrops lim : values()){
+		public static void reset() {
+			for (LimitedDrops lim : values()) {
 				lim.count = 0;
 			}
 		}
 
-		public static void store( Bundle bundle ){
-			for (LimitedDrops lim : values()){
+		public static void store(Bundle bundle) {
+			for (LimitedDrops lim : values()) {
 				bundle.put(lim.name(), lim.count);
 			}
 		}
 
-		public static void restore( Bundle bundle ){
-			for (LimitedDrops lim : values()){
-				if (bundle.contains(lim.name())){
+		public static void restore(Bundle bundle) {
+			for (LimitedDrops lim : values()) {
+				if (bundle.contains(lim.name())) {
 					lim.count = bundle.getInt(lim.name());
 				} else {
 					lim.count = 0;
 				}
-				
+
 			}
 		}
 
@@ -161,17 +164,23 @@ public class Dungeon {
 	public static Level level;
 
 	public static QuickSlot quickslot = new QuickSlot();
-	
+
 	public static int depth;
 	public static int gold;
 	public static int cycle;
-	public static int escalatingDepth(){
-		switch (cycle){
-			case 0: return depth;
-			case 1: return (int) (depth*1.4f +31);
-			case 2: return depth*5+200;
-			case 3: return depth*50+2500;
-			case 4: return depth*100 + 4300;
+
+	public static int escalatingDepth() {
+		switch (cycle) {
+			case 0:
+				return depth;
+			case 1:
+				return (int) (depth * 1.4f + 31);
+			case 2:
+				return depth * 5 + 200;
+			case 3:
+				return depth * 50 + 2500;
+			case 4:
+				return depth * 100 + 4300;
 		}
 		return depth;
 	}
@@ -184,7 +193,7 @@ public class Dungeon {
 	public static int version;
 
 	public static long seed;
-	
+
 	public static void init() {
 
 		version = Game.versionCode;
@@ -195,24 +204,24 @@ public class Dungeon {
 
 		Actor.clear();
 		Actor.resetNextID();
-		
-		Random.pushGenerator( seed );
 
-			Scroll.initLabels();
-			Potion.initColors();
-			Ring.initGems();
+		Random.pushGenerator(seed);
 
-			SpecialRoom.initForRun();
-			SecretRoom.initForRun();
+		Scroll.initLabels();
+		Potion.initColors();
+		Ring.initGems();
+
+		SpecialRoom.initForRun();
+		SecretRoom.initForRun();
 
 		Random.resetGenerators();
-		
+
 		Statistics.reset();
 		Notes.reset();
 
 		quickslot.reset();
 		QuickSlotButton.reset();
-		
+
 		depth = -1;
 		gold = 0;
 
@@ -220,9 +229,9 @@ public class Dungeon {
 		portedItems = new SparseArray<>();
 
 		LimitedDrops.reset();
-		
+
 		chapters = new HashSet<>();
-		
+
 		Ghost.Quest.reset();
 		Wandmaker.Quest.reset();
 		Blacksmith.Quest.reset();
@@ -231,16 +240,16 @@ public class Dungeon {
 		Generator.fullReset();
 		hero = new Hero();
 		hero.live();
-		
+
 		Badges.reset();
-		
-		GamesInProgress.selectedClass.initHero( hero );
+
+		GamesInProgress.selectedClass.initHero(hero);
 	}
 
-	public static boolean isChallenged( int mask ) {
+	public static boolean isChallenged(int mask) {
 		return (challenges & mask) != 0;
 	}
-	
+
 	public static Level newLevel() {
 
 		Dungeon.level = null;
@@ -258,9 +267,175 @@ public class Dungeon {
 		}
 
 		Level level;
+		if (Dungeon.isChallenged(RLPT)) {
+			switch (depth) {
+				case 0:
+					level = new ZeroLevel();
+					break;
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					level = new SewerLevel();
+					break;
+				case 5:
+					switch (Random.Int(2)) {
+						case 0:
+						default:
+							level = new SewerBossLevel();
+							//天痕粘咕
+							break;
+						case 1:
+							//史莱姆王
+							level = new SLMKingLevel();
+					}
+					break;
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					switch (Random.Int(4)) {
+						case 0:
+						default:
+							level = new PrisonLevel();
+							//Random
+							break;
+						case 1:
+							//Random
+							level = new CavesLevel();
+							break;
+						case 2:
+							level = new CityLevel();
+							break;
+						case 3:
+							level = new HallsLevel();
+							break;
+					}
+					break;
+				case 10:
+					switch (Random.Int(2)) {
+						case 0:
+						default:
+							level = new OldPrisonBossLevel();
+							break;
+						case 1:
+							level = new NewPrisonBossLevel();
+					}
+					break;
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+					switch (Random.Int(4)) {
+						case 0:
+						default:
+							level = new PrisonLevel();
+							//Random
+							break;
+						case 1:
+							//Random
+							level = new CavesLevel();
+							break;
+						case 2:
+							level = new CityLevel();
+							break;
+						case 3:
+							level = new HallsLevel();
+							break;
+					}
+					break;
+				case 15:
+					switch (Random.Int(3)) {
+						case 0:
+						default:
+							level = new CaveTwoBossLevel();
+							//DM720 T0
+							break;
+						case 1:
+							//新版本的DM300
+							level = new NewCavesBossLevel();
+							break;
+						case 2:
+							//老版本的DM300
+							level = new OldCavesBossLevel();
+							break;
+					}
+					break;
+				case 16:
+				case 17:
+				case 18:
+				case 19:
+					switch (Random.Int(4)) {
+						case 0:
+						default:
+							level = new PrisonLevel();
+							//Random
+							break;
+						case 1:
+							//Random
+							level = new CavesLevel();
+							break;
+						case 2:
+							level = new CityLevel();
+							break;
+						case 3:
+							level = new HallsLevel();
+							break;
+					}
+					break;
+				case 20:
+					level = new NewCityBossLevel();
+					break;
+				case 21:
+					//logic for old city boss levels, need to spawn a shop on floor 21
+					try {
+						Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.depthFile(GamesInProgress.curSlot, 20));
+						Class cls = bundle.getBundle(LEVEL).getClass("__className");
+						if (cls == NewCityBossLevel.class) {
+							level = new HallsLevel();
+						} else {
+							level = new LastShopLevel();
+						}
+					} catch (Exception e) {
+						ShatteredPixelDungeon.reportException(e);
+						level = new HallsLevel();
+					}
+					break;
+				case 22:
+				case 23:
+				case 24:
+					switch (Random.Int(4)) {
+						case 0:
+						default:
+							level = new PrisonLevel();
+							//Random
+							break;
+						case 1:
+							//Random
+							level = new CavesLevel();
+							break;
+						case 2:
+							level = new CityLevel();
+							break;
+						case 3:
+							level = new HallsLevel();
+							break;
+					}
+					break;
+				case 25:
+					level = new NewHallsBossLevel();
+					break;
+				case 26:
+					level = new LastLevel();
+					break;
+				default:
+					level = new DeadEndLevel();
+					Statistics.deepestFloor--;
+			}
+		} else
 		switch (depth) {
 			case 0:
-				level = new ZeroLevel();
+				level = new CaveTwoBossLevel();
 				break;
 			case 1:
 			case 2:
@@ -269,16 +444,17 @@ public class Dungeon {
 				level = new SewerLevel();
 				break;
 			case 5:
-				switch (Random.Int(2)){
-					case 0: default:
+				switch (Random.Int(2)) {
+					case 0:
+					default:
 						level = new SewerBossLevel();
 						//天痕粘咕
 						break;
 					case 1:
 						//史莱姆王
 						level = new SLMKingLevel();
-						}
-						break;
+				}
+				break;
 
 			case 6:
 			case 7:
@@ -287,80 +463,85 @@ public class Dungeon {
 				level = new PrisonLevel();
 				break;
 			case 10:
-				if (Random.Int(2) <= 1) {
-					level = new NewPrisonBossLevel();
-				} else  {
-					level = new OldPrisonBossLevel();
-			}
-			break;
-		case 11:
-		case 12:
-		case 13:
-		case 14:
-			level = new CavesLevel();
-			break;
-		case 15:
-			switch (Random.Int(3)){
-				case 0: default:
-					level = new CaveTwoBossLevel();
-					//DM720 T0
-					break;
-				case 1:
-					//新版本的DM300
-					level = new NewCavesBossLevel();
-					break;
-				case 2:
-					//老版本的DM300
-					level = new OldCavesBossLevel();
-					break;
-			}
-			break;
-		case 16:
-		case 17:
-		case 18:
-		case 19:
-			level = new CityLevel();
-			break;
-		case 20:
-			level = new NewCityBossLevel();
-			break;
-		case 21:
-			//logic for old city boss levels, need to spawn a shop on floor 21
-			try {
-				Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.depthFile(GamesInProgress.curSlot, 20));
-				Class cls = bundle.getBundle(LEVEL).getClass("__className");
-				if (cls == NewCityBossLevel.class) {
-					level = new HallsLevel();
-				} else {
-					level = new LastShopLevel();
+				switch (Random.Int(2)) {
+					case 0:
+					default:
+						level = new OldPrisonBossLevel();
+						break;
+					case 1:
+						level = new NewPrisonBossLevel();
 				}
-			} catch (Exception e) {
-				ShatteredPixelDungeon.reportException(e);
+				break;
+			case 11:
+			case 12:
+			case 13:
+			case 14:
+				level = new CavesLevel();
+				break;
+			case 15:
+				switch (Random.Int(3)) {
+					case 0:
+					default:
+						level = new CaveTwoBossLevel();
+						//DM720 T0
+						break;
+					case 1:
+						//新版本的DM300
+						level = new NewCavesBossLevel();
+						break;
+					case 2:
+						//老版本的DM300
+						level = new OldCavesBossLevel();
+						break;
+				}
+				break;
+			case 16:
+			case 17:
+			case 18:
+			case 19:
+				level = new CityLevel();
+				break;
+			case 20:
+				level = new NewCityBossLevel();
+				break;
+			case 21:
+				//logic for old city boss levels, need to spawn a shop on floor 21
+				try {
+					Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.depthFile(GamesInProgress.curSlot, 20));
+					Class cls = bundle.getBundle(LEVEL).getClass("__className");
+					if (cls == NewCityBossLevel.class) {
+						level = new HallsLevel();
+					} else {
+						level = new LastShopLevel();
+					}
+				} catch (Exception e) {
+					ShatteredPixelDungeon.reportException(e);
+					level = new HallsLevel();
+				}
+				break;
+			case 22:
+			case 23:
+			case 24:
 				level = new HallsLevel();
-			}
-			break;
-		case 22:
-		case 23:
-		case 24:
-			level = new HallsLevel();
-			break;
-		case 25:
-			level = new NewHallsBossLevel();
-			break;
-		case 26:
-			level = new LastLevel();
-			break;
-		default:
-			level = new DeadEndLevel();
-			Statistics.deepestFloor--;
+				break;
+			case 25:
+				level = new NewHallsBossLevel();
+				break;
+			case 26:
+				level = new LastLevel();
+				break;
+			default:
+				level = new DeadEndLevel();
+				Statistics.deepestFloor--;
 		}
-		
+
 		level.create();
-		
+
 		Statistics.qualifiedForNoKilling = !bossLevel();
-		
+
 		return level;
 	}
+
 	
 	public static void resetLevel() {
 		

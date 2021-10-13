@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -29,6 +30,7 @@ public class SkullShaman extends Mob implements Callback {
         this.defenseSkill = 8;
         this.EXP = 6;
         this.maxLvl = 19;
+        state = PASSIVE;
         this.properties.add(Property.ELECTRIC);
     }
 
@@ -71,6 +73,20 @@ public class SkullShaman extends Mob implements Callback {
         }
 
         return var2;
+    }
+
+    @Override
+    protected boolean act() {
+        if (Dungeon.level.heroFOV[pos]) {
+            Notes.add( Notes.Landmark.STATUE );
+        }
+        return super.act();
+    }
+
+    @Override
+    public void destroy() {
+        Notes.remove( Notes.Landmark.STATUE );
+        super.destroy();
     }
 
     public int damageRoll() {
@@ -129,5 +145,15 @@ public class SkullShaman extends Mob implements Callback {
 
     public int drRoll() {
         return Random.NormalIntRange(0, 4);
+    }
+
+    @Override
+    public void damage( int dmg, Object src ) {
+
+        if (state == PASSIVE) {
+            state = HUNTING;
+        }
+
+        super.damage( dmg, src );
     }
 }

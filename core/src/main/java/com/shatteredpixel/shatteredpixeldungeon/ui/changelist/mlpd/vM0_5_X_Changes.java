@@ -23,8 +23,10 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SkullShamanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SpectralNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.YogSprite;
@@ -72,6 +74,48 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
+
+        ChangeInfo changes4 = new ChangeInfo("V0.5.2.6-SPV", true, "");
+        changes4.hardlight(Window.Pink_COLOR);
+        changeInfos.add(changes4);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RedBloodMoon), (Messages.get(vM0_5_X_Changes.class, "newwepaon")),
+                Messages.get(vM0_5_X_Changes.class, "newwepaonlogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_0510")));
+
+        ChangeInfo changes3 = new ChangeInfo("V0.5.2.5-SPV", true, "");
+        changes3.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes3);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new SpectralNecromancerSprite(), (Messages.get(vM0_5_X_Changes.class, "dead")),
+                Messages.get(vM0_5_X_Changes.class, "deadlogs")));
+
+        changes.addButton(new ChangeButton(new SkullShamanSprite(), (Messages.get(vM0_5_X_Changes.class, "sm")),
+                Messages.get(vM0_5_X_Changes.class, "smlogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "zlps")),
+                Messages.get(vM0_5_X_Changes.class, "zlpslogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_0509")));
 
     }
 

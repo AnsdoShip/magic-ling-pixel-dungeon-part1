@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.HeroSelectScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.RankingsScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
@@ -85,20 +84,19 @@ public class WndGame extends Window {
 		}
 
 		// Restart
-		if (Dungeon.hero == null || !Dungeon.hero.isAlive()) {
+		if (!Dungeon.hero.isAlive()) {
 
-			addButton( curBtn = new RedButton( Messages.get(this, "start") ) {
+			RedButton btnStart;
+			addButton( btnStart = new RedButton( Messages.get(this, "start") ) {
 				@Override
 				protected void onClick() {
-					InterlevelScene.noStory = true;
 					GamesInProgress.selectedClass = Dungeon.hero.heroClass;
-					GamesInProgress.curSlot = GamesInProgress.firstEmpty();
-					ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
+					InterlevelScene.noStory = true;
+					GameScene.show(new WndStartGame(GamesInProgress.firstEmpty()));
 				}
 			} );
-			curBtn.icon(Icons.get(Icons.ENTER));
-			curBtn.textColor(Window.TITLE_COLOR);
-			
+			btnStart.textColor(Window.TITLE_COLOR);
+
 			addButton( curBtn = new RedButton( Messages.get(this, "rankings") ) {
 				@Override
 				protected void onClick() {

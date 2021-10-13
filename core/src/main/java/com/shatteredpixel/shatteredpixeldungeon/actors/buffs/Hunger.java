@@ -69,7 +69,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			diactivate();
 		} else {
 			Hero hero = (Hero) this.target;
-			if (Dungeon.isChallenged(2048) && isStarving()) {
+			if (Dungeon.isChallenged(1024) && isStarving()) {
 				GLog.w(Messages.get(this, "warning", new Object[0]), new Object[0]);
 				float f2 = this.partialDamage + ((((float) this.target.HT) * 10.0f) / 200.0f);
 				this.partialDamage = f2;

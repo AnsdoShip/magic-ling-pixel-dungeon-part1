@@ -127,6 +127,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greataxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.GreenSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Longsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Mace;
@@ -134,6 +135,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagicBlueSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RedBloodMoon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RunicBlade;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
@@ -340,7 +342,7 @@ public class Generator {
 					MagesStaff.class,
 					BlackDog.class,
 			};
-			WEP_T1.probs = new float[]{ 1, 1, 1, 0,1 };
+			WEP_T1.probs = new float[]{ 1, 1, 1, 0,4 };
 			
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
@@ -362,8 +364,10 @@ public class Generator {
 					MagicBlueSword.class,
 					BoomSword.class,
 					Dairikyan.class,
+					RedBloodMoon.class,
+					GreenSword.class,
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 ,3,4,4,8};
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 ,3,4,4,8,1,4};
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,

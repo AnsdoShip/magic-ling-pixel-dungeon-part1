@@ -29,6 +29,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.rohitss.uceh.UCEHandler;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
@@ -78,6 +79,9 @@ public class AndroidGame extends AndroidApplication {
 			// Note that we use a different prefs name on android for legacy purposes,
 			// this is the default prefs filename given to an android app (.xml is automatically added to it)
 			SPDSettings.set(instance.getPreferences("ShatteredPixelDungeon"));
+
+			UCEHandler.Builder builder = new UCEHandler.Builder(this);
+			builder.build();
 
 		} else {
 			instance = this;

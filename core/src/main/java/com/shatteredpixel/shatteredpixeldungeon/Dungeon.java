@@ -435,7 +435,7 @@ public class Dungeon {
 		} else
 		switch (depth) {
 			case 0:
-				level = new CaveTwoBossLevel();
+				level = new ZeroLevel();
 				break;
 			case 1:
 			case 2:

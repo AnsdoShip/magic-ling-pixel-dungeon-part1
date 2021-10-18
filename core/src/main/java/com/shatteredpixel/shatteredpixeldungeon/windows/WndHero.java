@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.NO_GOLD;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -120,6 +122,15 @@ public class WndHero extends WndTabbed {
 
 		select( lastIdx );
 	}
+
+
+
+	@Override
+	public void select(Tab tab) {
+		if(Dungeon.isChallenged(NO_GOLD) && tabs.indexOf(tab) == 1) return;
+		super.select(tab);
+	}
+
 
 	private class StatsTab extends Group {
 

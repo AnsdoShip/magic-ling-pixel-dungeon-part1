@@ -21,6 +21,12 @@ android {
                 "eo", "ru", "zh_CN", "de", "fr", "es", "pt", "fi", "hu", "in"
     }
 
+    allprojects {
+        repositories {
+            maven { url 'https://jitpack.io' }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix ".indev"
@@ -57,9 +63,9 @@ android {
 configurations { natives }
 
 dependencies {
-    implementation project(':core')
+    implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
 
-    implementation 'cat.ereza:customactivityoncrash:2.3.0'
+    implementation project(':core')
     implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"

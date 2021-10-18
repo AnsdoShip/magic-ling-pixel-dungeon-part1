@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.SpectralNecromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
@@ -421,6 +422,7 @@ public class MobPlacer extends TestItem{
         NQHZ(OGPDNQHZ.class, DictSpriteSheet.OGPDNQHZ),
 
         REDBS(RedNecromancer.class, DictSpriteSheet.REDBS),
+        SLXJ(SpectralNecromancer.class, DictSpriteSheet.SLXJ),
         XTG(XTG100.class, DictSpriteSheet.XTG);
 
         private Class<? extends Mob> mobClass;

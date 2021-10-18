@@ -1,30 +1,10 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2021 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
-
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -33,7 +13,12 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
-import com.watabou.glwrap.Blending;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Compass;
+import com.shatteredpixel.shatteredpixeldungeon.ui.DangerIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.KeyDisplay;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -58,7 +43,9 @@ public class StatusPane extends Component {
 	private Image rawShielding;
 	private Image shieldedHP;
 	private Image hp;
+	private Image hg;
 	private BitmapText hpText;
+	private BitmapText hgText;
 
 	private Image exp;
 
@@ -77,7 +64,7 @@ public class StatusPane extends Component {
 	private MenuButton btnMenu;
 
 	private Toolbar.PickedUpItem pickedUp;
-	
+
 	private BitmapText version;
 
 	@Override
@@ -92,7 +79,7 @@ public class StatusPane extends Component {
 				Camera.main.panTo( Dungeon.hero.sprite.center(), 5f );
 				GameScene.show( new WndHero() );
 			}
-			
+
 			@Override
 			public GameAction keyAction() {
 				return SPDAction.HERO_INFO;
@@ -123,9 +110,16 @@ public class StatusPane extends Component {
 		hp = new Image( Assets.Interfaces.HP_BAR );
 		add( hp );
 
+		hg = new Image(Assets.Interfaces.HG_BAR);
+		add(hg);
+
 		hpText = new BitmapText(PixelScene.pixelFont);
 		hpText.alpha(0.6f);
 		add(hpText);
+
+		hgText = new BitmapText(PixelScene.pixelFont);
+		hgText.alpha(0.6f);
+		add(hgText);
 
 		exp = new Image( Assets.Interfaces.XP_BAR );
 		add( exp );
@@ -150,33 +144,8 @@ public class StatusPane extends Component {
 
 		add( pickedUp = new Toolbar.PickedUpItem());
 
-		version = new BitmapText("v" + Game.version + "-Ling", PixelScene.pixelFont) {
-			private float time;
-
-			@Override
-			public void update() {
-				super.update();
-				//am = 1f + 0.01f*Math.max(0f, (float)Math.sin( time += Game.elapsed/5 ));
-				time += Game.elapsed / 5f;
-				//float r = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time));
-				//float g = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time + 2*Math.PI/3 ));
-				//float b = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time + 4*Math.PI/3 ));
-				float base = 0.65f;
-				float r = base + (1f - base) * (float) Math.sin(time);
-				float g = base + (1f - base) * (float) Math.sin(time + 2 * Math.PI / 3);
-				float b = base + (1f - base) * (float) Math.sin(time + 4 * Math.PI / 3);
-				version.hardlight(r, g, b);
-				if (time >= 2f * Math.PI) time = 0;
-			}
-
-			@Override
-			public void draw() {
-				Blending.setLightMode();
-				super.draw();
-				Blending.setNormalMode();
-			}
-		};
-		version.alpha(1f);
+		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
+		version.alpha( 0.5f );
 		add(version);
 	}
 
@@ -204,6 +173,15 @@ public class StatusPane extends Component {
 		hpText.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(hpText);
 
+		hg.x = 30.0f;
+		hg.y = 8.0f;
+
+		hgText.scale.set(PixelScene.align(0.5f));
+		hgText.x = hg.x + 1;
+		hgText.y = hg.y + (hp.height - (hgText.baseLine()+hgText.scale.y))/2f;
+		hgText.y -= 0.001f; //prefer to be slightly higher
+		PixelScene.align(hgText);
+
 		bossHP.setPos( 6 + (width - bossHP.width())/2, 20);
 
 		depth.x = width - 35.5f - depth.width() / 2f;
@@ -212,33 +190,34 @@ public class StatusPane extends Component {
 
 		danger.setPos( width - danger.width(), 20 );
 
-		buffs.setPos( 31, 9 );
+		buffs.setPos( 31, 12 );
 
 		btnJournal.setPos( width - 42, 1 );
 
 		btnMenu.setPos( width - btnMenu.width(), 1 );
-		
+
 		version.scale.set(PixelScene.align(0.5f));
 		version.measure();
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
 		PixelScene.align(version);
 	}
-	
+
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
 	@Override
 	public void update() {
 		super.update();
-		
+
 		int health = Dungeon.hero.HP;
 		int shield = Dungeon.hero.shielding();
-		int max = Dungeon.hero.HT;
+		int maxHp = Dungeon.hero.HT;
+		int maxHunger = (int) Hunger.STARVING;
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
-		} else if ((health/(float)max) < 0.3f) {
-			warning += Game.elapsed * 5f *(0.4f - (health/(float)max));
+		} else if ((health/(float)maxHp) < 0.3f) {
+			warning += Game.elapsed * 5f *(0.4f - (health/(float)maxHp));
 			warning %= 1f;
 			avatar.tint(ColorMath.interpolate(warning, warningColors), 0.5f );
 		} else if (talentBlink > 0){
@@ -248,14 +227,25 @@ public class StatusPane extends Component {
 			avatar.resetColor();
 		}
 
-		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
-		shieldedHP.scale.x = health/(float)max;
-		rawShielding.scale.x = shield/(float)max;
+		hp.scale.x = Math.max( 0, (health-shield)/(float)maxHp);
+		shieldedHP.scale.x = health/(float)maxHp;
+		rawShielding.scale.x = shield/(float)maxHp;
 
 		if (shield <= 0){
-			hpText.text(health + "/" + max);
-		} else {
-			hpText.text(health + "+" + shield +  "/" + max);
+			hpText.text(health + "/" + maxHp);
+		}
+		else {
+			hpText.text(health + "+" + shield +  "/" + maxHp);
+		}
+
+		Hunger hungerBuff = Dungeon.hero.buff(Hunger.class);
+		if (hungerBuff != null) {
+			int hunger = Math.max(0, maxHunger - hungerBuff.hunger());
+			hg.scale.x = (float) hunger / (float) maxHunger;
+			hgText.text(hunger + "/" + maxHunger);
+		}
+		else if (Dungeon.hero.isAlive()) {
+			hg.scale.x = 1.0f;
 		}
 
 		exp.scale.x = (width / exp.width) * Dungeon.hero.exp / Dungeon.hero.maxExp();
@@ -286,15 +276,15 @@ public class StatusPane extends Component {
 
 	public void pickup( Item item, int cell) {
 		pickedUp.reset( item,
-			cell,
-			btnJournal.journalIcon.x + btnJournal.journalIcon.width()/2f,
-			btnJournal.journalIcon.y + btnJournal.journalIcon.height()/2f);
+				cell,
+				btnJournal.journalIcon.x + btnJournal.journalIcon.width()/2f,
+				btnJournal.journalIcon.y + btnJournal.journalIcon.height()/2f);
 	}
-	
+
 	public void flash(){
 		btnJournal.flashing = true;
 	}
-	
+
 	public void updateKeys(){
 		btnJournal.updateKeyDisplay();
 	}
@@ -304,7 +294,7 @@ public class StatusPane extends Component {
 		private Image bg;
 		private Image journalIcon;
 		private KeyDisplay keyIcon;
-		
+
 		private boolean flashing;
 
 		public JournalButton() {
@@ -313,22 +303,22 @@ public class StatusPane extends Component {
 			width = bg.width + 13; //includes the depth display to the left
 			height = bg.height + 4;
 		}
-		
+
 		@Override
 		public GameAction keyAction() {
 			return SPDAction.JOURNAL;
 		}
-		
+
 		@Override
 		protected void createChildren() {
 			super.createChildren();
 
 			bg = new Image( Assets.Interfaces.MENU, 2, 2, 13, 11 );
 			add( bg );
-			
+
 			journalIcon = new Image( Assets.Interfaces.MENU, 31, 0, 11, 7);
 			add( journalIcon );
-			
+
 			keyIcon = new KeyDisplay();
 			add(keyIcon);
 			updateKeyDisplay();
@@ -340,11 +330,11 @@ public class StatusPane extends Component {
 
 			bg.x = x + 13;
 			bg.y = y + 2;
-			
+
 			journalIcon.x = bg.x + (bg.width() - journalIcon.width())/2f;
 			journalIcon.y = bg.y + (bg.height() - journalIcon.height())/2f;
 			PixelScene.align(journalIcon);
-			
+
 			keyIcon.x = bg.x + 1;
 			keyIcon.y = bg.y + 1;
 			keyIcon.width = bg.width - 2;
@@ -353,11 +343,11 @@ public class StatusPane extends Component {
 		}
 
 		private float time;
-		
+
 		@Override
 		public void update() {
 			super.update();
-			
+
 			if (flashing){
 				journalIcon.am = (float)Math.abs(Math.cos( 3 * (time += Game.elapsed) ));
 				keyIcon.am = journalIcon.am;

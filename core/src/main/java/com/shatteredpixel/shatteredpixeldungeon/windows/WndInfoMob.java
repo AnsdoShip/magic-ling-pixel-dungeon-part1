@@ -55,7 +55,7 @@ public class WndInfoMob extends WndTitledMessage {
 			add( name );
 
 			hpname= PixelScene.renderTextBlock( Messages.titleCase(Messages.get(WndInfoMob.class, "mobhealth") + (mob.HP) + "/" + mob.HT ),7);
-			hpname.hardlight( GREEN_COLOR );
+			hpname.hardlight( Pink_COLOR );
 			add( hpname );
 
 			image = mob.sprite();

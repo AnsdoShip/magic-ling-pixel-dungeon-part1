@@ -26,7 +26,7 @@ import java.util.Locale;
 public enum Languages {
 	ENGLISH("English-US",      "en",   Status.INCOMPLETE , new String[]{"JDSA-LING"}, new String[]{"Noodlemire"}),
 	CHINESE("简体中文",         "", Status.REVIEWED, new String[]{"JDSA-LING"}, null),
-	FTZW("繁体中文",         "ft", Status.UNREVIEWED, new String[]{"JDSA-LING"}, new String[]{"冷群怪","那些回忆"});
+	FTZW("繁体中文",         "hk", Status.UNREVIEWED, new String[]{"JDSA-LING"}, new String[]{"冷群怪","那些回忆"});
 	public enum Status{
 		//below 80% complete languages are not added.
 		INCOMPLETE, //80-99% complete

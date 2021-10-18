@@ -25,7 +25,7 @@ public class MolotovHuntsman extends Mob {
     private String[] attackCurse;
     private int combo;
     private String[] deathCurse;
-
+    public float lifespan;
     public MolotovHuntsman() {
         this.spriteClass = MolotovHuntsmanSprite.class;
         this.HT = 60;

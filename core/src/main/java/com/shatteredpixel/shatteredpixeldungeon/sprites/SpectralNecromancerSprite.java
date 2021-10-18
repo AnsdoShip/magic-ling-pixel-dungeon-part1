@@ -76,16 +76,6 @@ public class SpectralNecromancerSprite extends MobSprite {
         }
     }
 
-    public void finishSummoning(){
-        if (summoningBones.visible) {
-            Sample.INSTANCE.play(Assets.Sounds.CURSED);
-            summoningBones.burst(ShadowParticle.CURSE, 5);
-        } else {
-            summoningBones.on = false;
-        }
-        idle();
-    }
-
     public void charge(){
         play(charging);
     }

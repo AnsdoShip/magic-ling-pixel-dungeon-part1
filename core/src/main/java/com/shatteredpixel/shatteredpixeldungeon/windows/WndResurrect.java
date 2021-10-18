@@ -21,8 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import com.shatteredpixel.shatteredpixeldungeon.Rankings;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -42,7 +44,7 @@ public class WndResurrect extends Window {
 	
 	public static WndResurrect instance;
 	public static Object causeOfDeath;
-	
+
 	public WndResurrect( final Ankh ankh, Object causeOfDeath ) {
 		
 		super();
@@ -65,31 +67,19 @@ public class WndResurrect extends Window {
 			@Override
 			protected void onClick() {
 				hide();
-				
-				Statistics.ankhsUsed++;
-				
+				hero.HP = 5;
+				Buff.affect(hero, Healing.class).setHeal((int) (0.8f * hero.HT + 14), 0.25f, 0);
 				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
 				Game.switchScene( InterlevelScene.class );
+				Hero.reallyDie(hero);
 			}
 		};
 		btnYes.setRect( 0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT );
 		add( btnYes );
 		
-		RedButton btnNo = new RedButton( Messages.get(this, "no") ) {
-			@Override
-			protected void onClick() {
-				hide();
-
-				Hero.reallyDie( WndResurrect.causeOfDeath );
-				Rankings.INSTANCE.submit( false, WndResurrect.causeOfDeath.getClass() );
-			}
-		};
-		btnNo.setRect( 0, btnYes.bottom() + GAP, WIDTH, BTN_HEIGHT );
-		add( btnNo );
-		
-		resize( WIDTH, (int)btnNo.bottom() );
+		resize( WIDTH, (int)btnYes.bottom() );
 	}
-	
+
 	@Override
 	public void destroy() {
 		super.destroy();

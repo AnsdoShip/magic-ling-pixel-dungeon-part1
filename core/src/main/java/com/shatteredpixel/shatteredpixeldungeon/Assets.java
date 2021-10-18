@@ -91,6 +91,7 @@ public class Assets {
 		public static final String STATUS	= "interfaces/status_pane.png";
 		public static final String MENU		= "interfaces/menu_button.png";
 		public static final String HP_BAR	= "interfaces/hp_bar.png";
+		public static final String HG_BAR	= "interfaces/hunger_bar.png";
 		public static final String SHLD_BAR = "interfaces/shield_bar.png";
 		public static final String XP_BAR	= "interfaces/exp_bar.png";
 		public static final String TOOLBAR	= "interfaces/toolbar.png";

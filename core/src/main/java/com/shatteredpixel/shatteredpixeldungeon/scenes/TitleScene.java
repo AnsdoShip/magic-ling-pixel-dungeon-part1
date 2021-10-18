@@ -373,4 +373,5 @@ public class TitleScene extends PixelScene {
 			ShatteredPixelDungeon.switchNoFade(SPSLScene.class);
 		}
 	}
+
 }

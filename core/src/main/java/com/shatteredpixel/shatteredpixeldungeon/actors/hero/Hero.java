@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.PRO;
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
 
@@ -40,12 +42,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
@@ -117,7 +121,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
@@ -153,7 +156,7 @@ public class Hero extends Char {
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
-	
+	private short lives=3;
 	private static final float TIME_TO_REST		    = 1f;
 	private static final float TIME_TO_SEARCH	    = 2f;
 	private static final float HUNGER_FOR_SEARCH	= 6f;
@@ -161,7 +164,7 @@ public class Hero extends Char {
 	public HeroClass heroClass = HeroClass.ROGUE;
 	public HeroSubClass subClass = HeroSubClass.NONE;
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
-	
+
 	private int attackSkill = 10;
 	private int defenseSkill = 5;
 
@@ -1014,17 +1017,35 @@ public class Hero extends Char {
 					Game.runOnRenderThread(new Callback() {
 						@Override
 						public void call() {
-							GameScene.show( new WndMessage( Messages.get(Hero.this, "leave") ) );
+							GameScene.show(new WndMessage(Messages.get(Hero.this, "leave")));
 						}
 					});
 					ready();
+
+				} else if (Dungeon.isChallenged(PRO)) {
+						hero.HP = 4;
+						hero.HT = 4;
+					Buff.affect(hero, Burning.class).reignite(hero);
+					Buff.affect(hero, Bleeding.class).set( 4 );
+					Buff.affect(hero, Blindness.class,Degrade.DURATION);
+					Buff.prolong( hero, Degrade.class, Degrade.DURATION );
+						Game.runOnRenderThread(new Callback() {
+							@Override
+							public void call() {
+								GameScene.show( new WndMessage( Messages.get(Hero.this, "xie") ) );
+							}
+						});
+						ready();
 				} else {
-					Badges.silentValidateHappyEnd();
-					Dungeon.win( Amulet.class );
-					Dungeon.deleteGame( GamesInProgress.curSlot, true );
-					Game.switchScene( SurfaceScene.class );
+					Game.runOnRenderThread(new Callback() {
+						@Override
+						public void call() {
+							GameScene.show( new WndMessage( Messages.get(Hero.this, "comingsoon") ) );
+						}
+					});
+					ready();
 				}
-				
+
 			} else {
 				
 				curAction = null;
@@ -1473,7 +1494,6 @@ public class Hero extends Char {
 				if (buff(ElixirOfMight.HTBoost.class) != null){
 					buff(ElixirOfMight.HTBoost.class).onLevelUp();
 				}
-				
 				updateHT( true );
 				attackSkill++;
 				defenseSkill++;
@@ -1608,13 +1628,36 @@ public class Hero extends Char {
 		
 		Actor.fixTime();
 		super.die( cause );
-
+		final Ankh XCS = ankh;
 		if (ankh == null) {
-			
-			reallyDie( cause );
-			
-		} else {
-			
+			if (Dungeon.isChallenged(RLPT) && lives>0) {
+				InterlevelScene.mode = InterlevelScene.Mode.RESET;
+				hero.HP = 20;
+				Game.switchScene( InterlevelScene.class );
+				hero.lives--;
+				if (hero.lives==2){
+					yell(Messages.get(this, "waring3", this));
+				}
+				if (hero.lives==1){
+					yell(Messages.get(this, "waring2", this));
+				}
+				if (hero.lives==0){
+					yell(Messages.get(this, "waring1", this));
+					Badges.DEATH_GOOD();
+				}
+			} else {
+				reallyDie(cause);
+			}
+			} else {
+		/*} else {
+			if (Dungeon.isChallenged(NO_GOLD)){
+
+				Statistics.ankhsUsed++;
+
+				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
+				Game.switchScene( InterlevelScene.class );
+			}
+		*/
 			Dungeon.deleteGame( GamesInProgress.curSlot, false );
 			final Ankh finalAnkh = ankh;
 			Game.runOnRenderThread(new Callback() {
@@ -1626,7 +1669,12 @@ public class Hero extends Char {
 			
 		}
 	}
-	
+
+	public void yell( String str ) {
+		GLog.newLine();
+		GLog.n( "%s: \"%s\" ", Messages.titleCase(name()), str );
+	}
+
 	public static void reallyDie( Object cause ) {
 		
 		int length = Dungeon.level.length();

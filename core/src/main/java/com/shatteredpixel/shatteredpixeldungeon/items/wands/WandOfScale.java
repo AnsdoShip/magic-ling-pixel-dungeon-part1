@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
@@ -41,7 +41,7 @@ public class WandOfScale extends DamageWand {
 
     //1x/2x/3x damage
     public int max(int lvl){
-        return (1*lvl) * chargesPerCast();
+        return (2*lvl) * chargesPerCast();
     }
 
     ConeAOE cone;
@@ -59,7 +59,7 @@ public class WandOfScale extends DamageWand {
 
             //only ignite cells directly near caster if they are flammable
             if (!Dungeon.level.adjacent(bolt.sourcePos, cell) || Dungeon.level.flamable[cell]){
-                GameScene.add( Blob.seed( cell, 1+chargesPerCast(), StormCloud.class ) );
+                GameScene.add( Blob.seed( cell, 4+chargesPerCast(), StormCloud.class ) );
             }
 
             Char ch = Actor.findChar( cell );
@@ -90,7 +90,7 @@ public class WandOfScale extends DamageWand {
     @Override
     public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
         //acts like blazing enchantment
-        new Blazing().proc( staff, attacker, defender, damage);
+        new Lucky().proc( staff, attacker, defender, damage);
     }
 
     @Override

@@ -75,6 +75,46 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
 
+        ChangeInfo changes6 = new ChangeInfo("V0.5.3.5-SPV", true, "");
+        changes6.hardlight(Window.Pink_COLOR);
+        changeInfos.add(changes6);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), true, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), (Messages.get(vM0_5_X_Changes.class, "ankh")),
+                Messages.get(vM0_5_X_Changes.class, "ankhlogs")));
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_0535")));
+
+        ChangeInfo changes5 = new ChangeInfo("V0.5.3.0-SPV", true, "");
+        changes5.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes5);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), true, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.GAUNTLETS), (Messages.get(vM0_5_X_Changes.class, "newwepaon1")),
+                Messages.get(vM0_5_X_Changes.class, "newwepaon1logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WHIP), (Messages.get(vM0_5_X_Changes.class, "newwepaon2")),
+                Messages.get(vM0_5_X_Changes.class, "newwepaon2logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAR_HAMMER), (Messages.get(vM0_5_X_Changes.class, "newwepaon3")),
+                Messages.get(vM0_5_X_Changes.class, "newwepaon3logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG12), (Messages.get(vM0_5_X_Changes.class, "challs2")),
+                Messages.get(vM0_5_X_Changes.class, "challs2logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG18), (Messages.get(vM0_5_X_Changes.class, "challs3")),
+                Messages.get(vM0_5_X_Changes.class, "challs3logs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.WARNING), (Messages.get(vM0_5_X_Changes.class, "crashsx")),
+                Messages.get(vM0_5_X_Changes.class, "crashsxlogs")));
+
         ChangeInfo changes4 = new ChangeInfo("V0.5.2.6-SPV", true, "");
         changes4.hardlight(Window.Pink_COLOR);
         changeInfos.add(changes4);

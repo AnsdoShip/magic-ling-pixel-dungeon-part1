@@ -21,26 +21,25 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndStartGame;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.audio.Music;
 import com.watabou.utils.FileUtils;
-
-import java.util.Locale;
 
 public class WelcomeScene extends PixelScene {
 
@@ -57,13 +56,21 @@ public class WelcomeScene extends PixelScene {
 			return;
 		}
 
+		Music.INSTANCE.play( Assets.Music.THEME, true );
+
 		uiCamera.visible = false;
 
 		int w = Camera.main.width;
 		int h = Camera.main.height;
 
+		Archs archs = new Archs();
+		archs.setSize( w, h );
+		add( archs );
+
+		//darkens the arches
+		add(new ColorBlock(w, h, 0x88000000));
+
 		Image title = BannerSprites.get( BannerSprites.Type.PIXEL_DUNGEON );
-		title.brightness(0.6f);
 		add( title );
 
 		float topRegion = Math.max(title.height - 6, h*0.45f);
@@ -72,6 +79,9 @@ public class WelcomeScene extends PixelScene {
 		title.y = 2 + (topRegion - title.height()) / 2f;
 
 		align(title);
+
+		placeTorch(title.x + 22, title.y + 46);
+		placeTorch(title.x + title.width - 22, title.y + 46);
 
 		Image signs = new Image( BannerSprites.get( BannerSprites.Type.PIXEL_DUNGEON_SIGNS ) ) {
 			private float time = 0;
@@ -91,14 +101,14 @@ public class WelcomeScene extends PixelScene {
 		signs.x = title.x + (title.width() - signs.width())/2f;
 		signs.y = title.y;
 		add( signs );
-		
+
 		StyledButton okay = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "continue")){
 			@Override
 			protected void onClick() {
 				super.onClick();
-				if (previousVersion == 0){
+				if (previousVersion == 0 || SPDSettings.intro()){
 					SPDSettings.version(ShatteredPixelDungeon.versionCode);
-					WelcomeScene.this.add(new WndStartGame(1));
+					ShatteredPixelDungeon.switchScene(TitleScene.class);
 				} else {
 					updateVersion(previousVersion);
 					ShatteredPixelDungeon.switchScene(TitleScene.class);
@@ -144,7 +154,7 @@ public class WelcomeScene extends PixelScene {
 				message += "\n";
 				//message += "\n" + Messages.get(this, "patch_balance");
 				message += "\n" + Messages.get(this, "patch_bugfixes");
-				message += "\n" + Messages.get(this, "patch_translations");
+				//message += "\n" + Messages.get(this, "patch_translations");
 
 			}
 		} else {
@@ -157,17 +167,21 @@ public class WelcomeScene extends PixelScene {
 
 	}
 
+	private void placeTorch( float x, float y ) {
+		Fireball fb = new Fireball();
+		fb.setPos( x, y );
+		add( fb );
+	}
+
 	private void updateVersion(int previousVersion){
 
 		//update rankings, to update any data which may be outdated
 		if (previousVersion < LATEST_UPDATE){
-			int highestChalInRankings = 0;
 			try {
 				Rankings.INSTANCE.load();
 				for (Rankings.Record rec : Rankings.INSTANCE.records.toArray(new Rankings.Record[0])){
 					try {
 						Rankings.INSTANCE.loadGameData(rec);
-						if (rec.win) highestChalInRankings = Math.max(highestChalInRankings, Challenges.activeChallenges());
 						Rankings.INSTANCE.saveGameData(rec);
 					} catch (Exception e) {
 						//if we encounter a fatal per-record error, then clear that record
@@ -182,26 +196,13 @@ public class WelcomeScene extends PixelScene {
 				ShatteredPixelDungeon.reportException(e);
 			}
 
-			//fixes a bug from v0.9.0- where champion badges would rarely not save
-			if (highestChalInRankings > 0){
-				Badges.loadGlobal();
-				if (highestChalInRankings >= 1) Badges.addGlobal(Badges.Badge.CHAMPION_1);
-				if (highestChalInRankings >= 3) Badges.addGlobal(Badges.Badge.CHAMPION_2);
-				if (highestChalInRankings >= 6) Badges.addGlobal(Badges.Badge.CHAMPION_3);
-				Badges.saveGlobal();
-			}
 		}
 
-		//resetting language preference back to native for finnish speakers if they were on english
-		//This is because Finnish was unmaintained for quite a while
-		if ( previousVersion <= 500
-				&& Languages.matchLocale(Locale.getDefault()) == Languages.CHINESE
-				&& Messages.lang() == Languages.CHINESE) {
-			SPDSettings.language(Languages.CHINESE);
-			Messages.setup(Languages.CHINESE);
+		//if the player has beaten Goo, automatically give all guidebook pages
+		if (previousVersion <= ShatteredPixelDungeon.v0_9_2){
 		}
-		
+
 		SPDSettings.version(ShatteredPixelDungeon.versionCode);
 	}
-	
+
 }

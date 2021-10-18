@@ -695,6 +695,10 @@ public class ItemSpriteSheet {
 	public static final int	DG19				= BAGS+26;
 	public static final int	DG20				= BAGS+27;
 	public static final int	DG21				= BAGS+28;
+	public static final int	DG22				= BAGS+29;
+	public static final int	DG23				= BAGS+30;
+	public static final int	DG24				= BAGS+31;
+
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

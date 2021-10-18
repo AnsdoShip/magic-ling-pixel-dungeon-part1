@@ -113,7 +113,6 @@ public class SpectralNecromancer extends Necromancer {
         summoning = firstSummon = false;
 
         FireGhostDead wraith = FireGhostDead.spawnAt(summoningPos);
-        ((SpectralNecromancerSprite)sprite).finishSummoning();
 
         if (buff(Corruption.class) != null){
             Buff.affect(wraith, Corruption.class);

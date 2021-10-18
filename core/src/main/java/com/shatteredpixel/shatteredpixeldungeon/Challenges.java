@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 
 public class Challenges {
 
@@ -79,10 +80,16 @@ public class Challenges {
 	public String name;
 
 	public static boolean isItemBlocked(Item item) {
-		if (Dungeon.isChallenged(NO_FOOD) || (Dungeon.isChallenged(JGSF))) {
+		if (Dungeon.isChallenged(NO_FOOD)) {
 			if (item instanceof Food && !(item instanceof SmallRation)) {
 				return true;
 			} else if (item instanceof HornOfPlenty) {
+				return true;
+			}
+		}
+
+		if(InterlevelScene.mode == InterlevelScene.Mode.RESET){
+			if (item instanceof Ankh) {
 				return true;
 			}
 		}

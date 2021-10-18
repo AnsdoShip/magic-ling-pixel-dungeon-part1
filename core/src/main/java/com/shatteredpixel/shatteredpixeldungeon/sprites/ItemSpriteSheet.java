@@ -698,6 +698,8 @@ public class ItemSpriteSheet {
 	public static final int	DG22				= BAGS+29;
 	public static final int	DG23				= BAGS+30;
 	public static final int	DG24				= BAGS+31;
+	public static final int	DG25				= BAGS+32;
+	public static final int	DG26				= BAGS+33;
 
 	static{
 		assignItemRect(VIAL,        16, 16);

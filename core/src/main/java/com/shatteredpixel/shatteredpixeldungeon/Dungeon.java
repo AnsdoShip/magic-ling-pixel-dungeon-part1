@@ -294,7 +294,7 @@ public class Dungeon {
 				case 7:
 				case 8:
 				case 9:
-					switch (Random.Int(4)) {
+					switch (Random.Int(2)) {
 						case 0:
 						default:
 							level = new PrisonLevel();
@@ -303,12 +303,6 @@ public class Dungeon {
 						case 1:
 							//Random
 							level = new CavesLevel();
-							break;
-						case 2:
-							level = new CityLevel();
-							break;
-						case 3:
-							level = new HallsLevel();
 							break;
 					}
 					break;
@@ -326,21 +320,13 @@ public class Dungeon {
 				case 12:
 				case 13:
 				case 14:
-					switch (Random.Int(4)) {
+					switch (Random.Int(2)) {
 						case 0:
 						default:
-							level = new PrisonLevel();
-							//Random
-							break;
-						case 1:
-							//Random
 							level = new CavesLevel();
 							break;
-						case 2:
+						case 1:
 							level = new CityLevel();
-							break;
-						case 3:
-							level = new HallsLevel();
 							break;
 					}
 					break;
@@ -365,21 +351,13 @@ public class Dungeon {
 				case 17:
 				case 18:
 				case 19:
-					switch (Random.Int(4)) {
+					switch (Random.Int(2)) {
 						case 0:
 						default:
-							level = new PrisonLevel();
-							//Random
-							break;
-						case 1:
-							//Random
-							level = new CavesLevel();
-							break;
-						case 2:
 							level = new CityLevel();
 							break;
-						case 3:
-							level = new HallsLevel();
+						case 1:
+							level = new CavesLevel();
 							break;
 					}
 					break;
@@ -404,20 +382,9 @@ public class Dungeon {
 				case 22:
 				case 23:
 				case 24:
-					switch (Random.Int(4)) {
+					switch (Random.Int(1)) {
 						case 0:
 						default:
-							level = new PrisonLevel();
-							//Random
-							break;
-						case 1:
-							//Random
-							level = new CavesLevel();
-							break;
-						case 2:
-							level = new CityLevel();
-							break;
-						case 3:
 							level = new HallsLevel();
 							break;
 					}

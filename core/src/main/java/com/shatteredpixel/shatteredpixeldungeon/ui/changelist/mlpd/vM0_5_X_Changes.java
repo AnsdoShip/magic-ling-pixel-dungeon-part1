@@ -75,6 +75,30 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
 
+        ChangeInfo changes7 = new ChangeInfo("V0.5.3.6-SPV", true, "");
+        changes7.hardlight(Window.Pink_COLOR);
+        changeInfos.add(changes7);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG26), (Messages.get(vM0_5_X_Changes.class, "dg26")),
+                Messages.get(vM0_5_X_Changes.class, "dg26logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG24), (Messages.get(vM0_5_X_Changes.class, "dg24")),
+                Messages.get(vM0_5_X_Changes.class, "dg24logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG12), (Messages.get(vM0_5_X_Changes.class, "dg12")),
+                Messages.get(vM0_5_X_Changes.class, "dg12logs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_0536")));
+
         ChangeInfo changes6 = new ChangeInfo("V0.5.3.5-SPV", true, "");
         changes6.hardlight(Window.Pink_COLOR);
         changeInfos.add(changes6);

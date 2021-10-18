@@ -73,11 +73,52 @@ public class Bestiary {
 				case 8:
 				case 9:
 				case 10:
+					switch (Random.Int(3)) {
+						case 0:
+							return new ArrayList<>(Arrays.asList(Skeleton.class,
+									KagenoNusujin.class, BlackHost.class,
+									Thief.class,DM100.class,Necromancer.class));
+						case 1:
+							return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
+									Thief.class,Thief.class,Thief.class,
+									DM100.class,Necromancer.class,Necromancer.class,
+									DM100.class,SRPDHBLR.class, BlackHost.class));
+						case 2:
+							return new ArrayList<>(Arrays.asList(
+									Bat.class,
+									Brute.class,
+									Shaman.random(), SkullShaman.class,
+									Spinner.class, Spinner.class,
+									DM200.class, MolotovHuntsman.class,
+									Brute.class,
+									MolotovHuntsman.class,MolotovHuntsman.class,FireGhost.class));
+					}
 				case 11:
 				case 12:
 				case 13:
 				case 14:
 				case 15:
+					switch (Random.Int(4)) {
+						case 0:
+							return new ArrayList<>(Arrays.asList(Skeleton.class,
+									KagenoNusujin.class, BlackHost.class,
+									Thief.class,DM100.class,Necromancer.class));
+						case 1:
+							return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
+									Thief.class,Thief.class,Thief.class,
+									DM100.class,Necromancer.class,Necromancer.class,
+									DM100.class,SRPDHBLR.class, BlackHost.class));
+						case 2:
+							return new ArrayList<>(Arrays.asList(
+									Elemental.random(), Elemental.random(), Elemental.random(), Elemental.random(),
+									Monk.class,FireGhost.class,FireGhost.class));
+						case 3:
+							return new ArrayList<>(Arrays.asList(
+									Elemental.random(),
+									Warlock.class, Warlock.class,
+									Monk.class, Monk.class,
+									Golem.class, Golem.class, Golem.class,ShieldHuntsman.class));
+					}
 				case 16:
 				case 17:
 				case 18:

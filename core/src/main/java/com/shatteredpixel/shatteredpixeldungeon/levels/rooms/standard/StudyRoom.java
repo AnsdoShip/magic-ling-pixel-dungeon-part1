@@ -22,7 +22,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.DeepBloodBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IceCityBooks;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -86,6 +89,18 @@ public class StudyRoom extends StandardRoom {
 			level.drop(Generator.random( Random.oneOf(
 					Generator.Category.POTION,
 					Generator.Category.SCROLL)), (center.x + center.y * level.width()));
+			switch (Random.Int(2)) {
+				case 0:
+					level.drop(new IceCityBooks(),(center.x + center.y * level.width()));
+					break;
+				case 1:
+					level.drop(new DeepBloodBooks(),(center.x + center.y * level.width()));
+					break;
+				default:
+					level.drop(new Gold(),(center.x + center.y * level.width()));
+					break;
+			}
+
 		}
 	}
 }

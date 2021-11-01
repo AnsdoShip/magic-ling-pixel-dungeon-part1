@@ -22,20 +22,24 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Blindness extends FlavourBuff {
 
 
-
+	private float left;
 	public static final float DURATION = 10f;
 
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
 	}
-	
+	public void reignite(Char ch, float duration ) {
+		left = duration;
+	}
+
 	@Override
 	public void detach() {
 		super.detach();

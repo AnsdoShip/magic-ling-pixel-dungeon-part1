@@ -4,7 +4,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GOLDButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -80,7 +79,7 @@ public class LingSupporterScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        ShatteredPixelDungeon.switchNoFade( TitleScene.class );
+        ShatteredPixelDungeon.switchNoFade(SPSLScene.class);
     }
 
     private static class SupporterMessage extends Component {

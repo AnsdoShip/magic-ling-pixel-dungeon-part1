@@ -6,7 +6,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.MovieClip.Animation;
 
 public class PoltergeistSprite extends MobSprite {
     public PoltergeistSprite() {
@@ -25,5 +24,19 @@ public class PoltergeistSprite extends MobSprite {
 
     public int blood() {
         return -2013265920;
+    }
+
+    public static class WraithSpriteRed extends PoltergeistSprite  {
+
+        public WraithSpriteRed(){
+            super();
+            tint(1, 1, 1, 0.3f);
+        }
+
+        @Override
+        public void resetColor() {
+            super.resetColor();
+            tint(1, 1, 1, 0.3f);
+        }
     }
 }

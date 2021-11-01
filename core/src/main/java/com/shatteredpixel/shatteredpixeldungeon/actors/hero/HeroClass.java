@@ -169,6 +169,7 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new PotionOfInvisibility().quantity(45).identify().collect();
 			new PotionOfPurity().quantity(45).identify().collect();
 			new StoneOfAffection().quantity(45).identify().collect();
 			new AlchemicalCatalyst().quantity(45).identify().collect();

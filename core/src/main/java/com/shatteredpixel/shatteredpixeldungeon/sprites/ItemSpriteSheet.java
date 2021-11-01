@@ -700,7 +700,10 @@ public class ItemSpriteSheet {
 	public static final int	DG24				= BAGS+31;
 	public static final int	DG25				= BAGS+32;
 	public static final int	DG26				= BAGS+33;
-
+	public static final int	ICEBOOKS				= BAGS+34;
+	public static final int	NOBOOKS				= BAGS+35;
+	public static final int	CLINGSHILED				= BAGS+36;
+	public static final int	GRRENSHILED				= BAGS+37;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);
@@ -709,7 +712,17 @@ public class ItemSpriteSheet {
 		assignItemRect(HOLSTER,     15, 16);
 	}
 
-	                                                                                    //16 free slots
+	private static final int MAINBOOKINDEX    	 = xy(1, 35);  //16 slots
+	public static final int ICEBOOK=			MAINBOOKINDEX+1;
+	public static final int BREDBOOK=			MAINBOOKINDEX+2;
+	public static final int GREENBOOKS=			MAINBOOKINDEX+3;
+	public static final int YELLOWBOOKS=		MAINBOOKINDEX+4;
+
+	private static final int MAINPALYBOOKS     = xy(1, 40);
+	public static final int MONEYBOOKS=		MAINPALYBOOKS+1;
+	public static final int PINKBOOKS=		MAINPALYBOOKS+2;
+	public static final int DEBOOKS=		MAINPALYBOOKS+3;
+	//16 free slots
 
 	//for smaller 8x8 icons that often accompany an item sprite
 	public static class Icons {

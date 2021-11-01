@@ -84,7 +84,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE,KO
 	}
 	public static Mode mode;
 
@@ -279,6 +279,11 @@ public class InterlevelScene extends PixelScene {
 							case RESET:
 								reset();
 								break;
+							case KO:
+								reset();
+								returnTx();
+								resurrect();
+								break;
 						}
 
 					} catch (Exception e) {
@@ -424,6 +429,16 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.saveAll();
 		Dungeon.depth = returnDepth;
+		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		Dungeon.switchLevel( level, returnPos );
+	}
+
+	private void returnTx() throws IOException {
+
+		Mob.holdAllies( Dungeon.level );
+
+		Dungeon.saveAll();
+		Dungeon.depth = 0;
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		Dungeon.switchLevel( level, returnPos );
 	}

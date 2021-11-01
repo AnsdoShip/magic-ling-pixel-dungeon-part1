@@ -85,10 +85,13 @@ public class xykl extends Mob {
         return damage2;
     }
 
+
     public void die(Object cause) {
         xykl.super.die(cause);
         if (cause != Chasm.class) {
             this.sprite.showStatus(16711680, this.deathCurse[Random.Int(this.deathCurse.length)], new Object[0]);
-
+            RedBloodMoon.deadking--;
         }
-    }}
+    }
+
+}

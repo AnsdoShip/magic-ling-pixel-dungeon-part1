@@ -212,6 +212,7 @@ public class Generator {
 		SEED	( 2,    Plant.Seed.class ),
 		
 		SCROLL	( 16,   Scroll.class ),
+
 		STONE   ( 2,    Runestone.class),
 		
 		GOLD	( 20,   Gold.class );

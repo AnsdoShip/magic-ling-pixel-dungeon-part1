@@ -56,7 +56,7 @@ public class BoomSword extends MeleeWeapon {
             Fuse var5 = new Fuse();
             var5.bomb = var4;
             var4.fuse = var5;
-            Actor.add(var5, Actor.now + 2.0F);
+            Actor.add(var5, Actor.now + 0.0F);
             int var6 = var2.pos;
             Dungeon.level.drop(var4, var6).sprite.drop();
         }

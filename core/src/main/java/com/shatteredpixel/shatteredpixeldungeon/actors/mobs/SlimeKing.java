@@ -76,6 +76,8 @@ public class SlimeKing extends XTG100 {
 		}
 	}
 
+
+
 	@Override
 	public boolean attack( Char enemy ) {
 		if (canAttack(enemy) && canTryToSummon()) {

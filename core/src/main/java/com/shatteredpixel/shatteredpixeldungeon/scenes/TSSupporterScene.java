@@ -79,7 +79,7 @@ public class TSSupporterScene extends PixelScene {
 
 	@Override
 	protected void onBackPressed() {
-		ShatteredPixelDungeon.switchNoFade( TitleScene.class );
+		ShatteredPixelDungeon.switchNoFade(SPSLScene.class);
 	}
 
 	private static class SupporterMessage extends Component {

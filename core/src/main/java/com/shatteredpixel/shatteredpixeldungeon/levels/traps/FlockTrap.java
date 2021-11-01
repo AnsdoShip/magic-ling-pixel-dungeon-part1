@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MolotovHuntsman;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -36,7 +36,7 @@ import com.watabou.utils.Random;
 public class FlockTrap extends Trap {
 
 	{
-		color = WHITE;
+		color = RANDCOLOR;
 		shape = WAVES;
 	}
 
@@ -50,7 +50,7 @@ public class FlockTrap extends Trap {
 				if (Dungeon.level.insideMap(i)
 						&& Actor.findChar(i) == null
 						&& !(Dungeon.level.pit[i])) {
-					MolotovHuntsman sheep = new MolotovHuntsman();
+					Sheep sheep = new Sheep();
 					sheep.lifespan = Random.NormalIntRange( 4, 8 );
 					sheep.pos = i;
 					GameScene.add(sheep);

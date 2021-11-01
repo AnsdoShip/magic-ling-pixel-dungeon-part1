@@ -41,7 +41,6 @@ public class Statue extends Mob {
 		spriteClass = StatueSprite.class;
 
 		EXP = 0;
-		state = PASSIVE;
 		
 		properties.add(Property.INORGANIC);
 	}

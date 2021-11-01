@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 
+
 public class Hunger extends Buff implements Hero.Doom {
 
 	private static final float STEP	= 10f;

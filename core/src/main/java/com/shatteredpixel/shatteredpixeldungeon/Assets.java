@@ -35,6 +35,7 @@ public class Assets {
 	public static final String BGM_BOSSC = "music/Boss3.ogg";
 	public static final String BGM_BOSSD = "music/Boss4.ogg";
 	public static final String BGM_BOSSE = "music/Boss5.ogg";
+	public static final String RUN = "music/Run.ogg";
 
 	public static class Effects {
 		public static final String EFFECTS		= "effects/effects.png";
@@ -268,10 +269,12 @@ public class Assets {
 		public static final String SHEEP	= "sprites/sheep.png";
 		public static final String KEEPER	= "sprites/shopkeeper.png";
 		public static final String BAT		= "sprites/bat.png";
+		public static final String BATEX		= "sprites/BrownBat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK		= "sprites/monk.png";
 		public static final String WARLOCK	= "sprites/warlock.png";
 		public static final String GOLEM	= "sprites/golem.png";
+		public static final String ICEGOLEM	= "sprites/icegolem.png";
 		public static final String STATUE	= "sprites/statue.png";
 		public static final String SUCCUBUS	= "sprites/succubus.png";
 		public static final String SCORPIO	= "sprites/scorpio.png";

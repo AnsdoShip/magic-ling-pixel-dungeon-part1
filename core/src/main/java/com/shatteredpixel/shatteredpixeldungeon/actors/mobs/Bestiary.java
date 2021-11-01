@@ -263,7 +263,7 @@ public class Bestiary {
 			case 16:
 				//5x elemental, 5x warlock, 1x monk, 2x silvercrab
 				return new ArrayList<>(Arrays.asList(
-						Elemental.random(), Elemental.random(), Elemental.random(), Elemental.random(),
+						IceGolem.class, Elemental.random(), Elemental.random(), Elemental.random(),
 						Monk.class,
 						Shaman.random()));
 			case 17:

@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public abstract class Trap implements Bundlable {
 
@@ -41,6 +42,7 @@ public abstract class Trap implements Bundlable {
 	public static final int WHITE   = 6;
 	public static final int GREY    = 7;
 	public static final int BLACK   = 8;
+	public static final int RANDCOLOR = Random.Int(BLACK,WHITE);
 
 	//trap shapes
 	public static final int DOTS        = 0;

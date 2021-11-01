@@ -52,4 +52,7 @@ public class WraithSprite extends MobSprite {
 	public int blood() {
 		return 0x88000000;
 	}
+
+
 }
+

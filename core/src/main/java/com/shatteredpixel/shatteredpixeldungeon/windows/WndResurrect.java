@@ -23,11 +23,14 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Slyl;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -35,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Game;
+import com.watabou.utils.Callback;
 
 public class WndResurrect extends Window {
 	
@@ -67,11 +71,16 @@ public class WndResurrect extends Window {
 			@Override
 			protected void onClick() {
 				hide();
-				hero.HP = 5;
-				Buff.affect(hero, Healing.class).setHeal((int) (0.8f * hero.HT + 14), 0.25f, 0);
-				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
+				Statistics.ankhsUsed++;
+				hero.HP = 20;
+				hero.HT = 20;
+				Dungeon.gold = 0;
+				hero.STR = 10;
+				hero.lvl= 1;
+				hero.exp= 0;
+				Buff.prolong(hero, RoseShiled.class, RoseShiled.SURATION);
+				InterlevelScene.mode = InterlevelScene.Mode.KO;
 				Game.switchScene( InterlevelScene.class );
-				Hero.reallyDie(hero);
 			}
 		};
 		btnYes.setRect( 0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT );
@@ -84,6 +93,16 @@ public class WndResurrect extends Window {
 	public void destroy() {
 		super.destroy();
 		instance = null;
+	}
+
+	private void tell(String text) {
+		Game.runOnRenderThread(new Callback() {
+								   @Override
+								   public void call() {
+									   GameScene.show(new WndQuest(new Slyl(), text));
+								   }
+							   }
+		);
 	}
 	
 	@Override

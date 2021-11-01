@@ -21,22 +21,33 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Music;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 public class Shopkeeper extends NPC {
 
@@ -45,19 +56,21 @@ public class Shopkeeper extends NPC {
 
 		properties.add(Property.IMMOVABLE);
 	}
-	
+	private boolean seenBefore = false;
 	@Override
 	protected boolean act() {
-
-		if (Dungeon.level.heroFOV[pos]){
-			Notes.add(Notes.Landmark.SHOP);
+		if (!seenBefore && Dungeon.level.heroFOV[pos]) {
+			yell(Messages.get(this, "greetings", Dungeon.hero.name()));
+			Music.INSTANCE.play(Assets.Music.SHOP, true);
+			seenBefore = true;
 		}
-		
+		throwItem();
+
 		sprite.turnTo( pos, Dungeon.hero.pos );
 		spend( TICK );
-		return super.act();
+		return true;
 	}
-	
+
 	@Override
 	public void damage( int dmg, Object src ) {
 		flee();
@@ -67,28 +80,40 @@ public class Shopkeeper extends NPC {
 	public void add( Buff buff ) {
 		flee();
 	}
-	
+
 	public void flee() {
 		destroy();
 
-		Notes.remove(Notes.Landmark.SHOP);
-		
 		sprite.killAndErase();
 		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
+		GLog.negative(Messages.get(this,"guards"));
+			sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
+			Sample.INSTANCE.play( Assets.Sounds.ALERT );
+			Music.INSTANCE.play(Assets.RUN, true);
+			hero.sprite.burst(15597568, 9);
+		sprite.killAndErase();
+		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
+		GLog.negative(Messages.get(this,"guards"));
+		Buff.prolong( Dungeon.hero, Blindness.class, Blindness.DURATION*4f );
+		GameScene.flash(0x80FFFFFF);
+		Buff.affect(hero, Burning.class ).reignite( hero, 15f );
+		new ShopGuard().spawnAround(pos);
+			yell( Messages.get(this, "arise") );
+		if (Random.Int(0) == 0){
+			new ShopGuardDead().spawnAround(pos);
+			yell( Messages.get(this, "eye") );
+		}
+		next();
 	}
-	
+
+
 	@Override
 	public void destroy() {
 		super.destroy();
 		for (Heap heap: Dungeon.level.heaps.valueList()) {
 			if (heap.type == Heap.Type.FOR_SALE) {
 				CellEmitter.get( heap.pos ).burst( ElmoParticle.FACTORY, 4 );
-				if (heap.size() == 1) {
-					heap.destroy();
-				} else {
-					heap.items.remove(heap.size()-1);
-					heap.type = Heap.Type.HEAP;
-				}
+				heap.type = Heap.Type.HEAP;//Allow them to be picked up
 			}
 		}
 	}
@@ -111,7 +136,7 @@ public class Shopkeeper extends NPC {
 		if (item.value() <= 0)                                               return false;
 		if (item.unique && !item.stackable)                                 return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
-		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
+		if (item.isEquipped(hero) && item.cursed)                   return false;
 		return true;
 	}
 	
@@ -127,7 +152,7 @@ public class Shopkeeper extends NPC {
 
 	@Override
 	public boolean interact(Char c) {
-		if (c != Dungeon.hero) {
+		if (c != hero) {
 			return true;
 		}
 		Game.runOnRenderThread(new Callback() {

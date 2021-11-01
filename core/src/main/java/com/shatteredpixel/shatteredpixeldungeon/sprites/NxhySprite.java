@@ -6,7 +6,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.MovieClip.Animation;
 import com.watabou.noosa.particles.PixelParticle;
 
 public class NxhySprite extends MobSprite {
@@ -44,7 +43,7 @@ public class NxhySprite extends MobSprite {
                 var3 = 13;
             }
 
-            var4.reset(var2 + (float)var3, this.y + 7.0F, 16776960, 1.0F, 0.5F);
+            var4.reset(var2 + (float)var3, this.y + 7.0F, 0x00ffff, 1.0F, 0.5F);
             this.coin.speed.y = -40.0F;
             this.coin.acc.y = 160.0F;
         }

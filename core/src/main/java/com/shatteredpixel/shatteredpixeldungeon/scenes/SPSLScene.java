@@ -106,6 +106,18 @@ public class SPSLScene extends PixelScene {
         align(SPDChanges);
         add(SPDChanges);
 
+        SPSLScene.ChangesButton THANKSChanges = new SPSLScene.ChangesButton() {
+            @Override
+            protected void onClick() {
+                ShatteredPixelDungeon.switchNoFade( ThanksScene.class );
+            }
+        };
+        THANKSChanges.text(Messages.get(this, "zxz"));
+        THANKSChanges.setRect((w - SLOT_WIDTH) / 2f, yPos, SLOT_WIDTH, SLOT_HEIGHT);
+        yPos += SLOT_HEIGHT + slotGap;
+        align(THANKSChanges);
+        add(THANKSChanges);
+
         fadeIn();
     }
 

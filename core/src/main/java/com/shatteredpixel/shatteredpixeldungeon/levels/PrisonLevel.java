@@ -62,7 +62,7 @@ public class PrisonLevel extends RegularLevel {
 	@Override
 	protected ArrayList<Room> initRooms() {
 		ArrayList<Room> rooms = Wandmaker.Quest.spawnRoom(super.initRooms());
-		if (Dungeon.depth == 6) {
+		if (Dungeon.depth == 7) {
 			rooms.add(new NxhyShopRoom());
 		}
 		return rooms;
@@ -82,7 +82,7 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	protected int specialRooms(boolean forceMax) {
-		if (forceMax) return 3;
+		if (forceMax) return 7;
 		//1 to 3, average 2.0
 		return 1+Random.chances(new float[]{3, 4, 3});
 	}

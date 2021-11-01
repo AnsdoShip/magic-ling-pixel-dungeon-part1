@@ -21,6 +21,9 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class RedBloodMoon extends MeleeWeapon {
+
+    public static int deadking=0;
+
     public RedBloodMoon() {
         this.image = ItemSpriteSheet.RedBloodMoon;
         this.tier = 3;
@@ -69,7 +72,7 @@ public class RedBloodMoon extends MeleeWeapon {
             if (!Dungeon.level.solid[attacker.pos + i]
                     && !Dungeon.level.pit[attacker.pos + i]
                     && Actor.findChar(attacker.pos + i) == null
-                    && attacker == Dungeon.hero) {
+                    && attacker == Dungeon.hero&& deadking<6) {
 
                 GuardianKnight guardianKnight1 = new GuardianKnight();
                 guardianKnight1.weapon = this;
@@ -77,9 +80,12 @@ public class RedBloodMoon extends MeleeWeapon {
                 guardianKnight1.aggro(defender);
                 GameScene.add(guardianKnight1);
                 Dungeon.level.occupyCell(guardianKnight1);
+                deadking++;
 
                 CellEmitter.get(guardianKnight1.pos).burst(Speck.factory(Speck.EVOKE), 4);
                 break;
+            } else if(!Dungeon.level.solid[attacker.pos + i]) {
+                return super.proc( attacker, defender, damage );
             }
         }
         return super.proc(attacker, defender, damage);

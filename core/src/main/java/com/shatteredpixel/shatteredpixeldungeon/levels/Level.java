@@ -96,8 +96,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public abstract class Level implements Bundlable {
-	
-	public static enum Feeling {
+
+    public static enum Feeling {
 		NONE,
 		CHASM,
 		WATER,

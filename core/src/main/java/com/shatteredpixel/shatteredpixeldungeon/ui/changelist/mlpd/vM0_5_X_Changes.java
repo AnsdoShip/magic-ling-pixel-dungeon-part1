@@ -1,9 +1,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist.mlpd;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardEye;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
@@ -11,18 +14,23 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SkullShamanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
@@ -74,6 +82,107 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
+
+        ChangeInfo changes8 = new ChangeInfo("V0.5.4.5-Shop-Robbery-未完成", true, "");
+        changes8.hardlight(Window.CYELLOW);
+        changeInfos.add(changes8);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new BombGnollTricksterSprites(), (Messages.get(vM0_5_X_Changes.class, "bomb")),
+                Messages.get(vM0_5_X_Changes.class, "bomblogs")));
+
+        changes.addButton(new ChangeButton(new PoltergeistSprite.WraithSpriteRed(), (Messages.get(vM0_5_X_Changes.class, "red")),
+                Messages.get(vM0_5_X_Changes.class, "redlogs")));
+
+        changes.addButton(new ChangeButton(new BatSprite.BatEDSprite(), (Messages.get(vM0_5_X_Changes.class, "bat")),
+                Messages.get(vM0_5_X_Changes.class, "batlogs")));
+
+        changes.addButton(new ChangeButton(new ShopGuardEye.ShopGuardianBlueSprite(), (Messages.get(vM0_5_X_Changes.class, "guard")),
+                Messages.get(vM0_5_X_Changes.class, "guardlogs")));
+
+        changes.addButton(new ChangeButton(new ShopkeeperSprite(), (Messages.get(vM0_5_X_Changes.class, "shop")),
+                Messages.get(vM0_5_X_Changes.class, "shoplogs")));
+
+        changes.addButton(new ChangeButton(new NxhySprite(), (Messages.get(vM0_5_X_Changes.class, "shop2")),
+                Messages.get(vM0_5_X_Changes.class, "shop2logs")));
+
+        changes.addButton(new ChangeButton(new RenSprite(), (Messages.get(vM0_5_X_Changes.class, "shop3")),
+                Messages.get(vM0_5_X_Changes.class, "shop3logs")));
+
+        changes.addButton(new ChangeButton(new NyzSprites(), (Messages.get(vM0_5_X_Changes.class, "shop4")),
+                Messages.get(vM0_5_X_Changes.class, "shop4logs")));
+
+        changes.addButton(new ChangeButton(new ImpSprite(), (Messages.get(vM0_5_X_Changes.class, "shop5")),
+                Messages.get(vM0_5_X_Changes.class, "shop5logs")));
+
+        changes.addButton(new ChangeButton(new MimicSprite.Dimand(), (Messages.get(vM0_5_X_Changes.class, "newmimicback")),
+                Messages.get(vM0_5_X_Changes.class, "newmimicbacklogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+        changes.hardlight(Window.GDX_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ColdRatSprite(), (Messages.get(vM0_5_X_Changes.class, "coldrat")),
+                Messages.get(vM0_5_X_Changes.class, "coldratlogs")));
+
+        changes.addButton(new ChangeButton(new RedSwarmSprite(), (Messages.get(vM0_5_X_Changes.class, "redc")),
+                Messages.get(vM0_5_X_Changes.class, "redclogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.CYELLOW);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), (Messages.get(vM0_5_X_Changes.class, "ankh2")),
+                Messages.get(vM0_5_X_Changes.class, "ankh2logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG1), (Messages.get(vM0_5_X_Changes.class, "boom")),
+                Messages.get(vM0_5_X_Changes.class, "boomlogs")));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        Image issxa = new SlimeKingSprite();
+        issxa.scale.set(PixelScene.align(0.49f));
+        changes.addButton(new ChangeButton(issxa, (Messages.get(vM0_5_X_Changes.class, "kingno")),
+                Messages.get(vM0_5_X_Changes.class, "kingnologs")));
+
+        changes.addButton(new ChangeButton(new SRPDHBLRTT(), (Messages.get(vM0_5_X_Changes.class, "hblr")),
+                Messages.get(vM0_5_X_Changes.class, "hblrlogs")));
+
+        changes.addButton(new ChangeButton(new MolotovHuntsmanSprite(), (Messages.get(vM0_5_X_Changes.class, "mohblr")),
+                Messages.get(vM0_5_X_Changes.class, "mohblrlogs")));
+
+        ChangeInfo changes9 = new ChangeInfo("V0.5.4.1-QIV", true, "");
+        changes9.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes9);
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        Image i = new Image(new BombGnollTricksterSprites());
+        i.scale.set(PixelScene.align(0.74f));
+        changes.addButton( new ChangeButton(new BombGnollTricksterSprites(), "豺狼炼药长老",
+                "豺狼中的高智能，会使用炼药来摧残每一个入侵者。"));
+
+        Image iii = new Image(new ShopGuardEye.ShopGuardianRedSprite());
+        iii.scale.set(PixelScene.align(0.74f));
+        changes.addButton( new ChangeButton(new ShopGuardEye.ShopGuardianRedSprite(), "守卫更新",
+                "添加裁决者，7回合后审判0元购者"));
+
+        changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+        changes.hardlight(Window.WATA_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG1), "炸弹匕首",
+                "炸弹匕首生成的炸弹将立刻爆炸"));
+
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), "十字架改动",
+                "十字架现在是死亡后直接返回0层，进行新一轮的冒险。"));
 
         ChangeInfo changes7 = new ChangeInfo("V0.5.3.6-SPV", true, "");
         changes7.hardlight(Window.Pink_COLOR);

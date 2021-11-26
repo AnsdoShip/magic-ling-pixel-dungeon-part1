@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -47,7 +46,6 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 public class Shopkeeper extends NPC {
 
@@ -99,10 +97,6 @@ public class Shopkeeper extends NPC {
 		Buff.affect(hero, Burning.class ).reignite( hero, 15f );
 		new ShopGuard().spawnAround(pos);
 			yell( Messages.get(this, "arise") );
-		if (Random.Int(0) == 0){
-			new ShopGuardDead().spawnAround(pos);
-			yell( Messages.get(this, "eye") );
-		}
 		next();
 	}
 

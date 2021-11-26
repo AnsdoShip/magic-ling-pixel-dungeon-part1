@@ -152,6 +152,7 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
+		new PotionOfExperience().quantity(45).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();
 

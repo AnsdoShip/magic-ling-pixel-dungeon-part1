@@ -1,4 +1,5 @@
 apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = appJavaCompatibility
@@ -7,4 +8,22 @@ dependencies {
     api project(':SPD-classes')
     //TODO might be nice to remove this, should decide
     implementation project(':services')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.5.30'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

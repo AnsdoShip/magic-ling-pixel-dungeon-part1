@@ -45,7 +45,7 @@ public class GnollShiled extends Gnoll {
                     Buff.affect(enemy, Blindness.class).set((float) (effect - 2));
                     break;
                 case 1:
-                    Buff.affect(enemy, Poison.class).set((float) (effect - 2));
+                    Buff.affect( enemy, Poison.class ).set( enemy.HT / 5 );
                     break;
                 case 2:
                     Buff.affect(enemy, Bleeding.class).set((float) (effect - 2));

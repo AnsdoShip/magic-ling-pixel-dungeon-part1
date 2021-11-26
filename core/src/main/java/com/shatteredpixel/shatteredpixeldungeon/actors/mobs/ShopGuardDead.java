@@ -23,15 +23,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -42,7 +38,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.StatueSprite;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -54,8 +49,7 @@ public class ShopGuardDead extends Statue {
         maxLvl = -200;
         state = HUNTING;
         spriteClass = ShopGuardianRedSprite.class;
-
-
+        HP=HT=Random.Int(30, 40);
     }
 
     protected Armor armor;
@@ -69,7 +63,7 @@ public class ShopGuardDead extends Statue {
 
         weapon.enchant( Weapon.Enchantment.random() );
 
-        HP=HT=Random.Int(30, 15);
+        HP = HT = 15 + Dungeon.depth * 5;
         defenseSkill = 4 + Dungeon.depth;
 
         do {
@@ -85,7 +79,7 @@ public class ShopGuardDead extends Statue {
 
 
     public void spawnAround( int pos ) {
-        for (int n : PathFinder.CIRCLE6) {
+        for (int n : PathFinder.CIRCLE8) {
             int cell = pos + n;
             if (Dungeon.level.passable[pos+2] && Actor.findChar( cell ) == null) {
                 spawnAt( cell );
@@ -101,10 +95,10 @@ public class ShopGuardDead extends Statue {
     }
 
 
-    public static ShopGuardDead spawnAt( int pos ) {
+    public static ShopGuardEye spawnAt( int pos ) {
         if (!Dungeon.level.solid[pos] && Actor.findChar( pos ) == null) {
 
-            ShopGuardDead w = new ShopGuardDead();
+            ShopGuardEye w = new ShopGuardEye();
             w.adjustStats( Dungeon.depth );
             w.pos = pos;
             w.state = w.HUNTING;
@@ -133,53 +127,14 @@ public class ShopGuardDead extends Statue {
         armor = (Armor)bundle.get( ARMOR );
     }
 
-    private int delay = 10;
-
-    private boolean canTryToSummon() {
-
-        int ratCount = 0;
-        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
-
-            if (mob instanceof Rat){
-                ratCount++;
-            }
-        }
-        if (ratCount < 12 && delay <=10) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
     @Override
-    public boolean attack( Char enemy ) {
-        if (canTryToSummon()) {
-
-            return super.attack(enemy);
-        }else if(canAttack(enemy)) {
-            spend( attackDelay()*10f );
-            return true;
+    protected boolean act() {
+        for (Buff buff : hero.buffs()) {
+            if (buff instanceof Invisibility) {
+                buff.detach();
+                yell( Messages.get(this, "kil") );                }
         }
-        return super.attack(enemy);
-    }
-
-
-    @Override
-    protected void spend( float time ) {
-
-        float timeScale = 10f;
-
-        hero.HP = hero.HT =HP=HT/4;
-        Buff.affect(hero, Burning.class).reignite(hero);
-        Buff.affect(hero, Bleeding.class).set( 4 );
-        Sample.INSTANCE.play( Assets.Sounds.CURSED );
-        Buff.affect(hero, Blindness.class, Degrade.DURATION);
-        Buff.prolong( hero, Degrade.class, Degrade.DURATION );
-        yell( Messages.get(this, "dead") );{
-        }
-
-        super.spend( timeScale );
+        return super.act();
     }
 
     @Override
@@ -218,13 +173,27 @@ public class ShopGuardDead extends Statue {
 
         public ShopGuardianRedSprite(){
             super();
-            tint(1, 0, 0, 0.2f);
+            tint(1, 1, 0, 0.2f);
         }
 
         @Override
         public void resetColor() {
             super.resetColor();
-            tint(1, 0, 0, 0.2f);
+            tint(1, 1, 0, 0.2f);
+        }
+    }
+
+    public static class ShopGuardianBlueSprite extends StatueSprite {
+
+        public ShopGuardianBlueSprite(){
+            super();
+            tint(0, 1, 1, 0.2f);
+        }
+
+        @Override
+        public void resetColor() {
+            super.resetColor();
+            tint(0, 1, 1, 0.2f);
         }
     }
 

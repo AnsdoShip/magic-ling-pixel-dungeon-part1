@@ -15,11 +15,11 @@ import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -186,7 +186,7 @@ public class TitleScene extends PixelScene {
 				return super.onLongClick();
 			}
 		};
-		btnPlay.icon(new NxhySprite());
+		btnPlay.icon(new ViewASprite());
 		add(btnPlay);
 
 		StyledButton btnRankings = new StyledButton(GREY_TR,Messages.get(this, "rankings")) {

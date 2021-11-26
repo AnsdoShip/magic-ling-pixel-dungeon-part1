@@ -95,7 +95,7 @@ public class ThanksScene extends PixelScene {
               String message = "编码致谢：\n-REN\n-Alexstrasza\n-SmuJB\n-Tianscar\n-TrashBoxbodylev";
                 message += "\n\n测试致谢：\n-迷茫\n-小狐狸\n-摘希\n-ZIOM-ObSir\n-坏猫猫\n-不是史神\n-月鸾";
                 message += "\n\n美术致谢：\n-被子\n-冷群怪\n-REN\n-Daniel Clan\n-奈亚子\n-TianScar";
-                message += "\n\n捐赠致谢：\n-洛诗夜\n-风植居士";
+                message += "\n\n捐赠致谢：\n-洛诗夜\n-风植居士\n-JOJO";
 
             text = PixelScene.renderTextBlock(message, 6);
             add(text);

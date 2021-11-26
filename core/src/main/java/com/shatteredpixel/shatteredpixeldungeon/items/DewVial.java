@@ -22,9 +22,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -34,7 +38,7 @@ import com.watabou.utils.GameMath;
 
 import java.util.ArrayList;
 
-public class DewVial extends Item {
+public class DewVial extends MeleeWeapon {
 
 	private static final int MAX_VOLUME	= 10;
 
@@ -44,12 +48,34 @@ public class DewVial extends Item {
 
 	private static final String TXT_STATUS	= "%d/%d";
 
-	{
-		image = ItemSpriteSheet.VIAL;
+	public DewVial() {
+		super.image = ItemSpriteSheet.VIAL;
+		super.tier = 3;
+		if (level() >= 2) {
+			super.image = ItemSpriteSheet.BLUEDEVIAL;
+		}
 
-		defaultAction = AC_DRINK;
+		if (level() >= 4) {
+			super.image = ItemSpriteSheet.PINKDEVIAL;
+		}
 
-		unique = true;
+	}
+
+	public int proc(Char var1, Char var2, int var3) {
+		int var4 = var3;
+		if (this.level() >= 2) {
+			var4 = (new Unstable()).proc(this, var1, var2, var3) + 3;
+			super.image = ItemSpriteSheet.BLUEDEVIAL;
+		}
+
+		var3 = var4;
+		if (this.level() >= 4) {
+			var3 = (new Unstable()).proc(this, var1, var2, var4);
+			var3 = (new Unstable()).proc(this, var1, var2, var3) + 7;
+			super.image = ItemSpriteSheet.PINKDEVIAL;
+		}
+
+		return super.proc(var1, var2, var3);
 	}
 
 	private int volume = 0;
@@ -67,6 +93,17 @@ public class DewVial extends Item {
 		super.restoreFromBundle( bundle );
 		volume	= bundle.getInt( VOLUME );
 	}
+
+	@Override
+	public int STRReq(int lvl) {
+		return 0;
+	}
+	@Override
+	public int max(int lvl) {
+		return  3*(tier+1) +    //12 base, down from 20
+				lvl*(tier);     //+3 per level, down from +4
+	}
+
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -123,6 +160,7 @@ public class DewVial extends Item {
 		}
 	}
 
+
 	@Override
 	public String info() {
 		String info = desc();
@@ -169,6 +207,11 @@ public class DewVial extends Item {
 		}
 
 		updateQuickslot();
+	}
+
+	@Override
+	public int level() {
+		return (Dungeon.hero == null ? 0 : Dungeon.hero.lvl/4) + (curseInfusionBonus ? 1 : 0);
 	}
 
 	public void fill() {

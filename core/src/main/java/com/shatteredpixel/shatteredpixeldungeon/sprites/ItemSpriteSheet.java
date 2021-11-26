@@ -704,6 +704,12 @@ public class ItemSpriteSheet {
 	public static final int	NOBOOKS				= BAGS+35;
 	public static final int	CLINGSHILED				= BAGS+36;
 	public static final int	GRRENSHILED				= BAGS+37;
+	/*依赖项*/
+	public static final int	NOTAS				= BAGS+38;
+	public static final int	TONASD				= BAGS+39;
+	/*依赖项*/
+	public static final int	BLUEDEVIAL				= BAGS+40;
+	public static final int	PINKDEVIAL				= BAGS+41;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprite
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
@@ -227,7 +226,7 @@ public class TitleScene extends PixelScene {
 		add(btnAbout);
 
 		StyledButton btnNews = new NewsButton(GREY_TR, Messages.get(this, "news"));
-		btnNews.icon(new SheepSprite());
+		btnNews.icon(new IceGolemSprite());
 		add(btnNews);
 
 		final int BTN_HEIGHT = 20;

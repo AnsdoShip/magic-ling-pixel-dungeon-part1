@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.watabou.utils.Random;
 
@@ -40,6 +41,20 @@ public class Gnoll extends Mob {
 		loot = Gold.class;
 		lootChance = 0.5f;
 	}
+
+	@Override
+	public void damage( int dmg, Object src ) {
+		//半血狂暴
+		super.damage( dmg, src );
+		if (HP <= HT / 2) {
+			destroy();
+			Mob mob = new OGPDLLS();
+			mob.HP = mob.HT / 2;
+			mob.pos = pos;
+			GameScene.add(mob);
+		}
+	}
+
 	
 	@Override
 	public int damageRoll() {

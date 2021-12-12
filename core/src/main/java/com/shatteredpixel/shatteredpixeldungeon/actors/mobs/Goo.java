@@ -57,7 +57,7 @@ public class Goo extends Mob implements Callback {
 	private int var2;
 	private static final float TIME_TO_ZAP	= 1f;
 	{
-		HP = HT = 80;
+		HP = HT = 120;
 		EXP = 10;
 		defenseSkill = 12;
 		spriteClass = GooSprite.class;
@@ -136,7 +136,7 @@ public class Goo extends Mob implements Callback {
 		spend( TIME_TO_ZAP );
 
 		if (hit( this, enemy, true )) {
-			int dmg = Random.NormalIntRange(3, 10);
+			int dmg = Random.NormalIntRange(3, 6);
 			enemy.damage( dmg, new LightningBolt() );
 
 			if (enemy.sprite.visible) {

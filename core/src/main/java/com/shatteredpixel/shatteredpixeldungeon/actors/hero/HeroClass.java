@@ -169,6 +169,11 @@ public enum HeroClass {
 			new PotionOfHealing().quantity(3).identify().collect();
 		}
 
+		if (Dungeon.isChallenged(NO_GOLD)){
+			hero.lvl = -25;
+			hero.exp = -123456789;
+		}
+
 		if (Dungeon.isChallenged(Challenges.PRO)){
 			new PotionOfInvisibility().quantity(45).identify().collect();
 			new PotionOfPurity().quantity(45).identify().collect();

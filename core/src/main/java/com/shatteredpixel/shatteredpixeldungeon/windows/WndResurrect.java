@@ -79,8 +79,9 @@ public class WndResurrect extends Window {
 				hero.lvl= 1;
 				hero.exp= 0;
 				Buff.prolong(hero, RoseShiled.class, RoseShiled.SURATION);
-				InterlevelScene.mode = InterlevelScene.Mode.KO;
+				InterlevelScene.mode = InterlevelScene.Mode.RESET;
 				Game.switchScene( InterlevelScene.class );
+				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
 			}
 		};
 		btnYes.setRect( 0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT );

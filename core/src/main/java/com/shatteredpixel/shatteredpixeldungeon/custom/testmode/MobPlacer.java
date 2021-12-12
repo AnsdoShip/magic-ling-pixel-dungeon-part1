@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.SRPDHBLR;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Scorpio;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Senior;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShieldHuntsman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
@@ -423,6 +424,7 @@ public class MobPlacer extends TestItem{
 
         REDBS(RedNecromancer.class, DictSpriteSheet.REDBS),
         SLXJ(SpectralNecromancer.class, DictSpriteSheet.SLXJ),
+        BMHR(ShieldHuntsman.class, DictSpriteSheet.BMHR),
         XTG(XTG100.class, DictSpriteSheet.XTG);
 
         private Class<? extends Mob> mobClass;

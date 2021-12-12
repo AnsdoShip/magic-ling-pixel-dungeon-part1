@@ -48,11 +48,11 @@ public class NxhyShopRoom extends SpecialRoom {
     }
 
     public int minWidth() {
-        return Math.max(10, (int) (Math.sqrt((double) itemCount()) + 3.0d));
+        return Math.max(8, (int) (Math.sqrt((double) itemCount()) + 3.0d));
     }
 
     public int minHeight() {
-        return Math.max(10, (int) (Math.sqrt((double) itemCount()) + 3.0d));
+        return Math.max(8, (int) (Math.sqrt((double) itemCount()) + 3.0d));
     }
 
     public int itemCount() {

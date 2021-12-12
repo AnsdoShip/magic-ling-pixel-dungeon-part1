@@ -71,7 +71,7 @@ import com.watabou.utils.Random;
 import com.watabou.utils.Rect;
 import com.watabou.utils.RectF;
 
-public class NewDM720 extends XTG100 {
+public class NewDM720 extends MolotovHuntsman {
     private static final float TIME_TO_BURN	= 1f;
     {
         //TODO improved sprite
@@ -80,7 +80,6 @@ public class NewDM720 extends XTG100 {
         HP = HT = 270;
         EXP = 40;
         defenseSkill = 15;
-        gasTankPressure = Random.Int(100, 250);
         properties.add(Property.BOSS);
         properties.add(Property.INORGANIC);
         properties.add(Property.LARGE);
@@ -155,18 +154,16 @@ public class NewDM720 extends XTG100 {
     @Override
     protected boolean doAttack( Char enemy ) {
 
-        if (Dungeon.level.distance( pos, enemy.pos ) <= 1 || gasTankPressure <= 0) {
+        if (Dungeon.level.distance( pos, enemy.pos ) <= 1 ) {
 
             return super.doAttack( enemy );
 
         } else {
-            spend( attackDelay()*5f );
+            spend( attackDelay()*1f );
             boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];
             if (visible) {
                 sprite.attack( enemy.pos );
                 spend( TIME_TO_BURN );
-                shoot(this, enemy.pos);
-                gasTankPressure -= Random.Int(1, 4);
             }
 
             return !visible;
@@ -559,8 +556,6 @@ public class NewDM720 extends XTG100 {
         if (visible) {
             sprite.attack(enemy.pos);
             spend(TIME_TO_BURN);
-            shoot(this, enemy.pos);
-            gasTankPressure -= Random.Int(20, 30);
         }
 
 

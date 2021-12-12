@@ -213,7 +213,7 @@ public class DewVial extends MeleeWeapon {
 	public int level() {
 		return (Dungeon.hero == null ? 0 : Dungeon.hero.lvl/4) + (curseInfusionBonus ? 1 : 0);
 	}
-
+	//4级升1级
 	public void fill() {
 		volume = MAX_VOLUME;
 		updateQuickslot();

@@ -24,12 +24,9 @@ package com.shatteredpixel.shatteredpixeldungeon.levels;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.PrisonPainter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NxhyShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BurningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
@@ -50,27 +47,16 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
-import java.util.ArrayList;
-
 public class PrisonLevel extends RegularLevel {
 
 	{
 		color1 = 0x6a723d;
 		color2 = 0x88924c;
 	}
-	
-	@Override
-	protected ArrayList<Room> initRooms() {
-		ArrayList<Room> rooms = Wandmaker.Quest.spawnRoom(super.initRooms());
-		if (Dungeon.depth == 7) {
-			rooms.add(new NxhyShopRoom());
-		}
-		return rooms;
-	}
 
 	@Override
 	protected int standardRooms(boolean forceMax) {
-		if (forceMax) return 8;
+		if (forceMax) return 7;
 		//6 to 8, average 6.75
 		return 6+Random.chances(new float[]{4, 2, 2});
 	}
@@ -82,7 +68,7 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	protected int specialRooms(boolean forceMax) {
-		if (forceMax) return 7;
+		if (forceMax) return 3;
 		//1 to 3, average 2.0
 		return 1+Random.chances(new float[]{3, 4, 3});
 	}

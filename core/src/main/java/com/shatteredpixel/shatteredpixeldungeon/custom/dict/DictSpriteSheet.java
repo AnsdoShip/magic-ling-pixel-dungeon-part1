@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ShieldHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpectralNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.watabou.noosa.Image;
@@ -80,6 +81,8 @@ public class DictSpriteSheet {
                 return new RedNecromancerSprite();
             case SLXJ:
                 return new SpectralNecromancerSprite();
+            case BMHR:
+                return new ShieldHuntsmanSprite();
             case SNAKE:
                 return new Image(Assets.Sprites.SNAKE, 0, 0, 12, 11);
             case ALBINO:
@@ -268,6 +271,7 @@ public class DictSpriteSheet {
     public static final int XTG      = 221 + 10000;
     public static final int REDBS      = 222 + 10000;
     public static final int SLXJ      = 223 + 10000;
+    public static final int BMHR      = 224 + 10000;
 
     public static final int THIEF           = 300 + 10000;
     public static final int BANDIT          = 301 + 10000;

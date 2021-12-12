@@ -43,6 +43,14 @@ public class VaultRoom extends SpecialRoom {
 
 	//fixed size to improve presentation and provide space for crystal mimic
 
+	@Override
+	public int minWidth() { return 6; }
+
+	@Override
+	public int minHeight() {
+		return 6;
+	}
+
 	public void paint( Level level ) {
 
 		Painter.fill( level, this, Terrain.WALL );

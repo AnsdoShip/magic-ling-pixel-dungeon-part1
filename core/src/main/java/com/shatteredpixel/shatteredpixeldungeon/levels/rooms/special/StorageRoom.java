@@ -32,6 +32,14 @@ import com.watabou.utils.Random;
 
 public class StorageRoom extends SpecialRoom {
 
+	@Override
+	public int minWidth() { return 6; }
+
+	@Override
+	public int minHeight() {
+		return 6;
+	}
+
 	public void paint( Level level ) {
 		
 		final int floor = Terrain.EMPTY_SP;

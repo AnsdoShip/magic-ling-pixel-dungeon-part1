@@ -39,7 +39,7 @@ public class Bestiary {
 		return mobs;
 	}
 
-	//returns a rotation of standard mobs, unshuffled.
+	//支离破碎
 	private static ArrayList<Class<? extends Mob>> standardMobRotation(int i) {
 		if (Dungeon.isChallenged(RLPT)){
 			switch (i) {
@@ -47,8 +47,8 @@ public class Bestiary {
 					//3x rat, 1x snake
 					return new ArrayList<>(Arrays.asList(
 							Rat.class, Rat.class,
-							Rat.class, OGPDZSLS.class, Rat.class,
-							Snake.class));
+							Rat.class, OGPDZSLS.class, BrownBat.class,
+							Snake.class,Snake.class,Snake.class));
 				case 2:
 					return new ArrayList<>(Arrays.asList(Rat.class,
 							Rat.class, Rat.class, Gnoll.class, Gnoll.class,
@@ -175,6 +175,7 @@ public class Bestiary {
 			}
 		}
 		switch (i) {
+			//正常刷怪
 			case 1:
 				//3x rat, 1x snake
 				return new ArrayList<>(Arrays.asList(
@@ -215,13 +216,14 @@ public class Bestiary {
 			case 8:
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
 						KagenoNusujin.class, Skeleton.class,
-						Thief.class, Shaman.random(),Thief.class,Thief.class,
-						Shaman.random(), Guard.class, SRPDHBLR.class, BlackHost.class,DM100.class,DM100.class,DM100.class,Necromancer.class,Necromancer.class,Necromancer.class));
+						Thief.class, Shaman.random(),BrownBat.class,BrownBat.class,
+						Shaman.random(), Guard.class, SRPDHBLR.class, BlackHost.class,BrownBat.class,Necromancer.class,
+						Necromancer.class,BrownBat.class));
 			case 9:
 				return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
-						Thief.class,Thief.class,Thief.class,
-						DM100.class,Necromancer.class,Necromancer.class,
-						DM100.class,SRPDHBLR.class, BlackHost.class));
+						Thief.class,Thief.class,BrownBat.class,
+						BrownBat.class,Necromancer.class,Necromancer.class,
+						DM100.class,BrownBat.class, BlackHost.class));
 
 			case 10:
 				return new ArrayList<>(Arrays.asList(Bat.class,
@@ -229,26 +231,30 @@ public class Bestiary {
 						Necromancer.class,Necromancer.class));
 			case 11:
 				return new ArrayList<>(Arrays.asList(Bat.class,
-						BlackHost.class, SRPDHBLR.class, SRPDHBLR.class,Bat.class,Necromancer.class
-				));
+						Spinner.class, Spinner.class,
+						DM200.class, GnollShiled.class,
+						Brute.class,DM201.class,DM201.class,
+						GnollShiled.class,
+						MolotovHuntsman.class,FireGhost.class));
 			case 12:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
-						Brute.class,
+						GnollTrickster.class,
 						Shaman.random(), SkullShaman.class,
 						Spinner.class, Spinner.class,
-						DM200.class, MolotovHuntsman.class,
+						DM200.class, GnollShiled.class,
 						Brute.class,
-						MolotovHuntsman.class,MolotovHuntsman.class,FireGhost.class));
+						GnollShiled.class,MolotovHuntsman.class,FireGhost.class));
 			case 13:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
 						Brute.class,
-						MolotovHuntsman.class, Spinner.class,
-						DM200.class, MolotovHuntsman.class,
-						Brute.class,MolotovHuntsman.class,MolotovHuntsman.class,FireGhost.class,SkullShaman.class,SkullShaman.class));
+						MolotovHuntsman.class, Spinner.class,FlameB01.class,
+						DM201.class, FlameB01.class,
+						Brute.class,FlameB01.class,GnollShiled.class,FireGhost.class,SkullShaman.class,
+						SkullShaman.class));
 
 			case 14:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
@@ -256,42 +262,42 @@ public class Bestiary {
 						Bat.class,
 						MolotovHuntsman.class,
 						Spinner.class,
-						MolotovHuntsman.class, MolotovHuntsman.class,
-						Brute.class, FlameB01.class,MolotovHuntsman.class,FireGhost.class));
+						GnollShiled.class, MolotovHuntsman.class,
+						Brute.class, FlameB01.class,GnollShiled.class,FireGhost.class));
 
 			// City
 			case 16:
 				//5x elemental, 5x warlock, 1x monk, 2x silvercrab
 				return new ArrayList<>(Arrays.asList(
 						IceGolem.class, Elemental.random(), Elemental.random(), Elemental.random(),
-						Monk.class,
+						Monk.class,IceGolem.class,IceGolem.class,
 						Shaman.random()));
 			case 17:
 				//2x elemental, 2x warlock, 2x monk, 1x silvercrab
 				return new ArrayList<>(Arrays.asList(
 						Elemental.random(), Elemental.random(), Elemental.random(), Elemental.random(),
-						Monk.class,FireGhost.class,FireGhost.class));
+						Monk.class,FireGhost.class,ShieldHuntsman.class));
 			case 18:
 				//1x elemental, 1x warlock, 2x monk, 3x golem
 				return new ArrayList<>(Arrays.asList(
-						Elemental.random(),
+						Elemental.random(),IceGolem.class,
 						Warlock.class, Warlock.class,
 						Monk.class, Monk.class,
-						Golem.class, Golem.class, Golem.class,FireGhost.class,FireGhost.class));
+						Golem.class, Golem.class, Golem.class,ShieldHuntsman.class,FireGhost.class));
 			case 19:
 				//1x elemental, 1x warlock, 2x monk, 3x golem
 				return new ArrayList<>(Arrays.asList(
 						Elemental.random(),
-						Warlock.class, Warlock.class,
-						Monk.class, Monk.class,
+						ShieldHuntsman.class, Warlock.class,
+						Monk.class, IceGolem.class,IceGolem.class,
 						Golem.class, Golem.class, Golem.class,ShieldHuntsman.class));
 			case 20:
 				//1x elemental, 1x warlock, 2x monk, 3x golem
 				return new ArrayList<>(Arrays.asList(
 						Elemental.random(),
 						Warlock.class, Warlock.class,
-						Monk.class, Monk.class,
-						Golem.class, Golem.class, Golem.class,ShieldHuntsman.class));
+						Monk.class, IceGolem.class,
+						Golem.class, IceGolem.class, Golem.class,ShieldHuntsman.class));
 
 			case 21:case 22:
 				//3x succubus, 3x evil eye

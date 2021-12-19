@@ -161,7 +161,7 @@ public class Succubus extends Mob {
 		Class<?extends Scroll> loot;
 		do{
 			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class|| loot == ScrollOfUpgrade.class);
 
 		return Reflection.newInstance(loot);
 	}

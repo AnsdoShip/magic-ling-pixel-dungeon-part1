@@ -27,7 +27,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -35,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -64,14 +68,14 @@ public class DewVial extends MeleeWeapon {
 	public int proc(Char var1, Char var2, int var3) {
 		int var4 = var3;
 		if (this.level() >= 2) {
-			var4 = (new Unstable()).proc(this, var1, var2, var3) + 3;
+			var4 = (new Blazing()).proc(this, var1, var2, var3) + 3;
 			super.image = ItemSpriteSheet.BLUEDEVIAL;
 		}
 
 		var3 = var4;
 		if (this.level() >= 4) {
-			var3 = (new Unstable()).proc(this, var1, var2, var4);
-			var3 = (new Unstable()).proc(this, var1, var2, var3) + 7;
+			var3 = (new Vampiric()).proc(this, var1, var2, var4);
+			var3 = (new Vampiric()).proc(this, var1, var2, var3) + 7;
 			super.image = ItemSpriteSheet.PINKDEVIAL;
 		}
 
@@ -96,12 +100,33 @@ public class DewVial extends MeleeWeapon {
 
 	@Override
 	public int STRReq(int lvl) {
-		return 0;
+		return 16;
 	}
 	@Override
 	public int max(int lvl) {
 		return  3*(tier+1) +    //12 base, down from 20
 				lvl*(tier);     //+3 per level, down from +4
+	}
+
+	@Override
+	public int damageRoll(Char owner) {
+		if (owner instanceof Hero) {
+			Hero hero = (Hero)owner;
+			Char enemy = hero.enemy();
+			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
+				//deals 67% toward max to max on surprise, instead of min to max.
+				int diff = max() - min();
+				int damage = augment.damageFactor(Random.NormalIntRange(
+						min() + Math.round(diff*0.67f),
+						max()));
+				int exStr = hero.STR() - STRReq();
+				if (exStr > 0) {
+					damage += Random.IntRange(0, exStr);
+				}
+				return damage;
+			}
+		}
+		return super.damageRoll(owner);
 	}
 
 
@@ -173,6 +198,20 @@ public class DewVial extends MeleeWeapon {
 
 		if (isFull()){
 			info += "\n\n" + Messages.get(this, "desc_full");
+		}
+
+		if (levelKnown) {
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
+			if (STRReq() > Dungeon.hero.STR()) {
+				info += " " + Messages.get(Weapon.class, "too_heavy");
+			} else if (Dungeon.hero.STR() > STRReq()){
+				info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+			}
+		} else {
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
+			if (STRReq(0) > Dungeon.hero.STR()) {
+				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
+			}
 		}
 
 		return info;

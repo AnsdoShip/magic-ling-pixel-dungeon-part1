@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
@@ -72,12 +71,6 @@ public class WndResurrect extends Window {
 			protected void onClick() {
 				hide();
 				Statistics.ankhsUsed++;
-				hero.HP = 20;
-				hero.HT = 20;
-				Dungeon.gold = 0;
-				hero.STR = 10;
-				hero.lvl= 1;
-				hero.exp= 0;
 				Buff.prolong(hero, RoseShiled.class, RoseShiled.SURATION);
 				InterlevelScene.mode = InterlevelScene.Mode.RESET;
 				Game.switchScene( InterlevelScene.class );

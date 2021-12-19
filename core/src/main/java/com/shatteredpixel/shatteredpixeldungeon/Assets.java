@@ -24,7 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 public class Assets {
 	public static final String BGM_1 = "music/Level1.ogg";
 	public static final String BGM_2 = "music/Level2.ogg";
-	public static final String BGM_3 = "music/Levelscrolloftransmutation3.ogg";
+	public static final String BGM_3 = "music/Level3.ogg";
 	public static final String BGM_4 = "music/Level4.ogg";
 	public static final String BGM_5 = "music/Level5.ogg";
 	public static final String BGM_0 = "music/Level0.ogg";

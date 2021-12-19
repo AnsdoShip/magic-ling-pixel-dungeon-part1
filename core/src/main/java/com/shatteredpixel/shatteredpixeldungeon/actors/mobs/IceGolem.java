@@ -47,7 +47,7 @@ public class IceGolem extends Mob implements Callback {
     {
         spriteClass = IceGolemSprite.class;
 
-        HP = HT = Random.Int(100,200);
+        HP = HT = Random.Int(70,140);
         defenseSkill = 15;
 
         EXP = 3;
@@ -61,7 +61,7 @@ public class IceGolem extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 15, 25 );
+        return Random.NormalIntRange( 10, 18 );
     }
 
     @Override

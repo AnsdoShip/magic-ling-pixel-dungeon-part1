@@ -37,7 +37,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FrostTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -57,7 +56,7 @@ public class Goo extends Mob implements Callback {
 	private int var2;
 	private static final float TIME_TO_ZAP	= 1f;
 	{
-		HP = HT = 120;
+		HP = HT = 100;
 		EXP = 10;
 		defenseSkill = 12;
 		spriteClass = GooSprite.class;
@@ -75,7 +74,7 @@ public class Goo extends Mob implements Callback {
 		int max = (HP*2 <= HT) ? 14 : 8;
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
-			return Random.NormalIntRange( min*3, max*3 );
+			return Random.NormalIntRange( min*1, max*3 );
 		} else {
 			return Random.NormalIntRange( min, max );
 		}
@@ -84,7 +83,7 @@ public class Goo extends Mob implements Callback {
 	@Override
 	public int attackSkill( Char target ) {
 		int attack = 10;
-		if (HP*2 <= HT) attack = 15;
+		if (HP*2 <= HT) attack = 9;
 		if (pumpedUp > 0) attack *= 2;
 		return attack;
 	}
@@ -189,18 +188,6 @@ public class Goo extends Mob implements Callback {
 			two.pos = this.pos;
 			two.activate();
 			yell(Messages.get(this, "sr", new Object[0]));
-		} else {
-			int i3 = this.var2 + 10;
-			FrostTrap var4 = new FrostTrap();
-			var4.pos = this.pos;
-			var4.activate();
-			FrostTrap three = new FrostTrap();
-			three.pos = this.pos;
-			three.activate();
-			FrostTrap d = new FrostTrap();
-			d.pos = this.pos;
-			d.activate();
-			yell(Messages.get(this, "zl", new Object[0]));
 		}
 		int reg = Math.min(1 + 1, this.HT - this.HP);
 		if (reg > 0) {

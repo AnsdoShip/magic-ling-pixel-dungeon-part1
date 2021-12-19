@@ -40,8 +40,8 @@ public class BrownBat extends Mob {
     {
         spriteClass = BatSprite.BatEDSprite.class;
 
-        HP = HT = 45;
-        defenseSkill = 150;
+        HP = HT = 15;
+        defenseSkill = 24;
         baseSpeed = 1.3f;
 
         EXP = 7;
@@ -86,7 +86,7 @@ public class BrownBat extends Mob {
 
     @Override
     public int attackSkill( Char target ) {
-        return 150;
+        return 15;
     }
 
     @Override

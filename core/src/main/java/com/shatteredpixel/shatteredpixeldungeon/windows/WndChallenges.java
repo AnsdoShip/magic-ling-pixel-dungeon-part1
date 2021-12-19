@@ -86,13 +86,13 @@ public class WndChallenges extends Window {
 		final int hard_mode = 7;
 		final int warning_mode = 10;
 		final int Test_Debug = 13;
-
+		final int Happy_Mode = 14;
 
 		for (int i = 0; i < Challenges.NAME_IDS.length; i++) {
 
 			final String challenge = Challenges.NAME_IDS[i];
 
-			if(i==normal_mode || i==hard_mode || i==warning_mode || i==Test_Debug){
+			if(i==normal_mode || i==hard_mode || i==warning_mode || i==Test_Debug|| i==Happy_Mode){
 				RenderedTextBlock block = PixelScene.renderTextBlock(10);
 				switch (i){
 					case normal_mode:
@@ -110,6 +110,10 @@ public class WndChallenges extends Window {
 					case Test_Debug:
 						block.text(M.L(Challenges.class, "test"));
 						block.hardlight(0xFFFF00);
+						break;
+					case Happy_Mode:
+						block.text(M.L(Challenges.class, "happy"));
+						block.hardlight(0x00ffff);
 						break;
 				}
 				block.setPos((WIDTH - block.width()) / 2,

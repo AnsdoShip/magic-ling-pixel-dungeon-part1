@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -84,7 +85,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED,ROSESHIELDED
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED,
+		ROSESHIELDED,HALOMETHANEBURNING,BUTTER
 	}
 	private int stunStates = 0;
 	
@@ -100,6 +102,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected PosTweener motion;
 	
 	protected Emitter burning;
+	protected Emitter haloburning;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -349,6 +352,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	public void add( State state ) {
 		switch (state) {
+			case HALOMETHANEBURNING:
+				haloburning = emitter();
+				haloburning.pour( HalomethaneFlameParticle.FACTORY, 0.06f );
+				if (visible) {
+					Sample.INSTANCE.play( Assets.Sounds.BURNING );
+				}
+				break;
 			case BURNING:
 				burning = emitter();
 				burning.pour( FlameParticle.FACTORY, 0.06f );
@@ -406,6 +416,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	public void remove( State state ) {
 		switch (state) {
+			case HALOMETHANEBURNING:
+				if (haloburning != null) {
+					haloburning.on = false;
+					haloburning = null;
+				}
+				break;
 			case BURNING:
 				if (burning != null) {
 					burning.on = false;

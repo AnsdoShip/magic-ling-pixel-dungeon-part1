@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlameX;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
@@ -152,7 +153,6 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
-		new PotionOfExperience().quantity(45).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();
 
@@ -224,6 +224,7 @@ public enum HeroClass {
 			new ScrollOfMysticalEnergy().quantity(1).identify().collect();
 			new AquaBlast().quantity(1).identify().collect();
 			new ReclaimTrap().quantity(1).identify().collect();
+			new PotionOfLiquidFlameX().quantity(100).identify().collect();
 			Dungeon.gold = 600000000;
 			hero.STR = 27;
 			hero.lvl = 31;

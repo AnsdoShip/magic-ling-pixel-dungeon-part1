@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.watabou.utils.Random;
@@ -67,9 +66,6 @@ public class BrownBat extends Mob {
             AlarmTrap Waring = new AlarmTrap();
             Waring.pos = super.pos;
             Waring.activate();
-            BlazingTrap Fire = new  BlazingTrap();
-            Fire.pos = super.pos;
-            Fire.activate();
         }
             for (Buff buff : hero.buffs()) {
                 if (buff instanceof Blindness) {

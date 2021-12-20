@@ -33,7 +33,7 @@ import com.watabou.utils.PathFinder;
 public class PotionOfLiquidFlameX extends Potion {
 
     {
-        icon = ItemSpriteSheet.Icons.POTION_LIQFLAME;
+        icon = ItemSpriteSheet.Icons.POTION_BLUE;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PotionOfLiquidFlameX extends Potion {
         for (int offset : PathFinder.NEIGHBOURS9){
             if (!Dungeon.level.solid[cell+offset]) {
 
-                GameScene.add(Blob.seed(cell + offset, 2, HalomethaneFire.class));
+                GameScene.add(Blob.seed(cell + offset, 7, HalomethaneFire.class));
 
             }
         }

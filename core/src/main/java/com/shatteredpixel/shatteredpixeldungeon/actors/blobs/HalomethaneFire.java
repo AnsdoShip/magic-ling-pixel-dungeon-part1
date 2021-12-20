@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-
+/*定义磷火系统*/
 public class HalomethaneFire extends Blob {
 
     @Override
@@ -43,6 +43,7 @@ public class HalomethaneFire extends Blob {
         int fire;
 
         Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
+        //燃烧效果粒子总和
 
         boolean observe = false;
 
@@ -96,6 +97,7 @@ public class HalomethaneFire extends Blob {
         }
     }
 
+    //定义燃烧效果和渲染燃烧行动
     public static void burn( int pos ) {
         Char ch = Actor.findChar( pos );
         if (ch != null && !ch.isImmune(HalomethaneFire.class)) {
@@ -117,6 +119,7 @@ public class HalomethaneFire extends Blob {
     public void use( BlobEmitter emitter ) {
         super.use( emitter );
         emitter.pour( HalomethaneFlameParticle.FACTORY, 0.03f );
+        //定义粒子系统 HalomethaneFlameParticle渲染
     }
 
     @Override

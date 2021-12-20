@@ -99,6 +99,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Ince
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.SkyBlueFireBloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.DeviceCompat;
@@ -175,6 +176,8 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new SkyBlueFireBloom.Seed().quantity(10).identify().collect();
+			new PotionOfLiquidFlameX().quantity(10).collect();
 			new PotionOfInvisibility().quantity(45).identify().collect();
 			new PotionOfPurity().quantity(45).identify().collect();
 			new StoneOfAffection().quantity(45).identify().collect();

@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlameX;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
@@ -267,6 +268,7 @@ public enum Catalog {
 		POTIONS.seen.put( PotionOfInvisibility.class,       false);
 		POTIONS.seen.put( PotionOfExperience.class,         false);
 		POTIONS.seen.put( PotionOfHaste.class,              false);
+		POTIONS.seen.put( PotionOfLiquidFlameX.class,       false);
 	
 		SCROLLS.seen.put( ScrollOfIdentify.class,           false);
 		SCROLLS.seen.put( ScrollOfUpgrade.class,            false);

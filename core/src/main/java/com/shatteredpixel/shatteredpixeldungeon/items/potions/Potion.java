@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
+import com.shatteredpixel.shatteredpixeldungeon.plants.SkyBlueFireBloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
@@ -101,6 +102,7 @@ public class Potion extends Item {
 			put("charcoal",ItemSpriteSheet.POTION_CHARCOAL);
 			put("silver",ItemSpriteSheet.POTION_SILVER);
 			put("ivory",ItemSpriteSheet.POTION_IVORY);
+			put("skyblue",ItemSpriteSheet.POTION_SKYBLUE);
 		}
 	};
 	
@@ -110,6 +112,7 @@ public class Potion extends Item {
 		mustThrowPots.add(PotionOfLiquidFlame.class);
 		mustThrowPots.add(PotionOfParalyticGas.class);
 		mustThrowPots.add(PotionOfFrost.class);
+		mustThrowPots.add(PotionOfLiquidFlameX.class);
 		
 		//exotic
 		mustThrowPots.add(PotionOfCorrosiveGas.class);
@@ -445,6 +448,7 @@ public class Potion extends Item {
 			types.put(Earthroot.Seed.class,     PotionOfParalyticGas.class);
 			types.put(Fadeleaf.Seed.class,      PotionOfMindVision.class);
 			types.put(Firebloom.Seed.class,     PotionOfLiquidFlame.class);
+			types.put(SkyBlueFireBloom.Seed.class,     PotionOfLiquidFlameX.class);
 			types.put(Icecap.Seed.class,        PotionOfFrost.class);
 			types.put(Rotberry.Seed.class,      PotionOfStrength.class);
 			types.put(Sorrowmoss.Seed.class,    PotionOfToxicGas.class);

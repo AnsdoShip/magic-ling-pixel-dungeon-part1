@@ -519,6 +519,7 @@ public class ItemSpriteSheet {
 	public static final int POTION_CHARCOAL = POTIONS+9;
 	public static final int POTION_SILVER   = POTIONS+10;
 	public static final int POTION_IVORY    = POTIONS+11;
+	public static final int POTION_SKYBLUE  = POTIONS+12;
 	public static final int POTION_CATALYST = POTIONS+13;
 	static {
 		for (int i = POTIONS; i < POTIONS+16; i++)
@@ -557,6 +558,7 @@ public class ItemSpriteSheet {
 	public static final int SEED_STARFLOWER     = SEEDS+9;
 	public static final int SEED_FADELEAF       = SEEDS+10;
 	public static final int SEED_BLINDWEED      = SEEDS+11;
+	public static final int SEED_SKYBLUEFIRE      = SEEDS+12;
 	static{
 		for (int i = SEEDS; i < SEEDS+16; i++)
 			assignItemRect(i, 10, 10);

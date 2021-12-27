@@ -79,7 +79,7 @@ public class HaloFireImBlue extends Buff {
 
     public void proc(Char enemy){
         if (Random.Int(2) == 0)
-            Buff.affect( enemy, Burning.class ).reignite( enemy );
+            Buff.affect( enemy, HalomethaneBurning.class ).reignite( enemy );
 
         enemy.sprite.emitter().burst( HalomethaneFlameParticle.FACTORY, 2 );
     }
@@ -106,5 +106,6 @@ public class HaloFireImBlue extends Buff {
 
     {
         immunities.add( Burning.class );
+        immunities.add( HalomethaneBurning.class );
     }
 }

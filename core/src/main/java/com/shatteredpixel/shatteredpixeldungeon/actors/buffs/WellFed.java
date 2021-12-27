@@ -59,6 +59,12 @@ public class WellFed extends Buff {
 			left /= 3;
 		}
 	}
+
+	public void dewial(){
+		//heals one HP every 18 turns for 450 turns
+		//25 HP healed in total
+		left = (int)Hunger.DEWEFFECT;
+	}
 	
 	@Override
 	public int icon() {

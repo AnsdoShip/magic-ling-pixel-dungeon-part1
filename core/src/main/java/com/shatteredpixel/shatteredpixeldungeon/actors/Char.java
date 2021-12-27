@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.HalomethaneFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
@@ -153,10 +154,12 @@ public abstract class Char extends Actor {
 			Dungeon.level.drop( heap.pickUp(), n ).sprite.drop( pos );
 		}
 	}
-
+	//Custom Name
 	public String name(){
-		return Messages.get(this, "name");
+		return name;
 	}
+
+	public String name = Messages.get(this,"name");
 
 	public boolean canInteract(Char c){
 		if (Dungeon.level.adjacent( pos, c.pos )){
@@ -819,7 +822,7 @@ public abstract class Char extends Actor {
 		INORGANIC ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
 		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class, Elemental.FireElemental.class)),
-				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class))),
+				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class, HalomethaneFire.class))),
 		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
 				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),
 		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),

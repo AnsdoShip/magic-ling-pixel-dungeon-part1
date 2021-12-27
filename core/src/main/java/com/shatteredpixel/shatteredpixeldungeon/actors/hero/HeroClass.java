@@ -71,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAffection;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
@@ -154,6 +155,9 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
+		new ScrollOfUpgrade().quantity(1).identify().collect();
+		new PotionOfExperience().quantity(67).identify().collect();
+		new PotionOfStrength().quantity(67).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();
 
@@ -176,6 +180,7 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new WandOfBlueFuck().quantity(1).identify().collect();
 			new SkyBlueFireBloom.Seed().quantity(10).identify().collect();
 			new PotionOfLiquidFlameX().quantity(10).collect();
 			new PotionOfInvisibility().quantity(45).identify().collect();

@@ -38,15 +38,15 @@ public class BGMPlayer {
 
     public static void playBoss() {
         int t = Dungeon.depth;
-        if (t == 5) {
+        if (Dungeon.bossLevel() && t == 5) {
             Music.INSTANCE.play(Assets.BGM_BOSSA, true);
-        } else if (t == 10) {
+        } else if (Dungeon.bossLevel() && t == 10) {
             Music.INSTANCE.play(Assets.BGM_BOSSB, true);
-        } else if (t == 15) {
+        } else if (Dungeon.bossLevel() && t == 15) {
             Music.INSTANCE.play(Assets.BGM_BOSSC, true);
-        } else if (t == 20) {
+        } else if (Dungeon.bossLevel() && t == 20) {
             Music.INSTANCE.play(Assets.BGM_BOSSD, true);
-        } else if (t == 25) {
+        } else if (Dungeon.bossLevel() && t == 25) {
             Music.INSTANCE.play(Assets.BGM_BOSSE, true);
         }
     }

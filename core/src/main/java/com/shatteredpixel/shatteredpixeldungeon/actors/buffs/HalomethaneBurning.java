@@ -191,9 +191,14 @@ public class HalomethaneBurning extends Buff implements Hero.Doom {
     }
 
     @Override
+    public float iconFadePercent() {
+        return Math.max(0, (DURATION - left) / DURATION);
+    }
+
+    @Override
     public void onDeath() {
 
-        Badges.validateDeathFromFire();
+        Badges.HALOFIRE_DIED();
 
         Dungeon.fail( getClass() );
         GLog.n( Messages.get(this, "ondeath") );

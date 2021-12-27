@@ -21,10 +21,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.BOSS;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 
 public class DeadEndLevel extends Level {
 
@@ -34,6 +38,7 @@ public class DeadEndLevel extends Level {
 		color1 = 0x534f3e;
 		color2 = 0xb9d661;
 	}
+
 	
 	@Override
 	public String tilesTex() {
@@ -87,6 +92,8 @@ public class DeadEndLevel extends Level {
 
 	@Override
 	protected void createItems() {
+		if(Dungeon.isChallenged(BOSS))
+		drop( new Amulet(), entrance );
 	}
 	
 	@Override

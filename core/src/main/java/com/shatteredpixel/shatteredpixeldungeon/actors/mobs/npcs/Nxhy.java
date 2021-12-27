@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollShiled;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FlameC01;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -75,7 +75,7 @@ public class Nxhy extends Shopkeeper {
         GameScene.flash(0x80FFFFFF);
         Buff.affect(hero, Burning.class ).reignite( hero, 15f );
         Buff.affect(hero, Doom.class);
-        new GnollShiled().spawnAround(pos);
+        new FlameC01().spawnAround(pos);
         yell( Messages.get(this, "arise") );
         next();
     }

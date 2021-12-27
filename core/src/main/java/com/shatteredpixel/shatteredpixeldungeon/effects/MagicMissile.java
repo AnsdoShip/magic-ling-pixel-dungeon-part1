@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.CorrosionParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
@@ -64,6 +65,7 @@ public class MagicMissile extends Emitter {
 	public static final int EARTH           = 9;
 	public static final int WARD            = 10;
 	public static final int WIND            = 11;
+	public static final int DFG            = 16;
 
 	public static final int SHAMAN_RED      = 11;
 	public static final int SHAMAN_BLUE     = 12;
@@ -152,6 +154,10 @@ public class MagicMissile extends Emitter {
 			case WARD:
 				size( 4 );
 				pour( WardParticle.FACTORY, 0.01f );
+				break;
+			case DFG:
+				size( 4 );
+				pour(HalomethaneFlameParticle.FACTORY, 0.01f );
 				break;
 				
 			case SHAMAN_RED:

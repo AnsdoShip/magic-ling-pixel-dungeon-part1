@@ -75,6 +75,7 @@ public class Badges {
 		GET_SC        			( 21 ),
 		KILL_COLDELE        			( 22 ),
 		DEATH_GOOD        			( 23 ),
+		HALOFIRE_DIED					( 24 ),
 
 		//silver
 		NO_MONSTERS_SLAIN           ( 32 ),
@@ -152,6 +153,7 @@ public class Badges {
 		KILL_SLMKING				(101),
 		KILL_DM720				(102),
 		RLPT				(103),
+		SBDJS				(104),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -608,6 +610,12 @@ public class Badges {
 		displayBadge( badge );
 	}
 
+	public static void HALOFIRE_DIED() {
+		Badge badge = Badge.HALOFIRE_DIED;
+		local.add( badge );
+		displayBadge( badge );
+	}
+
 	private static void validateGOODMAKE() {
 		if (global.contains( Badge.KILL_RED ) &&
 				global.contains( Badge.KILL_ROTHEART ) &&
@@ -881,6 +889,11 @@ public class Badges {
 	}
 	public static void GOODRLPT() {
 		displayBadge( Badge.RLPT );
+	}
+
+	//上半段结束
+	public static void UP_PALF() {
+		displayBadge( Badge.SBDJS );
 	}
 
 

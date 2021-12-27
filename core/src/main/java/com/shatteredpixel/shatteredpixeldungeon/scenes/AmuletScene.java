@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -66,6 +67,7 @@ public class AmuletScene extends PixelScene {
 				Dungeon.win( Amulet.class );
 				Dungeon.deleteGame( GamesInProgress.curSlot, true );
 				Game.switchScene( RankingsScene.class );
+				Badges.UP_PALF();
 			}
 		};
 		btnExit.setSize( WIDTH, BTN_HEIGHT );
@@ -83,14 +85,14 @@ public class AmuletScene extends PixelScene {
 		float height;
 		if (noText) {
 			height = amulet.height + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
-			
+
 			amulet.x = (Camera.main.width - amulet.width) / 2;
 			amulet.y = (Camera.main.height - height) / 2;
 			align(amulet);
 
 			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, amulet.y + amulet.height + LARGE_GAP );
 			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
-			
+
 		} else {
 			height = amulet.height + LARGE_GAP + text.height() + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
 			

@@ -13,9 +13,9 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
@@ -86,8 +85,8 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
 
-        ChangeInfo changes8 = new ChangeInfo("V0.5.4.5-SPDV0.93End", true, "");
-        changes8.hardlight(Window.RED_COLOR);
+        ChangeInfo changes8 = new ChangeInfo("V0.5.6.0-Christmas", true, "");
+        changes8.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes8);
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
@@ -102,10 +101,6 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(new ViewASprite(), (Messages.get(vM0_5_X_Changes.class, "luzus")),
                 Messages.get(vM0_5_X_Changes.class, "luzuslogs")));
-
-
-        changes.addButton(new ChangeButton(new PoltergeistSprite.WraithSpriteRed(), (Messages.get(vM0_5_X_Changes.class, "red")),
-                Messages.get(vM0_5_X_Changes.class, "redlogs")));
 
         changes.addButton(new ChangeButton(new BatSprite.BatEDSprite(), (Messages.get(vM0_5_X_Changes.class, "bat")),
                 Messages.get(vM0_5_X_Changes.class, "batlogs")));
@@ -122,14 +117,18 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new NxhySprite(), (Messages.get(vM0_5_X_Changes.class, "shop2")),
                 Messages.get(vM0_5_X_Changes.class, "shop2logs")));
 
-        changes.addButton(new ChangeButton(new RenSprite(), (Messages.get(vM0_5_X_Changes.class, "shop3")),
-                Messages.get(vM0_5_X_Changes.class, "shop3logs")));
+        changes.addButton(new ChangeButton(new FireBallMobSprite(), (Messages.get(vM0_5_X_Changes.class, "fireball")),
+                Messages.get(vM0_5_X_Changes.class, "fireballlogs")));
 
-        changes.addButton(new ChangeButton(new NyzSprites(), (Messages.get(vM0_5_X_Changes.class, "shop4")),
-                Messages.get(vM0_5_X_Changes.class, "shop4logs")));
+        changes.addButton(new ChangeButton(new Image(Assets.Environment.TERRAIN_FEATURES, 0, 128, 16, 16),
+                (Messages.get(vM0_5_X_Changes.class, "bluefirebloom")),
+                Messages.get(vM0_5_X_Changes.class, "bluefirebloomlogs")));
 
-        changes.addButton(new ChangeButton(new ImpSprite(), (Messages.get(vM0_5_X_Changes.class, "shop5")),
-                Messages.get(vM0_5_X_Changes.class, "shop5logs")));
+        Image issxsas =new Image(Assets.Interfaces.BUFFS_LARGE, 80, 48, 16, 16);
+        issxsas.scale.set(PixelScene.align(0.80f));
+        changes.addButton(new ChangeButton(issxsas,
+                (Messages.get(vM0_5_X_Changes.class, "newbuffs")),
+                Messages.get(vM0_5_X_Changes.class, "newbuffslogs")));
 
         changes.addButton(new ChangeButton(new MimicSprite.Dimand(), (Messages.get(vM0_5_X_Changes.class, "newmimicback")),
                 Messages.get(vM0_5_X_Changes.class, "newmimicbacklogs")));

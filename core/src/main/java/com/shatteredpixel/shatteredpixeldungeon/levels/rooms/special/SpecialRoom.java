@@ -80,7 +80,12 @@ public abstract class SpecialRoom extends Room {
 	}
 
 	private static final ArrayList<Class<? extends SpecialRoom>> ALL_SPEC = new ArrayList<>( Arrays.asList(
-			WeakFloorRoom.class, MagicWellRoom.class, CryptRoom.class, PoolRoom.class, GardenRoom.class, LibraryRoom.class, ArmoryRoom.class,
+			WeakFloorRoom.class,
+			MagicWellRoom.class,
+			CryptRoom.class,
+			PoolRoom.class,
+			GardenRoom.class,
+			LibraryRoom.class, ArmoryRoom.class,
 			TreasuryRoom.class, TrapsRoom.class, StorageRoom.class, StatueRoom.class, VaultRoom.class, RunestoneRoom.class
 	) );
 

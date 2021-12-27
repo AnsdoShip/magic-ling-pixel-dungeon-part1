@@ -712,6 +712,7 @@ public class ItemSpriteSheet {
 	/*依赖项*/
 	public static final int	BLUEDEVIAL				= BAGS+40;
 	public static final int	PINKDEVIAL				= BAGS+41;
+	public static final int	REDDEVIAL				= BAGS+42;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

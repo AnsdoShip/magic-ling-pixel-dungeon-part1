@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.BOSS;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -38,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
+import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -159,7 +161,7 @@ public class Dungeon {
 
 	public static int challenges;
 	public static int mobsToChampion;
-
+	public static DewVial View;
 	public static Hero hero;
 	public static Level level;
 
@@ -267,6 +269,25 @@ public class Dungeon {
 		}
 
 		Level level;
+		if (Dungeon.isChallenged(BOSS)) {
+			switch (depth) {
+				case 0:
+					level = new ZeroLevel();
+					break;
+				case 1:
+					level = new SewerLevel();
+					break;
+				case 2:
+					level = new SewerBossLevel();
+					break;
+				case 3:
+					level = new SLMKingLevel();
+					break;
+				default:
+					level = new DeadEndLevel();
+					Statistics.deepestFloor--;
+			}
+		} else
 		if (Dungeon.isChallenged(RLPT)) {
 			switch (depth) {
 				case 0:
@@ -540,6 +561,10 @@ public class Dungeon {
 
 	public static boolean NxhyshopOnLevel() {
 		return depth == 8 || depth == 14 || depth == 19;
+	}
+
+	public static boolean BlueS() {
+		return depth == 19;
 	}
 	
 	public static boolean bossLevel() {

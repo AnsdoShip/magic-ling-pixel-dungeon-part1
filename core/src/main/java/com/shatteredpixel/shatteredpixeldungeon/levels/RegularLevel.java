@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -45,8 +47,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LoopBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.BlueRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NxhyShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PoolRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom;
@@ -120,6 +124,28 @@ public abstract class RegularLevel extends Level {
 
 		if (Dungeon.NxhyshopOnLevel())
 			initRooms.add(new NxhyShopRoom());
+
+		if (Dungeon.BlueS())
+			switch (Random.Int(4)) {
+				case 0:
+				default:
+					initRooms.add(new BlueRoom());
+					//DM720 T0
+					break;
+				case 1:
+					//新版本的DM300
+					initRooms.add(new BlueRoom());
+					break;
+				case 2:
+					//老版本的DM300
+					initRooms.add(new PitRoom());
+					break;
+				case 3:
+					//老版本的DM300
+					initRooms.add(new PoolRoom());
+					break;
+			}
+
 
 		//force max special rooms and add one more for large levels
 		int specials = specialRooms(feeling == Feeling.LARGE);
@@ -399,7 +425,7 @@ public abstract class RegularLevel extends Level {
 			drop( item, cell ).setHauntedIfCursed().type = Heap.Type.REMAINS;
 		}
 
-		DriedRose rose = Dungeon.hero.belongings.getItem( DriedRose.class );
+		DriedRose rose = hero.belongings.getItem( DriedRose.class );
 		if (rose != null && rose.isIdentified() && !rose.cursed){
 			//aim to drop 1 petal every 2 floors
 			int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth / 2) - rose.droppedPetals) / 3);
@@ -420,9 +446,9 @@ public abstract class RegularLevel extends Level {
 		}
 
 		//cached rations try to drop in a special room on floors 2/3/4/6/7/8, to a max of 4/6
-		if (Dungeon.hero.hasTalent(Talent.CACHED_RATIONS)){
-			Talent.CachedRationsDropped dropped = Buff.affect(Dungeon.hero, Talent.CachedRationsDropped.class);
-			if (dropped.count() < 2 + 2*Dungeon.hero.pointsInTalent(Talent.CACHED_RATIONS)){
+		if (hero.hasTalent(Talent.CACHED_RATIONS)){
+			Talent.CachedRationsDropped dropped = Buff.affect(hero, Talent.CachedRationsDropped.class);
+			if (dropped.count() < 2 + 2* hero.pointsInTalent(Talent.CACHED_RATIONS)){
 				int cell;
 				int tries = 100;
 				do {

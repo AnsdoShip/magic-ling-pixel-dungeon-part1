@@ -8,37 +8,50 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.HalomethaneFire;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RedBloodMoon;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlameX;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSpriteKB;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class MolotovHuntsman extends Mob {
+public class RandomBlueFire extends Mob {
     private static final String COMBO = "combo";
     private String[] attackCurse;
     private int combo;
     private String[] deathCurse;
     public float lifespan;
-    public MolotovHuntsman() {
-        this.spriteClass = MolotovHuntsmanSprite.class;
-        this.HT = 25;
-        this.HP = 25;
+    public RandomBlueFire() {
+        this.spriteClass = FireBallMobSpriteKB.class;
+        this.HT = 300;
+        this.HP = 300;
         this.defenseSkill = 10;
         this.EXP = 15;
+        this.loot = new PotionOfLiquidFlameX();
+        this.lootChance =1;
         this.state = this.SLEEPING;
-        this.baseSpeed = 0.5625F;
-        this.loot = new RedBloodMoon();
-        this.lootChance = 0.005F;
-        this.deathCurse = new String[]{"快停下...", "啊......", "啊.......你这个怪物", "你这怪物...", "神啊，帮帮我吧...", "最后…啊…终于能...见到家人了...", "愚蠢的人类", "为了她..."};
-        this.attackCurse = new String[]{"烧起来吧，吃人的野兽！", "让火焰净化一切！", "快滚！", "我说，为什么要让我承担？", "这都是你的错！", "扬了你的骨灰！", "你们，都是贱人！", "去死，你这嗜血的人!", "啊！", "烧死你"};
+        this.baseSpeed = 0.8f;
+        this.deathCurse = new String[]{"死亡，即为结束！"};
+        this.attackCurse = new String[]{"为什么要入侵这里？","不，你不能离开这里","你不是我的王"};
         this.combo = 0;
+        properties.add(Property.FIERY);
+    }
+
+    @Override
+    public void notice() {
+        super.notice();
+        BossHealthBar.assignBoss(this);
+        yell( Messages.get(this, "notice") );
     }
 
     public int attackProc(Char var1, int var2) {
@@ -52,14 +65,20 @@ public class MolotovHuntsman extends Mob {
         int var5 = super.attackProc(var1, var2);
         var4 = var1.pos;
         CellEmitter.center(var4).burst(BlastParticle.FACTORY, 30);
-        GameScene.add(Blob.seed(var4, 2, Fire.class));
-        int[] var7 = PathFinder.NEIGHBOURS9;
+        GameScene.add(Blob.seed(var4, 2, HalomethaneFire.class));
+        int reg = Math.min( Random.Int(8) - 4, HT - HP );
+
+        if (reg > 0) {
+            HP += reg;
+            sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+        }
+        int[] var7 = PathFinder.CIRCLE8;
         int var6 = var7.length;
 
         for(var2 = var3; var2 < var6; ++var2) {
             int var8 = var7[var2];
             if (!Dungeon.level.solid[var4 + var8]) {
-                GameScene.add(Blob.seed(var4 + var8, 2, Fire.class));
+                GameScene.add(Blob.seed(var4 + var8, 2, HalomethaneFire.class));
             }
         }
 
@@ -88,12 +107,15 @@ public class MolotovHuntsman extends Mob {
     }
 
     public void die(Object var1) {
+        Dungeon.level.drop( new SkeletonKey( Dungeon.depth /19+19 ), pos ).sprite.drop();
+        Dungeon.level.drop( new SkeletonKey( Dungeon.depth /19+19 ), pos ).sprite.drop();
+        Dungeon.level.drop( new PotionOfHealing(), pos ).sprite.drop();
+        Dungeon.level.drop( new PotionOfHealing(), pos ).sprite.drop();
         super.die(var1);
         if (var1 != Chasm.class) {
             int var2 = Random.Int(this.deathCurse.length);
             this.sprite.showStatus(16711680, this.deathCurse[var2], new Object[0]);
         }
-
     }
 
     protected boolean getCloser(int var1) {

@@ -126,4 +126,5 @@ public class HalomethaneFire extends Blob {
     public String tileDesc() {
         return Messages.get(this, "desc");
     }
+
 }

@@ -14,10 +14,10 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
@@ -194,7 +194,7 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade(RankingsScene.class);
 			}
 		};
-		btnRankings.icon(new ShopkeeperSprite());
+		btnRankings.icon(new FireBallMobSprite());
 		add(btnRankings);
 
 		StyledButton btnBadges = new StyledButton(GREY_TR, Messages.get(this, "badges")) {

@@ -91,7 +91,7 @@ public class WndStartGame extends Window {
 				if (GamesInProgress.selectedClass == null) return;
 				
 				super.onClick();
-				
+
 				GamesInProgress.curSlot = slot;
 				Dungeon.hero = null;
 				ActionIndicator.action = null;

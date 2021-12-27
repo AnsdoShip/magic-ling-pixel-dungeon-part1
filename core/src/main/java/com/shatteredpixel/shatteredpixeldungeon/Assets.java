@@ -252,6 +252,7 @@ public class Assets {
 		public static final String BRUTE	= "sprites/brute.png";
 		public static final String SPINNER	= "sprites/spinner.png";
 		public static final String ASDW	= "sprites/Viaw.png";
+		public static final String ASDWX	= "sprites/FireBallMob.png";
 		public static final String DM300	= "sprites/dm300.png";
 		public static final String DM720	= "sprites/dm720.png";
 		public static final String WRAITH	= "sprites/wraith.png";

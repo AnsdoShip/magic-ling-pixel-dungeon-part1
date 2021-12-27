@@ -47,7 +47,7 @@ public class Bestiary {
 					//3x rat, 1x snake
 					return new ArrayList<>(Arrays.asList(
 							Rat.class, Rat.class,
-							Rat.class, OGPDZSLS.class, BrownBat.class,
+							Rat.class, OGPDZSLS.class, Snake.class,
 							Snake.class,Snake.class,Snake.class));
 				case 2:
 					return new ArrayList<>(Arrays.asList(Rat.class,
@@ -233,7 +233,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(Bat.class,
 						Spinner.class, Spinner.class,
 						DM200.class, GnollShiled.class,
-						Brute.class,DM201.class,DM201.class,
+						Brute.class,DM200.class,DM201.class,
 						GnollShiled.class,
 						MolotovHuntsman.class,FireGhost.class));
 			case 12:

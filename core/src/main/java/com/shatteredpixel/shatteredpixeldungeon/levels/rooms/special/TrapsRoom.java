@@ -47,7 +47,7 @@ import com.watabou.utils.Reflection;
 public class TrapsRoom extends SpecialRoom {
 
 	public void paint( Level level ) {
-		 
+
 		Painter.fill( level, this, Terrain.WALL );
 
 		Class<? extends Trap> trapClass;
@@ -65,10 +65,10 @@ public class TrapsRoom extends SpecialRoom {
 		} else {
 			Painter.fill(level, this, 1, Terrain.TRAP);
 		}
-		
+
 		Door door = entrance();
 		door.set( Door.Type.REGULAR );
-		
+
 		int lastRow = level.map[left + 1 + (top + 1) * level.width()] == Terrain.CHASM ? Terrain.CHASM : Terrain.EMPTY;
 
 		int x = -1;
@@ -97,7 +97,7 @@ public class TrapsRoom extends SpecialRoom {
 				level.setTrap(Reflection.newInstance(trapClass).reveal(), cell);
 			}
 		}
-		
+
 		int pos = x + y * level.width();
 		if (Random.Int( 3 ) == 0) {
 			if (lastRow == Terrain.CHASM) {
@@ -106,12 +106,12 @@ public class TrapsRoom extends SpecialRoom {
 			level.drop( prize( level ), pos ).type = Heap.Type.CHEST;
 		} else {
 			Painter.set( level, pos, Terrain.PEDESTAL );
-			level.drop( prize( level ), pos );
+			level.drop( prize( level ), pos ).type = Heap.Type.CHEST;
 		}
-		
+
 		level.addItemToSpawn( new PotionOfLevitation() );
 	}
-	
+
 	private static Item prize( Level level ) {
 
 		Item prize;
@@ -121,7 +121,7 @@ public class TrapsRoom extends SpecialRoom {
 			if (prize != null)
 				return prize;
 		}
-		
+
 		//1 floor set higher in probability, never cursed
 		do {
 			if (Random.Int(2) == 0) {
@@ -136,7 +136,7 @@ public class TrapsRoom extends SpecialRoom {
 		if (Random.Int(3) == 0){
 			prize.upgrade();
 		}
-		
+
 		return prize;
 	}
 

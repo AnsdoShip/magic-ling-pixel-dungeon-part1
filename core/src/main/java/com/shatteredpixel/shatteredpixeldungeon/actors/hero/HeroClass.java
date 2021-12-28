@@ -156,8 +156,6 @@ public enum HeroClass {
 
 		i = new Food();
 		new ScrollOfUpgrade().quantity(1).identify().collect();
-		new PotionOfExperience().quantity(67).identify().collect();
-		new PotionOfStrength().quantity(67).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();
 

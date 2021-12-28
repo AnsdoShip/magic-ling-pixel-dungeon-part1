@@ -5,6 +5,7 @@
  * Shattered Pixel Dungeon
  * Copyright (C) 2014-2021 Evan Debenham
  *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -21,16 +22,30 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.depth;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HalomethaneBurning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -47,6 +62,11 @@ public class DewVial extends MeleeWeapon {
 	private static final int MAX_VOLUME	= 10;
 
 	private static final String AC_DRINK	= "DRINK";
+	private static final String AC_DRINK_TWO	= "DRINK_TWO";
+	private static final String AC_DRINK_THREE	= "DRINK_THREE";
+	private static final String AC_DRINK_THREEPALF	= "DRINK_THREEPALF";
+	private static final String AC_DRINK_FOUR	= "DRINK_FOUR";
+	private static final String AC_DRINK_FOURSOUL	= "DRINK_FOURSOUL";
 
 	private static final float TIME_TO_DRINK = 1f;
 
@@ -55,31 +75,33 @@ public class DewVial extends MeleeWeapon {
 	public DewVial() {
 		super.image = ItemSpriteSheet.VIAL;
 		super.tier = 3;
-		if (level() >= 2) {
-			super.image = ItemSpriteSheet.BLUEDEVIAL;
-		}
-
-		if (level() >= 4) {
-			super.image = ItemSpriteSheet.PINKDEVIAL;
-		}
-
 	}
 
-	public int proc(Char var1, Char var2, int var3) {
-		int var4 = var3;
-		if (this.level() >= 2) {
-			var4 = (new Blazing()).proc(this, var1, var2, var3) + 3;
+	public int proc(Char Dewvial_One, Char Dewvial_Two, int Dewvial_Three) {
+
+		if (this.level() >= 1 ) {
 			super.image = ItemSpriteSheet.BLUEDEVIAL;
 		}
-
-		var3 = var4;
-		if (this.level() >= 4) {
-			var3 = (new Vampiric()).proc(this, var1, var2, var4);
-			var3 = (new Vampiric()).proc(this, var1, var2, var3) + 7;
+		if (this.level() >= 2 ) {
 			super.image = ItemSpriteSheet.PINKDEVIAL;
 		}
+		if (this.level() >= 4) {
+			super.image = ItemSpriteSheet.REDDEVIAL;
+		}
 
-		return super.proc(var1, var2, var3);
+
+			if (this.level() >= 1 && View == 3) {
+				GLog.n(Messages.get(this, "dew_rk1"));
+				View = 2;
+			} else if (this.level() >= 2 && View == 2) {
+				GLog.p(Messages.get(this, "dew_rk2"));
+				View = 1;
+			} else if (this.level() >= 4 && View == 1) {
+				GLog.b(Messages.get(this, "dew_rk3"));
+				View = 0;
+			}
+
+		return super.proc(Dewvial_One, Dewvial_Two, Dewvial_Three);
 	}
 
 	private int volume = 0;
@@ -100,11 +122,11 @@ public class DewVial extends MeleeWeapon {
 
 	@Override
 	public int STRReq(int lvl) {
-		return 16;
+		return 12 + hero.lvl/5;
 	}
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
+		return  1*(tier+1) +    //12 base, down from 20
 				lvl*(tier);     //+3 per level, down from +4
 	}
 
@@ -128,7 +150,8 @@ public class DewVial extends MeleeWeapon {
 		}
 		return super.damageRoll(owner);
 	}
-
+	//按钮控件逻辑
+	private static short View=2;
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -136,13 +159,245 @@ public class DewVial extends MeleeWeapon {
 		if (volume > 0) {
 			actions.add( AC_DRINK );
 		}
+		//常规检测
+		if (volume >= 3 && DewVial.View==2 && this.level() >= 1 ){
+			actions.add( AC_DRINK_TWO );
+		}
+		//如果露珠大于或等于3个，私有short变量=2，且武器等级大于等于1，则显示按钮
+		if (volume >= 5 && DewVial.View==1 && this.level() >= 2) {
+			actions.add( AC_DRINK_THREE );
+		}
+		//如果露珠大于或等于5个，私有short变量=1，且武器等级大于等于2，则显示按钮
+		if (volume >= 6 && DewVial.View==1 && this.level() >= 2) {
+			actions.add( AC_DRINK_THREEPALF );
+		}
+		//如果露珠大于或等于5个，私有short变量=1，且武器等级大于等于2，则显示按钮
+		if (volume >= 7 && DewVial.View==0 && this.level() >= 4) {
+			actions.add( AC_DRINK_FOUR );
+		}
+		//如果露珠大于或等于7个，私有short变量=0，且武器等级大于等于4，则显示按钮
+		if (volume >= 8 && DewVial.View==0 && this.level() >= 4) {
+			actions.add( AC_DRINK_FOURSOUL );
+		}
+		//如果露珠大于或等于7个，私有short变量=0，且武器等级大于等于4，则显示按钮
 		return actions;
 	}
+
+
 
 	@Override
 	public void execute( final Hero hero, String action ) {
 
 		super.execute( hero, action );
+
+		//仙露审判II
+		if (action.equals( AC_DRINK_FOURSOUL )) {
+			if (volume > 0) {
+
+				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+
+				int curShield = 0;
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				int maxShield = Math.round(hero.HT *0.01f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						missingHealthPercent += missingShieldPercent;
+					}
+				}
+
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsNeeded = 8;
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+
+				if (Dewdrop.consumeDew(dropsNeeded, hero)){
+					volume -= dropsNeeded;
+					GLog.b( Messages.get(this, "dead") );
+					int count = 0;
+					Mob affected = null;
+					for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+						Buff.affect( mob, HalomethaneBurning.class ).reignite( mob, 7f );
+						Buff.prolong(mob, Vertigo.class, 9f);
+						Buff.affect( mob, Levitation.class, Levitation.DURATION/5 );
+						new Flare( 5, 32 ).color( 0x00FFFF, true ).show( curUser.sprite, 2f );
+					}
+					//点燃 飘浮 眩晕 2
+
+					hero.spend(TIME_TO_DRINK);
+					hero.busy();
+
+					Sample.INSTANCE.play(Assets.Sounds.DRINK);
+					hero.sprite.operate(hero.pos);
+
+					updateQuickslot();
+				}
+
+
+			}
+		}
+
+		//仙露审判 I
+		if (action.equals( AC_DRINK_THREEPALF )) {
+			if (volume > 0) {
+
+				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+
+				int curShield = 0;
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				int maxShield = Math.round(hero.HT *0.01f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						missingHealthPercent += missingShieldPercent;
+					}
+				}
+
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsNeeded = 6;
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+
+				if (Dewdrop.consumeDew(dropsNeeded, hero)){
+					GLog.p( Messages.get(this, "eye") );
+					for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+						Buff.affect(mob, Terror.class, 6f);
+						Buff.affect(mob, Ooze.class).set(5.0f);
+						new Flare( 5, 32 ).color( 0xFF0000, true ).show( curUser.sprite, 2f );
+					}
+					//恐惧+GOO
+					hero.spend(TIME_TO_DRINK);
+					hero.busy();
+
+					Sample.INSTANCE.play(Assets.Sounds.DRINK);
+					hero.sprite.operate(hero.pos);
+
+					updateQuickslot();
+				}
+
+
+			}
+		}
+
+		//守护魔力III
+		if (action.equals( AC_DRINK_FOUR )) {
+			if (volume > 0) {
+
+				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+
+				int curShield = 0;
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				int maxShield = Math.round(hero.HT *0.01f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						missingHealthPercent += missingShieldPercent;
+					}
+				}
+
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsNeeded = 7;
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+
+				if (Dewdrop.consumeDew(dropsNeeded, hero)){
+					GLog.b( Messages.get(this, "healing_3") );
+					volume -= dropsNeeded;
+					Buff.affect(hero, Healing.class).setHeal((int) (0.3f * hero.HT + 7), 0.25f, 0);
+					Buff.affect(hero, Haste.class, 10f);
+					Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*8f );
+					Buff.prolong(hero, RoseShiled.class, RoseShiled.DURATION/10f-3+depth/5);
+					Buff.affect(hero, WellFed.class).dewial();
+					Buff.affect( hero, MindVision.class, MindVision.DURATION/5f+depth/5 );
+					//极速+火焰之力+玫瑰结界+灵视+饱腹+治疗
+					hero.spend(TIME_TO_DRINK);
+					hero.busy();
+
+					Sample.INSTANCE.play(Assets.Sounds.DRINK);
+					hero.sprite.operate(hero.pos);
+
+					updateQuickslot();
+				}
+
+
+			}
+		}
+
+		//守护魔力 II
+		if (action.equals( AC_DRINK_THREE )) {
+			if (volume > 0) {
+
+				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+
+				int curShield = 0;
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				int maxShield = Math.round(hero.HT *0.01f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						missingHealthPercent += missingShieldPercent;
+					}
+				}
+
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsNeeded = 5;
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+
+				if (Dewdrop.consumeDew(dropsNeeded, hero)){
+					volume -= dropsNeeded;
+					Buff.affect(hero, Haste.class, 2f);
+					Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*0.7f );
+					//极速+火焰之力
+					hero.spend(TIME_TO_DRINK);
+					hero.busy();
+
+					Sample.INSTANCE.play(Assets.Sounds.DRINK);
+					hero.sprite.operate(hero.pos);
+
+					updateQuickslot();
+				}
+
+
+			}
+		}
+
+		if (action.equals( AC_DRINK_TWO )) {
+			if (volume > 0) {
+
+				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+
+				int curShield = 0;
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				int maxShield = Math.round(hero.HT *0.01f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+					float missingShieldPercent = 1f - (curShield / (float)maxShield);
+					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					if (missingShieldPercent > 0){
+						missingHealthPercent += missingShieldPercent;
+					}
+				}
+
+				//trimming off 0.01 drops helps with floating point errors
+				int dropsNeeded = 2;
+				dropsNeeded = (int)GameMath.gate(1, dropsNeeded, volume);
+
+				if (Dewdrop.consumeDew(dropsNeeded, hero)){
+					volume -= dropsNeeded;
+					Buff.affect(hero, Haste.class, 10f);
+					//极速BUFF
+					hero.spend(TIME_TO_DRINK);
+					hero.busy();
+
+					Sample.INSTANCE.play(Assets.Sounds.DRINK);
+					hero.sprite.operate(hero.pos);
+
+					updateQuickslot();
+				}
+
+
+			}
+		}
 
 		if (action.equals( AC_DRINK )) {
 
@@ -202,14 +457,14 @@ public class DewVial extends MeleeWeapon {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
-			if (STRReq() > Dungeon.hero.STR()) {
+			if (STRReq() > hero.STR()) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
-			} else if (Dungeon.hero.STR() > STRReq()){
-				info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+			} else if (hero.STR() > STRReq()){
+				info += " " + Messages.get(Weapon.class, "excess_str", hero.STR() - STRReq());
 			}
 		} else {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (STRReq(0) > Dungeon.hero.STR()) {
+			if (STRReq(0) > hero.STR()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -250,9 +505,9 @@ public class DewVial extends MeleeWeapon {
 
 	@Override
 	public int level() {
-		return (Dungeon.hero == null ? 0 : Dungeon.hero.lvl/4) + (curseInfusionBonus ? 1 : 0);
+			return (hero == null ? 0 : hero.lvl / 5) + (curseInfusionBonus ? 1 : 0);
 	}
-	//4级升1级
+	//5级升1级
 	public void fill() {
 		volume = MAX_VOLUME;
 		updateQuickslot();

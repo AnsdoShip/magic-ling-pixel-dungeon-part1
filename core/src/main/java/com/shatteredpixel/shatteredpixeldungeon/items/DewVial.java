@@ -79,6 +79,7 @@ public class DewVial extends MeleeWeapon {
 
 	public int proc(Char Dewvial_One, Char Dewvial_Two, int Dewvial_Three) {
 
+		//素材变化调用
 		if (this.level() >= 1 ) {
 			super.image = ItemSpriteSheet.BLUEDEVIAL;
 		}
@@ -89,15 +90,19 @@ public class DewVial extends MeleeWeapon {
 			super.image = ItemSpriteSheet.REDDEVIAL;
 		}
 
-
+			//仙露明珠信赖度评价
 			if (this.level() >= 1 && View == 3) {
 				GLog.n(Messages.get(this, "dew_rk1"));
+				//super.image = ItemSpriteSheet.BLUEDEVIAL;
 				View = 2;
 			} else if (this.level() >= 2 && View == 2) {
 				GLog.p(Messages.get(this, "dew_rk2"));
+				//super.image = ItemSpriteSheet.PINKDEVIAL;
 				View = 1;
 			} else if (this.level() >= 4 && View == 1) {
 				GLog.b(Messages.get(this, "dew_rk3"));
+				//super.image = ItemSpriteSheet.REDDEVIAL;
+				//蓝色文本渲染
 				View = 0;
 			}
 
@@ -151,7 +156,7 @@ public class DewVial extends MeleeWeapon {
 		return super.damageRoll(owner);
 	}
 	//按钮控件逻辑
-	private static short View=2;
+	public static int View=3;
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -453,6 +458,16 @@ public class DewVial extends MeleeWeapon {
 
 		if (isFull()){
 			info += "\n\n" + Messages.get(this, "desc_full");
+		}
+
+		if(View == 3 && this.level() >= 0){
+			info += "\n\n" + Messages.get(this, "magic_0");
+		} else if (View == 2 && this.level() >= 1 ){
+			info += "\n\n" + Messages.get(this, "magic_1");
+		} else if (View == 1 && this.level() >= 2) {
+			info += "\n\n" + Messages.get(this, "magic_2");
+		}	else if (View == 0 && this.level() >= 4) {
+			info += "\n\n" + Messages.get(this, "magic_3");
 		}
 
 		if (levelKnown) {

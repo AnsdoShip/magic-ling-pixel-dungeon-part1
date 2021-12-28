@@ -3,21 +3,39 @@
 //
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
-import com.watabou.noosa.MovieClip;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.watabou.noosa.TextureFilm;
 
 public class MurdererSprite extends MobSprite {
     public MurdererSprite() {
-        texture("sprites/thief2.png");
-        TextureFilm textureFilm = new TextureFilm(this.texture, 12, 13);
-        this.idle = new MovieClip.Animation(1, true);
-        this.idle.frames(textureFilm, new Object[]{0, 0, 0, 1, 0, 0, 0, 0, 1});
-        this.run = new MovieClip.Animation(15, true);
-        this.run.frames(textureFilm, new Object[]{0, 0, 2, 3, 3, 4});
-        this.die = new MovieClip.Animation(10, false);
-        this.die.frames(textureFilm, new Object[]{5, 6, 7, 8, 9});
-        this.attack = new MovieClip.Animation(12, false);
-        this.attack.frames(textureFilm, new Object[]{10, 11, 12, 0});
+        super();
+        int c = texOffset();
+        texture( Assets.Sprites.MUDTHIEF );
+        TextureFilm film = new TextureFilm( texture, 12, 13 );
+
+        idle = new Animation( 1, true );
+        idle.frames( film, 0+c, 0+c, 0+c, 1+c, 0+c, 0+c, 0+c, 0+c, 1+c );
+
+        run = new Animation( 15, true );
+        run.frames( film, 0+c, 0+c, 2+c, 3+c, 3+c, 4+c );
+
+        die = new Animation( 10, false );
+        die.frames( film, 5+c, 6+c, 7+c, 8+c, 9+c );
+
+        attack = new Animation( 12, false );
+        attack.frames( film, 10+c, 11+c, 12+c, 0+c );
+
         idle();
+    }
+
+    protected int texOffset(){
+        return 0;
+    }
+
+    public static class RedMuderer extends MurdererSprite{
+        @Override
+        protected int texOffset() {
+            return 21;
+        }
     }
 }

@@ -34,10 +34,10 @@ public class ViewASprite extends MobSprite {
         TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
         idle = new Animation( 2, true );
-        idle.frames( frames, 0, 0, 0, 1,1,1 ,2 ,2,2,0,0,1,1,2,2,0,1,2 );
+        idle.frames( frames, 0, 0, 0, 1,1,1 ,2 ,2,2, 3,3,3 ,0,0,1,1,2,2,3,3, 0,1,2,3 );
 
         run = new Animation( 10, true );
-        run.frames( frames, 6, 7, 8, 9, 10 );
+        run.frames( frames, 6, 7, 8, 9, 10,11 );
 
         attack = new Animation( 15, false );
         attack.frames( frames, 2, 3, 4, 5, 0 );

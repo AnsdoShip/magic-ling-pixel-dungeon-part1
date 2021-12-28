@@ -14,8 +14,7 @@ import com.watabou.utils.Random;
 public class KagenoNusujin extends Mob {
     public KagenoNusujin() {
         this.spriteClass = KagenoNusujinSprite.class;
-        this.HT = 9;
-        this.HP = 9;
+        this.HT = this.HP =Random.Int(20,50);
         this.defenseSkill = 16;
         this.maxLvl = 34;
         this.properties.add(Property.UNDEAD);

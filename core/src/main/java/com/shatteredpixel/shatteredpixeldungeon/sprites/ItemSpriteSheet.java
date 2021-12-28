@@ -540,6 +540,7 @@ public class ItemSpriteSheet {
 	public static final int EXOTIC_CHARCOAL = EXOTIC_POTIONS+9;
 	public static final int EXOTIC_SILVER   = EXOTIC_POTIONS+10;
 	public static final int EXOTIC_IVORY    = EXOTIC_POTIONS+11;
+	public static final int EXOTIC_BLUEFIREX    = EXOTIC_POTIONS+12;
 	static {
 		for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS+16; i++)
 			assignItemRect(i, 12, 13);

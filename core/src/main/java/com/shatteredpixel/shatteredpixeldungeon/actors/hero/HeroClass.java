@@ -155,6 +155,7 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
+		DewVial.View = 3;
 		new ScrollOfUpgrade().quantity(1).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();

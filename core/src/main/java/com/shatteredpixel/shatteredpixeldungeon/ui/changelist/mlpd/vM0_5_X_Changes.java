@@ -13,8 +13,10 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.IceFireScorpioSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -23,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MurdererSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
@@ -85,7 +88,7 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
                 Messages.get(vM0_5_X_Changes.class, "axsslogs")));
 
-        ChangeInfo changes8 = new ChangeInfo("V0.5.6.0-Christmas", true, "");
+        ChangeInfo changes8 = new ChangeInfo("V0.5.6.0-EVS-未完成", true, "");
         changes8.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes8);
 
@@ -93,11 +96,39 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.GREEN_COLOR);
         changeInfos.add(changes);
 
+        Image ice = new IceFireScorpioSprite();
+        ice.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(ice, (Messages.get(vM0_5_X_Changes.class, "icescorpio")),
+                Messages.get(vM0_5_X_Changes.class, "icescorpiologs")));
+
+        Image fire = new FireAcidicSprite();
+        fire.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(fire, (Messages.get(vM0_5_X_Changes.class, "firescorpio")),
+                Messages.get(vM0_5_X_Changes.class, "firescorpiologs")));
+
+        changes.addButton(new ChangeButton(new MurdererSprite(), (Messages.get(vM0_5_X_Changes.class, "murderer")),
+                Messages.get(vM0_5_X_Changes.class, "murdererlogs")));
+
+        changes.addButton(new ChangeButton(new MurdererSprite.RedMuderer(), (Messages.get(vM0_5_X_Changes.class, "red_murderer")),
+                Messages.get(vM0_5_X_Changes.class, "red_murdererlogs")));
+
         changes.addButton(new ChangeButton(new BombGnollTricksterSprites(), (Messages.get(vM0_5_X_Changes.class, "bomb")),
                 Messages.get(vM0_5_X_Changes.class, "bomblogs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG6), (Messages.get(vM0_5_X_Changes.class, "blues")),
                 Messages.get(vM0_5_X_Changes.class, "blueslogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_SKYBLUE), (Messages.get(vM0_5_X_Changes.class,
+                "bluefire")),
+                Messages.get(vM0_5_X_Changes.class, "bluefirelogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.EXOTIC_BLUEFIREX), (Messages.get(vM0_5_X_Changes.class,
+                "blueexfire")),
+                Messages.get(vM0_5_X_Changes.class, "blueexfirelogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG19), (Messages.get(vM0_5_X_Changes.class,
+                "iceblue")),
+                Messages.get(vM0_5_X_Changes.class, "iceblueslogs")));
 
         changes.addButton(new ChangeButton(new ViewASprite(), (Messages.get(vM0_5_X_Changes.class, "luzus")),
                 Messages.get(vM0_5_X_Changes.class, "luzuslogs")));
@@ -133,6 +164,11 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new MimicSprite.Dimand(), (Messages.get(vM0_5_X_Changes.class, "newmimicback")),
                 Messages.get(vM0_5_X_Changes.class, "newmimicbacklogs")));
 
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "bosstzlogs")),
+                Messages.get(vM0_5_X_Changes.class, "bosstzlogs")));
+
+
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(Window.GDX_COLOR);
         changeInfos.add(changes);
@@ -143,18 +179,21 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new RedSwarmSprite(), (Messages.get(vM0_5_X_Changes.class, "redc")),
                 Messages.get(vM0_5_X_Changes.class, "redclogs")));
 
+        changes.addButton(new ChangeButton(new KagenoNusujinSprite(), (Messages.get(vM0_5_X_Changes.class, "kagenu")),
+                Messages.get(vM0_5_X_Changes.class, "kagenulogs")));
+
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight(Window.CYELLOW);
         changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "info")),
+                Messages.get(vM0_5_X_Changes.class, "infologs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), (Messages.get(vM0_5_X_Changes.class, "ankh2")),
                 Messages.get(vM0_5_X_Changes.class, "ankh2logs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG1), (Messages.get(vM0_5_X_Changes.class, "boom")),
                 Messages.get(vM0_5_X_Changes.class, "boomlogs")));
-
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RedBloodMoon), (Messages.get(vM0_5_X_Changes.class, "redbllod")),
-                Messages.get(vM0_5_X_Changes.class, "redbllodlogs")));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(Window.RED_COLOR);

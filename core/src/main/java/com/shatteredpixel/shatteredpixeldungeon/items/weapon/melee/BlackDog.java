@@ -29,7 +29,7 @@ public class BlackDog extends MeleeWeapon {
         image = ItemSpriteSheet.BlackDog;
 
         tier = 1;
-        DLY = 0.01f; //2x speed
+        DLY = 0.4f; //2x speed
 
         bones = false;
     }

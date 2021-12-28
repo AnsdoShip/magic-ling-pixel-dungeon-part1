@@ -138,7 +138,7 @@ public class SPDChangesScene extends PixelScene {
                 panel.innerHeight() + 2);
         list.scrollTo(0, 0);
 
-        StyledButton btn0_9 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "v0.8"){
+        StyledButton btn0_9 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "SHPD"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -149,7 +149,7 @@ public class SPDChangesScene extends PixelScene {
             }
         };
         if (changesSelected != 0) btn0_9.textColor( 0xBBBBBB );
-        btn0_9.setRect(list.left()-4f, list.bottom(), 26, changesSelected == 0 ? 19 : 15);
+        btn0_9.setRect(list.left()-4f, list.bottom(), 141, changesSelected == 0 ? 19 : 15);
         addToBack(btn0_9);
 
         Archs archs = new Archs();

@@ -66,7 +66,7 @@ public class S_Changes {
 
         changes.addButton (new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16),
                 "BUG修复",
-                "_-_ ＄2021-6-5＄\n" +
+                "_-_ _2021-6-5_\n" +
                         "_-_ 1.修复了一堆BUG 包括以下\n" +
                         "_-_ A.修复了饱腹状态仍然会饥饿\n" +
                         "_-_ B.修复部分怪物的生成权值" +
@@ -89,7 +89,7 @@ public class S_Changes {
         Image i = new Image(new MolotovHuntsmanSprite());
         i.scale.set(PixelScene.align(0.74f));
         changes.addButton( new ChangeButton(new MolotovHuntsmanSprite(), "血月火把猎人",
-                "削弱 €血月火把猎人€ ！\n" +
+                "削弱 _血月火把猎人_ ！\n" +
                         "血量 _169_降到_60_\n" +
                         "攻击由_4x_变成_2x_)\n" +
                         "Dev:JDSA Ling"));
@@ -100,7 +100,7 @@ public class S_Changes {
                 "削弱 _DM-720_！\n" +
                         "血量 _3000_降到_200_\n" +
                         "攻击由_2x_变成_1.3x_\n" +
-                        "€电击伤害€削弱\n" +
+                        "_电击伤害_削弱\n" +
                         "Dev:JDSA Ling"));
 
     }
@@ -116,7 +116,7 @@ public class S_Changes {
 
         changes.addButton (new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16),
                 "BUG修复",
-                "_-_ ＄2021-6-4＄\n" +
+                "_-_ _2021-6-4_\n" +
                         "_-_ 1.修复了一堆BUG 包括以下\n" +
                         "_-_ A.修复了跳楼崩溃 （但不排除意外情况）\n" +
                         "_-_ B.监狱的小偷卡其脱离太修复" +
@@ -142,7 +142,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), "BUG修复",
-                "_-_ ＄2021-6-4＄\n" +
+                "_-_ _2021-6-4_\n" +
                         "_-_ 1.修复了一堆BUG 包括以下\n" +
                         "_-_ A.修复了幽灵任务\n" +
                         "_-_ B.部分怪物经验掉落调整" +
@@ -158,11 +158,11 @@ public class S_Changes {
                         "并改名为DM-720\n\n" +
                         "DM720新特性\n" +
                         "1.在水上移动时可以回血\n" +
-                        "2.较强大的€击退€\n" +
+                        "2.较强大的_击退_\n" +
                         "3._血量低_的时候会自我修复\n" +
-                        "4._奥术护盾_的力量€更加强大€\n" +
-                        "5.启动€歼击模式€的＄能源塔＄获得€额外血量€\n\n" +
-                        "PS:这里的€素材€在游戏不会出现 仅仅是为了€好看€"));
+                        "4._奥术护盾_的力量_更加强大_\n" +
+                        "5.启动_歼击模式_的_能源塔_获得_额外血量_\n\n" +
+                        "PS:这里的_素材_在游戏不会出现 仅仅是为了_好看_"));
 
         changes.addButton(new ChangeButton(new Image(Assets.Environment.TILES_SEWERS, 48, 48, 16
                 , 16), "15层改动",
@@ -181,7 +181,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "BUG修复",
-                "_-_ ＄2021-6-3＄\n" +
+                "_-_ _2021-6-3_\n" +
                         "_-_ 1.修复了一堆BUG 包括以下\n" +
                         "_-_ 2.DM300修正\n" +
                         "\n" +
@@ -199,7 +199,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton(new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "BUG修复",
-                "_-_ ＄2021-6-3＄\n" +
+                "_-_ _2021-6-3_\n" +
                         "_-_ 1.修复了一堆BUG\n" +
                         "_-_ 2.DM201现在在矿洞层\n" +
                         "_-_ 3.删除红色史莱姆\n" +
@@ -226,7 +226,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "开发日志",
-                "_-_ ＄2021-6-2＄\n" +
+                "_-_ _2021-6-2_\n" +
                         "_-_ 1.修复了一堆BUG\n" +
                         "_-_ 2.界面修正\n" +
                         "_-_ 3.地牢层数调整\n" +
@@ -257,7 +257,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "开发日志",
-                "_-_ ＄2021-3-29＄\n" +
+                "_-_ _2021-3-29_\n" +
                         "_-_ 1.修复了一堆BUG\n" +
                         "_-_ 2.界面美化\n" +
                         "\n" +
@@ -279,8 +279,8 @@ public class S_Changes {
         i.scale.set(PixelScene.align(0.74f));
         changes.addButton( new ChangeButton(new ShieldHuntsmanSprite(), "血月魔盾赏金猎人",
                 "极其扭曲的生物，在矮人层开始出现！\n"+
-                        "请小心，此怪物可以 €击飞你的武器€ ！\n"+
-                        "并且可能将你 €定身€ ！"));
+                        "请小心，此怪物可以 _击飞你的武器_ ！\n"+
+                        "并且可能将你 _定身_ ！"));
 
     }
     public static void  V0_4_XChanges( ArrayList<ChangeInfo> changeInfos ){
@@ -293,7 +293,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "开发日志",
-                "_-_ ＄2021-3-28＄\n" +
+                "_-_ _2021-3-28_\n" +
                         "_-_ 1.修复了31层的闪退BUG\n" +
                         "_-_ 2.界面大改动\n" +
                         "\n" +
@@ -305,8 +305,8 @@ public class S_Changes {
 
         Image i = new Image(new SzSprites());
         i.scale.set(PixelScene.align(0.74f));
-        changes.addButton( new ChangeButton(new RedSprites(), "€史莱姆血红守卫者",
-                "削弱 €史莱姆血红守卫者€ ！"));
+        changes.addButton( new ChangeButton(new RedSprites(), "_史莱姆血红守卫者",
+                "削弱 _史莱姆血红守卫者_ ！"));
 
     }
     public static void  V0_4_6Changes( ArrayList<ChangeInfo> changeInfos ){
@@ -319,7 +319,7 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "开发日志",
-                "_-_ ＄2021-3-25＄\n" +
+                "_-_ _2021-3-25_\n" +
                         "_-_ 1.修复了无数的BUG\n" +
                         "_-_ 2.新BOSS 史莱姆王\n" +
                         "\n" +
@@ -334,9 +334,9 @@ public class S_Changes {
         changes.addButton( new ChangeButton(new SzSprites(), "史莱姆守卫者",
                 "史莱姆守卫者 10层BOSS用！"));
 
-        Image a = new Image(new SlimeKingSprite());
-        a.scale.set(PixelScene.align(0.74f));
-        changes.addButton( new ChangeButton(new SlimeKingSprite(), "史莱姆王",
+        Image a = new SlimeKingSprite();
+        a.scale.set(PixelScene.align(0.42f));
+        changes.addButton(new ChangeButton(a,  "史莱姆王",
                 "10层BOSS！"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
@@ -344,10 +344,10 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image(new RatSprite()), "老鼠加强",
-                "老鼠的＄攻击和生存能力＄都得到了提升"));
+                "老鼠的_攻击和生存能力_都得到了提升"));
 
         changes.addButton( new ChangeButton(new Image(new SnakeSprite()), "下水道巨蛇加强",
-                "巨蛇的＄攻击和生存能力＄都得到了提升"));
+                "巨蛇的_攻击和生存能力_都得到了提升"));
 
     }
 
@@ -361,71 +361,71 @@ public class S_Changes {
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image("Ling.png", 0, 0, 16, 16), "开发日志",
-                "_-_ ＄2021-3-24＄\n" +
-                        "_-_ 距离上次更新7天前-上一个版本是＄ 0.3.0.8D ＄\n" +
-                        "_-_ 距离上次更新18天前-上一个版本是＄ 0.3.0.1 ＄\n" +
+                "_-_ _2021-3-24_\n" +
+                        "_-_ 距离上次更新7天前-上一个版本是_ 0.3.0.8D _\n" +
+                        "_-_ 距离上次更新18天前-上一个版本是_ 0.3.0.1 _\n" +
                         "\n" +
                         "Dev:_JDSA-Ling_"));
 
         changes.addButton( new ChangeButton(Icons.get(Icons.CHALLENGE_ON), "新挑战",
                 "_新挑战更新如下:\n" +
-                        "_-_ 1.＄恶魔之水＄：\n" +
+                        "_-_ 1._恶魔之水_：\n" +
                         "_-_ 你将会因为踩水受到伤害，但是你会开局送你十个石灰！石灰源码来自古明地觉地牢！\n\n" +
-                        "_-_ 2.＄精英战场＄:\n" +
+                        "_-_ 2._精英战场_:\n" +
                         "_怪物也会成长！所以请小心为妙！\n\n" +
-                        "_3.€两袖清风&负债累累€\n"+
-                        "_一个是禁止地牢的€金币生成€，另一个则是€移除金币€"));
+                        "_3._两袖清风&负债累累_\n"+
+                        "_一个是禁止地牢的_金币生成_，另一个则是_移除金币_"));
 
         changes.addButton( new ChangeButton(Icons.get(Icons.LANGS), "文本渲染",
-                "文本现在可以渲染成RGB各拉满的三种颜色\n\n红色：€红€ \n\n蓝色：∮蓝∮ \n\n绿色：＄绿＄"));
+                "文本现在可以渲染成RGB各拉满的三种颜色\n\n红色：_红_ \n\n蓝色：∮蓝∮ \n\n绿色：_绿_"));
 
-        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG8), "€红宝石魔袋€",
-                "矮人国王的宝贝，现在在＄DM300＄那里有可能获得！\n\n或者去＄商人那里＄也有可能获得！"));
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG8), "_红宝石魔袋_",
+                "矮人国王的宝贝，现在在_DM300_那里有可能获得！\n\n或者去_商人那里_也有可能获得！"));
 
-        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG7), "＄食物袋＄",
-                "在＄粘咕＄那里有几率获得该物品\n\n或者在＄商人那里＄也可能得到"));
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG7), "_食物袋_",
+                "在_粘咕_那里有几率获得该物品\n\n或者在_商人那里_也可能得到"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
         changes.hardlight( CharSprite.WARNING );
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RedBloodMoon), "猩红血月魔剑",
-                "现在它可以召唤血量为€3滴血€的_血月傀儡_，傀儡根据您的武器而自动成长！"));
+                "现在它可以召唤血量为_3滴血_的_血月傀儡_，傀儡根据您的武器而自动成长！"));
 
         changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DG1), "炸弹匕首",
-                "炸弹匕首现在掉的武器不会＄瞬间爆炸＄！"));
+                "炸弹匕首现在掉的武器不会_瞬间爆炸_！"));
 
         changes.addButton( new ChangeButton(new MurdererSprite(), "血月小偷",
-                "€现在移除！€"));
+                "_现在移除！_"));
 
         changes.addButton( new ChangeButton(new FireGhostSprite(), "火焰幽灵",
-                "€现在移除！€"));
+                "_现在移除！_"));
 
         changes.addButton( new ChangeButton(new Image( Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
-                "反正就是修复了 €无数的BUG€ ，我已经_懒得写了_！"));
+                "反正就是修复了 _无数的BUG_ ，我已经_懒得写了_！"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight( CharSprite.POSITIVE );
         changeInfos.add(changes);
 
         changes.addButton( new ChangeButton(new Image(new CausticSlimeSprite()), "粘咕加强",
-                "粘咕的€血量€得到了提升"));
+                "粘咕的_血量_得到了提升"));
 
         changes.addButton( new ChangeButton(new TenguSprite(), "天狗加强",
-                "天狗的€血量€得到了提升"));
+                "天狗的_血量_得到了提升"));
 
         changes.addButton( new ChangeButton(new KingSprite(), "矮人国王加强",
-                "国王的€血量和攻击€得到了提升"));
+                "国王的_血量和攻击_得到了提升"));
 
         changes.addButton( new ChangeButton(new YogSprite(), "Yog加强",
-                "Yog的€血量€得到了提升"));
+                "Yog的_血量_得到了提升"));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight( CharSprite.NEGATIVE );
         changeInfos.add(changes);
 
         changes.addButton( new  ChangeButton(new KagenoNusujinSprite(),"影子盗贼",
-                "影子盗贼的€攻击力€被削弱"));
+                "影子盗贼的_攻击力_被削弱"));
     }
 
     public static void V0_0_2Changes4(ArrayList<ChangeInfo> arrayList) {

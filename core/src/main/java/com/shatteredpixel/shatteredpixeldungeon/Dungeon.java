@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.OldCavesBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.OldCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.OldPrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SLMKingLevel;
@@ -490,7 +491,15 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				level = new NewCityBossLevel();
+				switch (Random.Int(2)) {
+					case 0:
+					default:
+						level = new OldCityBossLevel();
+						break;
+					case 1:
+						level = new NewCityBossLevel();
+						break;
+				}
 				break;
 			case 21:
 				//logic for old city boss levels, need to spawn a shop on floor 21

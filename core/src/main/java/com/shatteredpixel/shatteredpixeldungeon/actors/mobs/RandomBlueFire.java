@@ -12,8 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.HalomethaneFire;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlameX;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -107,10 +105,8 @@ public class RandomBlueFire extends Mob {
     }
 
     public void die(Object var1) {
-        Dungeon.level.drop( new SkeletonKey( Dungeon.depth /19+19 ), pos ).sprite.drop();
-        Dungeon.level.drop( new SkeletonKey( Dungeon.depth /19+19 ), pos ).sprite.drop();
-        Dungeon.level.drop( new PotionOfHealing(), pos ).sprite.drop();
-        Dungeon.level.drop( new PotionOfHealing(), pos ).sprite.drop();
+        Dungeon.level.drop( new PotionOfLiquidFlameX(), pos ).sprite.drop();
+        Dungeon.level.drop( new PotionOfLiquidFlameX(), pos ).sprite.drop();
         super.die(var1);
         if (var1 != Chasm.class) {
             int var2 = Random.Int(this.deathCurse.length);

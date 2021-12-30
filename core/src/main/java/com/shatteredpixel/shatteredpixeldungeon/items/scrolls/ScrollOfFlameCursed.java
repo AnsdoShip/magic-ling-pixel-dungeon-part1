@@ -41,6 +41,7 @@ public class ScrollOfFlameCursed extends Scroll {
         unique = true;
     }
 
+
     @Override
     public void doRead() {
 

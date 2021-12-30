@@ -90,6 +90,8 @@ public class DewVial extends MeleeWeapon {
 			return ItemSpriteSheet.REDDEVIAL;
 		} else if  (this.level() == 5) {
 			return ItemSpriteSheet.REDDEVIAL;
+		} else if  (this.level() >= 6) {
+			return ItemSpriteSheet.REDDEVIAL;
 		}
 		return image;
 	}
@@ -314,7 +316,7 @@ public class DewVial extends MeleeWeapon {
 					volume -= dropsNeeded;
 					Buff.affect(hero, Healing.class).setHeal((int) (0.3f * hero.HT + 7), 0.25f, 0);
 					Buff.affect(hero, Haste.class, 10f);
-					Buff.affect(hero, FireImbue.class).set(HaloFireImBlue.DURATION/2 );
+					Buff.affect(hero, HaloFireImBlue.class).set( HaloFireImBlue.DURATION*0.8f );
 					Buff.prolong(hero, RoseShiled.class, RoseShiled.DURATION/10f-3+depth/5);
 					Buff.affect(hero, WellFed.class).dewial();
 					Buff.affect( hero, MindVision.class, MindVision.DURATION/5f+depth/5 );

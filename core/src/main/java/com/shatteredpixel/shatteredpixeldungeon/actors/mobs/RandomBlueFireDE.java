@@ -29,8 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Random;
@@ -57,10 +55,7 @@ public class RandomBlueFireDE extends Mob {
             if (Dungeon.level.heroFOV[pos] ){
                 sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
             }
-            if (HP*2 == HT) {
-                BossHealthBar.bleed(false);
-                ((GooSprite)sprite).spray(false);
-            }
+
             HP++;
             Music.INSTANCE.play(Assets.BGM_BOSSA, true);
         }

@@ -31,11 +31,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.LevelTeleporter;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.MobPlacer;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.JAmulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -64,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfFlameCurse
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
@@ -159,6 +160,7 @@ public enum HeroClass {
 
 		i = new Food();
 		DewVial.View = 3;
+		new PotionOfHealing().quantity(3).identify().collect();
 		new ScrollOfUpgrade().quantity(1).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		if (!Challenges.isItemBlocked(i)) i.collect();
@@ -173,7 +175,7 @@ public enum HeroClass {
 			new Stylus().quantity(1).identify().collect();
 			new Food().quantity(3).identify().collect();
 			new MeatPie().quantity(1).identify().collect();
-			new PotionOfHealing().quantity(3).identify().collect();
+			new PotionOfHealing().quantity(1).identify().collect();
 		}
 
 		if (Dungeon.isChallenged(NO_GOLD)){
@@ -229,7 +231,7 @@ public enum HeroClass {
 			new SkyShield().quantity(1).identify().collect();
 			new IceSan().quantity(1).identify().collect();
 			new GoldBAo().quantity(9999).identify().collect();
-			new Amulet().quantity(1).identify().collect();
+			new JAmulet().quantity(1).identify().collect();
 			new WandOfScale().quantity(1).identify().collect();
 			new WandOfRegrowth().quantity(1).identify().collect();
 			new WandOfFrost().quantity(1).identify().collect();
@@ -238,12 +240,13 @@ public enum HeroClass {
 			new AquaBlast().quantity(1).identify().collect();
 			new ReclaimTrap().quantity(1).identify().collect();
 			new PotionOfLiquidFlameX().quantity(100).identify().collect();
-			/*Dungeon.gold = 600000000;
+			new ScrollOfMirrorImage().quantity(100).identify().collect();
+			Dungeon.gold = 600000000;
 			hero.STR = 27;
 			hero.lvl = 31;
 			hero.exp = -123456789;
 			hero.HP = 	123456789;
-			hero.HT = 	123456789;*/
+			hero.HT = 	123456789;
 		}
 
 

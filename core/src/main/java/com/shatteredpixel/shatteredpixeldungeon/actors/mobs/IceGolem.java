@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -53,8 +54,8 @@ public class IceGolem extends Mob implements Callback {
         EXP = 3;
         maxLvl = 35;
 
-        loot = Generator.Category.WEP_T5;
-        lootChance = 1f;
+        loot = PotionOfFrost.class;
+        lootChance = 0.3f;
         properties.add(Property.ICY);
         properties.add(Property.UNDEAD);
     }

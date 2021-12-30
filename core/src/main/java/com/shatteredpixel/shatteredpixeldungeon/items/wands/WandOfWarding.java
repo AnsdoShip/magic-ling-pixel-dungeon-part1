@@ -275,7 +275,7 @@ public class WandOfWarding extends Wand {
 		}
 
 		@Override
-		protected float attackDelay() {
+		public float attackDelay() {
 			if (tier > 3){
 				return 1f;
 			} else {

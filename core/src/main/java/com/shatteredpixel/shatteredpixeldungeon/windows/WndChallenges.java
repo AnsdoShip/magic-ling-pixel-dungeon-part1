@@ -85,7 +85,7 @@ public class WndChallenges extends Window {
 		final int normal_mode = 0;
 		final int hard_mode = 7;
 		final int warning_mode = 10;
-		final int Test_Debug = 14;
+		final int Test_Debug = 15;
 		//final int Happy_Mode = 14;
 
 		for (int i = 0; i < Challenges.NAME_IDS.length; i++) {

@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.DarkBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -156,6 +157,28 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		place( ch.pos );
 		turnTo( ch.pos, Random.Int( Dungeon.level.length() ) );
 		renderShadow = true;
+
+		//突变激素 粒子效果
+		if (ch instanceof Mob){
+			switch (Random.Int(5)) {
+				case 0:
+				default:
+					this.add(State.BURNING);
+					break;
+				case 1:
+					this.add(State.SHIELDED);
+					break;
+				case 2:
+					this.add(State.HALOMETHANEBURNING);
+					break;
+				case 3:
+					this.add(State.DARKENED);
+					break;
+				case 4:
+					this.add(State.ROSESHIELDED);
+					break;
+			}
+		}
 		
 		if (ch != Dungeon.hero) {
 			if (health == null) {
@@ -170,7 +193,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	//used for just updating a sprite based on a given character, not linking them or placing in the game
 	public void linkVisuals( Char ch ){
-		//do nothin by default
+		if (ch instanceof Mob){
+			scale.set(((Mob) ch).scaleFactor);
+			place(ch.pos);
+		}
 	}
 	
 	public PointF worldToCamera( int cell ) {

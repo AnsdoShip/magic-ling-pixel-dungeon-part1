@@ -23,7 +23,7 @@ public class GnollShiled extends Gnoll {
 
     public GnollShiled() {
         this.spriteClass = BombGnollTricksterSprites.class;
-        this.HT = HP = Random.Int(50,90);
+        this.HT = HP = Random.Int(30,40);
         this.defenseSkill = 5;
         this.EXP = 8;
         this.state = this.WANDERING;
@@ -86,13 +86,13 @@ public class GnollShiled extends Gnoll {
                     Buff.affect(enemy, Blindness.class).set((float) (effect - 2));
                     break;
                 case 1:
-                    Buff.affect( enemy, Poison.class ).set( enemy.HT / 2 );
+                    Buff.affect( enemy, Poison.class ).set( enemy.HT / 10 );
                     break;
                 case 2:
                     Buff.affect(enemy, Bleeding.class).set((float) (effect - 2));
                     break;
                 default:
-                    Buff.affect(enemy, Poison.class).set((float) (effect - 2));
+                    Buff.affect(enemy, Poison.class).set((float) (effect - 8));
                     break;
             }
 

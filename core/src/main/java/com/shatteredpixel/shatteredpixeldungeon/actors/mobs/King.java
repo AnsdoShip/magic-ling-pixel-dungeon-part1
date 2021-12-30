@@ -250,7 +250,7 @@ public class King extends Mob {
 		immunities.add( Terror.class );
 	}
 	
-	public static class Undead extends Mob {
+	public static class Undead extends SRPDHBLR {
 		
 		public static int count = 0;
 		

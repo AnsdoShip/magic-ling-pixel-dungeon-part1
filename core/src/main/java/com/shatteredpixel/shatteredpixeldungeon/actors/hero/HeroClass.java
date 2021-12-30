@@ -57,8 +57,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonKingBreath;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GoldBAo;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfFlameCursed;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -72,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAffection;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
@@ -179,6 +182,9 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new ScrollOfFlameCursed().quantity(1).identify().collect();
+			new	WandOfFireblast().quantity(1).identify().collect();
+			new PotionOfDragonKingBreath().quantity(1).identify().collect();
 			new WandOfBlueFuck().quantity(1).identify().collect();
 			new SkyBlueFireBloom.Seed().quantity(10).identify().collect();
 			new PotionOfLiquidFlameX().quantity(10).collect();
@@ -232,12 +238,12 @@ public enum HeroClass {
 			new AquaBlast().quantity(1).identify().collect();
 			new ReclaimTrap().quantity(1).identify().collect();
 			new PotionOfLiquidFlameX().quantity(100).identify().collect();
-			Dungeon.gold = 600000000;
+			/*Dungeon.gold = 600000000;
 			hero.STR = 27;
 			hero.lvl = 31;
 			hero.exp = -123456789;
 			hero.HP = 	123456789;
-			hero.HT = 	123456789;
+			hero.HT = 	123456789;*/
 		}
 
 

@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MurdererSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedDragonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
@@ -108,6 +109,9 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(new MurdererSprite(), (Messages.get(vM0_5_X_Changes.class, "murderer")),
                 Messages.get(vM0_5_X_Changes.class, "murdererlogs")));
+
+        changes.addButton(new ChangeButton(new RedDragonSprite(), (Messages.get(vM0_5_X_Changes.class, "reddragon")),
+                Messages.get(vM0_5_X_Changes.class, "reddragonlogs")));
 
         changes.addButton(new ChangeButton(new MurdererSprite.RedMuderer(), (Messages.get(vM0_5_X_Changes.class, "red_murderer")),
                 Messages.get(vM0_5_X_Changes.class, "red_murdererlogs")));

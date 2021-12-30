@@ -42,7 +42,7 @@ import java.util.ArrayList;
 public class Food extends Item {
 
 	public static final float TIME_TO_EAT	= 2f;
-	
+
 	public static final String AC_EAT	= "EAT";
 	
 	public float energy = Hunger.HUNGRY;
@@ -50,7 +50,8 @@ public class Food extends Item {
 	{
 		stackable = true;
 		image = ItemSpriteSheet.RATION;
-
+		//赋予快捷栏
+		defaultAction = AC_EAT;
 		bones = true;
 	}
 	

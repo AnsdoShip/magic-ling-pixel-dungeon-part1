@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.InfernalBrew
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.ShockingBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfAquaticRejuvenation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfArcaneArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfDragonKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfDragonsBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
@@ -58,7 +59,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
 import com.watabou.utils.Reflection;
 
@@ -183,6 +183,7 @@ public abstract class Recipe {
 		new ElixirOfArcaneArmor.Recipe(),
 		new ElixirOfAquaticRejuvenation.Recipe(),
 		new ElixirOfDragonsBlood.Recipe(),
+		new ElixirOfDragonKing.Recipe(),
 		new ElixirOfIcyTouch.Recipe(),
 		new ElixirOfMight.Recipe(),
 		new ElixirOfHoneyedHealing.Recipe(),
@@ -246,8 +247,7 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){
 		return !item.cursed
-				&& (!(item instanceof EquipableItem) || (item instanceof AlchemistsToolkit && item.isIdentified()))
-				&& !(item instanceof Wand);
+				&& (!(item instanceof EquipableItem) || (item instanceof AlchemistsToolkit && item.isIdentified()));
 	}
 }
 

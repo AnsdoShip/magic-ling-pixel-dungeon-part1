@@ -274,6 +274,7 @@ public class Assets {
 		public static final String BAT		= "sprites/bat.png";
 		public static final String BATEX		= "sprites/BrownBat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
+		public static final String REDDRAGONPET = "sprites/petreddragon.png";
 		public static final String MONK		= "sprites/monk.png";
 		public static final String WARLOCK	= "sprites/warlock.png";
 		public static final String GOLEM	= "sprites/golem.png";

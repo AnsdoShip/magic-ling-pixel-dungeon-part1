@@ -78,7 +78,7 @@ public class Ankh extends Item {
 			if (waterskin != null){
 				blessed = true;
 				waterskin.empty();
-				GLog.p( Messages.get(this, "bless") );
+				GLog.b( Messages.get(this, "bless") );
 				hero.spend( 1f );
 				hero.busy();
 

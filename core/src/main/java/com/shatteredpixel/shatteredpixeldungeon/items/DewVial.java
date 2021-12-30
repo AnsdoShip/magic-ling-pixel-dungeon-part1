@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HalomethaneBurning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
@@ -74,22 +75,26 @@ public class DewVial extends MeleeWeapon {
 
 	public DewVial() {
 		super.image = ItemSpriteSheet.VIAL;
+		defaultAction = AC_DRINK;
 		super.tier = 3;
 	}
 
+	public int image() {
+		if (this.level() == 1 ) {
+			return ItemSpriteSheet.BLUEDEVIAL;
+		} else if  (this.level() == 2 ) {
+			return ItemSpriteSheet.PINKDEVIAL;
+		} else if  (this.level() == 3 ) {
+			return ItemSpriteSheet.PINKDEVIAL;
+		} else if  (this.level() == 4) {
+			return ItemSpriteSheet.REDDEVIAL;
+		} else if  (this.level() == 5) {
+			return ItemSpriteSheet.REDDEVIAL;
+		}
+		return image;
+	}
+
 	public int proc(Char Dewvial_One, Char Dewvial_Two, int Dewvial_Three) {
-
-		//素材变化调用
-		if (this.level() >= 1 ) {
-			super.image = ItemSpriteSheet.BLUEDEVIAL;
-		}
-		if (this.level() >= 2 ) {
-			super.image = ItemSpriteSheet.PINKDEVIAL;
-		}
-		if (this.level() >= 4) {
-			super.image = ItemSpriteSheet.REDDEVIAL;
-		}
-
 			//仙露明珠信赖度评价
 			if (this.level() >= 1 && View == 3) {
 				GLog.n(Messages.get(this, "dew_rk1"));
@@ -105,7 +110,6 @@ public class DewVial extends MeleeWeapon {
 				//蓝色文本渲染
 				View = 0;
 			}
-
 		return super.proc(Dewvial_One, Dewvial_Two, Dewvial_Three);
 	}
 
@@ -176,7 +180,7 @@ public class DewVial extends MeleeWeapon {
 		if (volume >= 6 && DewVial.View==1 && this.level() >= 2) {
 			actions.add( AC_DRINK_THREEPALF );
 		}
-		//如果露珠大于或等于5个，私有short变量=1，且武器等级大于等于2，则显示按钮
+		//如果露珠大于或等于6个，私有short变量=1，且武器等级大于等于2，则显示按钮
 		if (volume >= 7 && DewVial.View==0 && this.level() >= 4) {
 			actions.add( AC_DRINK_FOUR );
 		}
@@ -184,7 +188,7 @@ public class DewVial extends MeleeWeapon {
 		if (volume >= 8 && DewVial.View==0 && this.level() >= 4) {
 			actions.add( AC_DRINK_FOURSOUL );
 		}
-		//如果露珠大于或等于7个，私有short变量=0，且武器等级大于等于4，则显示按钮
+		//如果露珠大于或等于8个，私有short变量=0，且武器等级大于等于4，则显示按钮
 		return actions;
 	}
 
@@ -310,11 +314,12 @@ public class DewVial extends MeleeWeapon {
 					volume -= dropsNeeded;
 					Buff.affect(hero, Healing.class).setHeal((int) (0.3f * hero.HT + 7), 0.25f, 0);
 					Buff.affect(hero, Haste.class, 10f);
-					Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*8f );
+					Buff.affect(hero, FireImbue.class).set(HaloFireImBlue.DURATION/2 );
 					Buff.prolong(hero, RoseShiled.class, RoseShiled.DURATION/10f-3+depth/5);
 					Buff.affect(hero, WellFed.class).dewial();
 					Buff.affect( hero, MindVision.class, MindVision.DURATION/5f+depth/5 );
 					//极速+火焰之力+玫瑰结界+灵视+饱腹+治疗
+					//10+25+4+
 					hero.spend(TIME_TO_DRINK);
 					hero.busy();
 
@@ -351,9 +356,9 @@ public class DewVial extends MeleeWeapon {
 
 				if (Dewdrop.consumeDew(dropsNeeded, hero)){
 					volume -= dropsNeeded;
-					Buff.affect(hero, Haste.class, 2f);
-					Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*0.7f );
-					//极速+火焰之力
+					Buff.affect(hero, Haste.class, 15f);
+					Buff.affect(hero, FireImbue.class).set( FireImbue.DURATION*0.5f );
+					//极速+火焰之力 15回合+25回合
 					hero.spend(TIME_TO_DRINK);
 					hero.busy();
 
@@ -390,7 +395,7 @@ public class DewVial extends MeleeWeapon {
 				if (Dewdrop.consumeDew(dropsNeeded, hero)){
 					volume -= dropsNeeded;
 					Buff.affect(hero, Haste.class, 10f);
-					//极速BUFF
+					//极速BUFF10回合
 					hero.spend(TIME_TO_DRINK);
 					hero.busy();
 

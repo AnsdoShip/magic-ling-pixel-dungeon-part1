@@ -714,12 +714,15 @@ public class ItemSpriteSheet {
 	public static final int	BLUEDEVIAL				= BAGS+40;
 	public static final int	PINKDEVIAL				= BAGS+41;
 	public static final int	REDDEVIAL				= BAGS+42;
+	public static final int	REDDRAGON				= BAGS+43;
+	public static final int	DRAGONKINGHALOFIRE				= BAGS+44;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);
 		assignItemRect(HOLDER,      16, 16);
 		assignItemRect(BANDOLIER,   15, 16);
 		assignItemRect(HOLSTER,     15, 16);
+		assignItemRect(DRAGONKINGHALOFIRE, 12, 14);
 	}
 
 	private static final int MAINBOOKINDEX    	 = xy(1, 35);  //16 slots
@@ -883,6 +886,7 @@ public class ItemSpriteSheet {
 		public static final int POTION_EARTHARMR= EXOTIC_POTIONS+9;
 		public static final int POTION_CLEANSE  = EXOTIC_POTIONS+10;
 		public static final int POTION_HOLYFUROR= EXOTIC_POTIONS+11;
+		public static final int POTION_DRAGONKING= EXOTIC_POTIONS+12;
 		static {
 			assignIconRect( POTION_ARENSURGE,   7, 7 );
 			assignIconRect( POTION_SHIELDING,   6, 6 );
@@ -896,6 +900,7 @@ public class ItemSpriteSheet {
 			assignIconRect( POTION_EARTHARMR,   6, 6 );
 			assignIconRect( POTION_CLEANSE,     7, 7 );
 			assignIconRect( POTION_HOLYFUROR,   5, 7 );
+			assignIconRect( POTION_DRAGONKING,   7, 7 );
 		}
 
 		                                                                                //16 free slots

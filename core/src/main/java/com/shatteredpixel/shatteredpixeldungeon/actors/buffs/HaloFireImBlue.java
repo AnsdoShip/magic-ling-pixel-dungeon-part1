@@ -29,7 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class HaloFireImBlue extends Buff {
 
@@ -38,7 +37,7 @@ public class HaloFireImBlue extends Buff {
         announced = true;
     }
 
-    public static final float DURATION	= 50f;
+    public static final float DURATION	= 80f;
 
     protected float left;
 
@@ -78,7 +77,6 @@ public class HaloFireImBlue extends Buff {
     }
 
     public void proc(Char enemy){
-        if (Random.Int(2) == 0)
             Buff.affect( enemy, HalomethaneBurning.class ).reignite( enemy );
 
         enemy.sprite.emitter().burst( HalomethaneFlameParticle.FACTORY, 2 );

@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.PRO;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+import static com.shatteredpixel.shatteredpixeldungeon.Statistics.spawnersIce;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -47,12 +48,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -112,6 +115,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocki
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
+import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -123,6 +127,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
@@ -1039,12 +1044,10 @@ public class Hero extends Char {
 						});
 						ready();
 				} else {
-					Game.runOnRenderThread(new Callback() {
-						@Override
-						public void call() {
-							GameScene.show( new WndMessage( Messages.get(Hero.this, "comingsoon") ) );
-						}
-					});
+					Badges.silentValidateHappyEnd();
+					Dungeon.win( Amulet.class );
+					Dungeon.deleteGame( GamesInProgress.curSlot, true );
+					Game.switchScene( SurfaceScene.class );
 					ready();
 				}
 
@@ -1635,7 +1638,7 @@ public class Hero extends Char {
 		final Ankh XCS = ankh;
 		if (ankh == null) {
 			if (Dungeon.isChallenged(RLPT) && lives>0) {
-				InterlevelScene.mode = InterlevelScene.Mode.RESET;
+				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
 				hero.HP = 20;
 				Game.switchScene( InterlevelScene.class );
 				hero.lives--;
@@ -1763,6 +1766,54 @@ public class Hero extends Char {
 				&& Dungeon.level.water[pos]){
 			Buff.prolong( hero, Blindness.class, Blindness.DURATION );
 			Buff.prolong( hero, Cripple.class, Cripple.DURATION );
+		}
+
+		//圣境之水 祝福效果
+		if (Dungeon.GodWaterLevel()&& Dungeon.level.water[pos]){
+			Buff.affect(hero, Barkskin.class).set( 2 + hero.lvl/4, 10 );
+			Buff.prolong(this, Bless.class, Bless.GODSPOERF);
+		}
+
+		//监狱之水 祝福效果
+		if (Dungeon.PrisonWaterLevel()&& Dungeon.level.water[pos]){
+			Buff.affect(hero, Barkskin.class).set( 2 + hero.lvl/4, 10 );
+			Buff.prolong(this, Bless.class,Bless.GODSPOERF);
+			Buff.affect(this, Haste.class, Haste.DURATION/20);
+			Buff.affect(this, Invisibility.class, Invisibility.DURATION/10f);
+		} else if(Dungeon.PrisonWaterLevel()&& !Dungeon.level.water[pos])
+			for (Buff buff : hero.buffs()) {
+				if (buff instanceof Invisibility||buff instanceof Haste ) {
+				buff.detach();
+			}
+		}
+
+
+		//矿洞之水 诅咒效果
+		if (Dungeon.ColdWaterLevel()&& Dungeon.level.water[pos]){
+			Buff.affect(this, Chill.class, 5f);
+		}
+
+		//矮人之水 诅咒效果
+		if (Dungeon.DeadLevel()&& Dungeon.level.water[pos]){
+			if (Dungeon.level.water[pos] && this.HP < this.HT) {
+				if (Dungeon.level.heroFOV[pos] ){
+					sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+				}
+				this.HP--;
+			}
+			Buff.affect(this, Blindness.class, 5f);
+		} else if(Dungeon.DeadLevel()&& !Dungeon.level.water[pos])
+			for (Buff buff : hero.buffs()) {
+		if (buff instanceof Blindness) {
+			buff.detach();
+		}}
+
+		//祝福之门
+		if (Dungeon.MagicStonePark() && Dungeon.level.map[pos] == CavesGirlDeadLevel.D && Dungeon.level.water[pos] && (spawnersIce > 0)){
+			Buff.affect(hero, Barkskin.class).set( 6 + hero.lvl/4, 10 );
+			Buff.prolong(this, Bless.class, Bless.GODSPOERF);
+
+			//Buff.prolong(hero, RoseShiled.class, RoseShiled.DURATION/10f-4f);
 		}
 
 

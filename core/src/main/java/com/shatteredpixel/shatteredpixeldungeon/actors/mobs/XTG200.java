@@ -39,6 +39,7 @@ public class XTG200 extends Mob {
     }
 
 
+
     public int attackSkill(Char var1) {
         return 18;
     }

@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.SPSLScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
 import com.watabou.noosa.Game;
 
@@ -40,7 +39,7 @@ public class GOLDButton extends IconButton {
         if (Game.scene() instanceof TitleScene) {
             Game.instance.finish();
         } else {
-            ShatteredPixelDungeon.switchNoFade( SPSLScene.class );
+            ShatteredPixelDungeon.switchNoFade( TitleScene.class );
         }
     }
 }

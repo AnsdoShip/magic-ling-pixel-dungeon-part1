@@ -46,11 +46,11 @@ public class ColdMagicRat extends Mob implements Callback {
     {
         spriteClass = ColdRatSprite.class;
 
-        HP = HT = 6;
+        HP = HT = 30;
         defenseSkill = 4;
 
-        EXP = 3;
-        maxLvl = 8;
+        EXP = 13;
+        maxLvl = 18;
 
         loot = Generator.Category.POTION;
         lootChance = 0.1f;
@@ -60,7 +60,7 @@ public class ColdMagicRat extends Mob implements Callback {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 0, 2 );
+        return Random.NormalIntRange( 10, 12 );
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ColdMagicRat extends Mob implements Callback {
 
     @Override
     public int drRoll() {
-        return Random.NormalIntRange(0, 1);
+        return Random.NormalIntRange(10, 8);
     }
 
     @Override

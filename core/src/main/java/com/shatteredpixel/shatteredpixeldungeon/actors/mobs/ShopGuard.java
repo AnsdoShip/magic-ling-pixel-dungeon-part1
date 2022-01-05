@@ -86,6 +86,15 @@ public class ShopGuard extends Statue {
             }
         }
     }
+
+    public void spawnAroundDragon( int pos ) {
+        for (int n : PathFinder.NEIGHBOURS8) {
+            int cell = pos + n;
+            if (Dungeon.level.passable[pos+1] && Actor.findChar( cell ) == null) {
+                spawnAt( cell );
+            }
+        }
+    }
     private static final float SPAWN_DELAY	= 2f;
     private int level;
     public void adjustStats( int level ) {
@@ -117,7 +126,8 @@ public class ShopGuard extends Statue {
         for (Buff buff : hero.buffs()) {
             if (buff instanceof Healing) {
                 buff.detach();
-                yell( Messages.get(this, "noha") );                }
+                yell( Messages.get(this, "noha") );
+            }
         }
         return super.act();
     }

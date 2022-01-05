@@ -33,8 +33,10 @@ public class Assets {
 	public static final String BGM_BOSSA = "music/Boss1.ogg";
 	public static final String BGM_BOSSB = "music/Boss2.ogg";
 	public static final String BGM_BOSSC = "music/Boss3.ogg";
+	public static final String BGM_BOSSC3 = "music/Ice.ogg";
 	public static final String BGM_BOSSD = "music/Boss4.ogg";
 	public static final String BGM_BOSSE = "music/Boss5.ogg";
+	public static final String BGM_BOSSE3 = "music/Yogdead.ogg";
 	public static final String RUN = "music/Run.ogg";
 
 	public static class Effects {
@@ -53,14 +55,14 @@ public class Assets {
 
 		public static final String TILES_SEWERS	= "environment/tiles_sewers.png";
 		public static final String TILES_PRISON	= "environment/tiles_prison.png";
-		public static final String TILES_CAVES	= "environment/tiles_caves.png";
+		public static final String TILES_CAVES	= "environment/Reload.png";
 		public static final String TILES_CITY	= "environment/tiles_city.png";
 		public static final String TILES_HALLS	= "environment/tiles_halls.png";
 
 		public static final String WATER_COLD= "environment/water-1.png";
 		public static final String WATER_SEWERS	= "environment/water0.png";
 		public static final String WATER_PRISON	= "environment/water1.png";
-		public static final String WATER_CAVES	= "environment/water2.png";
+		public static final String WATER_CAVES	= "environment/water-1.png";
 		public static final String WATER_CITY	= "environment/water3.png";
 		public static final String WATER_HALLS	= "environment/water4.png";
 
@@ -88,14 +90,17 @@ public class Assets {
 		public static final String LOCKED	= "interfaces/locked_badge.png";
 
 		public static final String CHROME	= "interfaces/chrome.png";
+		public static final String CHROME_DARK	= "interfaces/chrome_normal.png";
 		public static final String ICONS	= "interfaces/icons.png";
 		public static final String STATUS	= "interfaces/status_pane.png";
+		public static final String STATUS_DARK	= "interfaces/status_pane_normal.png";
 		public static final String MENU		= "interfaces/menu_button.png";
 		public static final String HP_BAR	= "interfaces/hp_bar.png";
 		public static final String HG_BAR	= "interfaces/hunger_bar.png";
 		public static final String SHLD_BAR = "interfaces/shield_bar.png";
 		public static final String XP_BAR	= "interfaces/exp_bar.png";
 		public static final String TOOLBAR	= "interfaces/toolbar.png";
+		public static final String TOOLBARDRAK	= "interfaces/toolbar_normal.png";
 		public static final String SHADOW   = "interfaces/shadow.png";
 		public static final String BOSSHP   = "interfaces/boss_hp.png";
 
@@ -112,6 +117,7 @@ public class Assets {
 
 		public static final String TALENT_ICONS	 = "interfaces/talent_icons.png";
 		public static final String TALENT_BUTTON = "interfaces/talent_button.png";
+		public static final String TALENT_BUTTON_DARK = "interfaces/talent_button_dark.png";
 	}
 
 	//these points to resource bundles, not raw asset files
@@ -131,9 +137,9 @@ public class Assets {
 		public static final String GAME		= "music/game.ogg";
 		public static final String SURFACE	= "music/surface.ogg";
 		public static final String THEME	= "music/theme.ogg";
-		public static final String NBPL	= "music/nbpl.mp3";
-		public static final String SHOP	= "music/shop.mp3";
-		public static final String RENSHOP	= "music/RENSHOP.mp3";
+		public static final String NBPL	= "music/nbpl.ogg";
+		public static final String SHOP	= "music/shop.ogg";
+		public static final String RENSHOP	= "music/RENSHOP.ogg";
 		public static final String Dragon	= "music/dragon.ogg";
 	}
 
@@ -308,7 +314,9 @@ public class Assets {
 		public static final String DM100	= "sprites/dm100.png";
 		public static final String PYLON	= "sprites/pylon.png";
 		public static final String PYLONCS	= "sprites/pylonks.png";
+		public static final String CRSTAL	= "sprites/crstal.png";
 		public static final String DM200	= "sprites/dm200.png";
 		public static final String LOTUS	= "sprites/lotus.png";
+		public static final String CRSTA	= "sprites/crstalspawn.png";
 	}
 }

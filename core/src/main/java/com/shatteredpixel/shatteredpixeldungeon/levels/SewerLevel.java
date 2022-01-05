@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
@@ -58,7 +57,7 @@ public class SewerLevel extends RegularLevel {
 
 	@Override
 	public int nMobs(){
-		return Dungeon.isChallenged( Challenges.LYSL ) ? 10 : 8;
+		return 8;
 	}
 
 	@Override
@@ -85,7 +84,7 @@ public class SewerLevel extends RegularLevel {
 
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_COLD;
+		return Assets.Environment.TILES_SEWERS;
 	}
 
 	@Override
@@ -152,6 +151,9 @@ public class SewerLevel extends RegularLevel {
 				return Messages.get(SewerLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(SewerLevel.class, "bookshelf_desc");
+			case Terrain.WATER:
+				return Messages.get(SewerLevel.class,
+					"water_desc");
 			default:
 				return super.tileDesc( tile );
 		}
@@ -207,7 +209,7 @@ public class SewerLevel extends RegularLevel {
 			acc.y = 50;
 			am = 0.5f;
 
-			color( ColorMath.random( 0xb6ccc2, 0x3b6653 ) );
+			color( ColorMath.random( 0x00bbbb, 0x006666 ) );
 			size( 2 );
 		}
 

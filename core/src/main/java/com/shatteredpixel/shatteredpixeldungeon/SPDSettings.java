@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.Constants;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -44,7 +45,15 @@ public class SPDSettings extends GameSettings {
 	public static int version() {
 		return getInt( KEY_VERSION, 0 );
 	}
-	
+	public static void quickslots( int value ){
+		put( KEY_QUICKSLOTS, value );
+	}
+
+	public static int quickslots(){
+		return getInt( KEY_QUICKSLOTS, 4, Constants.MIN_QUICKSLOTS, Constants.MAX_QUICKSLOTS);
+	}
+
+
 	//Graphics
 	private static final String DEBUG_REPORT  = "debug_report";
 	public static boolean debugReport() {
@@ -57,7 +66,8 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_ZOOM			= "zoom";
 	public static final String KEY_BRIGHTNESS	= "brightness";
 	public static final String KEY_GRID 	    = "visual_grid";
-	
+	private static final String KEY_DARK	= "dark_ui";
+	//暗色系统
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 		
@@ -331,6 +341,14 @@ public class SPDSettings extends GameSettings {
 	
 	public static boolean windowMaximized(){
 		return getBoolean( KEY_WINDOW_MAXIMIZED, false );
+	}
+
+	public static void ClassUI(boolean value) {
+		put( KEY_DARK, value );
+	}
+
+	public static boolean ClassUI() {
+		return getBoolean(KEY_DARK, false);
 	}
 
 }

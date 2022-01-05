@@ -38,6 +38,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	public static final float HUNGRY	= 300f;
 	public static final float STARVING	= 450f;
+	public static final float STARVINGR	= 20f;
 	public static final float DEWEFFECT	= 20f;
 
 	private float level;
@@ -73,7 +74,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			Hero hero = (Hero) this.target;
 			if (Dungeon.isChallenged(1024) && isStarving()) {
 				GLog.w(Messages.get(this, "warning", new Object[0]), new Object[0]);
-				float f2 = this.partialDamage + ((((float) this.target.HT) * 10.0f) / 200.0f);
+				float f2 = this.partialDamage + ((((float) this.target.HT) * 20.0f) / 200.0f);
 				this.partialDamage = f2;
 				if (f2 > 1.0f) {
 					this.target.damage((int) this.partialDamage, this);

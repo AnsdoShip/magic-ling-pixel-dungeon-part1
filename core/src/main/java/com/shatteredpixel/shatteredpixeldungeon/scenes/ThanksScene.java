@@ -79,7 +79,7 @@ public class ThanksScene extends PixelScene {
 
     @Override
     protected void onBackPressed() {
-        ShatteredPixelDungeon.switchNoFade(SPSLScene.class);
+        ShatteredPixelDungeon.switchNoFade(TitleScene.class);
     }
 
     private static class SupporterMessage extends Component {
@@ -92,11 +92,13 @@ public class ThanksScene extends PixelScene {
             bg = Chrome.get(Chrome.Type.GREY_BUTTON_TR);
             add(bg);
 
-              String message = "编码致谢：\n-REN\n-Alexstrasza\n-SmuJB\n-Tianscar\n-TrashBoxbodylev";
+              String message = "编码致谢：\n-REN(夜临2作者)\n-Alexstrasza(注解作者)\n-SmuJB(诅咒作者)\n-Tianscar" +
+                      "(重置前的指导)\n-TrashBoxbodylev(经验作者)";
                 message += "\n\n测试致谢：\n-迷茫\n-小狐狸\n-摘希\n-ZIOM-ObSir\n-坏猫猫\n-不是史神\n-月鸾\n-口水猫";
+                message += "\n\n音乐致谢：\n-Prohonor\n-泰拉瑞亚\n-橙光游戏战斗BGM第二专辑";
                 message += "\n\n美术致谢：\n-被子\n-冷群怪\n-REN\n-Daniel Clan\n-奈亚子\n-TianScar";
                 message += "\n\n宣传致谢：\n-那些回忆\n-罗贝里";
-                message += "\n\n捐赠致谢：\n-洛诗夜\n-风植居士\n-JOJO";
+
 
             text = PixelScene.renderTextBlock(message, 6);
             add(text);

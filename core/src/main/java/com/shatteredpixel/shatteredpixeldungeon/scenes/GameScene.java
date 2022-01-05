@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.IceCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
@@ -135,14 +136,14 @@ public class GameScene extends PixelScene {
 	private HeroSprite hero;
 
 	private StatusPane pane;
-	
+
 	private GameLog log;
-	
+
 	private BusyIndicator busy;
 	private CircleArc counter;
-	
+
 	private static CellSelector cellSelector;
-	
+
 	private Group terrain;
 	private Group customTiles;
 	private Group levelVisuals;
@@ -161,7 +162,7 @@ public class GameScene extends PixelScene {
 	private Group emoicons;
 	private Group overFogEffects;
 	private Group healthIndicators;
-	
+
 	private Toolbar toolbar;
 	private Toast prompt;
 
@@ -169,10 +170,10 @@ public class GameScene extends PixelScene {
 	private LootIndicator loot;
 	private ActionIndicator action;
 	private ResumeIndicator resume;
-	
+
 	@Override
 	public void create() {
-		
+
 		if (Dungeon.hero == null || Dungeon.level == null){
 			ShatteredPixelDungeon.switchNoFade(TitleScene.class);
 			return;
@@ -181,7 +182,7 @@ public class GameScene extends PixelScene {
 		BGMPlayer.playBGMWithDepth();
 
 		SPDSettings.lastClass(Dungeon.hero.heroClass.ordinal());
-		
+
 		super.create();
 		Camera.main.zoom( GameMath.gate(minZoom, defaultZoom + SPDSettings.zoom(), maxZoom));
 
@@ -215,7 +216,7 @@ public class GameScene extends PixelScene {
 		terrain.add( ripples );
 
 		DungeonTileSheet.setupVariance(Dungeon.level.map.length, Dungeon.seedCurDepth());
-		
+
 		tiles = new DungeonTerrainTilemap();
 		terrain.add( tiles );
 
@@ -231,7 +232,7 @@ public class GameScene extends PixelScene {
 
 		terrainFeatures = new TerrainFeaturesTilemap(Dungeon.level.plants, Dungeon.level.traps);
 		terrain.add(terrainFeatures);
-		
+
 		levelVisuals = Dungeon.level.addVisuals();
 		add(levelVisuals);
 
@@ -240,7 +241,7 @@ public class GameScene extends PixelScene {
 
 		heaps = new Group();
 		add( heaps );
-		
+
 		for ( Heap heap : Dungeon.level.heaps.valueList() ) {
 			addHeapSprite( heap );
 		}
@@ -250,7 +251,7 @@ public class GameScene extends PixelScene {
 		healthIndicators = new Group();
 		emoicons = new Group();
 		overFogEffects = new Group();
-		
+
 		mobs = new Group();
 		add( mobs );
 
@@ -258,14 +259,14 @@ public class GameScene extends PixelScene {
 		hero.place( Dungeon.hero.pos );
 		hero.updateArmor();
 		mobs.add( hero );
-		
+
 		for (Mob mob : Dungeon.level.mobs) {
 			addMobSprite( mob );
 			if (Statistics.amuletObtained) {
 				mob.beckon( Dungeon.hero.pos );
 			}
 		}
-		
+
 		raisedTerrain = new RaisedTerrainTilemap();
 		add( raisedTerrain );
 
@@ -301,28 +302,28 @@ public class GameScene extends PixelScene {
 		add( spells );
 
 		add(overFogEffects);
-		
+
 		statuses = new Group();
 		add( statuses );
-		
+
 		add( healthIndicators );
 		//always appears ontop of other health indicators
 		add( new TargetHealthIndicator() );
-		
+
 		add( emoicons );
-		
+
 		add( cellSelector = new CellSelector( tiles ) );
 
 		pane = new StatusPane();
 		pane.camera = uiCamera;
 		pane.setSize( uiCamera.width, 0 );
 		add( pane );
-		
+
 		toolbar = new Toolbar();
 		toolbar.camera = uiCamera;
 		toolbar.setRect( 0,uiCamera.height - toolbar.height(), uiCamera.width, toolbar.height() );
 		add( toolbar );
-		
+
 		attack = new AttackIndicator();
 		attack.camera = uiCamera;
 		add( attack );
@@ -351,12 +352,12 @@ public class GameScene extends PixelScene {
 		busy.x = 1;
 		busy.y = pane.bottom() + 1;
 		add( busy );
-		
+
 		counter = new CircleArc(18, 4.25f);
 		counter.color( 0x808080, true );
 		counter.camera = uiCamera;
 		counter.show(this, busy.center(), 0f);
-		
+
 		switch (InterlevelScene.mode) {
 		case RESURRECT:
 			ScrollOfTeleportation.appear( Dungeon.hero, Dungeon.level.entrance );
@@ -367,21 +368,47 @@ public class GameScene extends PixelScene {
 			break;
 		case DESCEND:
 			switch (Dungeon.depth) {
+				case 0:
+					WndStory.showChapter( WndStory.ID_FOREST );
+					break;
 			case 1:
 				WndStory.showChapter( WndStory.ID_SEWERS );
 				break;
+				case 5:
+					WndStory.showChapter( WndStory.ID_SEWERSBOSS );
+					break;
 			case 6:
 				WndStory.showChapter( WndStory.ID_PRISON );
 				break;
-			case 11:
+				case 10:
+					WndStory.showChapter( WndStory.ID_PRISONBOSS );
+					break;
+				case 11:
 				WndStory.showChapter( WndStory.ID_CAVES );
 				break;
-			case 16:
+				case 15:
+				if(Statistics.spawnersIce > 0) {
+						WndStory.showChapter(WndStory.ID_ICEBOSS);
+						break;
+				} else {
+					WndStory.showChapter(WndStory.ID_CAVESBOSS);
+					break;
+				}
+				case 16:
 				WndStory.showChapter( WndStory.ID_CITY );
 				break;
-			case 21:
+				case 20:
+					WndStory.showChapter( WndStory.ID_CITYSBOSS );
+					break;
+				case 21:
 				WndStory.showChapter( WndStory.ID_HALLS );
 				break;
+				case 25:
+					WndStory.showChapter( WndStory.ID_HALLSBOOS );
+					break;
+				case 26:
+					WndStory.showChapter( WndStory.ID_CHAPTONEEND );
+					break;
 			}
 			if (Dungeon.hero.isAlive()) {
 				Badges.validateNoKilling();
@@ -406,7 +433,7 @@ public class GameScene extends PixelScene {
 			}
 			Dungeon.droppedItems.remove( Dungeon.depth );
 		}
-		
+
 		ArrayList<Item> ported = Dungeon.portedItems.get( Dungeon.depth );
 		if (ported != null){
 			//TODO currently items are only ported to boss rooms, so this works well
@@ -445,13 +472,32 @@ public class GameScene extends PixelScene {
 					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {
 				GLog.h(Messages.get(this, "descend"), Dungeon.depth);
 				Sample.INSTANCE.play(Assets.Sounds.DESCEND);
-				
-				for (Char ch : Actor.chars()){
-					if (ch instanceof DriedRose.GhostHero){
+
+				for (Char ch : Actor.chars()) {
+					if (ch instanceof DriedRose.GhostHero) {
 						((DriedRose.GhostHero) ch).sayAppeared();
 					}
 				}
 
+				//寒冰结晶
+				int spawnersIce = Statistics.spawnersIce;
+				if (spawnersIce > 0 && Dungeon.depth <= 15) {
+					for (Mob m : Dungeon.level.mobs) {
+						if (m instanceof IceCrystal && ((IceCrystal) m).spawnRecordedIce) {
+							spawnersIce--;
+						}
+					}
+
+					if (spawnersIce > 0) {
+						if (Dungeon.iceCursedLevel()) {
+							GLog.b(Messages.get(this, "ice_spawner_warn"));
+						} else if (Dungeon.iceCursedLevelBoss()) {
+							GLog.b(Messages.get(this, "ice_spawner_warn_final"));
+						}
+					}
+				}
+
+				//恶魔血巢
 				int spawnersAbove = Statistics.spawnersAlive;
 				if (spawnersAbove > 0 && Dungeon.depth <= 25) {
 					for (Mob m : Dungeon.level.mobs) {
@@ -468,7 +514,7 @@ public class GameScene extends PixelScene {
 						}
 					}
 				}
-				
+
 			} else if (InterlevelScene.mode == InterlevelScene.Mode.RESET) {
 				GLog.h(Messages.get(this, "warp"));
 			} else {
@@ -522,9 +568,9 @@ public class GameScene extends PixelScene {
 
 			InterlevelScene.mode = InterlevelScene.Mode.NONE;
 
-			
+
 		}
-		
+
 		fadeIn();
 
 	}

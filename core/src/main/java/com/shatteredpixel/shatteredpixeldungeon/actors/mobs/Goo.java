@@ -110,7 +110,6 @@ public class Goo extends Mob implements Callback {
 				((GooSprite)sprite).spray(false);
 			}
 			HP++;
-			Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 		}
 		
 		if (state != SLEEPING){
@@ -223,6 +222,7 @@ public class Goo extends Mob implements Callback {
 			if (visible) {
 				if (pumpedUp >= 2) {
 					((GooSprite) sprite).pumpAttack();
+					((GooSprite) sprite).pumpAttack();
 				} else {
 					sprite.attack(enemy.pos);
 				}
@@ -322,6 +322,7 @@ public class Goo extends Mob implements Callback {
 		if (!BossHealthBar.isAssigned()) {
 			BossHealthBar.assignBoss(this);
 			yell(Messages.get(this, "notice"));
+			Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 			for (Char ch : Actor.chars()){
 				if (ch instanceof DriedRose.GhostHero){
 					((DriedRose.GhostHero) ch).sayBoss();

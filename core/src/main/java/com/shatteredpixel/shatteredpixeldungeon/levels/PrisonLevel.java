@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
@@ -71,7 +70,7 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	public int nMobs(){
-		return Dungeon.isChallenged( Challenges.LYSL ) ? 21 : 10;
+		return  10;
 	}
 
 	@Override
@@ -132,6 +131,8 @@ public class PrisonLevel extends RegularLevel {
 				return Messages.get(PrisonLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(PrisonLevel.class, "bookshelf_desc");
+			case Terrain.WATER:
+				return Messages.get(PrisonLevel.class, "water_desc");
 			default:
 				return super.tileDesc( tile );
 		}

@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.HallsPainter;
@@ -76,7 +75,7 @@ public class HallsLevel extends RegularLevel {
 	}
 	@Override
 	public int nMobs(){
-		return Dungeon.isChallenged( Challenges.LYSL ) ? 31 : 15;
+		return 15;
 	}
 
 	@Override

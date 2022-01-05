@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 //红龙
@@ -52,5 +53,12 @@ public class RedDragonSprite extends MobSprite {
     @Override
     public int blood() {
         return 0xFFFFEA80;
+    }
+
+    public void link(Char var1) {
+        super.link(var1);
+        this.add(State.ROSESHIELDED);
+        this.add(State.HALOMETHANEBURNING);
+        this.add(State.SHIELDED);
     }
 }

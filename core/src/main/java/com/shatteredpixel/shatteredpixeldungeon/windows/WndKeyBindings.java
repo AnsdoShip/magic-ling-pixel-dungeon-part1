@@ -21,8 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -31,9 +31,11 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.input.GameAction;
+import com.watabou.input.InputHandler;
 import com.watabou.input.KeyBindings;
 import com.watabou.input.KeyEvent;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
@@ -136,11 +138,12 @@ public class WndKeyBindings extends Window {
 			@Override
 			protected void onClick() {
 				KeyBindings.setAllBindings(changedBindings);
+				InputHandler.updateEventCatching(Gdx.input);
 				SPDAction.saveBindings();
 				hide();
 			}
 		};
-		btnConfirm.setRect(0, height - BTN_HEIGHT, WIDTH/2, BTN_HEIGHT);
+		btnConfirm.setRect(0, height - BTN_HEIGHT, WIDTH/2f, BTN_HEIGHT);
 		add(btnConfirm);
 
 		RedButton btnCancel = new RedButton(Messages.get(this, "cancel"), 9){
@@ -149,7 +152,7 @@ public class WndKeyBindings extends Window {
 				hide(); //close and don't save
 			}
 		};
-		btnCancel.setRect(WIDTH/2 + 1, height - BTN_HEIGHT, WIDTH/2 - 1, BTN_HEIGHT);
+		btnCancel.setRect(WIDTH/2f + 1, height - BTN_HEIGHT, WIDTH/2f - 1, BTN_HEIGHT);
 		add(btnCancel);
 
 		scrollingList.setRect(0, BTN_HEIGHT +1, WIDTH, btnDefaults.top()- BTN_HEIGHT - 1);
@@ -259,11 +262,11 @@ public class WndKeyBindings extends Window {
 			if (inside(x, y)){
 				//assigning second key
 				if (x >= this.x + 3*width()/4 && key1 != 0) {
-					ShatteredPixelDungeon.scene().addToFront( new WndChangeBinding(gameAction, this, false, key2, key1));
+					Game.scene().addToFront( new WndChangeBinding(gameAction, this, false, key2, key1));
 
-				//assigning first key
+					//assigning first key
 				} else if (x >= this.x + width()/2){
-					ShatteredPixelDungeon.scene().addToFront( new WndChangeBinding(gameAction, this, true, key1, key2));
+					Game.scene().addToFront( new WndChangeBinding(gameAction, this, true, key1, key2));
 
 				}
 				return true;
@@ -293,8 +296,8 @@ public class WndKeyBindings extends Window {
 			this.otherBoundKey = otherBoundKey;
 
 			RenderedTextBlock desc = PixelScene.renderTextBlock( Messages.get(this, firstKey ? "desc_first" : "desc_second",
-						Messages.get(WndKeyBindings.class, action.name()),
-						KeyBindings.getKeyName(curKeyCode)), 6 );
+					Messages.get(WndKeyBindings.class, action.name()),
+					KeyBindings.getKeyName(curKeyCode)), 6 );
 			desc.maxWidth(WIDTH);
 			desc.setRect(0, 0, WIDTH, desc.height());
 			add(desc);

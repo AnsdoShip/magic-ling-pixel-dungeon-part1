@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -51,7 +52,7 @@ public class TalentButton extends Button {
 	Talent talent;
 	int pointsInTalent;
 	boolean upgradeEnabled;
-
+	private Image base;
 	Image icon;
 	Image bg;
 
@@ -80,7 +81,11 @@ public class TalentButton extends Button {
 		fill = new ColorBlock(0, 4, 0xFFFFFF44);
 		add(fill);
 
-		bg = new Image(Assets.Interfaces.TALENT_BUTTON);
+		if (SPDSettings.ClassUI()) {
+			bg = new Image(Assets.Interfaces.TALENT_BUTTON_DARK);
+		} else {
+			bg = new Image(Assets.Interfaces.TALENT_BUTTON);
+		}
 		add(bg);
 
 		icon = new Image( icons );

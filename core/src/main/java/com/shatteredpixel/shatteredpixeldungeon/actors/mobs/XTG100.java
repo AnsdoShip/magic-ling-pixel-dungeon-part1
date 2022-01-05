@@ -90,6 +90,14 @@ public class XTG100 extends Mob {
     }
 
     @Override
+    public void die( Object cause ) {
+
+        super.die(cause);
+        shoot(this, enemy.pos);
+    }
+
+
+    @Override
     protected boolean doAttack( Char enemy ) {
 
         if (Dungeon.level.distance( pos, enemy.pos ) <= 1 || gasTankPressure <= 0) {
@@ -102,7 +110,6 @@ public class XTG100 extends Mob {
             if (visible) {
                 sprite.attack( enemy.pos );
                 spend( TIME_TO_BURN );
-                shoot(this, enemy.pos);
                 gasTankPressure -= Random.Int(1, 10);
             }
 
@@ -291,9 +298,9 @@ public class XTG100 extends Mob {
             affectedCells.add(cell);
             if (strength >= 0.5f) {
                 visualCells.remove(cell);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[left(direction)], strength - 1.0f);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[direction], strength - 0.9f);
-                spreadFlames(cell + PathFinder.NEIGHBOURS9[right(direction)], strength - 0.8f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS8[left(direction)], strength - 0.3f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS8[direction], strength - 0.4f);
+                spreadFlames(cell + PathFinder.NEIGHBOURS8[right(direction)], strength - 0.5f);
             } else {
                 visualCells.add(cell);
             }

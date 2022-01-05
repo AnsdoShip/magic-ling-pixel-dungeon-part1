@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -13,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
+import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
@@ -243,6 +245,12 @@ public class StatusPane extends Component {
 		} else {
 			avatar.resetColor();
 		}
+		if (SPDSettings.ClassUI()) {
+			bg.texture = TextureCache.get(Assets.Interfaces.STATUS_DARK);
+		} else {
+			bg.texture = TextureCache.get(Assets.Interfaces.STATUS);
+		}
+
 
 		hp.scale.x = Math.max( 0, (health-shield)/(float)maxHp);
 		shieldedHP.scale.x = health/(float)maxHp;

@@ -47,10 +47,9 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LoopBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.BlueRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.IceCrystalLRRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NxhyShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PoolRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EntranceRoom;
@@ -122,29 +121,11 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.shopOnLevel())
 			initRooms.add(new ShopRoom());
 
+		if (Dungeon.iceCursedLevel())
+			initRooms.add(new IceCrystalLRRoom());
+
 		if (Dungeon.NxhyshopOnLevel())
 			initRooms.add(new NxhyShopRoom());
-
-		if (Dungeon.BlueS())
-			switch (Random.Int(4)) {
-				case 0:
-				default:
-					initRooms.add(new BlueRoom());
-					//DM720 T0
-					break;
-				case 1:
-					//新版本的DM300
-					initRooms.add(new BlueRoom());
-					break;
-				case 2:
-					//老版本的DM300
-					initRooms.add(new PitRoom());
-					break;
-				case 3:
-					//老版本的DM300
-					initRooms.add(new PoolRoom());
-					break;
-			}
 
 
 		//force max special rooms and add one more for large levels

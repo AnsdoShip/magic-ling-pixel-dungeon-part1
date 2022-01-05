@@ -21,7 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.BOSS;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -49,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CaveTwoBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
@@ -60,13 +60,12 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.OldCavesBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.OldCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.OldPrisonBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SLMKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.YogGodHardBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.ZeroLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
@@ -88,6 +87,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Dungeon {
+
+
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
@@ -270,25 +271,7 @@ public class Dungeon {
 		}
 
 		Level level;
-		if (Dungeon.isChallenged(BOSS)) {
-			switch (depth) {
-				case 0:
-					level = new ZeroLevel();
-					break;
-				case 1:
-					level = new SewerLevel();
-					break;
-				case 2:
-					level = new SewerBossLevel();
-					break;
-				case 3:
-					level = new SLMKingLevel();
-					break;
-				default:
-					level = new DeadEndLevel();
-					Statistics.deepestFloor--;
-			}
-		} else
+
 		if (Dungeon.isChallenged(RLPT)) {
 			switch (depth) {
 				case 0:
@@ -305,7 +288,9 @@ public class Dungeon {
 						case 0:
 						default:
 							level = new SewerBossLevel();
-							//天痕粘咕
+							//天痕粘咕teleportEnemy();
+							//			summon();
+							//			yell(Messages.get(this, "tp"));
 							break;
 						case 1:
 							//史莱姆王
@@ -356,17 +341,17 @@ public class Dungeon {
 					switch (Random.Int(3)) {
 						case 0:
 						default:
-							level = new CaveTwoBossLevel();
+							level = new CavesGirlDeadLevel();
 							//DM720 T0
 							break;
-						case 1:
-							//新版本的DM300
-							level = new NewCavesBossLevel();
-							break;
-						case 2:
-							//老版本的DM300
-							level = new OldCavesBossLevel();
-							break;
+						//case 1:
+						//	//新版本的DM300
+						//	level = new NewCavesBossLevel();
+						//	break;
+						//case 2:
+						//	//老版本的DM300
+						//	level = new OldCavesBossLevel();
+						//	break;
 					}
 					break;
 				case 16:
@@ -412,7 +397,7 @@ public class Dungeon {
 					}
 					break;
 				case 25:
-					level = new NewHallsBossLevel();
+					level = new YogGodHardBossLevel();
 					break;
 				case 26:
 					level = new LastLevel();
@@ -422,6 +407,7 @@ public class Dungeon {
 					Statistics.deepestFloor--;
 			}
 		} else
+			//正常模式
 		switch (depth) {
 			case 0:
 				level = new ZeroLevel();
@@ -467,7 +453,12 @@ public class Dungeon {
 			case 14:
 				level = new CavesLevel();
 				break;
+				//没有摧毁冰雪结晶必定刷魔女层
 			case 15:
+				if (Statistics.spawnersIce > 0) {
+					level = new CavesGirlDeadLevel();
+					break;
+				} else
 				switch (Random.Int(3)) {
 					case 0:
 					default:
@@ -479,8 +470,8 @@ public class Dungeon {
 						level = new NewCavesBossLevel();
 						break;
 					case 2:
-						//老版本的DM300
-						level = new OldCavesBossLevel();
+						//魔女
+						level = new CavesGirlDeadLevel();
 						break;
 				}
 				break;
@@ -491,15 +482,7 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				switch (Random.Int(2)) {
-					case 0:
-					default:
-						level = new OldCityBossLevel();
-						break;
-					case 1:
-						level = new NewCityBossLevel();
-						break;
-				}
+				level = new NewCityBossLevel();
 				break;
 			case 21:
 				//logic for old city boss levels, need to spawn a shop on floor 21
@@ -522,7 +505,21 @@ public class Dungeon {
 				level = new HallsLevel();
 				break;
 			case 25:
-				level = new NewHallsBossLevel();
+				if (Statistics.spawnersAlive > 0) {
+					level = new YogGodHardBossLevel();
+					break;
+				} else
+					switch (Random.Int(2)) {
+						case 0:
+						default:
+							level = new NewHallsBossLevel();
+							//YOG EAYS
+							break;
+						case 1:
+							//YOG HARD
+							level = new YogGodHardBossLevel();
+							break;
+					}
 				break;
 			case 26:
 				level = new LastLevel();
@@ -568,12 +565,47 @@ public class Dungeon {
 		return depth == 6 || depth == 11 || depth == 16;
 	}
 
+
+	//冰雪结界
+	public static boolean iceCursedLevel() {
+		return depth == 11 || depth == 12|| depth == 13|| depth == 14;
+	}
+
+	public static boolean iceCursedLevelBoss() {
+		return depth == 15;
+	}
+	//冰雪结界
+
 	public static boolean NxhyshopOnLevel() {
 		return depth == 8 || depth == 14 || depth == 19;
 	}
 
 	public static boolean BlueS() {
 		return depth == 19;
+	}
+
+	//圣域保护
+	public static boolean GodWaterLevel() {
+		return depth == 1 ||depth == 2||depth == 3||depth == 4;
+	}
+
+	//监狱保护
+	public static boolean PrisonWaterLevel() {
+		return depth == 6 ||depth == 7||depth == 8||depth == 9;
+	}
+
+	//冰雪诅咒
+	public static boolean ColdWaterLevel() {
+		return depth == 11 ||depth == 12||depth == 13||depth == 14;
+	}
+
+	//矮人诅咒
+	public static boolean DeadLevel() {
+		return depth == 16 ||depth == 17||depth == 18||depth == 19;
+	}
+
+	public static boolean MagicStonePark() {
+		return depth == 15;
 	}
 	
 	public static boolean bossLevel() {

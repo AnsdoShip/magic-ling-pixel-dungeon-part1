@@ -28,8 +28,9 @@ public class PointerArea extends Visual implements Signal.Listener<PointerEvent>
 	
 	// Its target can be pointerarea itself
 	public Visual target;
-	
-	protected PointerEvent curEvent = null;
+	public boolean blockWhenInactive = false;
+
+    protected PointerEvent curEvent = null;
 
 	public int blockLevel = BLOCK_WHEN_ACTIVE;
 	public static final int ALWAYS_BLOCK = 0;       //Always block input to overlapping elements

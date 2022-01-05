@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.Constants;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -65,6 +66,7 @@ public class WndSettings extends WndTabbed {
 	private DataTab     data;
 	private AudioTab    audio;
 	private LangsTab    langs;
+	private ExtendTab    extabs;
 
 	public static int last_index = 0;
 
@@ -160,6 +162,20 @@ public class WndSettings extends WndTabbed {
 
 		};
 		add( langsTab );
+
+		extabs = new ExtendTab();
+		extabs.setSize(width, 0);
+		height = Math.max(height, audio.height());
+		add( extabs );
+
+		add( new IconTab(Icons.get(Icons.CHANGES)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				extabs.visible = extabs.active = value;
+				if (value) last_index = 5;
+			}
+		});
 
 		resize(width, (int)Math.ceil(height));
 
@@ -351,6 +367,7 @@ public class WndSettings extends WndTabbed {
 		CheckBox chkFont;
 		ColorBlock sep3;
 		RedButton btnKeyBindings;
+
 
 		@Override
 		protected void createChildren() {
@@ -911,5 +928,87 @@ public class WndSettings extends WndTabbed {
 			}
 
 		}
+	}
+
+	private static class ExtendTab extends Component {
+
+		RenderedTextBlock title;
+		ColorBlock sep1;
+		OptionSlider quickslots;
+		CheckBox ClassUI;
+
+		@Override
+		protected void createChildren() {
+			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			sep1 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep1);
+
+			quickslots = new OptionSlider(Messages.get(this, "quickslots"), "" + Constants.MIN_QUICKSLOTS,
+					"" + Constants.MAX_QUICKSLOTS, Constants.MIN_QUICKSLOTS, Constants.MAX_QUICKSLOTS) {
+				@Override
+				protected void onChange() {
+					SPDSettings.quickslots(getSelectedValue());
+					Toolbar.updateLayout();
+				}
+			};
+			quickslots.setSelectedValue(SPDSettings.quickslots());
+			add(quickslots);
+
+			ClassUI = new CheckBox( Messages.get(this, "dark_ui") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.ClassUI(checked());
+				}
+			};
+			ClassUI.checked(SPDSettings.ClassUI());
+			add(ClassUI);
+
+		}
+
+		@Override
+		protected void layout() {
+
+			float bottom = y;
+
+			title.setPos((width - title.width())/2, bottom + GAP);
+			sep1.size(width, 1);
+			sep1.y = title.bottom() + 2*GAP;
+
+			bottom = sep1.y + 1;
+
+			if (width > 200){
+				quickslots.setRect(0, bottom, width/2-GAP/2, SLIDER_HEIGHT);
+				//横屏布局
+				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {
+					ClassUI.setRect(quickslots.left(), quickslots.bottom(), width / 2 - GAP / 2, SLIDER_HEIGHT);
+				} else {
+					ClassUI.setRect(quickslots.left(), quickslots.bottom(), width - GAP / 2, SLIDER_HEIGHT);
+				}
+				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {
+					quickslots.setRect(ClassUI.right() + GAP, ClassUI.top(), width / 2 - GAP / 2, SLIDER_HEIGHT);
+				} else {
+					quickslots.setRect(0 ,9000+GAP, width, SLIDER_HEIGHT);
+				}
+				//竖屏布局
+			} else {
+				quickslots.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
+				ClassUI.setRect(0, quickslots.bottom() + GAP, width, SLIDER_HEIGHT);
+				//GameScene
+				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class){
+					quickslots.setRect(ClassUI.left(), ClassUI.bottom(), width  - GAP / 2, SLIDER_HEIGHT);
+
+				} else {
+					quickslots.setRect(0, 9000 + GAP, width, SLIDER_HEIGHT);
+				}
+
+			}
+
+			height = ClassUI.bottom();
+		}
+
 	}
 }

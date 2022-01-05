@@ -72,7 +72,13 @@ public class InterlevelScene extends PixelScene {
 			Messages.get( InterlevelScene.class,"dialog_11"),
 			Messages.get( InterlevelScene.class,"dialog_12"),
 			Messages.get( InterlevelScene.class,"dialog_13"),
-			Messages.get( InterlevelScene.class,"dialog_14"),};
+			Messages.get( InterlevelScene.class,"dialog_14"),
+			Messages.get( InterlevelScene.class,"dialog_15"),
+			Messages.get( InterlevelScene.class,"dialog_16"),
+			Messages.get( InterlevelScene.class,"dialog_17"),
+			Messages.get( InterlevelScene.class,"dialog_18"),
+			Messages.get( InterlevelScene.class,"dialog_19"),
+			Messages.get( InterlevelScene.class,"dialog_20"),};
 
 	//slow fade on entering a new region
 	private static final float SLOW_FADE = 1f; //.33 in, 1.33 steady, .33 out, 2 seconds total
@@ -166,7 +172,7 @@ public class InterlevelScene extends PixelScene {
 			fadeTime += 0.9f; //adds 1 second total
 		//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.9f;
+			fadeTime = 0.1f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){

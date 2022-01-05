@@ -42,21 +42,38 @@ public class WndStory extends Window {
 	private static final float bgR	= 0.77f;
 	private static final float bgG	= 0.73f;
 	private static final float bgB	= 0.62f;
-	
+
+	public static final int ID_FOREST		= -1;
 	public static final int ID_SEWERS		= 0;
 	public static final int ID_PRISON		= 1;
 	public static final int ID_CAVES		= 2;
 	public static final int ID_CITY     	= 3;
 	public static final int ID_HALLS		= 4;
+
+	public static final int ID_SEWERSBOSS		= 5;
+	public static final int ID_PRISONBOSS		= 6;
+	public static final int ID_CAVESBOSS		= 7;
+	public static final int ID_CITYSBOSS		= 8;
+	public static final int ID_HALLSBOOS		= 9;
+	public static final int ID_CHAPTONEEND		= 10;
+	public static final int ID_ICEBOSS		= 11;
 	
 	private static final SparseArray<String> CHAPTERS = new SparseArray<>();
 	
 	static {
+		CHAPTERS.put( ID_FOREST, "forest" );
 		CHAPTERS.put( ID_SEWERS, "sewers" );
 		CHAPTERS.put( ID_PRISON, "prison" );
 		CHAPTERS.put( ID_CAVES, "caves" );
 		CHAPTERS.put( ID_CITY, "city" );
 		CHAPTERS.put( ID_HALLS, "halls" );
+		CHAPTERS.put( ID_SEWERSBOSS, "sewersboss" );
+		CHAPTERS.put( ID_PRISONBOSS, "prisonboss" );
+		CHAPTERS.put( ID_CAVESBOSS, "cavesboss" );
+		CHAPTERS.put( ID_CITYSBOSS, "cityboss" );
+		CHAPTERS.put( ID_HALLSBOOS, "hallsboss" );
+		CHAPTERS.put( ID_CHAPTONEEND, "new" );
+		CHAPTERS.put( ID_ICEBOSS, "icedead" );
 	}
 
 	private IconTitle ttl;

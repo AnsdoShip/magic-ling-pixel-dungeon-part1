@@ -723,6 +723,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BANDOLIER,   15, 16);
 		assignItemRect(HOLSTER,     15, 16);
 		assignItemRect(DRAGONKINGHALOFIRE, 12, 14);
+		assignItemRect(REDDRAGON, 14, 14);
 	}
 
 	private static final int MAINBOOKINDEX    	 = xy(1, 35);  //16 slots

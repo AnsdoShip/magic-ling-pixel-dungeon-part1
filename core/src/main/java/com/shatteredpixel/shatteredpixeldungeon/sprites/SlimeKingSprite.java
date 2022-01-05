@@ -6,10 +6,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.MovieClip.Animation;
 import com.watabou.utils.GameMath;
 
-public class SlimeKingSprite extends MobSprite {
+public class SlimeKingSprite extends GolemSprite {
     public SlimeKingSprite() {
         this.texture("Boss/SlimeKing.png");
         TextureFilm var1 = new TextureFilm(this.texture, 36, 36);

@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.BGMPlayer;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -37,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
@@ -175,8 +177,8 @@ public abstract class Mob extends Char {
 		boolean justAlerted = alerted;
 		alerted = false;
 
-		if (Dungeon.isChallenged(Challenges.SBSG) && scaleFactor == 1f && !properties().contains(Property.NOBIG)){
-			scaleFactor = Random.Float(0.5f, 1.8f);
+		if (Dungeon.isChallenged(Challenges.SBSG) && scaleFactor == 1f && !properties().contains(Property.NOBIG)&&!properties().contains(Property.BOSS)){
+			scaleFactor = Random.Float(1f, 1.8f);
 			HP = HT = (int) (HT * scaleFactor);
 			if (scaleFactor >= 1.15f){
 				HP = HT = (int) (HT * 1.15f);
@@ -833,6 +835,10 @@ public abstract class Mob extends Char {
 	
 	public void notice() {
 		sprite.showAlert();
+		if (Dungeon.hero.buff(LockedFloor.class) != null) {
+			BGMPlayer.playBoss();
+			return;
+		}
 	}
 	
 	public void yell( String str ) {

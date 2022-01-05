@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -65,8 +64,9 @@ public class Item implements Bundlable {
 	protected static final float TIME_TO_DROP		= 1.0f;
 	
 	public static final String AC_DROP		= "DROP";
+
 	public static final String AC_THROW		= "THROW";
-	
+;
 	public String defaultAction;
 	public boolean usesTargeting;
 

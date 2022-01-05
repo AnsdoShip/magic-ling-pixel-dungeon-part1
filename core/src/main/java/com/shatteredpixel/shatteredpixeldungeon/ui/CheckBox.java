@@ -52,6 +52,7 @@ public class CheckBox extends RedButton {
 	public boolean checked() {
 		return checked;
 	}
+
 	
 	public void checked( boolean value ) {
 		if (checked != value) {

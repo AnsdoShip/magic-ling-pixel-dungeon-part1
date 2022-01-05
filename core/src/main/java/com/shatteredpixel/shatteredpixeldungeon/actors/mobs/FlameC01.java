@@ -31,12 +31,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.HalomethaneFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -107,33 +105,13 @@ public class FlameC01 extends Mob {
         spriteClass = FlameC01Sprite.class;
         properties.add(Property.INORGANIC);
 
-        HP = HT = 90;
+        HP = HT = 120;
         defenseSkill = 23;
 
         EXP = 10;
         maxLvl = 27;
 
         gasTankPressure = Random.Int(100, 250);
-    }
-
-    @Override
-    protected boolean act() {
-        if(buff(Burning.class) != null){
-            new Bomb().explode(this.pos);
-            this.die(Burning.class);
-            return true;
-        }
-        if(buff(Burning.class) != null){
-            new Bomb().explode(this.pos);
-            this.die(Burning.class);
-            return true;
-        }
-        if(buff(Burning.class) != null) {
-            new Bomb().explode(this.pos);
-            this.die(Burning.class);
-            return true;
-        }
-        return super.act();
     }
 
     @Override

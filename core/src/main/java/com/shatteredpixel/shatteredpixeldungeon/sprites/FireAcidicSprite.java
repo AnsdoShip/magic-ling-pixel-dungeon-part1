@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.watabou.noosa.TextureFilm;
 
 public class FireAcidicSprite extends IceFireScorpioSprite {
@@ -32,5 +33,11 @@ public class FireAcidicSprite extends IceFireScorpioSprite {
     @Override
     public int blood() {
         return 0xFF66FF22;
+    }
+
+    public class IceScorpioShot extends Item {
+        {
+            image = ItemSpriteSheet.FIRE_BOMB;
+        }
     }
 }

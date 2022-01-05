@@ -372,7 +372,7 @@ public class Generator {
 					RedBloodMoon.class,
 					GreenSword.class,
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 ,3,4,4,8,1,1};
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 ,3,4,4,8,0,0};
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
@@ -460,7 +460,7 @@ public class Generator {
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
 					RingOfWealth.class};
-			RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 };
+			RING.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.2f };
 			
 			ARTIFACT.classes = new Class<?>[]{
 					CapeOfThorns.class,
@@ -477,7 +477,7 @@ public class Generator {
 					LloydsBeacon.class,
 					EtherealChains.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1};
+			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1};
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
 		}
 	}

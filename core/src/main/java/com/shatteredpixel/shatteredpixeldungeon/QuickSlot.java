@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.Constants;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -37,7 +38,7 @@ public class QuickSlot {
 	 */
 
 	//note that the current max size is coded at 4, due to UI constraints, but it could be much much bigger with no issue.
-	public static int SIZE = 4;
+	public static int SIZE = Constants.MAX_QUICKSLOTS;
 	private Item[] slots = new Item[SIZE];
 
 
@@ -92,11 +93,11 @@ public class QuickSlot {
 	}
 
 	public void convertToPlaceholder(Item item){
-		
+
 		if (contains(item)) {
 			Item placeholder = item.virtual();
 			if (placeholder == null) return;
-			
+
 			for (int i = 0; i < SIZE; i++) {
 				if (getItem(i) == item) setSlot(i, placeholder);
 			}
@@ -107,7 +108,7 @@ public class QuickSlot {
 
 		ArrayList<Item> result = new ArrayList<>();
 		for (int i = 0; i < SIZE; i ++)
-		if (getItem(i) != null && !isPlaceholder(i))
+			if (getItem(i) != null && !isPlaceholder(i))
 				result.add(getItem(i));
 
 		return Random.element(result);

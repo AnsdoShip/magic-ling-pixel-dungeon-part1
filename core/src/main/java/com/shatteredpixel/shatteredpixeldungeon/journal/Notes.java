@@ -73,6 +73,7 @@ public class Notes {
 		SHOP,
 		
 		GHOST,
+		REDAGRON,
 		WANDMAKER,
 		TROLL,
 		IMP;

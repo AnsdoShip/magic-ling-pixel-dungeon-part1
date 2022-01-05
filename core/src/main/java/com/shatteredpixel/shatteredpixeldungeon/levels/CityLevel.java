@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CityPainter;
@@ -59,7 +58,7 @@ public class CityLevel extends RegularLevel {
 
 	@Override
 	public int nMobs(){
-		return Dungeon.isChallenged( Challenges.LYSL ) ? 29 : 12;
+		return 12;
 	}
 	
 	@Override
@@ -146,6 +145,9 @@ public class CityLevel extends RegularLevel {
 				return Messages.get(CityLevel.class, "statue_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(CityLevel.class, "bookshelf_desc");
+			case Terrain.WATER:
+				return Messages.get(CavesLevel.class,
+						"water_desc");
 			default:
 				return super.tileDesc( tile );
 		}

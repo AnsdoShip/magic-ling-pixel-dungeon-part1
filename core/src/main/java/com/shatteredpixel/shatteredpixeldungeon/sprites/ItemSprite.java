@@ -44,6 +44,7 @@ import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
 import java.nio.Buffer;
+import java.util.ArrayList;
 
 public class ItemSprite extends MovieClip {
 
@@ -71,7 +72,7 @@ public class ItemSprite extends MovieClip {
 	protected float shadowWidth     = 1f;
 	protected float shadowHeight    = 0.25f;
 	protected float shadowOffset    = 0.5f;
-	
+	public ArrayList<Emitter> emitters = new ArrayList<>();
 	public ItemSprite() {
 		this( ItemSpriteSheet.SOMETHING, null );
 	}
@@ -79,6 +80,17 @@ public class ItemSprite extends MovieClip {
 	public ItemSprite( Heap heap ){
 		super(Assets.Sprites.ITEMS);
 		view( heap );
+	}
+
+	protected final void killEmitters() {
+		if (!emitters.isEmpty()) {
+			for (Emitter emitter : emitters.toArray(new Emitter[0])) {
+				if (emitter != null) {
+					emitter.killAndErase();
+					emitters.remove(emitter);
+				}
+			}
+		}
 	}
 	
 	public ItemSprite( Item item ) {

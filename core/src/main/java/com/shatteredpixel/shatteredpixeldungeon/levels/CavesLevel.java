@@ -22,9 +22,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RedDragon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CavesPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -56,11 +56,12 @@ public class CavesLevel extends RegularLevel {
 		color1 = 0x534f3e;
 		color2 = 0xb9d661;
 	}
-	
+
 	@Override
 	protected ArrayList<Room> initRooms() {
 		return Blacksmith.Quest.spawn(super.initRooms());
 	}
+
 
 	@Override
 	protected int standardRooms(boolean forceMax) {
@@ -76,9 +77,17 @@ public class CavesLevel extends RegularLevel {
 		return 1+Random.chances(new float[]{2, 4, 4});
 	}
 
+	//红龙的试炼
+	@Override
+	protected void createItems() {
+		RedDragon.Quest.spawn( this );
+
+		super.createItems();
+	}
+
 	@Override
 	public int nMobs(){
-		return Dungeon.isChallenged( Challenges.LYSL ) ? 24 : 8;
+		return 8;
 	}
 	
 	@Override
@@ -91,12 +100,12 @@ public class CavesLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_CAVES;
+		return Assets.Environment.TILES_COLD;
 	}
 	
 	@Override
 	public String waterTex() {
-		return Assets.Environment.WATER_CAVES;
+		return Assets.Environment.WATER_COLD;
 	}
 
 	@Override
@@ -142,6 +151,9 @@ public class CavesLevel extends RegularLevel {
 				return Messages.get(CavesLevel.class, "wall_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(CavesLevel.class, "bookshelf_desc");
+			case Terrain.WATER:
+				return Messages.get(CavesLevel.class,
+						"water_desc");
 			default:
 				return super.tileDesc( tile );
 		}

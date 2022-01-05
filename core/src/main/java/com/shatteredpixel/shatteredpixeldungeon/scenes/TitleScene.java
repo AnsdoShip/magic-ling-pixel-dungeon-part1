@@ -369,7 +369,7 @@ public class TitleScene extends PixelScene {
 
 		@Override
 		protected void onClick() {
-			ShatteredPixelDungeon.switchNoFade(SPSLScene.class);
+			ShatteredPixelDungeon.switchNoFade(ThanksScene.class);
 		}
 	}
 

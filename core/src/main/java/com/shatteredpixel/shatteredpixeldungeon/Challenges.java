@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
@@ -47,15 +46,15 @@ public class Challenges {
 	public static final int NO_SCROLLS = 64;
 	public static final int AQUAPHOBIA = 128;
 	public static final int CHAMPION_ENEMIES = 256;
-	public static final int NO_GOLD = 512;
-	public static final int JGSF = 1024;
-	public static final int LYSL = 2048;
-	public static final int RLPT = 4096;
-	public static final int BOSS = 8192;
-	public static final int SBSG = 16384;
-	public static final int PRO = 32768;
+	//public static final int NO_GOLD = 512;
+	//public static final int JGSF = 1024;
+	//public static final int LYSL = 2048;
+	public static final int RLPT = 512;
+	//public static final int BOSS = 8192;
+	public static final int SBSG = 1024;
+	public static final int PRO = 2048;
 
-	public static final int MAX_VALUE = 32768*2;
+	public static final int MAX_VALUE = 4096;
 
 	public static final String[] NAME_IDS = {
 			"no_food",
@@ -67,18 +66,18 @@ public class Challenges {
 			"no_scrolls",
 			"aquaphobia",
 			"champion_enemies",
-			"no_gold",
-			"jgsf",
-			"lysl",
+			//"no_gold",
+			//"jgsf",
+			//"lysl",
 			"rlpt",
-			"boss",
+			//"boss",
 			"sbsg",
 			"pro",
 	};
 
 	public static final int[] MASKS = {
 			NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS
-			, AQUAPHOBIA, CHAMPION_ENEMIES, NO_GOLD, JGSF,LYSL, RLPT,BOSS,SBSG,PRO
+			, AQUAPHOBIA, CHAMPION_ENEMIES,RLPT,SBSG,PRO,
 	};
 	public String name;
 
@@ -112,20 +111,12 @@ public class Challenges {
 			}
 		}
 
-		if (Dungeon.isChallenged(NO_GOLD)) {
-			if (item instanceof Gold) {
-				return true;
-			}
-			if (Dungeon.isChallenged(NO_GOLD)) {
-				if (item instanceof Ankh) {
-					return true;
-				}
-			}
+
+
 			if (Dungeon.isChallenged(NO_HERBALISM)) {
 				if (item instanceof Dewdrop) {
 					return true;
 				}
-			}
 		}
 
 		return false;

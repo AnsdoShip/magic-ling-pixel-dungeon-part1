@@ -14,14 +14,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.IceCryStalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceFireScorpioSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
@@ -34,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDICLRTT;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShieldHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SkullShamanSprite;
@@ -64,32 +64,15 @@ public class vM0_5_X_Changes {
 
     public static void add_v0_6_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
 
-        ChangeInfo changes2 = new ChangeInfo("即将推出-V0.6.0", true, "");
+        ChangeInfo changes2 = new ChangeInfo("即将推出-下半段更新", true, "");
         changes2.hardlight(Window.GREEN_COLOR);
         changeInfos.add(changes2);
 
-        ChangeInfo changes = new ChangeInfo("Coming Soon-V0.6.0!!!", true, "");
-        changes.hardlight(Window.GREEN_COLOR);
+        ChangeInfo changes = new ChangeInfo("风暴袭来，未完待续", true, "");
+        changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.SCROLL_HOLDER), (Messages.get(vM0_5_X_Changes.class, "axs")),
-                Messages.get(vM0_5_X_Changes.class, "axslogs")));
-
-        Image isa = new YogSprite();
-        isa.scale.set(PixelScene.align(0.57f));
-        changes.addButton(new ChangeButton(isa, (Messages.get(vM0_5_X_Changes.class, "axx")),
-                Messages.get(vM0_5_X_Changes.class, "axxlogs")));
-
-        changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class, "ax")),
-                Messages.get(vM0_5_X_Changes.class, "axlogs")));
-
-        changes.addButton(new ChangeButton(new KingSprite(), (Messages.get(vM0_5_X_Changes.class, "axa")),
-                Messages.get(vM0_5_X_Changes.class, "axalogs")));
-
-        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "axss")),
-                Messages.get(vM0_5_X_Changes.class, "axsslogs")));
-
-        ChangeInfo changes8 = new ChangeInfo("V0.5.6.0-EVS-未完成", true, "");
+        ChangeInfo changes8 = new ChangeInfo("V0.5.X.0-Release", true, "");
         changes8.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes8);
 
@@ -107,8 +90,12 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(fire, (Messages.get(vM0_5_X_Changes.class, "firescorpio")),
                 Messages.get(vM0_5_X_Changes.class, "firescorpiologs")));
 
-        changes.addButton(new ChangeButton(new MurdererSprite(), (Messages.get(vM0_5_X_Changes.class, "murderer")),
-                Messages.get(vM0_5_X_Changes.class, "murdererlogs")));
+        changes.addButton(new ChangeButton(new Image(Assets.Environment.TILES_SEWERS, 32, 16, 16
+                , 16), (Messages.get(vM0_5_X_Changes.class, "sjd")),
+                Messages.get(vM0_5_X_Changes.class, "sjdlogs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.AUDIO), (Messages.get(vM0_5_X_Changes.class, "musipa")),
+                Messages.get(vM0_5_X_Changes.class, "musipalogs")));
 
         changes.addButton(new ChangeButton(new RedDragonSprite(), (Messages.get(vM0_5_X_Changes.class, "reddragon")),
                 Messages.get(vM0_5_X_Changes.class, "reddragonlogs")));
@@ -116,11 +103,18 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new MurdererSprite.RedMuderer(), (Messages.get(vM0_5_X_Changes.class, "red_murderer")),
                 Messages.get(vM0_5_X_Changes.class, "red_murdererlogs")));
 
+        changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class, "newking")),
+                Messages.get(vM0_5_X_Changes.class, "newkinglogs")));
+
         changes.addButton(new ChangeButton(new BombGnollTricksterSprites(), (Messages.get(vM0_5_X_Changes.class, "bomb")),
                 Messages.get(vM0_5_X_Changes.class, "bomblogs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG6), (Messages.get(vM0_5_X_Changes.class, "blues")),
                 Messages.get(vM0_5_X_Changes.class, "blueslogs")));
+
+        changes.addButton(new ChangeButton(new SRPDICLRTT(),
+                (Messages.get(vM0_5_X_Changes.class, "shjt")),
+                Messages.get(vM0_5_X_Changes.class, "shjtlogs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_SKYBLUE), (Messages.get(vM0_5_X_Changes.class,
                 "bluefire")),
@@ -130,9 +124,9 @@ public class vM0_5_X_Changes {
                 "blueexfire")),
                 Messages.get(vM0_5_X_Changes.class, "blueexfirelogs")));
 
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG19), (Messages.get(vM0_5_X_Changes.class,
-                "iceblue")),
-                Messages.get(vM0_5_X_Changes.class, "iceblueslogs")));
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.REDDRAGON), (Messages.get(vM0_5_X_Changes.class,
+                "nukecole")),
+                Messages.get(vM0_5_X_Changes.class, "nukecolelogs")));
 
         changes.addButton(new ChangeButton(new ViewASprite(), (Messages.get(vM0_5_X_Changes.class, "luzus")),
                 Messages.get(vM0_5_X_Changes.class, "luzuslogs")));
@@ -152,7 +146,7 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(new NxhySprite(), (Messages.get(vM0_5_X_Changes.class, "shop2")),
                 Messages.get(vM0_5_X_Changes.class, "shop2logs")));
 
-        changes.addButton(new ChangeButton(new FireBallMobSprite(), (Messages.get(vM0_5_X_Changes.class, "fireball")),
+        changes.addButton(new ChangeButton(new IceCryStalSprite(), (Messages.get(vM0_5_X_Changes.class, "fireball")),
                 Messages.get(vM0_5_X_Changes.class, "fireballlogs")));
 
         changes.addButton(new ChangeButton(new Image(Assets.Environment.TERRAIN_FEATURES, 0, 128, 16, 16),
@@ -165,20 +159,20 @@ public class vM0_5_X_Changes {
                 (Messages.get(vM0_5_X_Changes.class, "newbuffs")),
                 Messages.get(vM0_5_X_Changes.class, "newbuffslogs")));
 
-        changes.addButton(new ChangeButton(new MimicSprite.Dimand(), (Messages.get(vM0_5_X_Changes.class, "newmimicback")),
-                Messages.get(vM0_5_X_Changes.class, "newmimicbacklogs")));
+        Image yog = new YogSprite();
+        yog.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(yog, (Messages.get(vM0_5_X_Changes.class, "yogdrawf")),
+                Messages.get(vM0_5_X_Changes.class, "yogdrawflogs")));
 
-        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "bosstzlogs")),
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "bosstz")),
                 Messages.get(vM0_5_X_Changes.class, "bosstzlogs")));
-
-
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
         changes.hardlight(Window.GDX_COLOR);
         changeInfos.add(changes);
 
-        changes.addButton(new ChangeButton(new ColdRatSprite(), (Messages.get(vM0_5_X_Changes.class, "coldrat")),
-                Messages.get(vM0_5_X_Changes.class, "coldratlogs")));
+        changes.addButton(new ChangeButton(new ColdRatSprite(), (Messages.get(vM0_5_X_Changes.class, "coldrat2")),
+                Messages.get(vM0_5_X_Changes.class, "coldratlogs2")));
 
         changes.addButton(new ChangeButton(new RedSwarmSprite(), (Messages.get(vM0_5_X_Changes.class, "redc")),
                 Messages.get(vM0_5_X_Changes.class, "redclogs")));
@@ -190,14 +184,19 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.CYELLOW);
         changeInfos.add(changes);
 
+        changes.addButton(new ChangeButton(Icons.get(Icons.DISPLAY), (Messages.get(vM0_5_X_Changes.class, "displayml")),
+                Messages.get(vM0_5_X_Changes.class, "displaymllogs")));
+
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "info")),
                 Messages.get(vM0_5_X_Changes.class, "infologs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), (Messages.get(vM0_5_X_Changes.class, "ankh2")),
                 Messages.get(vM0_5_X_Changes.class, "ankh2logs")));
 
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG1), (Messages.get(vM0_5_X_Changes.class, "boom")),
-                Messages.get(vM0_5_X_Changes.class, "boomlogs")));
+        changes.addButton(new ChangeButton(new Image(Assets.Environment.WATER_COLD,0, 0, 16
+                , 16),
+                (Messages.get(vM0_5_X_Changes.class, "watermove")),
+                Messages.get(vM0_5_X_Changes.class, "watermovelogs")));
 
         changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
         changes.hardlight(Window.RED_COLOR);

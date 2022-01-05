@@ -94,7 +94,7 @@ public class IceFireScorpioSprite extends MobSprite {
 
     public class IceScorpioShot extends Item {
         {
-            image = ItemSpriteSheet.FISHING_SPEAR;
+            image = ItemSpriteSheet.FROST_BOMB;
         }
     }
 }

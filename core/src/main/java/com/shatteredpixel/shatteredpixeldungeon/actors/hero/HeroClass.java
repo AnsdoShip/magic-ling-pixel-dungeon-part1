@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.AQUAPHOBIA;
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.NO_GOLD;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -35,16 +34,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.JAmulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.RedDragonRing;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
@@ -57,9 +57,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfNukeCole;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonKingBreath;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GoldBAo;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfFlameCursed;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -100,7 +100,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.IncendiaryDart;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
@@ -160,6 +159,7 @@ public enum HeroClass {
 
 		i = new Food();
 		DewVial.View = 3;
+
 		new PotionOfHealing().quantity(3).identify().collect();
 		new ScrollOfUpgrade().quantity(1).identify().collect();
 		new DewVial().quantity(1).identify().collect();
@@ -178,12 +178,10 @@ public enum HeroClass {
 			new PotionOfHealing().quantity(1).identify().collect();
 		}
 
-		if (Dungeon.isChallenged(NO_GOLD)){
-			hero.lvl = -25;
-			hero.exp = -123456789;
-		}
-
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new ElixirOfNukeCole().quantity(5).identify().collect();
+			new Blandfruit().quantity(15).identify().collect();
+			new RedDragonRing().quantity(1).identify().collect();
 			new ScrollOfFlameCursed().quantity(1).identify().collect();
 			new	WandOfFireblast().quantity(1).identify().collect();
 			new PotionOfDragonKingBreath().quantity(1).identify().collect();
@@ -200,7 +198,6 @@ public enum HeroClass {
 			new Whip().quantity(1).identify().collect();
 			new WarHammer().quantity(1).identify().collect();
 			new Gauntlet().quantity(1).identify().collect();
-			new RingOfWealth().quantity(50).identify().collect();
 			new Firebloom.Seed().quantity(50).identify().collect();
 			new Blindweed.Seed().quantity(50).identify().collect();
 			new Stormvine.Seed().quantity(50).identify().collect();
@@ -231,7 +228,6 @@ public enum HeroClass {
 			new SkyShield().quantity(1).identify().collect();
 			new IceSan().quantity(1).identify().collect();
 			new GoldBAo().quantity(9999).identify().collect();
-			new JAmulet().quantity(1).identify().collect();
 			new WandOfScale().quantity(1).identify().collect();
 			new WandOfRegrowth().quantity(1).identify().collect();
 			new WandOfFrost().quantity(1).identify().collect();
@@ -328,9 +324,7 @@ public enum HeroClass {
 	private static void initHuntress( Hero hero ) {
 
 		(hero.belongings.weapon = new Gloves()).identify();
-		if (Dungeon.isChallenged(NO_GOLD)) {
-			new IncendiaryDart().quantity(5).identify().collect();
-		} else {
+		{
 		SpiritBow bow = new SpiritBow();
 		bow.identify().collect();
 		Dungeon.quickslot.setSlot(0, bow);

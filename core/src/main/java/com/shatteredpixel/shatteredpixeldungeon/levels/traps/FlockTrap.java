@@ -36,7 +36,7 @@ import com.watabou.utils.Random;
 public class FlockTrap extends Trap {
 
 	{
-		color = RANDCOLOR;
+		color = WHITE;
 		shape = WAVES;
 	}
 

@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.SBSG;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -62,7 +64,7 @@ import com.watabou.utils.Random;
 import java.nio.Buffer;
 
 public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip.Listener {
-	
+
 	// Color constants for floating text
 	public static final int DEFAULT		= 0xFFFFFF;
 	public static final int POSITIVE	= 0x00FF00;
@@ -72,7 +74,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public static final int WARNING		= 0xFF8800;
 	public static final int NEUTRAL		= 0xFFFF00;
 	public static final int WATERDAMAGE	= 0x00FFFF;
-	
+
 	public static final float DEFAULT_MOVE_INTERVAL = 0.1f;
 	private static float moveInterval = DEFAULT_MOVE_INTERVAL;
 	private static final float FLASH_INTERVAL	= 0.05f;
@@ -89,28 +91,28 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public enum State {
 		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED,
-		ROSESHIELDED,HALOMETHANEBURNING,BUTTER
+		ROSESHIELDED,HALOMETHANEBURNING,BUTTER,SPINVISIBLE
 	}
 	private int stunStates = 0;
-	
+
 	protected Animation idle;
 	protected Animation run;
 	protected Animation attack;
 	protected Animation operate;
 	protected Animation zap;
 	protected Animation die;
-	
+
 	protected Callback animCallback;
-	
+
 	protected PosTweener motion;
-	
+
 	protected Emitter burning;
 	protected Emitter haloburning;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
 	protected Emitter healing;
-	
+
 	protected IceBlock iceBlock;
 	protected DarkBlock darkBlock;
 	protected TorchHalo light;
@@ -118,7 +120,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected AlphaTweener invisible;
 	protected RoseHalo roseshield;
 	protected Flare aura;
-	
+
 	protected EmoIcon emo;
 	protected CharHealthIndicator health;
 
@@ -126,19 +128,19 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private Callback jumpCallback;
 
 	protected float flashTime = 0;
-	
+
 	protected boolean sleeping = false;
 
 	public Char ch;
 
 	//used to prevent the actor associated with this sprite from acting until movement completes
 	public volatile boolean isMoving = false;
-	
+
 	public CharSprite() {
 		super();
 		listener = this;
 	}
-	
+
 	@Override
 	public void play(Animation anim) {
 		//Shouldn't interrupt the dieing animation
@@ -146,40 +148,46 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			super.play(anim);
 		}
 	}
-	
+
 	//intended to be used for placing a character in the game world
 	public void link( Char ch ) {
 		linkVisuals( ch );
-		
+
 		this.ch = ch;
 		ch.sprite = this;
-		
+
 		place( ch.pos );
 		turnTo( ch.pos, Random.Int( Dungeon.level.length() ) );
 		renderShadow = true;
 
 		//突变激素 粒子效果
-		if (ch instanceof Mob){
-			switch (Random.Int(5)) {
+		if ((Dungeon.isChallenged(SBSG) && (ch instanceof Mob))){
+			switch (Random.Int(4)) {
 				case 0:
 				default:
-					this.add(State.BURNING);
+					this.add(State.ILLUMINATED);
 					break;
 				case 1:
-					this.add(State.SHIELDED);
+					this.add(State.CHILLED);
 					break;
 				case 2:
-					this.add(State.HALOMETHANEBURNING);
-					break;
-				case 3:
-					this.add(State.DARKENED);
-					break;
-				case 4:
 					this.add(State.ROSESHIELDED);
 					break;
+				case 3:
+					this.add(State.MARKED);
+					break;
 			}
+		} else 	if (ch != Dungeon.hero) {
+			if (health == null) {
+				health = new CharHealthIndicator(ch);
+			} else {
+				health.target(ch);
 		}
-		
+
+		ch.updateSpriteState();
+	}
+
+
 		if (ch != Dungeon.hero) {
 			if (health == null) {
 				health = new CharHealthIndicator(ch);
@@ -468,6 +476,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					invisible = null;
 				}
 				alpha( 1f );
+				break;
+			case SPINVISIBLE:
+				if (invisible != null) {
+					invisible.killAndErase();
+					invisible = null;
+				}
+				alpha( 4f );
 				break;
 			case PARALYSED:
 				paused = false;

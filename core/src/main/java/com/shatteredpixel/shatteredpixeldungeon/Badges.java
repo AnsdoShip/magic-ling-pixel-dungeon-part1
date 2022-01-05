@@ -154,6 +154,7 @@ public class Badges {
 		KILL_DM720				(102),
 		RLPT				(103),
 		SBDJS				(104),
+		KILL_MG			(105),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -886,6 +887,9 @@ public class Badges {
 
 	public static void KILLSDM720() {
 		displayBadge( Badge.KILL_DM720 );
+	}
+	public static void KILLMG() {
+		displayBadge( Badge.KILL_MG );
 	}
 	public static void GOODRLPT() {
 		displayBadge( Badge.RLPT );

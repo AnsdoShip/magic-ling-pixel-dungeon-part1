@@ -39,7 +39,7 @@ public class Statistics {
 	public static int thrownAssists;
 
 	public static int spawnersAlive;
-	
+	public static int spawnersIce;
 	public static float duration;
 	
 	public static boolean qualifiedForNoKilling = false;

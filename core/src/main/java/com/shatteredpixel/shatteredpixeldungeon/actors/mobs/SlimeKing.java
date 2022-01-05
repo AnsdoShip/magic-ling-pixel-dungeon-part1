@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -28,8 +30,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HalomethaneBurning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.bosses.DM920;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -41,22 +43,40 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class SlimeKing extends DM920 {
+public class SlimeKing extends Golem {
 
 	{
-		HP = HT = 180;
+		HP =120;
+		HT= 140;
 		EXP = 20;
 		defenseSkill = 12;
 		spriteClass = SlimeKingSprite.class;
-
+		properties.add(Property.LARGE);
 		lootChance = 1;
 		HUNTING = new Hunting();
 		properties.add(Property.BOSS);
+	}
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange( 5, 8 );
+	}
+
+	@Override
+	public int attackSkill( Char target ) {
+		return 12;
+	}
+
+	@Override
+	public int drRoll() {
+		return Random.NormalIntRange(5, 10);
 	}
 
     private int delay = 0;
@@ -70,22 +90,30 @@ public class SlimeKing extends DM920 {
 				ratCount++;
 			}
 		}
-		if (ratCount < 6 && delay <= 0) {
+		if (ratCount < 3 && delay <= 0) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-
+	private int combo = 0;
+	@Override
+	protected boolean getCloser( int target ) {
+		combo = 0; //if he's moving, he isn't attacking, reset combo.
+		if (state == HUNTING) {
+			return enemySeen && getFurther( target );
+		} else {
+			return super.getCloser( target );
+		}
+	}
 
 	@Override
 	public boolean attack( Char enemy ) {
 		if (canAttack(enemy) && canTryToSummon()) {
-			summon();
 			return true;
 		} else if(canAttack(enemy)){
-			spend( attackDelay()*10f );
+			spend( attackDelay()*7f );
 			summon();
 			return super.attack(enemy);
 		}else if(canAttack(enemy)) {
@@ -119,7 +147,7 @@ public class SlimeKing extends DM920 {
 				final int newPosFinal = newPos;
 				this.target = newPos;
 
-				if (sprite.visible || enemy.sprite.visible) {
+				if (sprite.visible) {
 					yell(Messages.get(this, "scorpion"));
 					new Item().throwSound();
 					Sample.INSTANCE.play(Assets.Sounds.CHAINS);
@@ -146,15 +174,17 @@ public class SlimeKing extends DM920 {
 		enemy.pos = pullPos;
 		Dungeon.level.occupyCell(enemy);
 		Cripple.prolong(enemy, Cripple.class, 4f);
-		if (enemy == Dungeon.hero) {
-			Dungeon.hero.interrupt();
+		if (enemy == hero) {
+			hero.interrupt();
 			Dungeon.observe();
 			GameScene.updateFog();
 		}
 	}
-
+	private int var2;
     @Override
     public int attackProc( Char enemy, int damage ) {
+		combo++;
+
         if (Random.Int( 2 ) == 0) {
             Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
             enemy.sprite.burst( 0x000000, 5 );
@@ -237,6 +267,7 @@ public class SlimeKing extends DM920 {
 	public void notice() {
 		super.notice();
 		BossHealthBar.assignBoss(this);
+		Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 		yell( Messages.get(this, "notice") );
 	}
 
@@ -278,7 +309,7 @@ public class SlimeKing extends DM920 {
 
     @Override
     public void rollToDropLoot() {
-        if (Dungeon.hero.lvl > maxLvl + 2) return;
+        if (hero.lvl > maxLvl + 2) return;
 
         super.rollToDropLoot();
 
@@ -293,7 +324,13 @@ public class SlimeKing extends DM920 {
 		@Override
 		public boolean act( boolean enemyInFOV, boolean justAlerted ) {
 			enemySeen = enemyInFOV;
-
+			//放风筝必死 恼
+			//140血强制更新玩家血量为1 赋予燃烧 失明 流血 弱化
+			if (++HP+1 >= 141){
+				hero.HP = 	1;
+				Buff.affect(hero, HalomethaneBurning.class).reignite(hero);
+				GLog.b( Messages.get(this, "cus") );
+			}
 			if (!chainsUsed
 					&& enemyInFOV
 					&& !isCharmedBy( enemy )

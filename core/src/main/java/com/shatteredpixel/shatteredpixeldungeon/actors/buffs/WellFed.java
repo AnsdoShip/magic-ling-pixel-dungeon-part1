@@ -49,6 +49,12 @@ public class WellFed extends Buff {
 		spend(TICK);
 		return true;
 	}
+
+	public void resetload(){
+		//heals one HP every 18 turns for 450 turns
+		//25 HP healed in total
+		left = (int)Hunger.STARVINGR;
+	}
 	
 	public void reset(){
 		//heals one HP every 18 turns for 450 turns

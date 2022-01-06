@@ -174,7 +174,7 @@ public class MagicGirlDead extends Boss {
             if (Dungeon.level.heroFOV[step]) {
                 if (buff(Haste.class) == null) {
                     Buff.affect(this, Haste.class, 10f);
-                    new SRPDICLR().spawnAround(pos);
+                    new SRPDICLRPRO().spawnAround(pos);
                     yell( Messages.get(this, "arise") );
                     GLog.b(Messages.get(this, "shield"));
                 }

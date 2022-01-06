@@ -77,6 +77,8 @@ public class DewVial extends MeleeWeapon {
 		super.image = ItemSpriteSheet.VIAL;
 		defaultAction = AC_DRINK;
 		super.tier = 3;
+		unique = true;
+		//不会被移除
 	}
 
 	public int image() {

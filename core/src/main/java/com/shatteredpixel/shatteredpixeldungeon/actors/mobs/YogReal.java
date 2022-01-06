@@ -450,7 +450,10 @@ public class YogReal extends Boss {
         GameScene.flash(0x80FFFFFF);
 
         for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
-            if (mob instanceof Larva || mob instanceof RipperDemon) {
+            if (mob instanceof Larva
+                    || mob instanceof RipperDemon
+                    ||mob instanceof Scorpio
+                    ||mob instanceof Succubus) {
                 mob.die( cause );
             }
         }

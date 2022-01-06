@@ -89,13 +89,6 @@ public class XTG100 extends Mob {
         return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
     }
 
-    @Override
-    public void die( Object cause ) {
-
-        super.die(cause);
-        shoot(this, enemy.pos);
-    }
-
 
     @Override
     protected boolean doAttack( Char enemy ) {

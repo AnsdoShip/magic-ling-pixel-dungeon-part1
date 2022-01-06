@@ -80,6 +80,9 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.GREEN_COLOR);
         changeInfos.add(changes);
 
+        changes.addButton(new ChangeButton(Icons.get(Icons.LING), (Messages.get(vM0_5_X_Changes.class, "dev8")),
+                Messages.get(vM0_5_X_Changes.class, "dev8logs")));
+
         Image ice = new IceFireScorpioSprite();
         ice.scale.set(PixelScene.align(0.75f));
         changes.addButton(new ChangeButton(ice, (Messages.get(vM0_5_X_Changes.class, "icescorpio")),

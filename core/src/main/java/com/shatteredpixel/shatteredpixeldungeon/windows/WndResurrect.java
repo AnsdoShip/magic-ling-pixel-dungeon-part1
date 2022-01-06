@@ -73,9 +73,8 @@ public class WndResurrect extends Window {
 				Statistics.ankhsUsed++;
 				//Buff.affect(hero, Healing.class).setHeal((int) (0.4f * hero.HT + 5), 0.2f, 0);
 				Buff.prolong(hero, RoseShiled.class, RoseShiled.SURATION);
-				InterlevelScene.mode = InterlevelScene.Mode.RESET;
-				Game.switchScene( InterlevelScene.class );
 				InterlevelScene.mode = InterlevelScene.Mode.RESURRECT;
+				Game.switchScene( InterlevelScene.class );
 			}
 		};
 		btnYes.setRect( 0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT );

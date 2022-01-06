@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -107,9 +105,7 @@ public class JAmulet extends Item {
 
                 @Override
                 public void afterCreate() {
-                    Badges.validateVictory();
-                    Badges.validateChampion(Challenges.activeChallenges());
-                    Badges.saveGlobal();
+                   System.out.println("你被骗啦！！！");
                 }
             });
         } catch (IOException e) {

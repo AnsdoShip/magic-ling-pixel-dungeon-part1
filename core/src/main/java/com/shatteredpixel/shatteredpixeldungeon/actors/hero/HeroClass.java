@@ -66,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
@@ -160,6 +161,7 @@ public enum HeroClass {
 		i = new Food();
 		DewVial.View = 3;
 
+		new ScrollOfRetribution().quantity(3).identify().collect();
 		new PotionOfHealing().quantity(3).identify().collect();
 		new ScrollOfUpgrade().quantity(1).identify().collect();
 		new DewVial().quantity(1).identify().collect();

@@ -76,7 +76,7 @@ public class SlimeKing extends Golem {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(5, 10);
+		return Random.NormalIntRange(5, 2);
 	}
 
     private int delay = 0;

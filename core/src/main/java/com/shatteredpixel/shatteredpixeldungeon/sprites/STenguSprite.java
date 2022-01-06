@@ -49,7 +49,7 @@ public class STenguSprite extends MobSprite {
         zap = attack.clone();
 
         die = new Animation( 8, false );
-        die.frames( frames, 8, 9, 10, 10, 10, 10, 10, 10 );
+        die.frames( frames, 8, 9 );
 
         play( run.clone() );
     }

@@ -146,7 +146,7 @@ public class CityLevel extends RegularLevel {
 			case Terrain.BOOKSHELF:
 				return Messages.get(CityLevel.class, "bookshelf_desc");
 			case Terrain.WATER:
-				return Messages.get(CavesLevel.class,
+				return Messages.get(CityLevel.class,
 						"water_desc");
 			default:
 				return super.tileDesc( tile );

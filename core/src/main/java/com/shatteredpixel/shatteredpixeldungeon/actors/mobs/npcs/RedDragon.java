@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -57,7 +56,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndRedDragon;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -123,7 +121,7 @@ public class RedDragon extends NPC {
     public boolean interact(Char c) {
         sprite.turnTo( pos, c.pos );
 
-        Sample.INSTANCE.play( Assets.Sounds.GHOST );
+        //Sample.INSTANCE.play( Assets.Sounds.GHOST );
 
         if (c != hero){
             return super.interact(c);
@@ -384,7 +382,7 @@ public class RedDragon extends NPC {
         public static void process() {
             if (spawned && given && !processed && (depth == Dungeon.depth)) {
                 GLog.b( Messages.get(RedDragon.class, "find_me") );
-                Sample.INSTANCE.play( Assets.Sounds.GHOST );
+                //Sample.INSTANCE.play( Assets.Sounds.GHOST );
                 processed = true;
             }
         }

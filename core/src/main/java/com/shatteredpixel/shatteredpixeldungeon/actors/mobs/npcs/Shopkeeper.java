@@ -29,7 +29,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FlameC01;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedLunar;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -59,7 +61,6 @@ public class Shopkeeper extends NPC {
 	protected boolean act() {
 		if (!seenBefore && Dungeon.level.heroFOV[pos]) {
 			yell(Messages.get(this, "greetings", Dungeon.hero.name()));
-			Music.INSTANCE.play(Assets.Music.SHOP, true);
 			seenBefore = true;
 		}
 		throwItem();
@@ -95,7 +96,10 @@ public class Shopkeeper extends NPC {
 		Buff.prolong( Dungeon.hero, Blindness.class, Blindness.DURATION*4f );
 		GameScene.flash(0x80FFFFFF);
 		Buff.affect(hero, Burning.class ).reignite( hero, 15f );
-		new ShopGuard().spawnAround(pos);
+		Dungeon.level.seal();
+		new RedLunar().spawnAround(pos);
+		new FlameC01().spawnAround(pos);
+		new ShopGuardDead().spawnAround(pos);
 			yell( Messages.get(this, "arise") );
 		next();
 	}

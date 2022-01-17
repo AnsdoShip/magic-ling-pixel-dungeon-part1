@@ -49,7 +49,7 @@ public class ShopGuardDead extends Statue {
         maxLvl = -200;
         state = HUNTING;
         spriteClass = ShopGuardianRedSprite.class;
-        HP=HT=Random.Int(30, 40);
+        HP=HT=Random.Int(70, 120);
     }
 
     protected Armor armor;

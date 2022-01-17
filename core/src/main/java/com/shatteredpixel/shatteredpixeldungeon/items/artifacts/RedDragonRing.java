@@ -69,7 +69,7 @@ public class RedDragonRing extends Artifact {
     private boolean talkedTo = false;
     private boolean firstSummon = false;
 
-    private GhostHero ghost = null;
+    private RedKing ghost = null;
     private int ghostID = 0;
 
     private MeleeWeapon weapon = null;
@@ -123,7 +123,7 @@ public class RedDragonRing extends Artifact {
                 }
 
                 if (spawnPoints.size() > 0) {
-                    ghost = new GhostHero( this );
+                    ghost = new RedKing( this );
                     ghostID = ghost.id();
                     ghost.pos = Random.element(spawnPoints);
 
@@ -138,7 +138,7 @@ public class RedDragonRing extends Artifact {
                     hero.sprite.operate(hero.pos);
 
                     if (!firstSummon) {
-                        ghost.yell( Messages.get(GhostHero.class, "hello", Dungeon.hero.name()) );
+                        ghost.yell( Messages.get(RedKing.class, "hello", Dungeon.hero.name()) );
                         Sample.INSTANCE.play( Assets.Sounds.GHOST );
                         firstSummon = true;
 
@@ -163,7 +163,7 @@ public class RedDragonRing extends Artifact {
             if (ghost == null && ghostID != 0){
                 Actor a = Actor.findById(ghostID);
                 if (a != null){
-                    ghost = (GhostHero)a;
+                    ghost = (RedKing)a;
                 } else {
                     ghostID = 0;
                 }
@@ -171,7 +171,7 @@ public class RedDragonRing extends Artifact {
             if (ghost != null) GameScene.selectCell(ghostDirector);
 
         } else if (action.equals(AC_OUTFIT)){
-            GameScene.show( new WndGhostHero(this) );
+            GameScene.show( new WndRedKing(this) );
         }
     }
 
@@ -230,7 +230,7 @@ public class RedDragonRing extends Artifact {
             try {
                 Actor a = Actor.findById(ghostID);
                 if (a != null) {
-                    ghost = (GhostHero) a;
+                    ghost = (RedKing) a;
                 } else {
                     ghostID = 0;
                 }
@@ -341,7 +341,7 @@ public class RedDragonRing extends Artifact {
             if (ghost == null && ghostID != 0){
                 Actor a = Actor.findById(ghostID);
                 if (a != null){
-                    ghost = (GhostHero)a;
+                    ghost = (RedKing)a;
                 } else {
                     ghostID = 0;
                 }
@@ -448,7 +448,7 @@ public class RedDragonRing extends Artifact {
 
         @Override
         public String prompt() {
-            return  "\"" + Messages.get(GhostHero.class, "direct_prompt") + "\"";
+            return  "\"" + Messages.get(RedKing.class, "direct_prompt") + "\"";
         }
     };
 
@@ -489,7 +489,7 @@ public class RedDragonRing extends Artifact {
 
     }
 
-    public static class GhostHero extends NPC {
+    public static class RedKing extends NPC {
 
         {
             spriteClass = RedDragonSprite.class;
@@ -510,11 +510,11 @@ public class RedDragonRing extends Artifact {
 
         private RedDragonRing rose = null;
 
-        public GhostHero(){
+        public RedKing(){
             super();
         }
 
-        public GhostHero(RedDragonRing rose){
+        public RedKing(RedDragonRing rose){
             super();
             this.rose = rose;
             updateRose();
@@ -717,7 +717,7 @@ public class RedDragonRing extends Artifact {
                 Game.runOnRenderThread(new Callback() {
                     @Override
                     public void call() {
-                        GameScene.show(new WndQuest(GhostHero.this, Messages.get(GhostHero.this, "introduce") ));
+                        GameScene.show(new WndQuest(RedKing.this, Messages.get(RedKing.this, "introduce") ));
                     }
                 });
                 return true;
@@ -885,7 +885,7 @@ public class RedDragonRing extends Artifact {
 
     }
 
-    private static class WndGhostHero extends Window {
+    private static class WndRedKing extends Window {
 
         private static final int BTN_SIZE	= 32;
         private static final float GAP		= 2;
@@ -895,7 +895,7 @@ public class RedDragonRing extends Artifact {
         private WndBlacksmith.ItemButton btnWeapon;
         private WndBlacksmith.ItemButton btnArmor;
 
-        WndGhostHero(final RedDragonRing rose){
+        WndRedKing(final RedDragonRing rose){
 
             IconTitle titlebar = new IconTitle();
             titlebar.icon( new ItemSprite(rose) );
@@ -925,16 +925,16 @@ public class RedDragonRing extends Artifact {
                                 if (!(item instanceof MeleeWeapon)) {
                                     //do nothing, should only happen when window is cancelled
                                 } else if (item.unique) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_unique"));
                                     hide();
                                 } else if (!item.isIdentified()) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_unidentified"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_unidentified"));
                                     hide();
                                 } else if (item.cursed) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_cursed"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_cursed"));
                                     hide();
                                 } else if (((MeleeWeapon)item).STRReq() > rose.ghostStrength()) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_strength"));
                                     hide();
                                 } else {
                                     if (item.isEquipped(Dungeon.hero)){
@@ -947,7 +947,7 @@ public class RedDragonRing extends Artifact {
                                 }
 
                             }
-                        }, WndBag.Mode.WEAPON, Messages.get(WndGhostHero.class, "weapon_prompt"));
+                        }, WndBag.Mode.WEAPON, Messages.get(WndRedKing.class, "weapon_prompt"));
                     }
                 }
             };
@@ -975,16 +975,16 @@ public class RedDragonRing extends Artifact {
                                 if (!(item instanceof Armor)) {
                                     //do nothing, should only happen when window is cancelled
                                 } else if (item.unique || ((Armor) item).checkSeal() != null) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_unique"));
                                     hide();
                                 } else if (!item.isIdentified()) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_unidentified"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_unidentified"));
                                     hide();
                                 } else if (item.cursed) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_cursed"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_cursed"));
                                     hide();
                                 } else if (((Armor)item).STRReq() > rose.ghostStrength()) {
-                                    GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
+                                    GLog.w( Messages.get(WndRedKing.class, "cant_strength"));
                                     hide();
                                 } else {
                                     if (item.isEquipped(Dungeon.hero)){
@@ -997,7 +997,7 @@ public class RedDragonRing extends Artifact {
                                 }
 
                             }
-                        }, WndBag.Mode.ARMOR, Messages.get(WndGhostHero.class, "armor_prompt"));
+                        }, WndBag.Mode.ARMOR, Messages.get(WndRedKing.class, "armor_prompt"));
                     }
                 }
             };

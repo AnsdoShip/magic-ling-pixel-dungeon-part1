@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
@@ -13,7 +14,7 @@ import com.watabou.utils.Random;
 
 public class Slyl extends NPC {
 
-    private static final String[] TXT_RANDOM = {"有什么事情吗？","就这样吧，我想一个人单独静静","好吧，你想知道300年前的事情？","你真的是救世主吗？"};
+    private static final String[] TXT_RANDOM = {"事情过了很久了，或许我们都有错","地牢异变确实很久了","新年快乐！祝你每一次下地牢都能有新发现！"};
 
     {
         spriteClass = SlylSprite.class;
@@ -82,7 +83,7 @@ public class Slyl extends NPC {
             rd=false;
             tell(Messages.get(Slyl.class, "message3"));
         } else {
-            yell(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
+            GLog.b(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
         }
 
         return true;

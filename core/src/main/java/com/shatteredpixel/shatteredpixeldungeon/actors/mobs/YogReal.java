@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -13,10 +15,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
@@ -65,7 +71,8 @@ public class YogReal extends Boss {
         initProperty();
         initBaseStatus(0, 0, 1, 0, 1200, 0, 0);
         initStatus(500);
-
+        HP=4000;
+        HT=4000;
         spriteClass = YogSprite.class;
         properties.add(Property.IMMOVABLE);
         properties.add(Property.DEMONIC);
@@ -340,7 +347,16 @@ public class YogReal extends Boss {
 
     @Override
     protected boolean act() {
-
+        for (Buff buff : hero.buffs()) {
+            if (buff instanceof RoseShiled) {
+                buff.detach();
+                GLog.b("玫瑰结界的创始人是翼绫，你怎么敢用她的技能?/kill @e[type=RoseShiled] enemy!");
+            }
+            if (buff instanceof HaloFireImBlue ||buff instanceof FireImbue) {
+                buff.detach();
+                GLog.b("你想免疫火的伤害？在我这里，没有可能！/kill @e[type=FireImbue=All] enemy!");
+            }
+        }
         //char logic
         if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
             fieldOfView = new boolean[Dungeon.level.length()];
@@ -388,6 +404,13 @@ public class YogReal extends Boss {
                 damage = 25;
             }
         }
+        if (damage >= 180){
+            damage = 180 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
+            yell("尔等鼠辈，居然想秒杀我！");
+            hero.HP = 25;
+            Buff.affect(hero, Degrade.class, 12f);
+        }
+
 
         if(src instanceof Buff || src instanceof Blob){
             damage = Math.max(0, damage-1);
@@ -636,6 +659,7 @@ public class YogReal extends Boss {
         @Override
         public boolean act(){
             spend(TICK);
+
             if(left > 0){
                 renderWarning((direction & 2) == 0, (direction & 1) != 0);
                 --left;

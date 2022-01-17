@@ -14,7 +14,7 @@ import com.watabou.utils.Random;
 public class KagenoNusujin extends Mob {
     public KagenoNusujin() {
         this.spriteClass = KagenoNusujinSprite.class;
-        this.HT = this.HP =Random.Int(20,50);
+        this.HT = this.HP =Random.Int(12,15);
         this.defenseSkill = 16;
         this.maxLvl = 34;
         this.properties.add(Property.UNDEAD);
@@ -23,15 +23,15 @@ public class KagenoNusujin extends Mob {
     public int attackProc(Char var1, int var2) {
         int var3 = var2;
         if (Random.Int(3) == 0) {
-            var3 = var2 +10;
+            var3 = var2 +6;
             TeleportationTrap var4 = new TeleportationTrap();
             var4.pos = super.pos;
             var4.activate();
         } else {
-            var3 = var2 +10;
-            BlazingTrap var4 = new BlazingTrap();
-            var4.pos = super.pos;
-            var4.activate();
+            var3 = var2 +4;
+            //BlazingTrap var4 = new BlazingTrap();
+            //var4.pos = super.pos;
+            //var4.activate();
         }
 
         return var3;

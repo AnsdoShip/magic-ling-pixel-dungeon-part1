@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
@@ -104,7 +105,7 @@ public class BeaconOfReturning extends Spell {
 		Sample.INSTANCE.play( Assets.Sounds.BEACON );
 		updateQuickslot();
 	}
-	
+
 	private void returnBeacon( Hero hero ){
 		if (Dungeon.bossLevel()) {
 			GLog.w( Messages.get(this, "preventing") );
@@ -115,6 +116,10 @@ public class BeaconOfReturning extends Spell {
 			Char ch = Actor.findChar(hero.pos + PathFinder.NEIGHBOURS8[i]);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY) {
 				GLog.w( Messages.get(this, "creatures") );
+				return;
+			} else if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() || Dungeon.shopOnLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
+				GLog.w(Messages.get(this, "zerobuy"));
+				detach( hero.belongings.backpack );
 				return;
 			}
 		}

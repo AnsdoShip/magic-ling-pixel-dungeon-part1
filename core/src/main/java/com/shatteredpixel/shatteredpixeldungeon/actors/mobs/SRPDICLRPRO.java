@@ -53,7 +53,7 @@ public class SRPDICLRPRO extends Mob {
     }
 
     public void spawnAround( int pos ) {
-        for (int n : PathFinder.NEIGHBOURS8) {
+        for (int n : PathFinder.NEIGHBOURS4) {
             int cell = pos + n;
             if (Dungeon.level.passable[pos+1] && Actor.findChar( cell ) == null) {
                 spawnAt( cell );

@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -119,9 +120,20 @@ public class ZeroLevel extends Level {
         drop( ( Generator.randomUsingDefaults( Generator.Category.STONE ) ), this.width * 16 + 19 );
         drop( ( Generator.randomUsingDefaults( Generator.Category.FOOD ) ), this.width * 20 + 19 );
 
-        //if ( Badges.isUnlocked(Badges.Badge.RLPT)){
-        //    drop( ( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) ), this.width * 18 + 18 );
-        //}
+        if ( Badges.isUnlocked(Badges.Badge.GODD_MAKE)){
+            drop( ( Generator.randomUsingDefaults( Generator.Category.RING ) ), this.width * 17 + 18 );
+        }
+
+        if ( Badges.isUnlocked(Badges.Badge.BIG_X)){
+            drop( ( Generator.randomUsingDefaults( Generator.Category.ARMOR ) ), this.width * 19 + 18 );
+        }
+        if ( Badges.isUnlocked(Badges.Badge.KILL_SLMKING)||Badges.isUnlocked(Badges.Badge.KILL_MG)  ){
+            drop(new Ankh(), this.width * 18 + 17  );
+        }
+        if ( Badges.isUnlocked(Badges.Badge.RLPT)){
+            drop( ( Generator.randomUsingDefaults( Generator.Category.ARTIFACT ) ), this.width * 18 + 19 );
+        }
+
         //旧版支离破碎的神器获取方案已经不再使用
     }
 

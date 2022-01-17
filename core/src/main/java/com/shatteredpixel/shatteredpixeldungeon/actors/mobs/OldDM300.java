@@ -35,7 +35,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
@@ -57,10 +56,11 @@ public class OldDM300 extends Mob {
 	{
 		spriteClass = DM300Sprite.class;
 		
-		HP = HT = 200;
+		HP = HT = 240;
 		EXP = 30;
 		defenseSkill = 18;
-		
+		maxLvl=-9999;
+		baseSpeed = 4.3f;
 
 		properties.add(Property.BOSS);
 		properties.add(Property.INORGANIC);
@@ -164,20 +164,6 @@ public class OldDM300 extends Mob {
 		}
 		
 		yell( Messages.get(this, "defeated") );
-	}
-	
-	@Override
-	public void notice() {
-		super.notice();
-		if (!BossHealthBar.isAssigned()) {
-			BossHealthBar.assignBoss(this);
-			yell(Messages.get(this, "notice"));
-			for (Char ch : Actor.chars()){
-				if (ch instanceof DriedRose.GhostHero){
-					((DriedRose.GhostHero) ch).sayBoss();
-				}
-			}
-		}
 	}
 	
 	{

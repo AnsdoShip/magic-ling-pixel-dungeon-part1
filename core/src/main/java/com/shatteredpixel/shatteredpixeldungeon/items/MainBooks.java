@@ -9,6 +9,9 @@ public class MainBooks extends Item {
     public String info() {
         return desc()+"\n\n"+author;
     }
-
+    @Override
+    public int value() {
+        return 20 * quantity;
+    }
     public String author = Messages.get(this, "author");
 }

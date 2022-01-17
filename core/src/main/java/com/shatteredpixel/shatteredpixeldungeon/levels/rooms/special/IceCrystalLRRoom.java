@@ -100,16 +100,13 @@ public class IceCrystalLRRoom extends SpecialRoom {
                 }
 
                 if (Dungeon.level.findMob(cell) instanceof SRPDICLR){
-                    data[i-1] = 5 + 4*8;
-                    data[i] = 6 + 4*8;
-                    data[i+1] = 7 + 4*8;
                     i++;
                     cell++;
-                } else if (map[cell] == Terrain.EMPTY_DECO) {
+                } else if (map[cell] == Terrain.EMPTY) {
                     if (Statistics.amuletObtained){
-                        data[i] = 31;
+                        data[i] = 15;
                     } else {
-                        data[i] = 27;
+                        data[i] = 15;
                     }
                 } else {
                     data[i] = 19;

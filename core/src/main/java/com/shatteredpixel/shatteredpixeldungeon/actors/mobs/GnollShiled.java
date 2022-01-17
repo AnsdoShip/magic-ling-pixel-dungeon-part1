@@ -24,7 +24,7 @@ public class GnollShiled extends Gnoll {
 
     public GnollShiled() {
         this.spriteClass = BombGnollTricksterSprites.class;
-        this.HT = HP = Random.Int(30,40);
+        this.HT = HP = Random.Int(50,210);
         this.defenseSkill = 5;
         this.EXP = 8;
         this.state = this.WANDERING;

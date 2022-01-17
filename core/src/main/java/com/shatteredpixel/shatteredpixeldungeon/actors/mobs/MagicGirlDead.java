@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -13,12 +15,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -41,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfGodIce;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -67,7 +75,8 @@ public class MagicGirlDead extends Boss {
         initProperty();
         initBaseStatus(16, 22, 28, 16, 400, 4, 8);
         initStatus(76);
-
+        HP=800;
+        HT=800;
         viewDistance = 18;
     }
 
@@ -94,6 +103,7 @@ public class MagicGirlDead extends Boss {
     private float summonCD = 50f;
 
     private int lastTargeting = -1;
+
 
     @Override
     public String info(){
@@ -142,6 +152,16 @@ public class MagicGirlDead extends Boss {
             summonCD -= 1/speed();
             return true;
         }
+        for (Buff buff : hero.buffs()) {
+            if (buff instanceof RoseShiled) {
+                buff.detach();
+                GLog.b("玫瑰结界的创始人是翼绫，你怎么敢用她的技能?/kill @e[type=RoseShiled] enemy!");
+            }
+            if (buff instanceof HaloFireImBlue ||buff instanceof FireImbue) {
+                buff.detach();
+                GLog.b("你想免疫火的伤害？在我这里，没有可能！/kill @e[type=FireImbue=All] enemy!");
+            }
+        }
         if(buff(RageAndFire.class)!=null){
             //if target is locked, fire, target = -1
             if(lastTargeting != -1){
@@ -162,6 +182,7 @@ public class MagicGirlDead extends Boss {
         return super.act();
     }
 
+
     @Override
     public void move(int step) {
 
@@ -174,6 +195,7 @@ public class MagicGirlDead extends Boss {
             if (Dungeon.level.heroFOV[step]) {
                 if (buff(Haste.class) == null) {
                     Buff.affect(this, Haste.class, 10f);
+                    Buff.affect(this, Healing.class).setHeal(42, 0f, 6);
                     new SRPDICLRPRO().spawnAround(pos);
                     yell( Messages.get(this, "arise") );
                     GLog.b(Messages.get(this, "shield"));
@@ -216,6 +238,11 @@ public class MagicGirlDead extends Boss {
             BossHealthBar.assignBoss(this);
             yell(Messages.get(this, "notice"));
         }
+        if (damage >= 30){
+            damage = 30 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
+            yell("想秒杀我？我可是翼绫曾经的护法!");
+            Buff.affect(hero, Degrade.class, 12f);
+        }
         if(buff(RageAndFire.class)!=null) damage = Math.round(damage*0.1f);
 
         int preHP = HP;
@@ -227,7 +254,7 @@ public class MagicGirlDead extends Boss {
         }
 
         if(phase>4) BossHealthBar.bleed(true);
-        LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
+        LockedFloor lock = hero.buff(LockedFloor.class);
         if (lock != null) lock.addTime(damage*2);
     }
 
@@ -249,11 +276,13 @@ public class MagicGirlDead extends Boss {
         GameScene.bossSlain();
         Badges.KILLMG();
         Badges.validateBossSlain();
+
         Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 3200)), pos).sprite.drop();
         Dungeon.level.drop(new PotionOfHealing().quantity(Random.Int(4, 7)), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfMagicMapping().quantity(2).identify(), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfUpgrade().quantity(Random.Int(3, 5)).identify(), pos).sprite.drop();
         Dungeon.level.drop(new LloydsBeacon().quantity(1).identify(), pos).sprite.drop();
+        Dungeon.level.drop(new WandOfGodIce().quantity(1).identify(), pos).sprite.drop();
     }
 
     @Override
@@ -379,7 +408,7 @@ public class MagicGirlDead extends Boss {
         for(Mob m: Dungeon.level.mobs.toArray(new Mob[0])){
             if(m instanceof SpellCaster){
                 if(m.alignment == Alignment.NEUTRAL) continue;
-                Ballistica beam = new Ballistica(m.pos, Dungeon.hero.pos, Ballistica.WONT_STOP);
+                Ballistica beam = new Ballistica(m.pos, hero.pos, Ballistica.WONT_STOP);
                 m.sprite.parent.add(new BeamCustom(
                         DungeonTilemap.raisedTileCenterToWorld(m.pos),
                         DungeonTilemap.tileCenterToWorld(beam.collisionPos),
@@ -418,7 +447,7 @@ public class MagicGirlDead extends Boss {
     }
 
     public void ventGas( Char target ){
-        Dungeon.hero.interrupt();
+        hero.interrupt();
 
         int gasVented = 0;
 
@@ -449,15 +478,15 @@ public class MagicGirlDead extends Boss {
 
     public void dropRocks( Char target ) {
 
-        Dungeon.hero.interrupt();
+        hero.interrupt();
         final int rockCenter;
 
         if (Dungeon.level.adjacent(pos, target.pos)){
             int oppositeAdjacent = target.pos + (target.pos - pos);
             Ballistica trajectory = new Ballistica(target.pos, oppositeAdjacent, Ballistica.MAGIC_BOLT);
             WandOfBlastWave.throwChar(target, trajectory, 2, false, false);
-            if (target == Dungeon.hero){
-                Dungeon.hero.interrupt();
+            if (target == hero){
+                hero.interrupt();
             }
             rockCenter = trajectory.path.get(Math.min(trajectory.dist, 2));
         } else {
@@ -533,7 +562,7 @@ public class MagicGirlDead extends Boss {
                                     int damage = Random.Int(14, 24);
                                     damage -= ch.drRoll();
                                     ch.damage(damage, this);
-                                    if(ch == Dungeon.hero && !ch.isAlive()){
+                                    if(ch == hero && !ch.isAlive()){
                                         Dungeon.fail(this.getClass());
                                     }
                                 }
@@ -551,7 +580,7 @@ public class MagicGirlDead extends Boss {
         if(enemy!=null && enemySeen){
             lastTargeting = enemy.pos;
         }else{
-            lastTargeting = Dungeon.hero.pos;
+            lastTargeting = hero.pos;
         }
         if(canHit(lastTargeting)) {
             sprite.parent.addToBack(new TargetedCell(lastTargeting, 0xFF0000));

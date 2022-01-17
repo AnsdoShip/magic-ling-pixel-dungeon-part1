@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.PRO;
+
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -155,11 +157,14 @@ public class Badges {
 		RLPT				(103),
 		SBDJS				(104),
 		KILL_MG			(105),
+		BIG_X				(106),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
 		CHAMPION_2                  ( 113 ),
-		CHAMPION_3                  ( 114 );
+		CHAMPION_3                  ( 114 ),
+		CHAMPION_4                  ( 115 ),
+		CHAMPION_5                  ( 116 );
 
 		public boolean meta;
 
@@ -891,6 +896,9 @@ public class Badges {
 	public static void KILLMG() {
 		displayBadge( Badge.KILL_MG );
 	}
+	public static void BIGX() {
+		displayBadge( Badge.BIG_X );
+	}
 	public static void GOODRLPT() {
 		displayBadge( Badge.RLPT );
 	}
@@ -904,22 +912,36 @@ public class Badges {
 	public static void validateChampion( int challenges ) {
 		if (challenges == 0) return;
 		Badge badge = null;
-		if (challenges >= 1) {
+		if (challenges >= 1 && (!(Dungeon.isChallenged(PRO)))) {
 			badge = Badge.CHAMPION_1;
 		}
-		if (challenges >= 3){
+		if (challenges >= 3 && (!(Dungeon.isChallenged(PRO)))){
 			if (!global.contains(badge)){
 				global.add(badge);
 				saveNeeded = true;
 			}
 			badge = Badge.CHAMPION_2;
 		}
-		if (challenges >= 6){
+		if (challenges >= 6 && (!(Dungeon.isChallenged(PRO)))){
 			if (!global.contains(badge)){
 				global.add(badge);
 				saveNeeded = true;
 			}
 			badge = Badge.CHAMPION_3;
+		}
+		if (challenges >= 9 && (!(Dungeon.isChallenged(PRO)))){
+			if (!global.contains(badge)){
+				global.add(badge);
+				saveNeeded = true;
+			}
+			badge = Badge.CHAMPION_4;
+		}
+		if (challenges >= 10 && (!(Dungeon.isChallenged(PRO)))){
+			if (!global.contains(badge)){
+				global.add(badge);
+				saveNeeded = true;
+			}
+			badge = Badge.CHAMPION_5;
 		}
 		local.add(badge);
 		displayBadge( badge );

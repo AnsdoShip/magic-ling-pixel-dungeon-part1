@@ -53,7 +53,7 @@ import com.watabou.utils.Random;
 public class SlimeKing extends Golem {
 
 	{
-		HP =120;
+		HP =100;
 		HT= 140;
 		EXP = 20;
 		defenseSkill = 12;
@@ -98,15 +98,6 @@ public class SlimeKing extends Golem {
 	}
 
 	private int combo = 0;
-	@Override
-	protected boolean getCloser( int target ) {
-		combo = 0; //if he's moving, he isn't attacking, reset combo.
-		if (state == HUNTING) {
-			return enemySeen && getFurther( target );
-		} else {
-			return super.getCloser( target );
-		}
-	}
 
 	@Override
 	public boolean attack( Char enemy ) {
@@ -114,7 +105,6 @@ public class SlimeKing extends Golem {
 			return true;
 		} else if(canAttack(enemy)){
 			spend( attackDelay()*7f );
-			summon();
 			return super.attack(enemy);
 		}else if(canAttack(enemy)) {
 			return super.attack(enemy);
@@ -149,6 +139,7 @@ public class SlimeKing extends Golem {
 
 				if (sprite.visible) {
 					yell(Messages.get(this, "scorpion"));
+					summon();
 					new Item().throwSound();
 					Sample.INSTANCE.play(Assets.Sounds.CHAINS);
 					sprite.parent.add(new Chains(sprite.center(), enemy.sprite.center(), new Callback() {
@@ -208,7 +199,7 @@ public class SlimeKing extends Golem {
 		Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
 
 		for(int i = 0;i <= (1 + (1 -(float)HP/HT)) ; i++){
-			int newPos = 0;
+			int newPos;
 			do {
 				newPos = Random.Int(Dungeon.level.length());
 			} while (
@@ -269,6 +260,7 @@ public class SlimeKing extends Golem {
 		BossHealthBar.assignBoss(this);
 		Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 		yell( Messages.get(this, "notice") );
+		summon();
 	}
 
 		@Override
@@ -306,19 +298,6 @@ public class SlimeKing extends Golem {
 				}
 			}
 	}
-
-    @Override
-    public void rollToDropLoot() {
-        if (hero.lvl > maxLvl + 2) return;
-
-        super.rollToDropLoot();
-
-        int ofs;
-        do {
-            ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-        } while (!Dungeon.level.passable[pos + ofs]);
-        Dungeon.level.drop( new GooBlob(), pos + ofs ).sprite.drop( pos );
-    }
 
 	private class Hunting extends Mob.Hunting{
 		@Override

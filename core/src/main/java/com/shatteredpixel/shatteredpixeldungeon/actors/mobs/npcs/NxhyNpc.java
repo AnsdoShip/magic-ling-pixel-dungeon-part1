@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
@@ -13,7 +14,8 @@ import com.watabou.utils.Random;
 
 public class NxhyNpc extends NPC {
 
-    private static final String[] TXT_RANDOM = {"有什么事情吗？","如果想要物资，来监狱层找我"};
+    private static final String[] TXT_RANDOM = {"你知道吗？我还有个妹妹失散在了地牢之中，她叫夏洛。希望你能找到她！\n" +
+            "我记得我还有把祖传的尚方宝剑，可是我遗落在地牢某处了，希望你在地牢里可以所向披靡。"};
 
     {
         spriteClass = NxhySprite.class;
@@ -34,6 +36,8 @@ public class NxhyNpc extends NPC {
         super.storeInBundle(bundle);
         bundle.put(FIRST, first);
     }
+
+
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
@@ -81,7 +85,7 @@ public class NxhyNpc extends NPC {
             rd=false;
             tell(Messages.get(NxhyNpc.class, "message3"));
         } else {
-            yell(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
+            GLog.b(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
         }
 
         return true;

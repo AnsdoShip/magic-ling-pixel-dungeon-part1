@@ -39,7 +39,8 @@ public class Window extends Group implements Signal.Listener<KeyEvent> {
 
 	protected int width;
 	protected int height;
-
+	public static final int BTN_HEIGHT	= 20;
+	protected static final float GAP		= 2;
 	protected int yOffset;
 	
 	protected PointerArea blocker;

@@ -43,9 +43,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.BrokenBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.DeepBloodBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.GrassKingBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IceCityBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.MagicGirlBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.NoKingMobBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.playbookslist.DeYiZiBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.playbookslist.MoneyMoreBooks;
@@ -108,6 +111,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dairikyan;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FireFishSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gauntlet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Glaive;
@@ -117,6 +121,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.GreenSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.IceFishSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.LockSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Longsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Mace;
@@ -204,6 +209,8 @@ public enum Catalog {
 		WEAPONS.seen.put( BoomSword.class,                  false);
 		WEAPONS.seen.put( Dairikyan.class,                  false);
 		WEAPONS.seen.put( BlackDog.class,                   false);
+		WEAPONS.seen.put( IceFishSword.class,                   false);
+		WEAPONS.seen.put( FireFishSword.class,                   false);
 	
 		ARMOR.seen.put( ClothArmor.class,                   false);
 		ARMOR.seen.put( LeatherArmor.class,                 false);
@@ -287,10 +294,13 @@ public enum Catalog {
 		BOOKS.seen.put( DeepBloodBooks.class,           false);
 		BOOKS.seen.put( GrassKingBooks.class,           false);
 		BOOKS.seen.put( YellowSunBooks.class,           false);
+		BOOKS.seen.put( MagicGirlBooks.class,           false);
+		BOOKS.seen.put( NoKingMobBooks.class,           false);
+		BOOKS.seen.put( BrokenBooks.class,           false);
 
-		PLAYBOOKS.seen.put( MoneyMoreBooks.class,          	 false);
-		PLAYBOOKS.seen.put( PinkRandomBooks.class,           false);
-		PLAYBOOKS.seen.put( DeYiZiBooks.class,          	 false);
+		PLAYBOOKS.seen.put( MoneyMoreBooks.class,          	 true);
+		PLAYBOOKS.seen.put( PinkRandomBooks.class,           true);
+		PLAYBOOKS.seen.put( DeYiZiBooks.class,          	 true);
 	}
 	
 	public static LinkedHashMap<Catalog, Badges.Badge> catalogBadges = new LinkedHashMap<>();

@@ -110,7 +110,7 @@ public class PotionOfNoWater extends Item {
             cost = 5;
 
             output = PotionOfNoWater.class;
-            outQuantity = 2;
+            outQuantity = 6;
         }
 
     }

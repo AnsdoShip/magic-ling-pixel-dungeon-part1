@@ -40,13 +40,15 @@ public class Statistics {
 
 	public static int spawnersAlive;
 	public static int spawnersIce;
+	public static int spawnersDK;
 	public static float duration;
 	
 	public static boolean qualifiedForNoKilling = false;
 	public static boolean completedWithNoKilling = false;
 	
 	public static boolean amuletObtained = false;
-	
+
+
 	public static void reset() {
 		
 		goldCollected	= 0;

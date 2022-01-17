@@ -6,7 +6,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.GooWarn;
@@ -15,13 +14,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -40,8 +35,6 @@ public class MoloHR extends Mob {
         this.EXP = 15;
         this.state = this.SLEEPING;
         this.baseSpeed = 0.5625F;
-        this.loot = new HerbBag();
-        this.lootChance =1;
         this.deathCurse = new String[]{"！！！"};
         this.attackCurse = new String[]{"就你？还想打我？", "让火焰净化一切！", "那个幽灵太看得起你了！", "我说，为什么要让我承担？",
                 "这都是你的错！",
@@ -121,12 +114,6 @@ public class MoloHR extends Mob {
         }
     }
 
-    @Override
-    public void restoreFromBundle(Bundle bundle) {
-        super.restoreFromBundle(bundle);
-        BossHealthBar.assignBoss(this);
-    }
-
     public void storeInBundle(Bundle var1) {
         super.storeInBundle(var1);
         var1.put("combo", this.combo);
@@ -135,15 +122,6 @@ public class MoloHR extends Mob {
     @Override
     public void notice() {
         super.notice();
-        if (!BossHealthBar.isAssigned()) {
-            BossHealthBar.assignBoss(this);
-            yell(Messages.get(this, "notice"));
-            for (Char ch : Actor.chars()){
-                if (ch instanceof DriedRose.GhostHero){
-                    ((DriedRose.GhostHero) ch).sayBoss();
-                }
-            }
-        }
     }
 
     {

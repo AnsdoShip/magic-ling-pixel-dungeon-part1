@@ -96,7 +96,7 @@ public class MobPlacer extends TestItem{
     private int mobTier = 1;
     private int mobIndex = 0;
     private int elite = 0;
-    private static final int MAX_ELITE = 6;
+    private static final int MAX_ELITE = 7;
 
     private final ArrayList<Class<? extends ChampionEnemy>> eliteBuffs = new ArrayList<>();
     {
@@ -106,6 +106,7 @@ public class MobPlacer extends TestItem{
         eliteBuffs.add(ChampionEnemy.Giant.class);
         eliteBuffs.add(ChampionEnemy.Growing.class);
         eliteBuffs.add(ChampionEnemy.Projecting.class);
+        eliteBuffs.add(ChampionEnemy.Halo.class);
     };
 
     @Override

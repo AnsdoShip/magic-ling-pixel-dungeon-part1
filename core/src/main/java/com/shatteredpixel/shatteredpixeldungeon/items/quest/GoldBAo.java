@@ -23,12 +23,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.quest;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class GoldBAo extends Item {
 
     {
         image = ItemSpriteSheet.DG21;
-        stackable = true;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class GoldBAo extends Item {
     public boolean isIdentified() {
         return true;
     }
-
-    public int price() {
-        return quantity * 5000;
+    @Override
+    public int value() {
+        return quantity *  Random.Int(2500,5500);
     }
 }

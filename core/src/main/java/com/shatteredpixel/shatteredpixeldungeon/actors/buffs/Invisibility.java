@@ -112,4 +112,8 @@ public class Invisibility extends FlavourBuff {
 			bubble.detach();
 		}
 	}
+	protected float left;
+	public void prolong() {
+		left = 5;
+	}
 }

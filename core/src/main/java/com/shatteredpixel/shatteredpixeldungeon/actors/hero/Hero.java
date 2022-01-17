@@ -60,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
@@ -69,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.WhiteNPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -127,6 +129,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.KAmuletScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -137,6 +140,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
@@ -972,6 +976,17 @@ public class Hero extends Char {
 			return false;
 		}
 	}
+
+	//TODO 这里是一个审判中心 This is a trial center
+	private static void tell(String text) {
+		Game.runOnRenderThread(new Callback() {
+								   @Override
+								   public void call() {
+									   GameScene.show(new WndQuest(new WhiteNPC(), text));
+								   }
+							   }
+		);
+	}
 	
 	private boolean actDescend( HeroAction.Descend action ) {
 		int stairs = action.dst;
@@ -980,8 +995,12 @@ public class Hero extends Char {
 			Camera.main.shake(1, 1f);
 			ready();
 			return false;
-		//there can be multiple exit tiles, so descend on any of them
-		//TODO this is slightly brittle, it assumes there are no disjointed sets of exit tiles
+			//there can be multiple exit tiles, so descend on any of them
+			//TODO this is slightly brittle, it assumes there are no disjointed sets of exit tiles
+		} else if (Dungeon.hero.buff(LockedFloor.class) != null) {
+			Game.switchScene( KAmuletScene.class );
+			//删除存档 提出警告
+			return false;
 		} else if ((Dungeon.level.map[pos] == Terrain.EXIT || Dungeon.level.map[pos] == Terrain.UNLOCKED_EXIT)) {
 			
 			curAction = null;
@@ -1017,7 +1036,7 @@ public class Hero extends Char {
 		//there can be multiple entrance tiles, so descend on any of them
 		//TODO this is slightly brittle, it assumes there are no disjointed sets of entrance tiles
 		} else if (Dungeon.level.map[pos] == Terrain.ENTRANCE) {
-			
+
 			if (Dungeon.depth == 0) {
 				
 				if (belongings.getItem( Amulet.class ) == null) {
@@ -1028,7 +1047,6 @@ public class Hero extends Char {
 						}
 					});
 					ready();
-
 				} else if (Dungeon.isChallenged(PRO)) {
 						hero.HP = 4;
 						hero.HT = 4;
@@ -1050,7 +1068,10 @@ public class Hero extends Char {
 					Game.switchScene( SurfaceScene.class );
 					ready();
 				}
-
+			} else if (Dungeon.hero.buff(LockedFloor.class) != null) {
+				Game.switchScene( KAmuletScene.class );
+				//删除存档 提出警告
+				return false;
 			} else {
 				
 				curAction = null;
@@ -1790,8 +1811,13 @@ public class Hero extends Char {
 
 		//矿洞之水 诅咒效果
 		if (Dungeon.ColdWaterLevel()&& Dungeon.level.water[pos]){
-			Buff.affect(this, Chill.class, 5f);
-		}
+			Buff.affect(this, Chill.class, 3f);
+		} else if(Dungeon.ColdWaterLevel()&& !Dungeon.level.water[pos])
+			for (Buff buff : hero.buffs()) {
+				if (buff instanceof Chill) {
+					buff.detach();
+				}
+			}
 
 		//矮人之水 诅咒效果
 		if (Dungeon.DeadLevel()&& Dungeon.level.water[pos]){
@@ -1801,7 +1827,7 @@ public class Hero extends Char {
 				}
 				this.HP--;
 			}
-			Buff.affect(this, Blindness.class, 5f);
+			Buff.affect(this, Blindness.class, 3f);
 		} else if(Dungeon.DeadLevel()&& !Dungeon.level.water[pos])
 			for (Buff buff : hero.buffs()) {
 		if (buff instanceof Blindness) {
@@ -2059,7 +2085,7 @@ public class Hero extends Char {
 		HP = HT;
 		Dungeon.gold = 0;
 		exp = 0;
-		
+		//Dungeon.nyzbuy = 5;
 		belongings.resurrect( resetLevel );
 
 		live();

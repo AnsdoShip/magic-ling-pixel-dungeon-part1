@@ -53,7 +53,11 @@ public abstract class Actor implements Bundlable {
 	//used to determine what order actors act in if their time is equal. Higher values act earlier.
 	protected int actPriority = DEFAULT;
 
-	protected abstract boolean act();
+	public static synchronized Class<? extends Actor> getCurrentActorClass() {
+		return current == null ? null : current.getClass();
+	}
+
+    protected abstract boolean act();
 	
 	protected void spend( float time ) {
 		this.time += time;

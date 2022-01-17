@@ -920,7 +920,7 @@ public class WndJournal extends WndTabbed {
 				
 				if (!seen) {
 					icon.copy( new ItemSprite( ItemSpriteSheet.ICEBOOKS + spriteIndexes[currentItemIdx], null) );
-					label.text("资料不完整 书籍尚未找到……");
+					label.text(Messages.get("notfound"));
 					label.hardlight( 0x999999 );
 				} else if (!IDed) {
 					icon.copy( new ItemSprite( ItemSpriteSheet.ICEBOOKS + spriteIndexes[currentItemIdx], null) );

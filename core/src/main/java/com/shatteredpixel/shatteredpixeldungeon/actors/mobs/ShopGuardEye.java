@@ -79,7 +79,7 @@ public class ShopGuardEye extends Statue {
 
 
     public void spawnAround( int pos ) {
-        for (int n : PathFinder.CIRCLE8) {
+        for (int n : PathFinder.NEIGHBOURS1) {
             int cell = pos + n;
             if (Dungeon.level.passable[pos+2] && Actor.findChar( cell ) == null) {
                 spawnAt( cell );

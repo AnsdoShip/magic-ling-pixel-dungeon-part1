@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BlueNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
@@ -43,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.SpectralNecromancerSprit
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WhiteGirlSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.YogSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -72,7 +74,7 @@ public class vM0_5_X_Changes {
         changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
 
-        ChangeInfo changes8 = new ChangeInfo("V0.5.X.0-Release", true, "");
+        ChangeInfo changes8 = new ChangeInfo("V0.5.X.0", true, "");
         changes8.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes8);
 
@@ -83,10 +85,44 @@ public class vM0_5_X_Changes {
         changes.addButton(new ChangeButton(Icons.get(Icons.LING), (Messages.get(vM0_5_X_Changes.class, "dev8")),
                 Messages.get(vM0_5_X_Changes.class, "dev8logs")));
 
+        changes.addButton(new ChangeButton(new WhiteGirlSprites(), (Messages.get(vM0_5_X_Changes.class,
+                "wdsx")),
+                Messages.get(vM0_5_X_Changes.class, "wdsxlogs")));
+
+        changes.addButton(new ChangeButton(new NyzSprites(), (Messages.get(vM0_5_X_Changes.class,
+                "nyzspd")),
+                Messages.get(vM0_5_X_Changes.class, "nyzspdlogs")));
+
+        changes.addButton(new ChangeButton(new BlueNecromancerSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "superzero")),
+                Messages.get(vM0_5_X_Changes.class, "superzerologs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.TALENT), (Messages.get(vM0_5_X_Changes.class, "s6")),
+                Messages.get(vM0_5_X_Changes.class, "s6logs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "info2")),
+                Messages.get(vM0_5_X_Changes.class, "info2logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ICEFISHSWORD), (Messages.get(vM0_5_X_Changes.class,
+                "new6w2")),
+                Messages.get(vM0_5_X_Changes.class, "new6w2logs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FIREFISHSWORD), (Messages.get(vM0_5_X_Changes.class,
+                "new6w")),
+                Messages.get(vM0_5_X_Changes.class, "new6wlogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MAGICGIRLBOOKS), (Messages.get(vM0_5_X_Changes.class,
+                "newbooks")),
+                Messages.get(vM0_5_X_Changes.class, "newbookslogs")));
+
         Image ice = new IceFireScorpioSprite();
         ice.scale.set(PixelScene.align(0.75f));
         changes.addButton(new ChangeButton(ice, (Messages.get(vM0_5_X_Changes.class, "icescorpio")),
                 Messages.get(vM0_5_X_Changes.class, "icescorpiologs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG19), (Messages.get(vM0_5_X_Changes.class,
+                "icewandgod")),
+                Messages.get(vM0_5_X_Changes.class, "icewandgodlogs")));
 
         Image fire = new FireAcidicSprite();
         fire.scale.set(PixelScene.align(0.75f));
@@ -99,6 +135,13 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.AUDIO), (Messages.get(vM0_5_X_Changes.class, "musipa")),
                 Messages.get(vM0_5_X_Changes.class, "musipalogs")));
+
+        changes.addButton(new ChangeButton(new MimicSprite.Dimand(), (Messages.get(vM0_5_X_Changes.class, "mimmc")),
+                Messages.get(vM0_5_X_Changes.class, "mimmclogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG21), (Messages.get(vM0_5_X_Changes.class,
+                "goldbao")),
+                Messages.get(vM0_5_X_Changes.class, "goldbaologs")));
 
         changes.addButton(new ChangeButton(new RedDragonSprite(), (Messages.get(vM0_5_X_Changes.class, "reddragon")),
                 Messages.get(vM0_5_X_Changes.class, "reddragonlogs")));
@@ -192,6 +235,9 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "info")),
                 Messages.get(vM0_5_X_Changes.class, "infologs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.BADGES), (Messages.get(vM0_5_X_Changes.class, "add")),
+                Messages.get(vM0_5_X_Changes.class, "addlogs")));
 
         changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ANKH), (Messages.get(vM0_5_X_Changes.class, "ankh2")),
                 Messages.get(vM0_5_X_Changes.class, "ankh2logs")));

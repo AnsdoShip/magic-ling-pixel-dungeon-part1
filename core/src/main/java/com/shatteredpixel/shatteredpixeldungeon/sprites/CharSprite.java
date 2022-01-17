@@ -713,6 +713,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (renderShadow) {
 			if (dirty) {
 				((Buffer)verticesBuffer).position(0);
+				//(verticesBuffer).position(0);
 				verticesBuffer.put(vertices);
 				if (buffer == null)
 					buffer = new Vertexbuffer(verticesBuffer);

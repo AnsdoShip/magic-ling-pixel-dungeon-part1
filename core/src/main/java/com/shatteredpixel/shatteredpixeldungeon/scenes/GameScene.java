@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.BGMPlayer;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -123,7 +124,8 @@ import java.util.Locale;
 
 public class GameScene extends PixelScene {
 
-	static GameScene scene;
+    public static boolean logActorThread;
+    static GameScene scene;
 
 	private SkinnedBlock water;
 	private DungeonTerrainTilemap tiles;
@@ -380,9 +382,13 @@ public class GameScene extends PixelScene {
 			case 6:
 				WndStory.showChapter( WndStory.ID_PRISON );
 				break;
-				case 10:
-					WndStory.showChapter( WndStory.ID_PRISONBOSS );
-					break;
+				//case 10:
+				//	if(Statistics.spawnersDK > 0){
+				//		WndStory.showChapter(WndStory.ID_PRISONBOSS2);
+				//	} else {
+				//		WndStory.showChapter(WndStory.ID_PRISONBOSS);
+				//	}
+				//	break;
 				case 11:
 				WndStory.showChapter( WndStory.ID_CAVES );
 				break;
@@ -642,6 +648,26 @@ public class GameScene extends PixelScene {
 		super.update();
 		
 		if (!Emitter.freezeEmitters) water.offset( 0, -5 * Game.elapsed );
+
+		if(logActorThread){
+			if (actorThread != null){
+				logActorThread = false;
+				String s = "";
+				for (StackTraceElement t : actorThread.getStackTrace()){
+					s += "\n";
+					s += t.toString();
+				}
+				Class<? extends Actor> cl = Actor.getCurrentActorClass();
+				String msg = "Actor thread dump was requested. " +
+						"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth + " challenges:" +
+						" current actor:" + cl + "\ntrace:" + s;
+				Gdx.app.getClipboard().setContents(msg);
+				ShatteredPixelDungeon.reportException(
+						new RuntimeException(msg)
+				);
+				add(new WndMessage(Messages.get(this, "copied")));
+			}
+		}
 
 		if (!Actor.processing() && Dungeon.hero.isAlive()) {
 			if (actorThread == null || !actorThread.isAlive()) {

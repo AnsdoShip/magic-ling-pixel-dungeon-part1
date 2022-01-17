@@ -32,59 +32,59 @@ import com.watabou.utils.Reflection;
 import java.util.ArrayList;
 
 public abstract class StandardRoom extends Room {
-	
+
 	public enum SizeCategory {
 
 		NORMAL(4, 10, 1),
 		LARGE(10, 14, 2),
 		GIANT(14, 18, 3);
-		
+
 		public final int minDim, maxDim;
 		public final int roomValue;
-		
+
 		SizeCategory(int min, int max, int val){
 			minDim = min;
 			maxDim = max;
 			roomValue = val;
 		}
-		
+
 		public int connectionWeight(){
 			return roomValue*roomValue;
 		}
-		
+
 	}
-	
+
 	public SizeCategory sizeCat;
 	{ setSizeCat(); }
-	
+
 	//Note that if a room wishes to allow itself to be forced to a certain size category,
 	//but would (effectively) never roll that size category, consider using Float.MIN_VALUE
 	public float[] sizeCatProbs(){
 		//always normal by default
 		return new float[]{1, 0, 0};
 	}
-	
+
 	public boolean setSizeCat(){
 		return setSizeCat(0, SizeCategory.values().length-1);
 	}
-	
+
 	//assumes room value is always ordinal+1
 	public boolean setSizeCat( int maxRoomValue ){
 		return setSizeCat(0, maxRoomValue-1);
 	}
-	
+
 	//returns false if size cannot be set
 	public boolean setSizeCat( int minOrdinal, int maxOrdinal ) {
 		float[] probs = sizeCatProbs();
 		SizeCategory[] categories = SizeCategory.values();
-		
+
 		if (probs.length != categories.length) return false;
-		
+
 		for (int i = 0; i < minOrdinal; i++)                    probs[i] = 0;
 		for (int i = maxOrdinal+1; i < categories.length; i++)  probs[i] = 0;
-		
+
 		int ordinal = Random.chances(probs);
-		
+
 		if (ordinal != -1){
 			sizeCat = categories[ordinal];
 			return true;
@@ -92,11 +92,11 @@ public abstract class StandardRoom extends Room {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public int minWidth() { return sizeCat.minDim; }
 	public int maxWidth() { return sizeCat.maxDim; }
-	
+
 	@Override
 	public int minHeight() { return sizeCat.minDim; }
 	public int maxHeight() { return sizeCat.maxDim; }
@@ -108,6 +108,45 @@ public abstract class StandardRoom extends Room {
 	}
 
 	//FIXME this is a very messy way of handing variable standard rooms
+	/*[GAME] java.lang.RuntimeException: fatal error occured while moving between floors. Seed
+:920131581372 depth:22
+        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.update(Interl
+evelScene.java:352)
+        at com.watabou.noosa.Game.update(Game.java:267)
+        at com.watabou.noosa.Game.step(Game.java:233)
+        at com.watabou.noosa.Game.render(Game.java:163)
+        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window.update(Lwjgl3Window.java:399)
+        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.loop(Lwjgl3Application.jav
+a:137)
+        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.<init>(Lwjgl3Application.j
+ava:111)
+        at com.shatteredpixel.shatteredpixeldungeon.desktop.DesktopLauncher.main(Desktop
+Launcher.java:155)
+Caused by: java.lang.IndexOutOfBoundsException: Index 25 out of bounds for length 25
+        at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
+        at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions
+.java:70)
+        at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:248)
+        at java.base/java.util.Objects.checkIndex(Objects.java:372)
+        at java.base/java.util.ArrayList.get(ArrayList.java:458)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom.c
+reateRoom(StandardRoom.java:169)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel.initRooms(Regula
+rLevel.java:116)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel.initRooms(HallsLev
+el.java:70)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel.build(RegularLev
+el.java:88)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.Level.create(Level.java:264)
+        at com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel.create(HallsLevel.
+java:107)
+        at com.shatteredpixel.shatteredpixeldungeon.Dungeon.newLevel(Dungeon.java:529)
+        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.descend(Inter
+levelScene.java:397)
+        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.access$300(In
+terlevelScene.java:59)
+Delete Room Crash
+*/
 	private static ArrayList<Class<?extends StandardRoom>> rooms = new ArrayList<>();
 	static {
 		rooms.add(EmptyRoom.class);
@@ -133,8 +172,9 @@ public abstract class StandardRoom extends Room {
 		rooms.add(ChasmRoom.class);
 		rooms.add(SkullsRoom.class);
 
+
 		rooms.add(PlantsRoom.class);
-		rooms.add(PlantsRoom.class);
+		rooms.add(AquariumRoom.class);
 		rooms.add(PlatformRoom.class);
 		rooms.add(BurnedRoom.class);
 		rooms.add(FissureRoom.class);
@@ -144,7 +184,7 @@ public abstract class StandardRoom extends Room {
 		rooms.add(SuspiciousChestRoom.class);
 		rooms.add(MinefieldRoom.class);
 	}
-	
+
 	private static float[][] chances = new float[27][];
 	static {
 		chances[1] =  new float[]{15,  10,10,5, 0,0,0, 0,0,0, 0,0,0, 0,0,0,  1,0,1,0,1,0,1,1,0,0};
@@ -164,10 +204,10 @@ public abstract class StandardRoom extends Room {
 		chances[21] = new float[]{15,  0,0,0, 0,0,0, 0,0,0, 0,0,0, 10,10,5,  1,1,1,1,1,1,1,1,1,1};
 		chances[26] = chances[25] = chances[24] = chances[23] = chances[22] = chances[21];
 	}
-	
-	
+
+
 	public static StandardRoom createRoom(){
 		return Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
 	}
-	
+
 }

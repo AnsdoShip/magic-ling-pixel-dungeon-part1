@@ -30,16 +30,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.watabou.utils.Random;
 
 public class BrownBat extends Mob {
 
+    private Object var3;
+    private Object var2;
     {
         spriteClass = BatSprite.BatEDSprite.class;
 
-        HP = HT = 15;
+        HP = HT = 5;
         defenseSkill = 24;
         baseSpeed = 1.3f;
 
@@ -57,15 +58,12 @@ public class BrownBat extends Mob {
 
         super.die(cause);
 
-        yell(Messages.get(this, "warning"));
-        //调用警报陷阱
-        //调用烈焰陷阱
-        int Click = 1;
-        if (3 == 3) {
-            Click = 1 + 10;
-            AlarmTrap Waring = new AlarmTrap();
-            Waring.pos = super.pos;
-            Waring.activate();
+        if (Random.Int(3) == 0) {
+            var3 = var2 ;
+            AlarmTrap var4 = new AlarmTrap();
+            var4.pos = super.pos;
+            var4.activate();
+
         }
             for (Buff buff : hero.buffs()) {
                 if (buff instanceof Blindness) {
@@ -77,12 +75,12 @@ public class BrownBat extends Mob {
 
     @Override
     public int damageRoll() {
-        return Random.NormalIntRange( 9, 15 );
+        return Random.NormalIntRange( 5, 5 );
     }
 
     @Override
     public int attackSkill( Char target ) {
-        return 15;
+        return 3;
     }
 
     @Override

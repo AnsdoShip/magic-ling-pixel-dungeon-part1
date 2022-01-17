@@ -24,6 +24,9 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nxhy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nyz;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RenShop;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -132,9 +135,11 @@ public class WndTradeItem extends WndInfoItem {
 						}
 					} else {
 						for (Mob mob : Dungeon.level.mobs) {
-							if (mob instanceof Shopkeeper) {
+							if (mob instanceof Shopkeeper || mob instanceof Nyz|| mob instanceof RenShop|| mob instanceof Nxhy) {
 								mob.yell(Messages.get(mob, "thief"));
 								((Shopkeeper) mob).flee();
+								((RenShop) mob).flee();
+								((Nxhy) mob).flee();
 								break;
 							}
 						}

@@ -72,6 +72,7 @@ public class Assets {
 		public static final String PRISON_EXIT_OLD  = "environment/custom_tiles/prison_exit_old.png";
 		public static final String PRISON_EXIT_NEW  = "environment/custom_tiles/prison_exit_new.png";
 		public static final String CAVES_BOSS       = "environment/custom_tiles/caves_boss.png";
+		public static final String P_BOSS       = "environment/custom_tiles/p_boss.png";
 		public static final String CITY_BOSS        = "environment/custom_tiles/city_boss.png";
 		public static final String HALLS_SP         = "environment/custom_tiles/halls_special.png";
 	}
@@ -253,6 +254,7 @@ public class Assets {
 		public static final String COLDRAT	= "sprites/coldrat.png";
 		public static final String REDSWARM	= "sprites/RedSearm.png";
 		public static final String REN		= "Ren/ren.png";
+		public static final String WHITE		= "Npcs/White.png";
 
 		public static final String RAT		= "sprites/rat.png";
 		public static final String BRUTE	= "sprites/brute.png";
@@ -318,5 +320,6 @@ public class Assets {
 		public static final String DM200	= "sprites/dm200.png";
 		public static final String LOTUS	= "sprites/lotus.png";
 		public static final String CRSTA	= "sprites/crstalspawn.png";
-	}
+        public static final Object NECROBLUE =  "sprites/bluenecromancer.png";
+    }
 }

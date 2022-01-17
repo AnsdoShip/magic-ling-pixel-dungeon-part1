@@ -27,8 +27,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.WhiteNPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.FeatherFall;
@@ -42,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
@@ -51,7 +54,15 @@ import com.watabou.utils.Random;
 public class Chasm implements Hero.Doom {
 
 	public static boolean jumpConfirmed = false;
-	
+	private static void tell(String text) {
+		Game.runOnRenderThread(new Callback() {
+								   @Override
+								   public void call() {
+									   GameScene.show(new WndQuest(new WhiteNPC(), text));
+								   }
+							   }
+		);
+	}
 	public static void heroJump( final Hero hero ) {
 		Game.runOnRenderThread(new Callback() {
 			@Override
@@ -63,7 +74,9 @@ public class Chasm implements Hero.Doom {
 								Messages.get(Chasm.class, "no") ) {
 							@Override
 							protected void onSelect( int index ) {
-								if (index == 0) {
+								if(Dungeon.hero.buff(LockedFloor.class) != null){
+									tell(Messages.get(WhiteNPC.class, "nonono"));
+								} else if (index == 0) {
 									jumpConfirmed = true;
 									hero.resume();
 								}

@@ -130,6 +130,7 @@ public abstract class SpellCaster extends Mob {
     public void activate(){
         alignment = Alignment.ENEMY;
         ((CrstalSprite) sprite).activate();
+        yell("水晶已经激活，请注意摧毁！");
     }
 
     @Override

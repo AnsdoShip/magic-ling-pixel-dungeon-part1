@@ -64,7 +64,6 @@ configurations { natives }
 
 dependencies {
     implementation 'com.github.RohitSurwase.UCE-Handler:uce_handler:1.4'
-
     implementation project(':core')
     implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"

@@ -21,9 +21,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
@@ -34,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.Image;
 
 import java.io.IOException;
 
@@ -109,29 +112,42 @@ public class WndGame extends Window {
 
 		addButtons(
 				// Main menu
+				//抢劫期间 退出游戏 存档给你说拜拜
 				new RedButton( Messages.get(this, "menu") ) {
 					@Override
 					protected void onClick() {
-						try {
-							Dungeon.saveAll();
-						} catch (IOException e) {
-							ShatteredPixelDungeon.reportException(e);
+						if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() || Dungeon.shopOnLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
+							Dungeon.deleteGame(GamesInProgress.curSlot, true);
+							Game.switchScene(TitleScene.class);
+						} else {
+							try {
+								Dungeon.saveAll();
+							} catch (IOException e) {
+								ShatteredPixelDungeon.reportException(e);
+							}
+							Game.switchScene(TitleScene.class);
 						}
-						Game.switchScene(TitleScene.class);
 					}
 				},
 				// Quit
 				new RedButton( Messages.get(this, "exit") ) {
 					@Override
 					protected void onClick() {
-						try {
-							Dungeon.saveAll();
-						} catch (IOException e) {
-							ShatteredPixelDungeon.reportException(e);
+						//抢劫期间 退出游戏 存档给你说拜拜
+						if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() || Dungeon.shopOnLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
+							Dungeon.deleteGame( GamesInProgress.curSlot, true );
+							Game.switchScene( TitleScene.class );
+						} else {
+							try {
+								Dungeon.saveAll();
+							} catch (IOException e) {
+								ShatteredPixelDungeon.reportException(e);
+							}
+							Game.instance.finish();
 						}
-						Game.instance.finish();
 					}
 				}
+
 		);
 
 		// Cancel
@@ -141,6 +157,18 @@ public class WndGame extends Window {
 				hide();
 			}
 		} );
+
+		//如果回合未完成 显示该按钮
+		if(!Dungeon.hero.ready) {
+			// Debug
+			addButton(curBtn = new RedButton(Messages.get(this, "debug")) {
+				@Override
+				protected void onClick() {
+					GameScene.logActorThread = true;
+				}
+			});
+			curBtn.icon(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16));
+		}
 		
 		resize( WIDTH, pos );
 	}

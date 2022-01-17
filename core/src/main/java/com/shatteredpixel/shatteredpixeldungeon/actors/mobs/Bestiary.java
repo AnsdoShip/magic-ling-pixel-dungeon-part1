@@ -185,13 +185,13 @@ public class Bestiary {
 			case 2:
 				return new ArrayList<>(Arrays.asList(Rat.class,
 						Rat.class, Rat.class, Gnoll.class, Gnoll.class,
-						Gnoll.class, OGPDLLS.class, OGPDNQHZ.class,Crab.class,Crab.class,Slime_Qs.class));
+						Gnoll.class, OGPDLLS.class, OGPDNQHZ.class));
 			case 3:
 				return new ArrayList<>(Arrays.asList(Rat.class,
 						Rat.class, Rat.class, Gnoll.class, Gnoll.class,
 						Gnoll.class, OGPDLLS.class, OGPDNQHZ.class,
 						OGPDZSLS.class, Rat.class, Rat.class,
-						Snake.class,Crab.class,Crab.class,Swarm.class,Crab.class,Slime_Red.class));
+						Snake.class,Crab.class,Crab.class,Swarm.class));
 			case 4:
 				return new ArrayList<>(Arrays.asList(Rat.class,
 						Gnoll.class, Gnoll.class
@@ -204,8 +204,7 @@ public class Bestiary {
 				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,Slime.class,Slime.class,Swarm.class,Crab.class));
 			case 6:
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
-						KagenoNusujin.class, BlackHost.class,
-						KagenoNusujin.class, Guard.class, DM100.class, DM100.class, DM100.class,
+						BlackHost.class,Guard.class, DM100.class, DM100.class, DM100.class,
 						Snake.class));
 
 			case 7:
@@ -214,15 +213,15 @@ public class Bestiary {
 						Thief.class,DM100.class,Necromancer.class));
 			case 8:
 				return new ArrayList<>(Arrays.asList(Skeleton.class,
-						KagenoNusujin.class, Skeleton.class,
+						 Skeleton.class,
 						Thief.class, Shaman.random(),BrownBat.class,BrownBat.class,
-						Shaman.random(), Guard.class, SRPDHBLR.class, BlackHost.class,BrownBat.class,Necromancer.class,
+						Shaman.random(), Guard.class, SRPDHBLR.class,Necromancer.class,
 						Necromancer.class,BrownBat.class));
 			case 9:
 				return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
 						Thief.class,Thief.class,BrownBat.class,
 						BrownBat.class,Necromancer.class,Necromancer.class,
-						DM100.class,BrownBat.class, BlackHost.class));
+						DM100.class,BrownBat.class, BlackHost.class,KagenoNusujin.class));
 
 			case 10:
 				return new ArrayList<>(Arrays.asList(Bat.class,
@@ -253,7 +252,14 @@ public class Bestiary {
 						DM201.class, FlameB01.class,
 						Brute.class,FlameB01.class,SRPDHBLR.class,ColdMagicRat.class,RedSwarm.class));
 
-			case 14:case15:
+			case 14:
+				return new ArrayList<>(Arrays.asList(
+						Bat.class,
+						MolotovHuntsman.class,
+						Spinner.class,
+						SRPDHBLR.class, MolotovHuntsman.class,
+						Brute.class,SRPDHBLR.class,FireGhost.class,ColdMagicRat.class,RedSwarm.class));
+				case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,

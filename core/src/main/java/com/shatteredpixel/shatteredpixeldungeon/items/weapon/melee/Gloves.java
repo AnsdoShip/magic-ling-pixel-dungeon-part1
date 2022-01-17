@@ -32,15 +32,15 @@ public class Gloves extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		DLY = 0.5f; //2x speed
+		DLY = 0.3f; //2x speed
 		
 		bones = false;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.5f*(tier+1));  //+1 per level, down from +2
+		return  Math.round(2.8f*(tier+1)) +     //5 base, down from 10
+				lvl*Math.round(0.9f*(tier+1));  //+1 per level, down from +2
 	}
 
 }

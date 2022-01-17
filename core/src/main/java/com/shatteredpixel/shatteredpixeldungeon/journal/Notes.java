@@ -69,6 +69,7 @@ public class Notes {
 		WELL_OF_TRANSMUTATION,
 		ALCHEMY,
 		GARDEN,
+		SHOP2,
 		STATUE,
 		SHOP,
 		

@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.MerchantsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -23,6 +22,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
@@ -124,7 +126,7 @@ public class NxhyShopRoom extends SpecialRoom {
         ArrayList<Item> itemsToSpawn2 = new ArrayList<>();
         int i = Dungeon.depth;
         Item w = Generator.random(Generator.wepTiers[4]);
-        itemsToSpawn2.add(Generator.random(Generator.misTiers[4]).quantity(2).identify());
+        //itemsToSpawn2.add(Generator.random(Generator.misTiers[4]).quantity(2).identify());
         itemsToSpawn2.add(new LeatherArmor().identify());
         w.cursed = true;
         w.level(0);
@@ -135,18 +137,27 @@ public class NxhyShopRoom extends SpecialRoom {
         itemsToSpawn2.add(ChooseBag(Dungeon.hero.belongings));
         itemsToSpawn2.add(new PotionOfHealing());
         itemsToSpawn2.add(new ScrollOfUpgrade());
-        itemsToSpawn2.add(new DriedRose());
-        itemsToSpawn2.add(new TimekeepersHourglass());
-        itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.POTION));
-        itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.POTION));
+        //itemsToSpawn2.add(new DriedRose());
         itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.POTION));
         itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.WAND));
         itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.WAND));
-        itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.RING));
-        itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.RING));
-        itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.RING));
         itemsToSpawn2.add(new ScrollOfIdentify());
         itemsToSpawn2.add(new ScrollOfRemoveCurse());
+            switch (Random.Int(5)) {
+                case 0:
+                case 1:
+                case 2:
+                default:
+                    itemsToSpawn2.add(new Food());
+                    break;
+                case 3:
+                case 4:
+                    itemsToSpawn2.add(new YellowSunBooks());
+                    break;
+                case 5:
+                    itemsToSpawn2.add(new MeatPie());
+                    break;
+            }
         itemsToSpawn2.add(new ScrollOfMagicMapping());
         for (int i2 = 0; i2 < 2; i2++) {
             if (Random.Int(2) == 0) {

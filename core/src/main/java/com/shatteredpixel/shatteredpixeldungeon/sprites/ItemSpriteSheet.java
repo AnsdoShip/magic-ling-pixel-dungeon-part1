@@ -716,6 +716,8 @@ public class ItemSpriteSheet {
 	public static final int	REDDEVIAL				= BAGS+42;
 	public static final int	REDDRAGON				= BAGS+43;
 	public static final int	DRAGONKINGHALOFIRE				= BAGS+44;
+	public static final int	ICEFISHSWORD				= BAGS+45;
+	public static final int	FIREFISHSWORD				= BAGS+46;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);
@@ -731,11 +733,16 @@ public class ItemSpriteSheet {
 	public static final int BREDBOOK=			MAINBOOKINDEX+2;
 	public static final int GREENBOOKS=			MAINBOOKINDEX+3;
 	public static final int YELLOWBOOKS=		MAINBOOKINDEX+4;
+	public static final int MOBBOOKS=			MAINBOOKINDEX+5;
+	public static final int MAGICGIRLBOOKS=		MAINBOOKINDEX+6;
+	public static final int NOKING=		MAINBOOKINDEX+7;
+	public static final int FIRELIYD=		MAINBOOKINDEX+8;
 
 	private static final int MAINPALYBOOKS     = xy(1, 40);
 	public static final int MONEYBOOKS=		MAINPALYBOOKS+1;
 	public static final int PINKBOOKS=		MAINPALYBOOKS+2;
 	public static final int DEBOOKS=		MAINPALYBOOKS+3;
+
 	//16 free slots
 
 	//for smaller 8x8 icons that often accompany an item sprite

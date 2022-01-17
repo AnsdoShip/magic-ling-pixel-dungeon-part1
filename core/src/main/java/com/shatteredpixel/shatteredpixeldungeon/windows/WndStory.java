@@ -35,6 +35,7 @@ import com.watabou.utils.SparseArray;
 
 public class WndStory extends Window {
 
+
 	private static final int WIDTH_P = 125;
 	private static final int WIDTH_L = 160;
 	private static final int MARGIN = 2;
@@ -57,6 +58,7 @@ public class WndStory extends Window {
 	public static final int ID_HALLSBOOS		= 9;
 	public static final int ID_CHAPTONEEND		= 10;
 	public static final int ID_ICEBOSS		= 11;
+	public static final int ID_PRISONBOSS2 = 12;
 	
 	private static final SparseArray<String> CHAPTERS = new SparseArray<>();
 	
@@ -74,6 +76,7 @@ public class WndStory extends Window {
 		CHAPTERS.put( ID_HALLSBOOS, "hallsboss" );
 		CHAPTERS.put( ID_CHAPTONEEND, "new" );
 		CHAPTERS.put( ID_ICEBOSS, "icedead" );
+		CHAPTERS.put( ID_PRISONBOSS2, "dkse" );
 	}
 
 	private IconTitle ttl;

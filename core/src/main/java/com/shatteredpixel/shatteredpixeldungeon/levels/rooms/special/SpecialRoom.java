@@ -127,7 +127,7 @@ public abstract class SpecialRoom extends Room {
 
 			floorSpecials.remove( ArmoryRoom.class );
 			floorSpecials.remove( CryptRoom.class );
-			floorSpecials.remove( LibraryRoom.class );
+			floorSpecials.remove( StatueRoom.class );
 			floorSpecials.remove( RunestoneRoom.class );
 			floorSpecials.remove( StatueRoom.class );
 			floorSpecials.remove( TreasuryRoom.class );

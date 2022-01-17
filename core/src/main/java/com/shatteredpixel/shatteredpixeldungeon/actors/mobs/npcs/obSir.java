@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.obSirSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
@@ -13,7 +14,7 @@ import com.watabou.utils.Random;
 
 public class obSir extends NPC {
 
-    private static final String[] TXT_RANDOM = {"说实话我的确被人追杀，虽然是\"黑骑士\"追的，不过我也利用我的帽子强制传送的，不过我还是知道那个\"黑骑士\"也来这里了，欸真让人头疼，如果你能帮我解决掉它，那么我会赠送你一个\"礼物\"的。","你知道那个叫回忆吗，那可是奸商我跟你讲，我还被迫给他写广告牌，不过他卖的商品真有点东西"};
+    private static final String[] TXT_RANDOM = {"新年快乐，我的朋友！","合家安康，幸福美满","在调查地牢的同时，不要忘记自己的家人"};
 
     {
         spriteClass = obSirSprite.class;
@@ -82,7 +83,7 @@ public class obSir extends NPC {
             rd=false;
             tell(Messages.get(obSir.class, "message3"));
         } else {
-            yell(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
+            GLog.p(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
         }
 
         return true;

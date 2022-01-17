@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.DimandKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastShopLevel;
@@ -172,6 +173,7 @@ public class Dungeon {
 	public static int depth;
 	public static int gold;
 	public static int cycle;
+	public static int nyzbuy;
 
 	public static int escalatingDepth() {
 		switch (cycle) {
@@ -228,7 +230,8 @@ public class Dungeon {
 
 		depth = -1;
 		gold = 0;
-
+		nyzbuy = 5;
+		//TODO 奈亚子购买次数
 		droppedItems = new SparseArray<>();
 		portedItems = new SparseArray<>();
 
@@ -430,7 +433,6 @@ public class Dungeon {
 						level = new SLMKingLevel();
 				}
 				break;
-
 			case 6:
 			case 7:
 			case 8:
@@ -441,10 +443,15 @@ public class Dungeon {
 				switch (Random.Int(2)) {
 					case 0:
 					default:
-						level = new OldPrisonBossLevel();
+						level = new DimandKingLevel();
+						//Statistics.spawnersDK++;
 						break;
 					case 1:
 						level = new NewPrisonBossLevel();
+						break;
+					case 2:
+						level =  new DimandKingLevel();
+						break;
 				}
 				break;
 			case 11:
@@ -459,7 +466,7 @@ public class Dungeon {
 					level = new CavesGirlDeadLevel();
 					break;
 				} else
-				switch (Random.Int(3)) {
+				switch (Random.Int(2)) {
 					case 0:
 					default:
 						level = new CaveTwoBossLevel();
@@ -468,10 +475,6 @@ public class Dungeon {
 					case 1:
 						//新版本的DM300
 						level = new NewCavesBossLevel();
-						break;
-					case 2:
-						//魔女
-						level = new CavesGirlDeadLevel();
 						break;
 				}
 				break;
@@ -514,10 +517,6 @@ public class Dungeon {
 						default:
 							level = new NewHallsBossLevel();
 							//YOG EAYS
-							break;
-						case 1:
-							//YOG HARD
-							level = new YogGodHardBossLevel();
 							break;
 					}
 				break;
@@ -564,6 +563,10 @@ public class Dungeon {
 	public static boolean shopOnLevel() {
 		return depth == 6 || depth == 11 || depth == 16;
 	}
+	//图书馆
+	public static boolean BooksRTD() {
+		return depth == 3 ||  depth == 7 || depth == 12 || depth == 18;
+	}
 
 
 	//冰雪结界
@@ -578,6 +581,10 @@ public class Dungeon {
 
 	public static boolean NxhyshopOnLevel() {
 		return depth == 8 || depth == 14 || depth == 19;
+	}
+
+	public static boolean NyzshopOnLevel() {
+		return depth == 14 || depth == 18;
 	}
 
 	public static boolean BlueS() {

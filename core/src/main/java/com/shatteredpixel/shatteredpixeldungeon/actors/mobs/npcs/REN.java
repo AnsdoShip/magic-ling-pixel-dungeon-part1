@@ -5,6 +5,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
@@ -82,7 +83,7 @@ public class REN extends NPC {
             rd=false;
             tell(Messages.get(REN.class, "message3"));
         } else {
-            yell(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
+            GLog.i(TXT_RANDOM[Random.Int(TXT_RANDOM.length)]);
         }
 
         return true;

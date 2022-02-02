@@ -22,7 +22,7 @@ JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
 [**Note: Due to Fork issues, this library will be deprecated in the second half! **]("#")
 #ReadMe
 [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
-# Magic Aya Pixel Dungeon
+# Magic Ling Pixel Dungeon
 [**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
 * **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Broken Pixel Dungeon**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE).

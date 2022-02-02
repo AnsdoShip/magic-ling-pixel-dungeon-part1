@@ -1,4 +1,5 @@
 [**注意:因为Fork问题，这个库将会在下半段废弃！**]("#")
+# ReadMe
 [**返回旧库**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # 魔绫像素地牢
 [**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)

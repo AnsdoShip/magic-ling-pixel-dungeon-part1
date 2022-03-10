@@ -21,14 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.BrokenBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.DeepBloodBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.GrassKingBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IceCityBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.MagicGirlBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -87,33 +81,11 @@ public class StudyRoom extends StandardRoom {
 		Item prize = (Random.Int(2) == 0) ? level.findPrizeItem() : null;
 
 		if (prize != null) {
-			switch (Random.Int(6)) {
-				case 0:
-				default:
-					level.drop(new Food().quantity(3),(center.x + center.y * level.width()));
-					//保底3个食物
-					break;
-				case 1:
-					level.drop(new DeepBloodBooks(),(center.x + center.y * level.width()));
-					break;
-				case 2:
-					level.drop(new GrassKingBooks(),(center.x + center.y * level.width()));
-					break;
-				case 3:
-					level.drop(new YellowSunBooks(),(center.x + center.y * level.width()));
-					break;
-				case 4:
-					level.drop(new MagicGirlBooks(),(center.x + center.y * level.width()));
-					break;
-				case 5:
-					level.drop(new IceCityBooks(),(center.x + center.y * level.width()));
-					break;
-				case 6:
-					level.drop(new BrokenBooks(),(center.x + center.y * level.width()));
-					break;
-
-			}
-
+			level.drop(prize, (center.x + center.y * level.width()));
+		} else {
+			level.drop(Generator.random( Random.oneOf(
+					Generator.Category.POTION,
+					Generator.Category.SCROLL)), (center.x + center.y * level.width()));
 		}
 	}
 }

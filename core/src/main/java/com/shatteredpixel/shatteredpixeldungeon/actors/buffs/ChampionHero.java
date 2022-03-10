@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public abstract class ChampionHero extends FlavourBuff {
@@ -43,6 +42,7 @@ public abstract class ChampionHero extends FlavourBuff {
     public int icon() {
         return BuffIndicator.UPGRADE;
     }
+
     @Override
     public float iconFadePercent() {
         return Math.max(0, (DURATION - visualcooldown()) / DURATION);
@@ -65,8 +65,9 @@ public abstract class ChampionHero extends FlavourBuff {
 
     @Override
     public String desc() {
-        return Messages.get(this, "desc");
+        return Messages.get(this, "desc",DURATION);
     }
+
 
     public void onAttackProc(Char hero ){
 
@@ -246,7 +247,7 @@ public abstract class ChampionHero extends FlavourBuff {
             color = 0xFF0000;
         }
 
-        private float multiplier = 1.79f;
+        private float multiplier = 1.09f;
 
         @Override
         public boolean act() {
@@ -273,20 +274,6 @@ public abstract class ChampionHero extends FlavourBuff {
         @Override
         public String desc() {
             return Messages.get(this, "desc", (int)(100*(multiplier-1)), (int)(100*(1 - 1f/multiplier)));
-        }
-
-        private static final String MULTIPLIER = "multiplier";
-
-        @Override
-        public void storeInBundle(Bundle bundle) {
-            super.storeInBundle(bundle);
-            bundle.put(MULTIPLIER, multiplier);
-        }
-
-        @Override
-        public void restoreFromBundle(Bundle bundle) {
-            super.restoreFromBundle(bundle);
-            multiplier = bundle.getFloat(MULTIPLIER);
         }
     }
 

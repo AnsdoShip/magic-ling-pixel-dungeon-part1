@@ -1,18 +1,25 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.WhiteNPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class KAmuletScene extends PixelScene {
 
@@ -22,8 +29,19 @@ public class KAmuletScene extends PixelScene {
     private static final float LARGE_GAP	= 8;
 
     public static boolean noText = false;
+    public ArrayList<Item> items = new ArrayList<>();
 
     private Image amulet;
+
+    private static void tell(String text) {
+        Game.runOnRenderThread(new Callback() {
+                                   @Override
+                                   public void call() {
+                                       GameScene.show(new WndQuest(new WhiteNPC(), text));
+                                   }
+                               }
+        );
+    }
 
     @Override
     public void create() {
@@ -43,8 +61,11 @@ public class KAmuletScene extends PixelScene {
         RedButton btnExit = new RedButton( Messages.get(this, "exit") ) {
             @Override
             protected void onClick() {
-                Dungeon.deleteGame( GamesInProgress.curSlot, true );
-                Game.switchScene( TitleScene.class );
+                Game.switchScene( GameScene.class );
+                for (Item item : items)
+                    Dungeon.quickslot.clearItem(item);
+                updateQuickslot();
+                tell(Messages.get("新的冒险在等着你！"));
             }
         };
         btnExit.setSize( WIDTH, BTN_HEIGHT );
@@ -54,7 +75,7 @@ public class KAmuletScene extends PixelScene {
             @Override
             protected void onClick() {
                 onBackPressed();
-            }
+        }
         };
         btnStay.setSize( WIDTH, BTN_HEIGHT );
         add( btnStay );

@@ -21,7 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class PotionOfExperience extends Potion {
@@ -31,11 +36,26 @@ public class PotionOfExperience extends Potion {
 
 		bones = true;
 	}
+
+	@Override
+	public String info() {
+		if(Dungeon.isChallenged(Challenges.EXSG)){
+			return isKnown() ? baddesc() : Messages.get(this, "unknown_desc");
+		} else {
+			return isKnown() ? desc() : Messages.get(this, "unknown_desc");
+		}
+	}
 	
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		hero.earnExp( hero.maxExp(), getClass() );
+
+		if (Dungeon.isChallenged(Challenges.EXSG)){
+			Buff.affect(hero, Bleeding.class).set( 6 );
+		} else {
+			hero.earnExp( hero.maxExp(), getClass() );
+		}
+
 	}
 	
 	@Override

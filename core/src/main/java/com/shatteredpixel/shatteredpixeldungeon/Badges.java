@@ -158,6 +158,7 @@ public class Badges {
 		SBDJS				(104),
 		KILL_MG			(105),
 		BIG_X				(106),
+		EXSG                (107),
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -896,9 +897,14 @@ public class Badges {
 	public static void KILLMG() {
 		displayBadge( Badge.KILL_MG );
 	}
+
 	public static void BIGX() {
 		displayBadge( Badge.BIG_X );
 	}
+	public static void EXSG() {
+		displayBadge( Badge.EXSG );
+	}
+
 	public static void GOODRLPT() {
 		displayBadge( Badge.RLPT );
 	}

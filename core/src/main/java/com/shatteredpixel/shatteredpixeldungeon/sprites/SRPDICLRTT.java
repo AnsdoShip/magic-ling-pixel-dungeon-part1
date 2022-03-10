@@ -5,7 +5,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.GameMath;
@@ -50,10 +49,6 @@ public class SRPDICLRTT extends MobSprite {
         return 0xFFcdcdb7;
     }
 
-    public void link(Char var1) {
-        super.link(var1);
-        this.add(State.BURNING);
-    }
 
     public Image setPos(float x, float y) {
         return null;

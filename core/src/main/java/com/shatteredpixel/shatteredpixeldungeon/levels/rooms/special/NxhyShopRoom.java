@@ -30,7 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -116,7 +116,7 @@ public class NxhyShopRoom extends SpecialRoom {
                     }
                 }
             }
-            level.drop(item, cell).type = Heap.Type.FOR_SALE;
+            level.drop( item, cell ).type = Heap.Type.FOR_SALE;
         }
     }
 
@@ -136,7 +136,7 @@ public class NxhyShopRoom extends SpecialRoom {
         itemsToSpawn2.add(new MerchantsBeacon());
         itemsToSpawn2.add(ChooseBag(Dungeon.hero.belongings));
         itemsToSpawn2.add(new PotionOfHealing());
-        itemsToSpawn2.add(new ScrollOfUpgrade());
+        itemsToSpawn2.add(new ScrollOfTransmutation());
         //itemsToSpawn2.add(new DriedRose());
         itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.POTION));
         itemsToSpawn2.add(Generator.randomUsingDefaults(Generator.Category.WAND));
@@ -218,6 +218,7 @@ public class NxhyShopRoom extends SpecialRoom {
         }
         throw new RuntimeException("Shop attempted to carry more than 63 items!");
     }
+
 
     protected static Bag ChooseBag(Belongings pack) {
         HashMap<Bag, Integer> bags = new HashMap<>();

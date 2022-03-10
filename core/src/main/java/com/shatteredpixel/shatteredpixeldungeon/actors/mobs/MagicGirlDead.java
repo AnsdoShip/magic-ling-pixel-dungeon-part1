@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -41,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
@@ -240,8 +238,6 @@ public class MagicGirlDead extends Boss {
         }
         if (damage >= 30){
             damage = 30 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
-            yell("想秒杀我？我可是翼绫曾经的护法!");
-            Buff.affect(hero, Degrade.class, 12f);
         }
         if(buff(RageAndFire.class)!=null) damage = Math.round(damage*0.1f);
 
@@ -281,7 +277,7 @@ public class MagicGirlDead extends Boss {
         Dungeon.level.drop(new PotionOfHealing().quantity(Random.Int(4, 7)), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfMagicMapping().quantity(2).identify(), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfUpgrade().quantity(Random.Int(3, 5)).identify(), pos).sprite.drop();
-        Dungeon.level.drop(new LloydsBeacon().quantity(1).identify(), pos).sprite.drop();
+
         Dungeon.level.drop(new WandOfGodIce().quantity(1).identify(), pos).sprite.drop();
     }
 

@@ -27,17 +27,25 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -52,14 +60,32 @@ import com.watabou.utils.Random;
 public class RedLunar extends Mob {
 
     {
-        HP =350;
-        HT= 350;
+        HP =250;
+        HT= 250;
         EXP = 20;
         defenseSkill = 12;
         spriteClass = BlueNecromancerSprite.class;
         HUNTING = new RedLunar.Hunting();
         maxLvl=-999;
+        flying=true;
+        properties.add(Property.BOSS);
+        properties.add(Property.FIERY);
     }
+    {
+        immunities.add(Sleep.class);
+
+        resistances.add(Terror.class);
+        resistances.add(Charm.class);
+        resistances.add(Vertigo.class);
+        resistances.add(Cripple.class);
+        resistances.add(Chill.class);
+        resistances.add(Frost.class);
+        resistances.add(Roots.class);
+        resistances.add(Slow.class);
+
+        immunities.add(Paralysis.class);
+    }
+
 
     @Override
     public int damageRoll() {
@@ -169,17 +195,15 @@ public class RedLunar extends Mob {
             GameScene.updateFog();
         }
     }
-    private int var2;
+
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        combo++;
-
-        if (Random.Int( 2 ) == 0) {
-            Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
-            enemy.sprite.burst( 0x000000, 5 );
+    public int attackProc(Char var1, int var2) {
+        var2 = super.attackProc(var1, var2 / 2);
+        if (Random.Int(2) == 0) {
+            ((Bleeding)Buff.affect(var1, Bleeding.class)).set((float)(var2 * 1));
+            ((Poison)Buff.affect(var1, Poison.class)).set((float)(var2 * 1));
         }
-
-        return super.attackProc( enemy, damage );
+        return var2;
     }
 
     private int level;
@@ -295,23 +319,6 @@ public class RedLunar extends Mob {
         Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
 
         //60% chance of 2 blobs, 30% chance of 3, 10% chance for 4. Average of 2.5
-        int blobs = Random.chances(new float[]{0, 0, 6, 3, 1});
-        for (int i = 0; i < blobs; i++){
-            int ofs;
-            do {
-                ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-            } while (!Dungeon.level.passable[pos + ofs]);
-            Dungeon.level.drop( new GooBlob(), pos + ofs ).sprite.drop( pos );
-        }
-    }
-
-    @Override
-    public void damage(int damage, Object src) {
-
-        if (damage >= 15) {
-            damage =15 + (int) (Math.sqrt(4 * (damage - 14) + 1) - 1) / 2;
-            Buff.affect(hero, Degrade.class, 12f);
-        }
     }
 
     private class Hunting extends Mob.Hunting{

@@ -1,8 +1,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.EXSG;
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.SBSG;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -18,7 +22,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
@@ -71,8 +74,8 @@ public class YogReal extends Boss {
         initProperty();
         initBaseStatus(0, 0, 1, 0, 1200, 0, 0);
         initStatus(500);
-        HP=4000;
-        HT=4000;
+        HP=1200;
+        HT=1200;
         spriteClass = YogSprite.class;
         properties.add(Property.IMMOVABLE);
         properties.add(Property.DEMONIC);
@@ -404,10 +407,9 @@ public class YogReal extends Boss {
                 damage = 25;
             }
         }
-        if (damage >= 180){
-            damage = 180 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
-            yell("尔等鼠辈，居然想秒杀我！");
-            hero.HP = 25;
+        if (damage >= 380){
+            damage = 380 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
+            hero.HT = 25;
             Buff.affect(hero, Degrade.class, 12f);
         }
 
@@ -479,6 +481,18 @@ public class YogReal extends Boss {
                     ||mob instanceof Succubus) {
                 mob.die( cause );
             }
+        }
+
+        if(Dungeon.isChallenged(RLPT)){
+            Badges.GOODRLPT();
+        }
+
+        if(Dungeon.isChallenged(SBSG)){
+            Badges.BIGX();
+        }
+
+        if(Dungeon.isChallenged(EXSG)){
+            Badges.EXSG();
         }
 
         Dungeon.level.viewDistance = 4;
@@ -589,7 +603,11 @@ public class YogReal extends Boss {
     }
 
     //used so death to yog's ripper demons have their own rankings description and are more aggro
-    public static class YogRealRipper extends RipperDemon {
+    public static class YogRealRipper extends Ice_Scorpio {
+        {
+            maxLvl = -999;
+            viewDistance = 8;
+        }
         @Override
         public void damage(int dmg, Object src){
             if(Dungeon.level.distance(pos, YogGodHardBossLevel.CENTER)<=4){
@@ -607,7 +625,7 @@ public class YogReal extends Boss {
         @Override
         public void damage(int dmg, Object src){
             if(Dungeon.level.distance(pos, YogGodHardBossLevel.CENTER)<=4){
-                dmg = Math.max(dmg/6, 2);
+                dmg = Math.max(dmg/3, 2);
             }
             super.damage(dmg, src);
         }

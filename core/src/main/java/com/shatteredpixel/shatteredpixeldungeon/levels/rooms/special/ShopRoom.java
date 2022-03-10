@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.FoliageMob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
@@ -102,16 +101,6 @@ public class ShopRoom extends SpecialRoom {
 	protected void placeShopkeeper( Level level ) {
 
 		int pos = level.pointToCell(center());
-		FoliageMob light = (FoliageMob)level.blobs.get( FoliageMob.class );
-		if (light == null) {
-			light = new FoliageMob();
-		}
-		for (int i=top + 1; i < bottom; i++) {
-			for (int j=left + 1; j < right; j++) {
-				light.seed( level, j + level.width() * i, 1 );
-			}
-		}
-		level.blobs.put( FoliageMob.class, light );
 		Mob shopkeeper = new Shopkeeper();
 		shopkeeper.pos = pos;
 		level.mobs.add( shopkeeper );

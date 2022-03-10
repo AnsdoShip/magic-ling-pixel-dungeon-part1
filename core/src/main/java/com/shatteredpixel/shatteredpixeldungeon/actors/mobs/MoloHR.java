@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.GooWarn;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -29,8 +28,8 @@ public class MoloHR extends Mob {
 
     public MoloHR() {
         this.spriteClass = MolotovHuntsmanSprite.class;
-        this.HT = 120;
-        this.HP = 120;
+        this.HT = 180;
+        this.HP = 180;
         this.defenseSkill = 10;
         this.EXP = 15;
         this.state = this.SLEEPING;
@@ -86,14 +85,12 @@ public class MoloHR extends Mob {
     }
 
     public int damageRoll() {
-        return Random.NormalIntRange(10, 9);
+        return Random.NormalIntRange(40, 49);
     }
 
     @Override
     public void die( Object cause ) {
         super.die( cause );
-
-        Ghost.Quest.process();
     }
 
     protected boolean getCloser(int var1) {

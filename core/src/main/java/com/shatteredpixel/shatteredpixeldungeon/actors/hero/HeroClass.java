@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.LevelTeleporter;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.MobPlacer;
+import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
@@ -44,18 +45,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.BrokenBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.DeepBloodBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.GrassKingBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IceCityBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IndexBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.MagicGirlBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.NoKingMobBooks;
-import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.AlchemicalCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -71,7 +70,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfFlameCurse
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
@@ -85,6 +83,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAffection;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfGodIce;
@@ -184,6 +183,11 @@ public enum HeroClass {
 			new PotionOfNoWater().quantity(9).identify().collect();
 		}
 
+		if ( Badges.isUnlocked(Badges.Badge.EXSG)){
+			Dungeon.gold = 1500;
+			new PotionOfExperience().quantity(2).identify().collect();
+		}
+
 		if ( Badges.isUnlocked(Badges.Badge.RLPT)){
 			new Stylus().quantity(1).identify().collect();
 			new Food().quantity(3).identify().collect();
@@ -192,7 +196,13 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new ChargrilledMeat().quantity(99).identify().collect();
+			new Amulet().quantity(1).identify().collect();
+			new SmallRation().quantity(99).identify().collect();
+			new StewedMeat().quantity(99).identify().collect();
+			new FrozenCarpaccio().quantity(99).identify().collect();
 			new ScrollOfTransmutation().quantity(99).identify().collect();
+			new PotionOfHaste().quantity(99).identify().collect();
 			new FireFishSword().quantity(1).identify().collect();
 			new IceFishSword().quantity(1).identify().collect();
 			new ElixirOfNukeCole().quantity(5).identify().collect();
@@ -253,14 +263,7 @@ public enum HeroClass {
 			new AquaBlast().quantity(1).identify().collect();
 			new ReclaimTrap().quantity(1).identify().collect();
 			new PotionOfLiquidFlameX().quantity(100).identify().collect();
-			new ScrollOfMirrorImage().quantity(100).identify().collect();
-			new YellowSunBooks().quantity(99).identify().collect();
-			new MagicGirlBooks().quantity(99).identify().collect();
-			new GrassKingBooks().quantity(99).identify().collect();
-			new IceCityBooks().quantity(99).identify().collect();
-			new DeepBloodBooks().quantity(99).identify().collect();
-			new NoKingMobBooks().quantity(99).identify().collect();
-			new BrokenBooks().quantity(99).identify().collect();
+			new WandOfCorruption().quantity(1).identify().collect();
 			Dungeon.gold = 600000000;
 			hero.STR = 27;
 			hero.lvl = 31;
@@ -356,6 +359,7 @@ public enum HeroClass {
 
 		new VelvetPouch().collect();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
+		new PotionOfHaste().quantity(4).identify().collect();
 
 		new PotionOfMindVision().identify();
 		new ScrollOfLullaby().identify();

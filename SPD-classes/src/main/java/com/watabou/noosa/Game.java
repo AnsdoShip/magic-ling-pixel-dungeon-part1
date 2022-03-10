@@ -54,7 +54,7 @@ public class Game implements ApplicationListener {
 	public static int height;
 	
 	// Density: mdpi=1, hdpi=1.5, xhdpi=2...
-	public static float density = 1;
+	public static float density = 2;
 	
 	public static String version;
 	public static int versionCode;

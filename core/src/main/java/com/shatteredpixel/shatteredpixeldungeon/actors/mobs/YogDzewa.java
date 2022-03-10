@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.EXSG;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.SBSG;
 
@@ -408,6 +409,10 @@ public class YogDzewa extends Mob {
 
 		if(Dungeon.isChallenged(SBSG)){
 			Badges.BIGX();
+		}
+
+		if(Dungeon.isChallenged(EXSG)){
+			Badges.EXSG();
 		}
 
 		updateVisibility(Dungeon.level);

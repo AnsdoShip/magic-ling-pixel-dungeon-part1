@@ -1,29 +1,29 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blizzard;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-
-import java.util.ArrayList;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.PointF;
+import com.watabou.utils.Random;
 
 public class WandOfGodIce extends DamageWand {
 
@@ -35,132 +35,111 @@ public class WandOfGodIce extends DamageWand {
 
     //1x/2x/3x damage
     public int min(int lvl){
-        return (8+lvl) * chargesPerCast();
+        return (9+lvl) * chargesPerCast();
     }
 
     //1x/2x/3x damage
     public int max(int lvl){
-        return (12*lvl) * chargesPerCast();
+        return (15*lvl) * chargesPerCast();
     }
 
-    ConeAOE cone;
-
     @Override
-    protected void onZap( Ballistica bolt ) {
+    protected void onZap(Ballistica beam) {
+        affectMap(beam);
 
-        ArrayList<Char> affectedChars = new ArrayList<>();
-        for( int cell : cone.cells ){
+        if (Dungeon.level.viewDistance < 6 ){
+            if (Dungeon.isChallenged(Challenges.DARKNESS)){
+                Buff.prolong( curUser, Chill.class, 2f + buffedLvl());
+            } else {
+                Buff.prolong( curUser, Chill.class, 10f+buffedLvl()*5);
+            }
+        }
 
-            //ignore caster cell
-            if (cell == bolt.sourcePos){
+        Char ch = Actor.findChar(beam.collisionPos);
+        if (ch != null){
+            processSoulMark(ch, chargesPerCast());
+            affectTarget(ch);
+        }
+    }
+
+    private void affectTarget(Char ch){
+        int dmg = damageRoll();
+
+        //three in (5+lvl) chance of failing
+        if (Random.Int(5+buffedLvl()) >= 3) {
+            Buff.prolong(ch, Chill.class, 2f + (buffedLvl() * 0.333f));
+            ch.sprite.emitter().burst(Speck.factory(Speck.STAR), 12 );
+        }
+
+        if (ch.properties().contains(Char.Property.BOSS)){
+            ch.sprite.emitter().start( ShadowParticle.CURSE, 0.05f, 10+buffedLvl() );
+            Sample.INSTANCE.play(Assets.Sounds.BURNING);
+
+            ch.damage(Math.round(dmg*2f), this);
+        } else {
+            ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+buffedLvl() );
+
+            ch.damage(dmg, this);
+        }
+
+    }
+
+    private void affectMap(Ballistica beam){
+        boolean noticed = false;
+        for (int c : beam.subPath(0, beam.dist)){
+            if (!Dungeon.level.insideMap(c)){
                 continue;
             }
+            for (int n : PathFinder.NEIGHBOURS9){
+                int cell = c+n;
 
-            //only ignite cells directly near caster if they are flammable
-            if (!Dungeon.level.adjacent(bolt.sourcePos, cell) || Dungeon.level.flamable[cell]){
-                GameScene.add( Blob.seed( cell, 6+chargesPerCast(), Blizzard.class ) );
-            }
+                if (Dungeon.level.discoverable[cell])
+                    Dungeon.level.mapped[cell] = true;
 
-            Char ch = Actor.findChar( cell );
-            if (ch != null) {
-                affectedChars.add(ch);
-            }
-        }
+                int terr = Dungeon.level.map[cell];
+                if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
 
-        for ( Char ch : affectedChars ){
-            processSoulMark(ch, chargesPerCast());
-            ch.damage(damageRoll(), this);
-            if (ch.isAlive()) {
-                Buff.prolong(ch, Vertigo.class, 15);
-                switch (chargesPerCast()) {
-                    case 1:
-                        break; //no effects
-                    case 2:
-                        Buff.affect(ch, Frost.class, 4f);
-                        break;
-                    case 3:
-                        Buff.affect( hero, Burning.class ).reignite( hero, 4f );
-                        break;
+                    Dungeon.level.discover( cell );
+
+                    GameScene.discoverTile( cell, terr );
+                    ScrollOfMagicMapping.discover(cell);
+
+                    noticed = true;
                 }
             }
+
+            CellEmitter.center(c).burst( RainbowParticle.BURST, Random.IntRange( 12, 25 ) );
         }
+        if (noticed)
+            Sample.INSTANCE.play( Assets.Sounds.SECRET );
+
+        GameScene.updateFog();
     }
 
     @Override
-    public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
-        //acts like blazing enchantment
-        new Lucky().proc( staff, attacker, defender, damage);
-    }
-
-    @Override
-    protected void fx( Ballistica bolt, Callback callback ) {
-        //need to perform flame spread logic here so we can determine what cells to put flames in.
-
-        // 4/6/8 distance
-        int maxDist = 2 + 2*chargesPerCast();
-        int dist = Math.min(bolt.dist, maxDist);
-
-        cone = new ConeAOE( bolt.sourcePos, bolt.path.get(dist),
-                maxDist,
-                30 + 20*chargesPerCast(),
-                collisionProperties | Ballistica.STOP_TARGET);
-
-        //cast to cells at the tip, rather than all cells, better performance.
-        for (Ballistica ray : cone.rays){
-            ((MagicMissile)curUser.sprite.parent.recycle( MagicMissile.class )).reset(
-                    MagicMissile.SHAMAN_BLUE,
-                    curUser.sprite,
-                    ray.path.get(ray.dist),
-                    null
-            );
-        }
-
-        //final zap at half distance, for timing of the actual wand effect
+    protected void fx( Ballistica beam, Callback callback ) {
         MagicMissile.boltFromChar( curUser.sprite.parent,
-                MagicMissile.FIRE_CONE,
+                MagicMissile.SHAMAN_PURPLE,
                 curUser.sprite,
-                bolt.path.get(dist/2),
-                callback );
+                beam.collisionPos,
+                callback);
         Sample.INSTANCE.play( Assets.Sounds.ZAP );
     }
 
     @Override
-    protected int chargesPerCast() {
-        //consumes 30% of current charges, rounded up, with a minimum of one.
-        return Math.max(1, (int)Math.ceil(curCharges*0.3f));
-    }
-
-    @Override
-    public String statsDesc() {
-        if (levelKnown)
-            return Messages.get(this, "stats_desc", chargesPerCast(), min(), max());
-        else
-            return Messages.get(this, "stats_desc", chargesPerCast(), min(0), max(0));
+    public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+        //cripples enemy
+        Buff.affect(defender, Bleeding.class).set( 4+staff.buffedLvl());
     }
 
     @Override
     public void staffFx(MagesStaff.StaffParticle particle) {
-        particle.color( 0x00EEEE );
+        particle.color( Random.Int( 0x00fffff ) );
         particle.am = 0.5f;
-        particle.setLifespan(0.6f);
-        particle.acc.set(0, -40);
-        particle.setSize( 0f, 3f);
-        particle.shuffleXY( 1.5f );
+        particle.setLifespan(1f);
+        particle.speed.polar(Random.Float(PointF.G2R), 2f);
+        particle.setSize( 1f, 2f);
+        particle.radiateXY( 0.5f);
     }
 
-    //public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
-//
-    //    {
-    //        inputs =  new Class[]{MagicalInfusion.class, ScrollOfMysticalEnergy.class, AquaBlast.class};
-    //        inQuantity = new int[]{1, 1, 1};
-//
-    //        cost = 10;
-//
-    //        output = WandOfScale.class;
-    //        outQuantity = 1;
-    //    }
-//
-    //}
-
 }
-

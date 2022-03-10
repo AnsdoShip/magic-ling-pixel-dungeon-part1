@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MurdererSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedDragonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
@@ -73,6 +74,102 @@ public class vM0_5_X_Changes {
         ChangeInfo changes = new ChangeInfo("风暴袭来，未完待续", true, "");
         changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
+
+        ChangeInfo changes14 = new ChangeInfo("V0.5.X.6-FV", true, "");
+        changes14.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes14);
+
+        changes = new ChangeInfo("新内容", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.CHALLENGE_ON), (Messages.get(vM0_5_X_Changes.class, "exsg")),
+                Messages.get(vM0_5_X_Changes.class, "exsglogs")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X12")));
+
+
+
+        ChangeInfo changes13 = new ChangeInfo("V0.5.X.0-HVA", true, "");
+        changes13.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes13);
+
+        changes = new ChangeInfo("新内容", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.SEED_POUCH), (Messages.get(vM0_5_X_Changes.class, "seed")),
+                Messages.get(vM0_5_X_Changes.class, "seedlogs")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X10")));
+
+        ChangeInfo changes12 = new ChangeInfo("V0.5.X.0-RV", true, "");
+        changes12.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes12);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.AUDIO), (Messages.get(vM0_5_X_Changes.class, "audio5")),
+                Messages.get(vM0_5_X_Changes.class, "audio5logs")));
+
+        changes.addButton(new ChangeButton(new NxhySprite(), (Messages.get(vM0_5_X_Changes.class,
+                "nxhyshopchanges")),
+                Messages.get(vM0_5_X_Changes.class, "nxhyshopchangeslogs")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.DG19), (Messages.get(vM0_5_X_Changes.class,
+                "icewandgod2")),
+                Messages.get(vM0_5_X_Changes.class, "icewandgod2logs")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X9")));
+
+        changes = new ChangeInfo("平衡", false, null);
+        changes.hardlight(Window.GREEN_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new SRPDICLRTT(), (Messages.get(vM0_5_X_Changes.class,
+                "iclr")),
+                Messages.get(vM0_5_X_Changes.class, "iclrlogs")));
+
+        Image yogs = new YogSprite();
+        yogs.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(yogs, (Messages.get(vM0_5_X_Changes.class, "superyog")),
+                Messages.get(vM0_5_X_Changes.class, "superyoglogs")));
+
+        changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "wids")),
+                Messages.get(vM0_5_X_Changes.class, "widslogs")));
+
+        changes.addButton(new ChangeButton(new RatSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "ratpo")),
+                Messages.get(vM0_5_X_Changes.class, "ratpologs")));
+
+        changes.addButton(new ChangeButton(new KagenoNusujinSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "kage2")),
+                Messages.get(vM0_5_X_Changes.class, "kage2logs")));
+
+        changes = new ChangeInfo("开发", false, null);
+        changes.hardlight(Window.SHPX_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.LING), (Messages.get(vM0_5_X_Changes.class, "dev9")),
+                Messages.get(vM0_5_X_Changes.class, "dev9logs")));
 
         ChangeInfo changes8 = new ChangeInfo("V0.5.X.0", true, "");
         changes8.hardlight(Window.SKYBULE_COLOR);
@@ -252,7 +349,7 @@ public class vM0_5_X_Changes {
         changeInfos.add(changes);
 
         Image issxa = new SlimeKingSprite();
-        issxa.scale.set(PixelScene.align(0.49f));
+        issxa.scale.set(PixelScene.align(0.89f));
         changes.addButton(new ChangeButton(issxa, (Messages.get(vM0_5_X_Changes.class, "kingno")),
                 Messages.get(vM0_5_X_Changes.class, "kingnologs")));
 
@@ -427,7 +524,7 @@ public class vM0_5_X_Changes {
                 Messages.get(vM0_5_X_Changes.class, "newitemslogs")));
 
         Image isa = new SlimeKingSprite();
-        isa.scale.set(PixelScene.align(0.49f));
+        isa.scale.set(PixelScene.align(0.89f));
         changes.addButton(new ChangeButton(isa, (Messages.get(vM0_5_X_Changes.class, "king")),
                 Messages.get(vM0_5_X_Changes.class, "kinglogs")));
 

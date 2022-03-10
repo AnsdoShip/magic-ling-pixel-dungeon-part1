@@ -104,7 +104,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public abstract class Char extends Actor {
-	
+
 	public int pos = 0;
 	
 	public CharSprite sprite;

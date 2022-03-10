@@ -28,10 +28,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HalomethaneBurning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -41,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -50,7 +53,14 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class SlimeKing extends Golem {
+public class SlimeKing extends SRPDICLR implements Callback {
+
+	private static final String COMBO = "combo";
+	private String[] attackCurse = {"雕虫小技", "班门弄斧",
+			"GAMEOVER"};
+	private int combo = 0;
+	private static final float TIME_TO_ZAP	= 0.5f;
+	private String[] deathCurse = {"一无所知的蠢货！"};
 
 	{
 		HP =100;
@@ -64,6 +74,51 @@ public class SlimeKing extends Golem {
 		properties.add(Property.BOSS);
 	}
 
+	private void zap() {
+		spend( TIME_TO_ZAP );
+
+		if (hit( this, enemy, true )) {
+			//TODO would be nice for this to work on ghost/statues too
+			if (enemy == Dungeon.hero && Random.Int( 2 ) == 0) {
+				Buff.prolong( enemy, Blindness.class, Degrade.DURATION );
+				Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
+			}
+
+			int dmg = Random.NormalIntRange( 2, 4 );
+			enemy.damage( dmg, new ColdMagicRat.DarkBolt() );
+
+			if (enemy == Dungeon.hero && !enemy.isAlive()) {
+				Dungeon.fail( getClass() );
+				GLog.n( Messages.get(this, "frost_kill") );
+			}
+		} else {
+			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+		}
+	}
+
+	protected boolean doAttack( Char enemy ) {
+
+		if (Dungeon.level.adjacent( pos, enemy.pos )) {
+
+			return super.doAttack( enemy );
+
+		} else {
+
+			if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+				sprite.zap( enemy.pos );
+				return false;
+			} else {
+				zap();
+				return true;
+			}
+		}
+	}
+
+	public void onZapComplete() {
+		zap();
+		next();
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 5, 8 );
@@ -72,6 +127,22 @@ public class SlimeKing extends Golem {
 	@Override
 	public int attackSkill( Char target ) {
 		return 12;
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(0, 10) > 7) {
+			this.sprite.showStatus(0x009999, this.attackCurse[Random.Int(this.attackCurse.length)], new Object[0]);
+		}
+		int damage2 = SlimeKing.super.attackProc(enemy, this.combo + damage);
+		this.combo++;
+		if (enemy.buff(Poison.class) == null) {
+			Buff.affect(enemy, Poison.class).set(15.0f);
+		}
+		if (this.combo > 3) {
+			this.combo = 1;
+		}
+		return damage2;
 	}
 
 	@Override
@@ -97,20 +168,6 @@ public class SlimeKing extends Golem {
 		}
 	}
 
-	private int combo = 0;
-
-	@Override
-	public boolean attack( Char enemy ) {
-		if (canAttack(enemy) && canTryToSummon()) {
-			return true;
-		} else if(canAttack(enemy)){
-			spend( attackDelay()*7f );
-			return super.attack(enemy);
-		}else if(canAttack(enemy)) {
-			return super.attack(enemy);
-		}
-		else return false;
-	}
 	private boolean chainsUsed = false;
 	private boolean chain(int target){
 		if (chainsUsed || enemy.properties().contains(Property.IMMOVABLE))
@@ -123,7 +180,8 @@ public class SlimeKing extends Golem {
 				|| Dungeon.level.pit[chain.path.get(1)])
 			return false;
 		else {
-			int newPos = -1;
+			int newPos;
+			newPos = -1;
 			for (int i : chain.subPath(1, chain.dist)){
 				if (!Dungeon.level.solid[i] && Actor.findChar(i) == null){
 					newPos = i;
@@ -131,7 +189,7 @@ public class SlimeKing extends Golem {
 				}
 			}
 
-			if (newPos == -1){
+			if (newPos == 0){
 				return false;
 			} else {
 				final int newPosFinal = newPos;
@@ -139,7 +197,7 @@ public class SlimeKing extends Golem {
 
 				if (sprite.visible) {
 					yell(Messages.get(this, "scorpion"));
-					summon();
+					//summon();
 					new Item().throwSound();
 					Sample.INSTANCE.play(Assets.Sounds.CHAINS);
 					sprite.parent.add(new Chains(sprite.center(), enemy.sprite.center(), new Callback() {
@@ -172,84 +230,19 @@ public class SlimeKing extends Golem {
 		}
 	}
 	private int var2;
-    @Override
-    public int attackProc( Char enemy, int damage ) {
-		combo++;
-
-        if (Random.Int( 2 ) == 0) {
-            Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
-            enemy.sprite.burst( 0x000000, 5 );
-        }
-
-        return super.attackProc( enemy, damage );
-    }
 
 	@Override
 	public void move( int step ) {
 		Dungeon.level.seal();
 		super.move( step );
 	}
-    private int summonCooldown = 10;
 
 	private void summon() {
 
-		delay = (int)(summonCooldown - (5 - 2 * (float)HP/HT));
+		delay = 8;
 
 		sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
 		Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
-
-		for(int i = 0;i <= (1 + (1 -(float)HP/HT)) ; i++){
-			int newPos;
-			do {
-				newPos = Random.Int(Dungeon.level.length());
-			} while (
-					Dungeon.level.solid[newPos] ||
-							Dungeon.level.distance(newPos, enemy.pos) < 4 ||
-							Actor.findChar(newPos) != null);
-			if (Random.Int(1000) <= 500){
-				Slime_Red rat = new Slime_Red();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(500) <= 250){
-				Slime_Orange rat = new Slime_Orange();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(250) <= 125){
-				Slime_Lt rat = new Slime_Lt();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(125) <= 75){
-				Slime_Qs rat = new Slime_Qs();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(75) <= 37){
-				Slime_Lg rat = new Slime_Lg();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(37) <= 18){
-				Slime_Sn rat = new Slime_Sn();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else{
-				Slime_Sz rat = new Slime_Sz();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}
-		}
 
 		yell( Messages.get(this, "arise") );
 	}
@@ -260,7 +253,7 @@ public class SlimeKing extends Golem {
 		BossHealthBar.assignBoss(this);
 		Music.INSTANCE.play(Assets.BGM_BOSSA, true);
 		yell( Messages.get(this, "notice") );
-		summon();
+		//summon();
 	}
 
 		@Override
@@ -297,6 +290,11 @@ public class SlimeKing extends Golem {
 					mob.die( cause );
 				}
 			}
+	}
+
+	@Override
+	public void call() {
+		next();
 	}
 
 	private class Hunting extends Mob.Hunting{

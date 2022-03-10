@@ -43,12 +43,12 @@ import java.util.Collection;
 public class LaboratoryRoom extends SpecialRoom {
 
 	public void paint( Level level ) {
-		
+
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.EMPTY_SP );
-		
+
 		Door entrance = entrance();
-		
+
 		Point pot = null;
 		if (entrance.x == left) {
 			pot = new Point( right-1, Random.Int( 2 ) == 0 ? top + 1 : bottom - 1 );
@@ -60,21 +60,21 @@ public class LaboratoryRoom extends SpecialRoom {
 			pot = new Point( Random.Int( 2 ) == 0 ? left + 1 : right - 1, top+1 );
 		}
 		Painter.set( level, pot, Terrain.ALCHEMY );
-		
+
 		int chapter = 1 + Dungeon.depth/5;
 		Blob.seed( pot.x + level.width() * pot.y, 1 + chapter*10 + Random.NormalIntRange(0, 10), Alchemy.class, level );
-		
+
 		int n = Random.NormalIntRange( 1, 3 );
 		for (int i=0; i < n; i++) {
 			int pos;
 			do {
 				pos = level.pointToCell(random());
 			} while (
-				level.map[pos] != Terrain.EMPTY_SP ||
-				level.heaps.get( pos ) != null);
+					level.map[pos] != Terrain.EMPTY_SP ||
+							level.heaps.get( pos ) != null);
 			level.drop( prize( level ), pos );
 		}
-		
+
 		//guide pages
 		Collection<String> allPages = Document.ALCHEMY_GUIDE.pages();
 		ArrayList<String> missingPages = new ArrayList<>();
@@ -83,7 +83,7 @@ public class LaboratoryRoom extends SpecialRoom {
 				missingPages.add(page);
 			}
 		}
-		
+
 		//4 pages in sewers, 6 in prison, 9 in caves+
 		int chapterTarget;
 		if (missingPages.size() <= 3){
@@ -93,12 +93,12 @@ public class LaboratoryRoom extends SpecialRoom {
 		} else {
 			chapterTarget = 1;
 		}
-		
+
 		if(!missingPages.isEmpty() && chapter >= chapterTarget){
-			
+
 			//for each chapter ahead of the target chapter, drop 1 additional page
 			int pagesToDrop = Math.min(missingPages.size(), (chapter - chapterTarget) + 1);
-			
+
 			for (int i = 0; i < pagesToDrop; i++) {
 				AlchemyPage p = new AlchemyPage();
 				p.page(missingPages.remove(0));
@@ -111,16 +111,16 @@ public class LaboratoryRoom extends SpecialRoom {
 				level.drop(p, pos);
 			}
 		}
-		
+
 		if (level instanceof RegularLevel && ((RegularLevel)level).hasPitRoom()){
 			entrance.set( Door.Type.REGULAR );
 		} else {
 			entrance.set( Door.Type.LOCKED );
 			level.addItemToSpawn( new IronKey( Dungeon.depth ) );
 		}
-		
+
 	}
-	
+
 	private static Item prize( Level level ) {
 
 		Item prize = level.findPrizeItem( Potion.class );

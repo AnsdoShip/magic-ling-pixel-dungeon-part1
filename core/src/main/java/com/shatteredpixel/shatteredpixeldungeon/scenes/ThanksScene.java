@@ -51,11 +51,11 @@ public class ThanksScene extends PixelScene {
         msg.setSize(elementWidth, 0);
         add(msg);
 
-        StyledButton link = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "加入魔绫总群"){
+        StyledButton link = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(ThanksScene.class,"join")){
             @Override
             protected void onClick() {
                 super.onClick();
-                String link = "https://jq.qq.com/?_wv=1027&k=l0xDPl0k";
+                String link = Messages.get(ThanksScene.class,"link");
                 DeviceCompat.openURI(link);
             }
         };
@@ -92,12 +92,11 @@ public class ThanksScene extends PixelScene {
             bg = Chrome.get(Chrome.Type.GREY_BUTTON_TR);
             add(bg);
 
-              String message = "编码致谢：\n-REN(夜临2作者)\n-Alexstrasza(注解作者)\n-SmuJB(诅咒作者)\n-Tianscar" +
-                      "(重置前的指导)\n-TrashBoxbodylev(经验作者)";
-                message += "\n\n测试致谢：\n-迷茫\n-小狐狸\n-摘希\n-ZIOM-ObSir\n-坏猫猫\n-不是史神\n-月鸾\n-口水猫";
-                message += "\n\n音乐致谢：\n-Prohonor\n-泰拉瑞亚\n-橙光游戏战斗BGM第二专辑";
-                message += "\n\n美术致谢：\n-被子\n-冷群怪\n-REN\n-Daniel Clan\n-奈亚子\n-TianScar";
-                message += "\n\n宣传致谢：\n-那些回忆\n-罗贝里";
+                String message = Messages.get(ThanksScene.class,"code");
+                message +=  Messages.get(ThanksScene.class,"test");
+                message +=  Messages.get(ThanksScene.class,"music");
+                message +=  Messages.get(ThanksScene.class,"art");
+                message +=  Messages.get(ThanksScene.class,"ad");
 
 
             text = PixelScene.renderTextBlock(message, 6);

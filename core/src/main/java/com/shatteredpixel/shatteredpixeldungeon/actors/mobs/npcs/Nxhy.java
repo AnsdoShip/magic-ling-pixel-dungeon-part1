@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedLunar;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MoloHR;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardEye;
@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NxhySprite;
@@ -30,7 +31,7 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
-public class Nxhy extends Shopkeeper {
+public class Nxhy extends NPC {
 
     {
         spriteClass = NxhySprite.class;
@@ -44,6 +45,9 @@ public class Nxhy extends Shopkeeper {
         if (!seenBefore && Dungeon.level.heroFOV[pos]) {
             yell(Messages.get(this, "greetings", Dungeon.hero.name()));
             seenBefore = true;
+        }
+        if (Dungeon.level.heroFOV[pos]){
+            Notes.add(Notes.Landmark.SHOP);
         }
         throwItem();
 
@@ -64,7 +68,7 @@ public class Nxhy extends Shopkeeper {
 
     public void flee() {
         destroy();
-
+        Notes.remove(Notes.Landmark.SHOP);
         sprite.killAndErase();
         CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
         GLog.negative(Messages.get(this,"guards"));
@@ -79,14 +83,13 @@ public class Nxhy extends Shopkeeper {
         GameScene.flash(0x80FFFFFF);
         Buff.affect(hero, Burning.class ).reignite( hero, 15f );
         Buff.affect(hero, Degrade.class, 12f);
-        Mob mob = new RedLunar();
+        Mob mob = new MoloHR();
         mob.pos = pos;
         GameScene.add(mob);
-        Dungeon.level.seal();
+        //Dungeon.level.seal();
         new ShopGuard().spawnAround(pos);
         new ShopGuardEye().spawnAround(pos);
         new ShopGuardDead().spawnAround(pos);
-        yell( Messages.get(this, "arise") );
         next();
     }
 
@@ -96,7 +99,12 @@ public class Nxhy extends Shopkeeper {
         for (Heap heap: Dungeon.level.heaps.valueList()) {
             if (heap.type == Heap.Type.FOR_SALE) {
                 CellEmitter.get( heap.pos ).burst( ElmoParticle.FACTORY, 4 );
-                heap.destroy();
+                if (heap.size() == 1) {
+                    heap.destroy();
+                } else {
+                    heap.items.remove(heap.size()-1);
+                    heap.type = Heap.Type.HEAP;
+                }
             }
         }
     }

@@ -71,6 +71,9 @@ public class Ballistica {
 		}
 	}
 
+	public Ballistica(int pos, int ignoreSoftSolid) {
+	}
+
 	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean ignoreSoftSolid ) {
 		int w = Dungeon.level.width();
 

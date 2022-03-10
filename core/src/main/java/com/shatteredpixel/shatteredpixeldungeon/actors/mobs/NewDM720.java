@@ -48,7 +48,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EarthParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CaveTwoBossLevel;
@@ -545,11 +544,6 @@ public class NewDM720 extends MolotovHuntsman {
         }
 
         Badges.validateBossSlain();
-
-        LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
-        if (beacon != null) {
-            beacon.upgrade();
-        }
 
         spend(attackDelay() * 3f);
         boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];

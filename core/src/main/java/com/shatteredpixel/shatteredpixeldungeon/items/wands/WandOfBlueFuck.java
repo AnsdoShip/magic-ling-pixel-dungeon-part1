@@ -74,12 +74,12 @@ public class WandOfBlueFuck extends DamageWand {
 
     //1x/2x/3x damage
     public int min(int lvl){
-        return (5+lvl+Dungeon.depth/5) * chargesPerCast();
+        return (1+lvl+Dungeon.depth/5) * chargesPerCast();
     }
 
     //1x/2x/3x damage
     public int max(int lvl){
-        return (12+2*lvl+Dungeon.depth/5) * chargesPerCast();
+        return (4*lvl+Dungeon.depth/5) * chargesPerCast();
     }
 
     ConeAOE cone;

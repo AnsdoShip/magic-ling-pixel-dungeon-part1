@@ -39,6 +39,8 @@ public class HaloFireImBlue extends Buff {
 
     public static final float DURATION	= 80f;
 
+    public static final float SURATION	= 7f;
+
     protected float left;
 
     private static final String LEFT	= "left";

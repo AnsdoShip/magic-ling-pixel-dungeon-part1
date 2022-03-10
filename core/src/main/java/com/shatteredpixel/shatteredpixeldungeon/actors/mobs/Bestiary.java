@@ -136,35 +136,31 @@ public class Bestiary {
 									Thief.class,DM100.class,Necromancer.class));
 						case 1:
 							return new ArrayList<>(Arrays.asList(Skeleton.class, Skeleton.class, Skeleton.class,
-									Thief.class,Thief.class,Thief.class,
-									DM100.class,Necromancer.class,Necromancer.class,
-									DM100.class,SRPDHBLR.class, BlackHost.class));
+									Thief.class,Thief.class,Fire_Scorpio.class,
+									DM201.class,SkullShaman.class,MolotovHuntsman.class,
+									DM201.class,SRPDHBLR.class, Ice_Scorpio.class));
 						case 2:
 							return new ArrayList<>(Arrays.asList(
-									Bat.class,
-									Brute.class,
-									Shaman.random(), SRPDHBLR.class,
-									Spinner.class, Spinner.class,
-									DM200.class, MolotovHuntsman.class,
-									Brute.class,
-									MolotovHuntsman.class,MolotovHuntsman.class,FireGhost.class));
+									Succubus.class, Succubus.class, Succubus.class,
+									Succubus.class, Succubus.class,
+									Eye.class,ShieldHuntsman.class,Ice_Scorpio.class,Fire_Scorpio.class));
 						case 3:
 							return new ArrayList<>(Arrays.asList(
-									Elemental.random(), Elemental.random(), Elemental.random(), Elemental.random(),
-									Monk.class,FireGhost.class,FireGhost.class));
+									Succubus.class, Succubus.class, Succubus.class,
+									Succubus.class, Succubus.class,
+									Eye.class,ShieldHuntsman.class,Ice_Scorpio.class,Fire_Scorpio.class,Albino.class));
 						case 4:
 							return new ArrayList<>(Arrays.asList(
-									Elemental.random(),
-									Warlock.class, Warlock.class,
-									Monk.class, Monk.class,
-									Golem.class, Golem.class, Golem.class,ShieldHuntsman.class));
+									Succubus.class, Succubus.class, Succubus.class,
+									Succubus.class, Succubus.class,
+									Eye.class,ShieldHuntsman.class,Ice_Scorpio.class));
 						case 5:
 							return new ArrayList<>(Arrays.asList(
-									Rat.class, Rat.class, Gnoll.class, Gnoll.class,
-									Gnoll.class, OGPDLLS.class, OGPDNQHZ.class,
-									OGPDZSLS.class, Rat.class, Rat.class,
-									Snake.class,
-									RedSwarm.class, ColdMagicRat.class));
+									Succubus.class,
+									Eye.class, Eye.class,
+									Scorpio.class, Eye.class, Eye.class,Succubus.class, Succubus.class,
+									Scorpio.class, Scorpio.class,Fire_Scorpio.class,Scorpio.class,ShieldHuntsman.class,
+									Ice_Scorpio.class,Fire_Scorpio.class));
 					}
 				default:
 					return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,

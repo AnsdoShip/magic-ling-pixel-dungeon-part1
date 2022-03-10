@@ -11,8 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDLLSTT;
 public class OGPDLLS extends Rat {
     public OGPDLLS() {
         this.spriteClass = OGPDLLSTT.class;
-        this.HT = 20;
-        this.HP = 20;
+        this.HT = 12;
+        this.HP = 12;
         this.maxLvl = 15;
         this.EXP = 6;
     }

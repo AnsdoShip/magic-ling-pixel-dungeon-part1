@@ -85,15 +85,15 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		float renderHeight = dispRatio > 1 ? PixelScene.MIN_HEIGHT_L : PixelScene.MIN_HEIGHT_P;
 		
 		//force power saver in this case as all devices must run at at least 2x scale.
-		if (Game.dispWidth < renderWidth*2 || Game.dispHeight < renderHeight*2)
+		if (Game.dispWidth < renderWidth*1.2 || Game.dispHeight < renderHeight*1)
 			SPDSettings.put( SPDSettings.KEY_POWER_SAVER, true );
 		
 		if (SPDSettings.powerSaver() && fullscreen){
 			
 			int maxZoom = (int)Math.min(Game.dispWidth/renderWidth, Game.dispHeight/renderHeight);
 			
-			renderWidth *= Math.max( 2, Math.round(1f + maxZoom*0.4f));
-			renderHeight *= Math.max( 2, Math.round(1f + maxZoom*0.4f));
+			renderWidth *= Math.max( 2, Math.round(2f + maxZoom*1.0f));
+			renderHeight *= Math.max( 2, Math.round(2f + maxZoom*1.0f));
 			
 			if (dispRatio > renderWidth / renderHeight){
 				renderWidth = renderHeight * dispRatio;

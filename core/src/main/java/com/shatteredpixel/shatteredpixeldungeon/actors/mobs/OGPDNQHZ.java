@@ -11,13 +11,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDNQHZTT;
 public class OGPDNQHZ extends Rat {
     public OGPDNQHZ() {
         this.spriteClass = OGPDNQHZTT.class;
-        this.HT = 10;
-        this.HP = 10;
+        this.HT = 14;
+        this.HP = 14;
         this.maxLvl = 16;
         this.EXP = 5;
     }
 
     public int attackProc(Char var1, int var2) {
-        return super.attackProc(var1, var2) + 5;
+        return super.attackProc(var1, var2) + 3;
     }
 }

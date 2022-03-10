@@ -25,8 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AmuletScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -38,7 +36,7 @@ import java.util.ArrayList;
 
 public class Amulet extends Item {
 
-	private static final String AC_END = "END";
+	private static final String AC_ENDS = "END";
 
 	{
 		image = ItemSpriteSheet.AMULET;
@@ -56,7 +54,7 @@ public class Amulet extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_END );
+		actions.add( AC_ENDS );
 		return actions;
 	}
 
@@ -65,34 +63,9 @@ public class Amulet extends Item {
 
 		super.execute( hero, action );
 
-		if (action.equals(AC_END)) {
-			showAmuletScene( false );
-		}
-	}
-
-	@Override
-	public boolean doPickUp(Hero hero) {
-		if (super.doPickUp( hero)) {
-
-			if (!Statistics.amuletObtained) {
-				Statistics.amuletObtained = true;
-				hero.spend(-TIME_TO_PICK_UP);
-
-				//add a delayed actor here so pickup behaviour can fully process.
-				Actor.addDelayed(new Actor(){
-					@Override
-					protected boolean act() {
-						Actor.remove(this);
-						showAmuletScene( true );
-						return false;
-					}
-				}, -5);
-			}
-
-			return true;
-		} else {
-			return false;
-		}
+		//if (action.equals(AC_ENDS)) {
+		//	showAmuletScene( false );
+		//}
 	}
 
 	private void showAmuletScene( boolean showText ) {

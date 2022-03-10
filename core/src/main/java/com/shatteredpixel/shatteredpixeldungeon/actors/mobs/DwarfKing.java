@@ -43,7 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -443,10 +442,6 @@ public class DwarfKing extends Mob {
 			m.die(null);
 		}
 
-		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
-		if (beacon != null) {
-			beacon.upgrade();
-		}
 
 		yell( Messages.get(this, "defeated") );
 	}
@@ -478,7 +473,7 @@ public class DwarfKing extends Mob {
 		}
 	}
 
-	public static class DKWarlock extends Warlock {
+	public static class DKWarlock extends FireGhostDead {
 		{
 			state = HUNTING;
 		}
@@ -504,10 +499,10 @@ public class DwarfKing extends Mob {
 
 				if (summon == DKWarlock.class){
 					particles.burst(ShadowParticle.CURSE, 10);
-					Sample.INSTANCE.play(Assets.Sounds.CURSED);
+					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				} else if (summon == DKMonk.class){
 					particles.burst(ElmoParticle.FACTORY, 10);
-					Sample.INSTANCE.play(Assets.Sounds.BURNING);
+					Sample.INSTANCE.play(Assets.Sounds.CURSED);
 				} else {
 					particles.burst(Speck.factory(Speck.BONE), 10);
 					Sample.INSTANCE.play(Assets.Sounds.BONES);

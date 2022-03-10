@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -58,7 +59,7 @@ public class Food extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_EAT );
+		actions.add(AC_EAT);
 		return actions;
 	}
 	
@@ -67,12 +68,12 @@ public class Food extends Item {
 
 		super.execute( hero, action );
 
-		if (action.equals( AC_EAT )) {
+		if (action.equals( AC_EAT ) && (Dungeon.isChallenged(Challenges.EXSG))) {
 			
 			detach( hero.belongings.backpack );
-			
+			Buff.affect(hero, Healing.class).setHeal((int) (0.2f * hero.HT + 5), 0.25f, 0);
 			satisfy(hero);
-			GLog.i( Messages.get(this, "eat_msg") );
+			GLog.i( Messages.get(this, "eat_good_msg") );
 			
 			hero.sprite.operate( hero.pos );
 			hero.busy();
@@ -86,6 +87,23 @@ public class Food extends Item {
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
 			
+		} else {
+			detach( hero.belongings.backpack );
+
+			satisfy(hero);
+			GLog.i( Messages.get(this, "eat_msg") );
+
+			hero.sprite.operate( hero.pos );
+			hero.busy();
+			SpellSprite.show( hero, SpellSprite.FOOD );
+			Sample.INSTANCE.play( Assets.Sounds.EAT );
+
+			hero.spend( eatingTime() );
+
+			Talent.onFoodEaten(hero, energy, this);
+
+			Statistics.foodEaten++;
+			Badges.validateFoodEaten();
 		}
 	}
 

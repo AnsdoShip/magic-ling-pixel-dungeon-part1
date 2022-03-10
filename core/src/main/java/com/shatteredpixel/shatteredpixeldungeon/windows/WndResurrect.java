@@ -26,10 +26,8 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Slyl;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -37,7 +35,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Game;
-import com.watabou.utils.Callback;
 
 public class WndResurrect extends Window {
 	
@@ -60,7 +57,7 @@ public class WndResurrect extends Window {
 		titlebar.label( Messages.titleCase(ankh.name()) );
 		titlebar.setRect( 0, 0, WIDTH, 0 );
 		add( titlebar );
-		
+
 		RenderedTextBlock message = PixelScene.renderTextBlock( Messages.get(this, "message"), 6 );
 		message.maxWidth(WIDTH);
 		message.setPos(0, titlebar.bottom() + GAP);
@@ -89,16 +86,6 @@ public class WndResurrect extends Window {
 		instance = null;
 	}
 
-	private void tell(String text) {
-		Game.runOnRenderThread(new Callback() {
-								   @Override
-								   public void call() {
-									   GameScene.show(new WndQuest(new Slyl(), text));
-								   }
-							   }
-		);
-	}
-	
 	@Override
 	public void onBackPressed() {
 	}

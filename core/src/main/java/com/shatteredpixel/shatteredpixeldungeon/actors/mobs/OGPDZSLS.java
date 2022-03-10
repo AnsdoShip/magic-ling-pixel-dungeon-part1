@@ -24,9 +24,6 @@
 
 package  com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDZSLSTT;
 import com.watabou.utils.Random;
 
@@ -42,12 +39,7 @@ public class OGPDZSLS extends Rat {
     }
 
     @Override
-    public int attackProc( Char enemy, int damage ) {
-        damage = super.attackProc( enemy, damage/2 );
-        if (Random.Int( 2 ) == 0) {
-            Buff.affect( enemy, Bleeding.class ).set( damage*1 );
-        }
-
-        return damage;
+    public int damageRoll() {
+        return Random.NormalIntRange( 5, 5 );
     }
 }

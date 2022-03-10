@@ -3,6 +3,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -23,16 +24,12 @@ public class IceFishSword extends MeleeWeapon{
         DLY = 0.7f; //2x speed
     }
 
-    public void bolt(Integer target, final Mob mob){
-        if (target != null) {
+    public void bolt(Mob mob){
+        if (mob.buff(Burning.class) != null){
 
-            final Ballistica shot = new Ballistica( curUser.pos, target, Ballistica.PROJECTILE);
-
-            fx(shot, new Callback() {
-                public void call() {
-                    onHit(shot, mob);
-                }
-            });
+            final Ballistica shot = new Ballistica( curUser.pos, Ballistica.IGNORE_SOFT_SOLID);
+            Buff.affect( mob, Burning.class ).reignite( mob, 7f );
+            fx(shot, () -> onHit(shot, mob));
         }
     }
 
@@ -56,7 +53,7 @@ public class IceFishSword extends MeleeWeapon{
     public int proc(Char attacker, Char defender, int damage) {
         if(attacker instanceof Hero){
         for(Mob mob : ((Hero) attacker).visibleEnemiesList()){
-            bolt(mob.pos, mob);
+            bolt(mob);
         }
     }
 

@@ -30,10 +30,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 public class NyzBombAndBooksRoom extends SpecialRoom {
 
     @Override
-    public int minWidth() { return 7; }
+    public int minWidth() { return 3; }
 
     @Override
-    public int minHeight() { return 7; }
+    public int minHeight() { return 3; }
 
     public void paint(Level level) {
         Painter.fill(level, this, 4);

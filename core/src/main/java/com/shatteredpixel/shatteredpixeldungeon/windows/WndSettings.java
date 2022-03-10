@@ -221,25 +221,7 @@ public class WndSettings extends WndTabbed {
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
 
-			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
-				optScale = new OptionSlider(Messages.get(this, "scale"),
-						(int)Math.ceil(2* Game.density)+ "X",
-						PixelScene.maxDefaultZoom + "X",
-						(int)Math.ceil(2* Game.density),
-						PixelScene.maxDefaultZoom ) {
-					@Override
-					protected void onChange() {
-						if (getSelectedValue() != SPDSettings.scale()) {
-							SPDSettings.scale(getSelectedValue());
-							ShatteredPixelDungeon.seamlessResetScene();
-						}
-					}
-				};
-				optScale.setSelectedValue(PixelScene.defaultZoom);
-				add(optScale);
-			}
-
-			if (!DeviceCompat.isDesktop() && PixelScene.maxScreenZoom >= 2) {
+			if (!DeviceCompat.isDesktop() && PixelScene.maxScreenZoom >=1) {
 				chkSaver = new CheckBox(Messages.get(this, "saver")) {
 					@Override
 					protected void onClick() {

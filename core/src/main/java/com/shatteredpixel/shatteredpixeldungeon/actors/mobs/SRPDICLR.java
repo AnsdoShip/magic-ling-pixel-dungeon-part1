@@ -44,8 +44,9 @@ public class SRPDICLR extends Mob {
 
     public SRPDICLR() {
         this.spriteClass = SRPDICLRTT.class;
-        this.HT = 25;
-        this.HP = 25;
+        this.HT = 15;
+        baseSpeed = 0.7f;
+        this.HP = 15;
         this.defenseSkill = 7;
         this.EXP = 15;
         this.maxLvl = 15;
@@ -89,11 +90,11 @@ public class SRPDICLR extends Mob {
     }
 
     public int attackSkill(Char target) {
-        return 16;
+        return 8;
     }
 
     public int damageRoll() {
-        return Random.NormalIntRange(11, 12);
+        return Random.NormalIntRange(5, 5);
     }
 
     public int attackProc(Char enemy, int damage) {
@@ -103,7 +104,6 @@ public class SRPDICLR extends Mob {
         int damage2 = SRPDICLR.super.attackProc(enemy, this.combo + damage);
         this.combo++;
         if (enemy.buff(Burning.class) == null) {
-            Buff.affect(enemy, Burning.class).reignite(enemy);
             Buff.prolong(enemy, Chill.class, Chill.DURATION * 3);
         }
         if (this.combo > 5) {

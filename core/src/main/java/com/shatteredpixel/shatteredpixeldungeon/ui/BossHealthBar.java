@@ -133,10 +133,10 @@ public class BossHealthBar extends Component {
 				rawShielding.scale.x = shield/max;
 
 				if (shield <= 0){
-					hpText.text(health + "/" + maxHp);
+					hpText.text(health + "/" + max);
 				}
 				else {
-					hpText.text(health + "+" + shield +  "/" + maxHp);
+					hpText.text(health + "+" + shield +  "/" + max);
 				}
 
 				//低于75%渲染成蓝色 低于35%渲染成红色

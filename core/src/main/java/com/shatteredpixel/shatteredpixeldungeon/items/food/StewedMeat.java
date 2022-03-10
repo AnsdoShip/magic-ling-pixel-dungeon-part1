@@ -21,8 +21,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class StewedMeat extends Food {
@@ -31,7 +36,18 @@ public class StewedMeat extends Food {
 		image = ItemSpriteSheet.STEWED;
 		energy = Hunger.HUNGRY/2f;
 	}
-	
+
+	@Override
+	protected void satisfy(Hero hero) {
+		super.satisfy( hero );
+		if (Dungeon.isChallenged(Challenges.EXSG)){
+			hero.earnExp( hero.maxExp(), getClass() );
+			hero.sprite.showStatus( CharSprite.POSITIVE, (Messages.get(StewedMeat.class, "upgrade")));
+		} else {
+			System.out.println("Hello World");
+		}
+	}
+
 	@Override
 	public int value() {
 		return 8 * quantity;

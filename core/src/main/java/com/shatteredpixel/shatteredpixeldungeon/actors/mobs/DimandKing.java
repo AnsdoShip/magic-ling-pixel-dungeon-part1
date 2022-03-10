@@ -23,10 +23,9 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EnergyParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -61,7 +60,7 @@ public class DimandKing extends Boss {
     {
         spriteClass = MimicSprite.Dimand.class;
         initProperty();
-        initBaseStatus(14, 23, 33, 22, 600, 5, 12);
+        initBaseStatus(14, 23, 33, 22, 200, 5, 12);
         initStatus(120);
         properties.add(Property.UNDEAD);
         HP=250;
@@ -540,7 +539,7 @@ public class DimandKing extends Boss {
         return super.isImmune(effect);
     }
 
-    public static class DKGhoul extends OGPDLLS {
+    public static class DKGhoul extends Skeleton {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
@@ -576,7 +575,7 @@ public class DimandKing extends Boss {
         }
     }
 
-    public static class DKWarlock extends BlackHost {
+    public static class DKWarlock extends FireGhostDead {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
@@ -616,14 +615,14 @@ public class DimandKing extends Boss {
             if (delay <= 0){
 
                 if (summon == DKWarlock.class){
-                    particles.pour( HalomethaneFlameParticle.FACTORY, 0.06f );
-                    //Sample.INSTANCE.play(Assets.Sounds.Fl);
+                    particles.burst(ShadowParticle.CURSE, 10);
+                    Sample.INSTANCE.play(Assets.Sounds.CURSED);
                 } else if (summon == DKMonk.class){
-                    particles.pour( SparkParticle.FACTORY, 0.06f );
-                    //Sample.INSTANCE.play(Assets.Sounds.BURNING);
+                    particles.burst( ShadowParticle.MISSILE, 10 );
+                    Sample.INSTANCE.play(Assets.Sounds.BURNING);
                 } else {
-                    particles.pour( FlameParticle.FACTORY, 0.06f );
-                   // Sample.INSTANCE.play(Assets.Sounds.BONES);
+                    particles.burst(EnergyParticle.FACTORY, 10);
+                   Sample.INSTANCE.play(Assets.Sounds.READ);
                 }
                 particles = null;
 

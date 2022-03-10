@@ -32,6 +32,8 @@ public class Haste extends FlavourBuff {
 	}
 	
 	public static final float DURATION	= 20f;
+
+	public static final float RURATION	= 8f;
 	
 	@Override
 	public int icon() {

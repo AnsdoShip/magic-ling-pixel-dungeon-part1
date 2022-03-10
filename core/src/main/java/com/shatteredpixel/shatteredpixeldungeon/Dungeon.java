@@ -37,6 +37,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.CustomGameSettings;
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.SeedUtil;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -61,7 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.OldPrisonBossLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.OldCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SLMKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
@@ -206,7 +208,8 @@ public class Dungeon {
 		challenges = SPDSettings.challenges();
 		mobsToChampion = -1;
 
-		seed = DungeonSeed.randomSeed();
+		String str = CustomGameSettings.getSeedString();
+		seed = str.equals("")?DungeonSeed.randomSeed(): SeedUtil.directConvert(str, 'A', 26);//DungeonSeed.randomSeed();
 
 		Actor.clear();
 		Actor.resetNextID();
@@ -287,16 +290,12 @@ public class Dungeon {
 					level = new SewerLevel();
 					break;
 				case 5:
-					switch (Random.Int(2)) {
+					switch (Random.Int(1)) {
 						case 0:
 						default:
 							level = new SewerBossLevel();
-							//天痕粘咕teleportEnemy();
-							//			summon();
-							//			yell(Messages.get(this, "tp"));
 							break;
 						case 1:
-							//史莱姆王
 							level = new SLMKingLevel();
 					}
 					break;
@@ -317,14 +316,7 @@ public class Dungeon {
 					}
 					break;
 				case 10:
-					switch (Random.Int(2)) {
-						case 0:
-						default:
-							level = new OldPrisonBossLevel();
-							break;
-						case 1:
 							level = new NewPrisonBossLevel();
-					}
 					break;
 				case 11:
 				case 12:
@@ -341,22 +333,8 @@ public class Dungeon {
 					}
 					break;
 				case 15:
-					switch (Random.Int(3)) {
-						case 0:
-						default:
-							level = new CavesGirlDeadLevel();
-							//DM720 T0
-							break;
-						//case 1:
-						//	//新版本的DM300
-						//	level = new NewCavesBossLevel();
-						//	break;
-						//case 2:
-						//	//老版本的DM300
-						//	level = new OldCavesBossLevel();
-						//	break;
-					}
-					break;
+						level = new OldCavesBossLevel();
+						break;
 				case 16:
 				case 17:
 				case 18:
@@ -400,7 +378,7 @@ public class Dungeon {
 					}
 					break;
 				case 25:
-					level = new YogGodHardBossLevel();
+					level = new NewHallsBossLevel();
 					break;
 				case 26:
 					level = new LastLevel();
@@ -443,7 +421,7 @@ public class Dungeon {
 				switch (Random.Int(2)) {
 					case 0:
 					default:
-						level = new DimandKingLevel();
+						level = new NewPrisonBossLevel();
 						//Statistics.spawnersDK++;
 						break;
 					case 1:
@@ -580,7 +558,7 @@ public class Dungeon {
 	//冰雪结界
 
 	public static boolean NxhyshopOnLevel() {
-		return depth == 8 || depth == 14 || depth == 19;
+		return depth == 9 || depth == 16;
 	}
 
 	public static boolean NyzshopOnLevel() {

@@ -441,7 +441,12 @@ public class Item implements Bundlable {
 	public String desc() {
 		return Messages.get(this, "desc");
 	}
-	
+
+	//恐药癔症
+	public String baddesc() {
+		return Messages.get(this, "bad_desc");
+	}
+
 	public int quantity() {
 		return quantity;
 	}

@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.custom.utils.CustomGameSettings;
 import com.watabou.utils.Bundle;
 
 public class Statistics {
@@ -135,6 +136,12 @@ public class Statistics {
 		qualifiedForNoKilling = bundle.getBoolean( NO_KILLING_QUALIFIED );
 		
 		amuletObtained	= bundle.getBoolean( AMULET );
+	}
+
+	private static void resetCustom(){
+		real_seconds = 0;
+		//Dungeon has been inited, so write directly.
+		isCustomSeed = !CustomGameSettings.getSeedString().equals("");
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ){

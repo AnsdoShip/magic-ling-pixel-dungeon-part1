@@ -264,9 +264,9 @@ public class DimandKingLevel extends Level {
     public String tileName( int tile ) {
         switch (tile) {
             case Terrain.WATER:
-                return Messages.get(CityLevel.class, "water_name");
+                return Messages.get(PrisonLevel.class, "water_name");
             case Terrain.HIGH_GRASS:
-                return Messages.get(CityLevel.class, "high_grass_name");
+                return Messages.get(PrisonLevel.class, "high_grass_name");
             default:
                 return super.tileName( tile );
         }
@@ -282,11 +282,10 @@ public class DimandKingLevel extends Level {
             case Terrain.WALL_DECO:
             case Terrain.EMPTY_DECO:
                 return Messages.get(CityLevel.class, "deco_desc");
-            case Terrain.EMPTY_SP:
-                return Messages.get(CityLevel.class, "sp_desc");
             case Terrain.STATUE:
+                return Messages.get(PrisonLevel.class, "statue");
             case Terrain.STATUE_SP:
-                return Messages.get(CityLevel.class, "statue_desc");
+                return Messages.get(PrisonLevel.class, "statue_desc");
             case Terrain.BOOKSHELF:
                 return Messages.get(CityLevel.class, "bookshelf_desc");
             default:

@@ -21,7 +21,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public class SmallRation extends Food {
@@ -29,6 +34,16 @@ public class SmallRation extends Food {
 	{
 		image = ItemSpriteSheet.OVERPRICED;
 		energy = Hunger.HUNGRY/2f;
+	}
+
+	@Override
+	protected void satisfy(Hero hero) {
+		super.satisfy( hero );
+		if (Dungeon.isChallenged(Challenges.EXSG)){
+			Buff.affect(hero, Haste.class,Haste.RURATION);
+		} else {
+			System.out.println("Hello World");
+		}
 	}
 	
 	@Override

@@ -22,6 +22,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -35,16 +37,30 @@ public class PotionOfStrength extends Potion {
 
 		unique = true;
 	}
-	
+
 	@Override
 	public void apply( Hero hero ) {
 		identify();
-		
-		hero.STR++;
-		hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "msg_1") );
-		GLog.p( Messages.get(this, "msg_2") );
-		
-		Badges.validateStrengthAttained();
+		if (Dungeon.isChallenged(Challenges.EXSG)) {
+			hero.STR--;
+			hero.sprite.showStatus( CharSprite.NEGATIVE, Messages.get(this, "bsg_1") );
+			GLog.n( Messages.get(this, "bsg_2") );
+			//癔症 力量减一
+		} else {
+			hero.STR++;
+			hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "msg_1") );
+			GLog.p( Messages.get(this, "msg_2") );
+			Badges.validateStrengthAttained();
+		}
+	}
+
+	@Override
+	public String info() {
+		if (Dungeon.isChallenged(Challenges.EXSG)) {
+			return isKnown() ? baddesc() : Messages.get(this, "unknown_desc");
+		} else {
+			return isKnown() ? desc() : Messages.get(this, "unknown_desc");
+		}
 	}
 
 	@Override

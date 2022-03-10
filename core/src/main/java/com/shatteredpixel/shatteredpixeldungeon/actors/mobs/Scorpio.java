@@ -37,7 +37,7 @@ import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
 public class Scorpio extends Mob {
-	
+	//驼峰命名法
 	{
 		spriteClass = ScorpioSprite.class;
 		

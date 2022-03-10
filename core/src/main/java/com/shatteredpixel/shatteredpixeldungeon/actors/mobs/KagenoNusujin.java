@@ -6,7 +6,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.BlazingTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
 import com.watabou.utils.Random;
@@ -14,7 +13,7 @@ import com.watabou.utils.Random;
 public class KagenoNusujin extends Mob {
     public KagenoNusujin() {
         this.spriteClass = KagenoNusujinSprite.class;
-        this.HT = this.HP =Random.Int(12,15);
+        this.HT = this.HP =10;
         this.defenseSkill = 16;
         this.maxLvl = 34;
         this.properties.add(Property.UNDEAD);
@@ -23,7 +22,7 @@ public class KagenoNusujin extends Mob {
     public int attackProc(Char var1, int var2) {
         int var3 = var2;
         if (Random.Int(3) == 0) {
-            var3 = var2 +6;
+            var3 = var2 +2;
             TeleportationTrap var4 = new TeleportationTrap();
             var4.pos = super.pos;
             var4.activate();
@@ -38,11 +37,11 @@ public class KagenoNusujin extends Mob {
     }
 
     public int attackSkill(Char var1) {
-        return 15;
+        return 6;
     }
 
     public int damageRoll() {
-        return Random.NormalIntRange(3, 12);
+        return Random.NormalIntRange(3, 9);
     }
 
     public int drRoll() {

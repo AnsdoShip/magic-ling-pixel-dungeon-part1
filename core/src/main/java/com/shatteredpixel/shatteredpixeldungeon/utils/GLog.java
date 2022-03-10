@@ -96,7 +96,7 @@ public class GLog {
 	public static void pink( String text, Object... args ) {
 		i( PINKTEXT + text, args );
 	}
-	//蓝色文本渲染
+	//粉色文本渲染
 	
 	public static void n( String text, Object... args ) {
 		i( NEGATIVE + text, args );

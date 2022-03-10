@@ -6,7 +6,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FireGhostDead;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.watabou.noosa.TextureFilm;
@@ -35,15 +34,6 @@ public class FireGhostDeadSprite extends MobSprite {
         return -33517;
     }
 
-    public void die() {
-        super.die();
-        this.remove(State.BURNING);
-    }
-
-    public void link(Char var1) {
-        super.link(var1);
-        this.add(State.BURNING);
-    }
     public void zap( int cell ) {
 
         turnTo( ch.pos , cell );

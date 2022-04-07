@@ -21,4 +21,5 @@
 # 许可证
 > * [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
+==============================================================
 > 特别鸣谢JetBrains提供的开发者免费开源授权

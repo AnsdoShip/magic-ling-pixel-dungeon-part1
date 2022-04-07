@@ -21,13 +21,17 @@ JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
 * [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
 [**Note: Due to Fork issues, this library will be deprecated in the second half! **]("#")
 # 特别鸣谢JetBrains提供的开发者免费开源授权
+## Special Thanks
+> [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
+
+[<img src=".github/core/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=magiclingpixeldungeon)
 ![图片](https://user-images.githubusercontent.com/70191651/162109900-32e757f8-939c-4967-8145-b1a8ab599875.png)
 #ReadMe
 [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # Magic Ling Pixel Dungeon
 [**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Broken Pixel Dungeon**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE).
+* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE).
 
 # Producer list
 

@@ -2,6 +2,8 @@
 ## Special Thanks
 > [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
 
+> [**中文介绍**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/README_ZH.md)
+
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
 #ReadMe

@@ -19,7 +19,6 @@
 
 # 许可证
 > * [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
-[**Note: Due to Fork issues, this library will be deprecated in the second half! **]("#")
 
 > 特别鸣谢JetBrains提供的开发者免费开源授权
 ## Special Thanks

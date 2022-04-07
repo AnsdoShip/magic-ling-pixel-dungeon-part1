@@ -24,7 +24,7 @@
 ## Special Thanks
 > [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
 
-[<img src="https://user-images.githubusercontent.com/70191651/162109900-32e757f8-939c-4967-8145-b1a8ab599875.png" width="200"/>](https://www.jetbrains.com/?from=magiclingpixeldungeon)
+[<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
 #ReadMe
 > [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)

@@ -6,7 +6,6 @@
 
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
-#ReadMe
 > [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # Magic Ling Pixel Dungeon
 > [**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)

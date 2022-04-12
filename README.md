@@ -1,31 +1,16 @@
-[**注意:因为Fork问题，这个库将会在下半段废弃！**]("#")
-# ReadMe
-[**返回旧库**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
-# 魔绫像素地牢
-[**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE)。
+## Special Thanks
+> [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
 
-# 制作人名单
+> [**中文介绍**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/README_ZH.md)
 
-* **策划**</br>
-JDSA Ling
-* **程序**</br>
-JDSA Ling & 碳酸天剑
-* **音乐**</br>
-Prohonor
-* **美工**</br>
-JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
+[<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
-# 许可证
-* [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
-[**Note: Due to Fork issues, this library will be deprecated in the second half! **]("#")
-#ReadMe
-[**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
+> [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # Magic Ling Pixel Dungeon
-[**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
+> [**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Broken Pixel Dungeon**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE).
+* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon).
 
 # Producer list
 

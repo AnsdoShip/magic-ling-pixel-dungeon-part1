@@ -21,7 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -44,7 +45,7 @@ public class TalentsPane extends ScrollPane {
 	RenderedTextBlock blockText;
 
 	public TalentsPane( boolean canUpgrade ) {
-		this( canUpgrade, Dungeon.hero.talents );
+		this( canUpgrade, hero.talents );
 	}
 
 	public TalentsPane( boolean canUpgrade, ArrayList<LinkedHashMap<Talent, Integer>> talents ) {
@@ -56,11 +57,13 @@ public class TalentsPane extends ScrollPane {
 			tiersAvailable = Talent.MAX_TALENT_TIERS;
 		} else {
 			while (tiersAvailable < Talent.MAX_TALENT_TIERS
-					&& Dungeon.hero.lvl+1 >= Talent.tierLevelThresholds[tiersAvailable+1]){
+					&& hero.lvl+1 >= Talent.tierLevelThresholds[tiersAvailable+1]){
 				tiersAvailable++;
 			}
-			if (tiersAvailable > 2 && Dungeon.hero.subClass == HeroSubClass.NONE){
+			if (tiersAvailable > 2 && hero.subClass == HeroSubClass.NONE){
 				tiersAvailable = 2;
+			} else if(tiersAvailable > 3 && hero.subClass == HeroSubClass.NONE){
+				tiersAvailable = 3;
 			}
 		}
 
@@ -88,8 +91,10 @@ public class TalentsPane extends ScrollPane {
 			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier2"), 6);
 		} else if (tiersAvailable == 2) {
 			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier3"), 6);
+		} else if (tiersAvailable == 3) {
+			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier4"), 6);
 		} else {
-			blockText = PixelScene.renderTextBlock(Messages.get(this, "coming_soon"), 6);
+			blockText = PixelScene.renderTextBlock(Messages.get(this, "magic"), 6);
 		}
 		content.add(blockText);
 	}
@@ -172,8 +177,8 @@ public class TalentsPane extends ScrollPane {
 			}
 
 			int totStars = Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier];
-			int openStars = Dungeon.hero.talentPointsAvailable(tier);
-			int usedStars = Dungeon.hero.talentPointsSpent(tier);
+			int openStars = hero.talentPointsAvailable(tier);
+			int usedStars = hero.talentPointsSpent(tier);
 			for (int i = 0; i < totStars; i++){
 				Image im = new Speck().image(Speck.STAR);
 				stars.add(im);

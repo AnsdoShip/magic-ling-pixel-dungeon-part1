@@ -21,10 +21,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.PRO;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Statistics.spawnersIce;
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.DIED_GOD;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -43,7 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -51,7 +50,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
@@ -66,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -142,7 +141,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurretDied;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -168,7 +166,14 @@ public class Hero extends Char {
 	public static final int MAX_LEVEL = 30;
 
 	public static final int STARTING_STR = 10;
+
+	public static final int STARTING_DSA = Random.Int(1,9);
+
 	private short lives=3;
+
+	//随机
+	public short nyzrandom=1;
+
 	private static final float TIME_TO_REST		    = 1f;
 	private static final float TIME_TO_SEARCH	    = 2f;
 	private static final float HUNGER_FOR_SEARCH	= 6f;
@@ -197,10 +202,15 @@ public class Hero extends Char {
 
 	public int STR;
 
+	//ReFixed
+	public int NYZSHOP;
+
 	public float awareness;
 
 	public int lvl = 1;
 	public int exp = 0;
+
+	public int nyzshop = Random.Int(1,9);
 
 	public void damageSanity(int i) {
 	}
@@ -218,7 +228,7 @@ public class Hero extends Char {
 
 		HP = HT = 20;
 		STR = STARTING_STR;
-
+		NYZSHOP = STARTING_DSA;
 		belongings = new Belongings( this );
 
 		visibleEnemies = new ArrayList<>();
@@ -512,11 +522,12 @@ public class Hero extends Char {
 	public int damageRoll() {
 		KindOfWeapon wep = belongings.weapon;
 		int dmg;
-
 		if (wep != null) {
 			dmg = wep.damageRoll( this );
 			if (!(wep instanceof MissileWeapon)) dmg += RingOfForce.armedDamageBonus(this);
-		} else {
+		} else if (hero.hasTalent(DIED_GOD)){
+			dmg = 5 + hero.pointsInTalent(DIED_GOD);
+		} else  {
 			dmg = RingOfForce.damageRoll(this);
 		}
 		if (dmg < 0) dmg = 0;
@@ -1048,22 +1059,10 @@ public class Hero extends Char {
 						}
 					});
 					ready();
-				} else if (Dungeon.isChallenged(PRO)) {
-						hero.HP = 4;
-						hero.HT = 4;
-					Buff.affect(hero, Burning.class).reignite(hero);
-					Buff.affect(hero, Bleeding.class).set( 4 );
-					Buff.affect(hero, Blindness.class,Degrade.DURATION);
-					Buff.prolong( hero, Degrade.class, Degrade.DURATION );
-						Game.runOnRenderThread(new Callback() {
-							@Override
-							public void call() {
-								GameScene.show( new WndMessage( Messages.get(Hero.this, "xie") ) );
-							}
-						});
-						ready();
+
 				} else {
 					Badges.silentValidateHappyEnd();
+					Badges.UP_PALF();
 					Dungeon.win( Amulet.class );
 					Dungeon.deleteGame( GamesInProgress.curSlot, true );
 					Game.switchScene( SurfaceScene.class );
@@ -1692,9 +1691,7 @@ public class Hero extends Char {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
-					if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() ) {
-						GameScene.show(new WndResurretDied(finalAnkh, cause));
-					} else {
+					if (Dungeon.hero.buff(LockedFloor.class) == null) {
 						GameScene.show(new WndResurrect(finalAnkh, cause));
 					}
 				}
@@ -1757,7 +1754,13 @@ public class Hero extends Char {
 			items.remove( item );
 		}
 
-		GameScene.gameOver();
+		Game.runOnRenderThread(new Callback() {
+			@Override
+			public void call() {
+				GameScene.gameOver();
+				Sample.INSTANCE.play( Assets.Sounds.DEATH );
+			}
+		});
 
 		if (cause instanceof Hero.Doom) {
 			((Hero.Doom)cause).onDeath();
@@ -1805,10 +1808,10 @@ public class Hero extends Char {
 			Buff.affect(hero, Barkskin.class).set( 2 + hero.lvl/4, 10 );
 			Buff.prolong(this, Bless.class,Bless.GODSPOERF);
 			Buff.affect(this, Haste.class, Haste.DURATION/20);
-			Buff.affect(this, Invisibility.class, Invisibility.DURATION/10f);
+			Buff.affect(this, Shadows.class, Shadows.DURATION/10f);
 		} else if(Dungeon.PrisonWaterLevel()&& !Dungeon.level.water[pos])
 			for (Buff buff : hero.buffs()) {
-				if (buff instanceof Invisibility||buff instanceof Haste ) {
+				if (buff instanceof Shadows||buff instanceof Haste ) {
 				buff.detach();
 			}
 		}

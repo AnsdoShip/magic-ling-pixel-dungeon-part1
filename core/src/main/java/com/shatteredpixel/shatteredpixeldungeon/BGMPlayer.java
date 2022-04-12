@@ -31,6 +31,22 @@ public class BGMPlayer {
             Music.INSTANCE.play(Assets.Music.THEME, true);
     }
 
+    /*
+    第1层 补给层
+    第2层 粘咕
+    第3层 史莱姆王
+    第4层 补给层
+    第5层 天狗
+    第6层 宝箱王
+    第7层 补给层
+    第8层 DM720
+    第9层 冰雪魔女
+    第10层 DM300
+    第11层 补给层
+    第12层 EX古神
+    **第13层** DM920
+     */
+
     public static void playBoss() {
         int t = Dungeon.depth;
         if (Dungeon.bossLevel() && t == 5) {

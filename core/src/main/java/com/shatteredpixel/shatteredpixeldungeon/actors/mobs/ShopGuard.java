@@ -49,7 +49,7 @@ public class ShopGuard extends Statue {
         maxLvl = -200;
         state = HUNTING;
         spriteClass = StatueSprite.class;
-        HP=HT=Random.Int(30, 70);
+        HP=HT=Random.Int(50, 100);
     }
 
     protected Armor armor;
@@ -58,7 +58,7 @@ public class ShopGuard extends Statue {
         super();
 
         do {
-            weapon = (MeleeWeapon) Generator.random(Generator.Category.WEAPON);
+            weapon = (MeleeWeapon) Generator.random(Generator.Category.WEP_T5);
         } while (weapon.cursed);
 
         weapon.enchant( Weapon.Enchantment.random() );

@@ -349,7 +349,7 @@ public class Generator {
 					MagesStaff.class,
 					BlackDog.class,
 			};
-			WEP_T1.probs = new float[]{ 1, 1, 1, 0,4 };
+			WEP_T1.probs = new float[]{ 1, 1, 1, 0, 4 };
 			
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
@@ -372,7 +372,7 @@ public class Generator {
 					Dairikyan.class,
 					GreenSword.class,
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 ,3,4,8,0};
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 0, 4 ,3,4,8,0};
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
@@ -380,9 +380,10 @@ public class Generator {
 					Flail.class,
 					RunicBlade.class,
 					AssassinsBlade.class,
-					Crossbow.class
+					Crossbow.class,
+					Sai.class
 			};
-			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
+			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4, 3 };
 			
 			WEP_T5.classes = new Class<?>[]{
 					Greatsword.class,

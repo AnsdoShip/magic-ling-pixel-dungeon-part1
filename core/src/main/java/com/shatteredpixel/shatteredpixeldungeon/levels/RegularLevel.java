@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -28,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RandomBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
@@ -49,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.IceCrystalLRRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NxhyShopRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NyzBombAndBooksRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
@@ -119,20 +122,23 @@ public abstract class RegularLevel extends Level {
 			initRooms.add(s);
 		}
 		
-		if (Dungeon.shopOnLevel())
+		if (Dungeon.shopOnLevel() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new ShopRoom());
 
-		if (Dungeon.BooksRTD())
+		if (Dungeon.BooksRTD() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new StudyRoom());
 
-		if (Dungeon.iceCursedLevel())
+		if (Dungeon.iceCursedLevel() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new IceCrystalLRRoom());
 
-		if (Dungeon.NxhyshopOnLevel())
+		if (Dungeon.NxhyshopOnLevel() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new NxhyShopRoom());
 
-		//if (Dungeon.NyzshopOnLevel())
-		//	initRooms.add(new NyzBombAndBooksRoom());
+		if (Dungeon.NyzshopOnLevel() && (!Dungeon.isChallenged(ALLBOSS))) {
+			Buff.affect(hero, RandomBuff.class).set( (3 + Random.Int(9)+hero.STR/6+hero.HP/30)/Random.Int(1,2)+5, 1 );
+			System.out.println(RandomBuff.level);
+			initRooms.add(new NyzBombAndBooksRoom());
+		}
 
 
 		//force max special rooms and add one more for large levels

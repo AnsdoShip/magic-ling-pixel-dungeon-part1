@@ -50,6 +50,7 @@ public class BoomSword extends MeleeWeapon {
         return (this.tier + 1) * 4 + (this.tier + 1) * var1;
     }
 
+    @Override
     public int proc(Char var1, Char var2, int var3) {
         if (Random.Int(3) == 0) {
             Bomb var4 = new Bomb();

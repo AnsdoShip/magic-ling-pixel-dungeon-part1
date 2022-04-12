@@ -171,6 +171,7 @@ public class SPDSettings extends GameSettings {
 	
 	public static final String KEY_LAST_CLASS	= "last_class";
 	public static final String KEY_CHALLENGES	= "challenges";
+	public static final String KEY_HARD	= "hard";
 	public static final String KEY_INTRO		= "intro";
 
 	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
@@ -193,6 +194,14 @@ public class SPDSettings extends GameSettings {
 	
 	public static void challenges( int value ) {
 		put( KEY_CHALLENGES, value );
+	}
+
+	public static void hard( int value ) {
+		put( KEY_HARD, value );
+	}
+
+	public static int hard() {
+		return getInt( KEY_HARD, 0, 0, Challenges.MAX_VALUE );
 	}
 	
 	public static int challenges() {

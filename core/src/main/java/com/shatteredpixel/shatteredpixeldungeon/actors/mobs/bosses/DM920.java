@@ -1,48 +1,39 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3)
-//* Pixel Dungeon
-//        * Copyright (C) 2012-2015 Oleg Dolya
-//        *
-//        * Shattered Pixel Dungeon
-//        * Copyright (C) 2014-2019 Evan Debenham
-//        *
-//        * This program is free software: you can redistribute it and/or modify
-//        * it under the terms of the GNU General Public License as published by
-//        * the Free Software Foundation, either version 3 of the License, or
-//        * (at your option) any later version.
-//        *
-//        * This program is distributed in the hope that it will be useful,
-//        * but WITHOUT ANY WARRANTY; without even the implied warranty of
-//        * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//        * GNU General Public License for more details.
-//        *
-//        * You should have received a copy of the GNU General Public License
-//        * along with this program.  If not, see <http://www.gnu.org/licenses/>
-//警告：尚未完全修复
-
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.bosses;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.*;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.effects.*;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.levels.DM920BossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM150Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM275Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300DeathBallSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300SpiderSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM75Sprite;
@@ -50,11 +41,15 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.*;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+//DM920 隐藏Boss
 public class DM920 extends Mob
 {
     public static class DM150 extends Mob
@@ -74,40 +69,6 @@ public class DM920 extends Mob
         public int damageRoll()
         {
             return Random.NormalIntRange(10, 13);
-        }
-
-        public void die(Object obj)
-        {
-            super.die(obj);
-            obj = new ArrayList();
-            for(int i = 0; i < PathFinder.NEIGHBOURS8.length; i++)
-                ((ArrayList) (obj)).add(Integer.valueOf(pos + PathFinder.NEIGHBOURS8[i]));
-
-            if(!Dungeon.level.mobs.isEmpty())
-            {
-                for(obj = ((ArrayList) (obj)).iterator(); ((Iterator) (obj)).hasNext();)
-                {
-                    int j = ((Integer)((Iterator) (obj)).next()).intValue();
-                    if(Actor.findChar(j) instanceof DM150)
-                    {
-                        if(Actor.findChar(j) instanceof DM150)
-                        obj = new DM300AttackMode();
-                        ((DM300AttackMode) obj).pos = pos;
-                        GameScene.add(((Mob) (obj)));
-                        Actor.addDelayed(new Pushing(((Char) (obj)), pos, ((DM300AttackMode) (obj)).pos), -1F);
-                        return;
-                    }
-                }
-
-                for(obj = Dungeon.level.mobs.iterator(); ((Iterator) (obj)).hasNext(); Actor.findChar(((Mob)((Iterator) (obj)).next()).pos).die(this));
-                GameScene.bossSlain();
-                Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-                Badges.validateBossSlain();
-                obj = (LloydsBeacon)Dungeon.hero.belongings.getItem(LloydsBeacon.class);
-                if(obj != null)
-                    ((LloydsBeacon) (obj)).upgrade();
-                yell( Messages.get(this, "defeated") );
-            }
         }
 
         public int drRoll() {
@@ -144,7 +105,7 @@ public class DM920 extends Mob
         }
     }
 
-    public static class DM300AttackMode extends Mob
+    public static class DM300AttackMode extends Mob implements Callback
     {
 
         public int attackSkill(Char char1)
@@ -164,31 +125,38 @@ public class DM920 extends Mob
             return Random.NormalIntRange(20, 25);
         }
 
-        public void die( Object cause ) {
-
-            super.die( cause );
-
-            GameScene.bossSlain();
-            Dungeon.level.drop( new SkeletonKey( Dungeon.depth  ), pos ).sprite.drop();
-
-            //60% chance of 2 shards, 30% chance of 3, 10% chance for 4. Average of 2.5
-            int shards = Random.chances(new float[]{0, 0, 6, 3, 1});
-            for (int i = 0; i < shards; i++){
-                int ofs;
-                do {
-                    ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-                } while (!Dungeon.level.passable[pos + ofs]);
-                Dungeon.level.drop( new MetalShard(), pos + ofs ).sprite.drop( pos );
-            }
-
-            Badges.validateBossSlain();
-
-            LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
-            if (beacon != null) {
-                beacon.upgrade();
-            }
-
+        public void die(Object obj)
+        {
+            super.die(obj);
+            obj = new DM300SpiderMode();
+            ((DM300SpiderMode) obj).pos = pos;
+            GameScene.add(((Mob) (obj)));
+            Actor.addDelayed(new Pushing(((Char) (obj)), pos, ((DM300SpiderMode) (obj)).pos), -1F);
             yell( Messages.get(this, "defeated") );
+        }
+
+        public void ventGas( Char target ){
+            hero.interrupt();
+
+            int gasVented = 0;
+
+            Ballistica trajectory = new Ballistica(pos, target.pos, Ballistica.STOP_TARGET);
+
+            for (int i : trajectory.subPath(0, trajectory.dist)){
+                GameScene.add(Blob.seed(i, 20, ToxicGas.class));
+                gasVented += 20;
+            }
+
+            GameScene.add(Blob.seed(trajectory.collisionPos, 100, ToxicGas.class));
+
+            if (gasVented < 250){
+                int toVentAround = (int)Math.ceil((250 - gasVented)/8f);
+                for (int i : PathFinder.NEIGHBOURS8){
+                    GameScene.add(Blob.seed(pos+i, toVentAround, ToxicGas.class));
+                }
+
+            }
+
         }
 
         public int drRoll()
@@ -206,18 +174,6 @@ public class DM920 extends Mob
                 if(Dungeon.level.heroFOV[i] && Dungeon.hero.isAlive())
                     GLog.n(Messages.get(this, "repair", new Object[0]), new Object[0]);
             }
-            int ai[] = new int[8];
-            int j = i - 1;
-            ai[0] = j;
-            int k = i + 1;
-            ai[1] = k;
-            ai[2] = i - Dungeon.level.width();
-            ai[3] = i + Dungeon.level.width();
-            ai[4] = j - Dungeon.level.width();
-            ai[5] = j + Dungeon.level.width();
-            ai[6] = k - Dungeon.level.width();
-            ai[7] = k + Dungeon.level.width();
-            i = ai[Random.Int(ai.length)];
             if(Dungeon.level.heroFOV[i])
             {
                 CellEmitter.get(i).start(Speck.factory(8), 0.07F, 10);
@@ -232,10 +188,6 @@ public class DM920 extends Mob
                     GameScene.updateMap(i);
                 }
             }
-            Char char1 = Actor.findChar(i);
-            Char ch = null;
-            if(char1 != null && char1 != this)
-                Buff.prolong( ch, Paralysis.class, 2 );
         }
 
         public void notice()
@@ -251,41 +203,68 @@ public class DM920 extends Mob
             BossHealthBar.assignBoss(this);
         }
 
-        public void split(int i, Char char1)
-        {
-            ArrayList arraylist = new ArrayList();
-            for(int j = 0; j < PathFinder.NEIGHBOURS8.length; j++)
-            {
-                int k = PathFinder.NEIGHBOURS8[j] + i;
-                if(Actor.findChar(k) == null && (Dungeon.level.passable[k] || Dungeon.level.avoid[k]))
-                    arraylist.add(Integer.valueOf(k));
-            }
-
-            if(arraylist.size() > 0)
-            {
-                DM75 dm75 = new DM75();
-                dm75.pos = ((Integer)Random.element(arraylist)).intValue();
-                GameScene.add(dm75);
-                Actor.addDelayed(new Pushing(dm75, i, dm75.pos), -1F);
-            }
-            Iterator iterator = Dungeon.level.mobs.iterator();
-            do
-            {
-                if(!iterator.hasNext())
-                    break;
-                Mob mob = (Mob)iterator.next();
-                if(mob instanceof DM150)
-                    mob.aggro(char1);
-            } while(true);
-        }
-
         public DM300AttackMode()
         {
             spriteClass = DM300AttackSprite.class;
-            HT = 200;
-            HP = 200;
+            HT = 350;
+            HP = 350;
             EXP = 30;
             defenseSkill = 18;
+        }
+
+        protected boolean doAttack( Char enemy ) {
+
+            if (Dungeon.level.adjacent( pos, enemy.pos )) {
+
+                return super.doAttack( enemy );
+
+            } else {
+
+                if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
+                    sprite.zap(enemy.pos);
+                    return false;
+                } else {
+                    ventGas(enemy);
+                    Sample.INSTANCE.play(Assets.Sounds.GAS);
+                    return true;
+                }
+            }
+        }
+
+        //used so resistances can differentiate between melee and magical attacks
+        public static class DarkBolt{}
+
+        private static final float TIME_TO_ZAP	= 4f;
+        private void zap() {
+            spend( TIME_TO_ZAP );
+
+            if (hit( this, enemy, true )) {
+                //TODO would be nice for this to work on ghost/statues too
+                if (enemy == Dungeon.hero && Random.Int( 2 ) == 0) {
+                    Buff.prolong( enemy, Blindness.class, Degrade.DURATION );
+                    Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
+                }
+
+                int dmg = Random.NormalIntRange( 10, 25 );
+                enemy.damage( dmg, new DM300AttackMode.DarkBolt() );
+
+                if (enemy == Dungeon.hero && !enemy.isAlive()) {
+                    Dungeon.fail( getClass() );
+                    GLog.n( Messages.get(this, "frost_kill") );
+                }
+            } else {
+                enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+            }
+        }
+
+        public void onZapComplete() {
+            zap();
+            next();
+        }
+
+        @Override
+        public void call() {
+            next();
         }
     }
 
@@ -314,9 +293,6 @@ public class DM920 extends Mob
             GameScene.bossSlain();
             Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
             Badges.validateBossSlain();
-            LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
-            if(obj != null)
-                ((LloydsBeacon) (obj)).upgrade();
             yell( Messages.get(this, "defeated") );
         }
 
@@ -381,20 +357,31 @@ public class DM920 extends Mob
 
         public DM300DeathBall()
         {
-            spriteClass = DM300DeathBallSprite.class;
-            HT = 50;
-            HP = 50;
+            spriteClass = DM275Sprite.class;
+            HT = 1000;
+            HP = 1000;
             EXP = 10;
             defenseSkill = 25;
         }
     }
 
-    public static class DM300SpiderMode extends Mob
+    //国度
+    public static class Country extends ToxicGas{
+
+    }
+
+    public static class DM300SpiderMode extends Spinner
     {
 
         public int attackSkill(Char char1)
         {
             return 26;
+        }
+
+        public boolean act()
+        {
+            GameScene.add(Blob.seed(pos, 30, CorrosiveGas.class));
+            return super.act();
         }
 
         @Override
@@ -467,7 +454,9 @@ public class DM920 extends Mob
 
         public void notice()
         {
+            DM920BossLevel level = (DM920BossLevel) Dungeon.level;
             super.notice();
+            //Dungeon.level.seal();
             BossHealthBar.assignBoss(this);
             yell(Messages.get(this, "notice"));
         }
@@ -478,13 +467,14 @@ public class DM920 extends Mob
             BossHealthBar.assignBoss(this);
         }
 
-        public DM300SpiderMode()
+        public DM300SpiderMode ()
         {
             spriteClass = DM300SpiderSprite.class;
-            HT = 80;
-            HP = 80;
+            HT = 600;
+            HP = 600;
             EXP = 10;
             defenseSkill = 23;
+            maxLvl = -1;
         }
     }
 
@@ -520,7 +510,7 @@ public class DM920 extends Mob
                 for(obj = ((ArrayList) (obj)).iterator(); ((Iterator) (obj)).hasNext();)
                 {
                     int j = ((Integer)((Iterator) (obj)).next()).intValue();
-                    if(Actor.findChar(j) instanceof DM75)
+                    if(Actor.findChar(j) instanceof DM300SpiderMode)
                     {
                         Actor.findChar(j).die(this);
                         obj = new DM300SpiderMode();
@@ -550,6 +540,17 @@ public class DM920 extends Mob
         public void move(int i)
         {
             super.move(i);
+
+            if (Dungeon.level.map[i] == Terrain.INACTIVE_TRAP && HP < HT) {
+
+                HP += Random.Int( 1, HT - HP );
+                sprite.emitter().burst( ElmoParticle.FACTORY, 5 );
+
+                if (Dungeon.level.heroFOV[i] && Dungeon.hero.isAlive()) {
+                    GLog.n( Messages.get(this, "repair") );
+                }
+            }
+
             if(Dungeon.level.map[i] == 19 && HP < HT)
             {
                 HP = HP + Random.Int(1, HT - HP);
@@ -582,7 +583,7 @@ public class DM920 extends Mob
     {
         spriteClass = DM300Sprite.class;
 
-        HP = HT = 200;
+        HP = HT = 280;
         EXP = 30;
         defenseSkill = 18;
 
@@ -618,67 +619,9 @@ public class DM920 extends Mob
     {
         super.die(obj);
         split(pos, enemy);
-        split(pos, enemy);
+        //split(pos, enemy);
         int i = 0;
         yell( Messages.get(this, "defeated") );
-        boolean flag = true;
-        int j;
-        if(Dungeon.isChallenged(1))
-        {
-            i = 10;
-            j = 1;
-        } else
-        {
-            j = 0;
-        }
-        int k = j;
-        j = i;
-        if(Dungeon.isChallenged(2))
-        {
-            j = i + 10;
-            k = 1;
-        }
-        i = j;
-        if(Dungeon.isChallenged(4))
-        {
-            i = j + 10;
-            k = 1;
-        }
-        j = i;
-        if(Dungeon.isChallenged(8))
-        {
-            j = i + 10;
-            k = 1;
-        }
-        i = k;
-        k = j;
-        if(Dungeon.isChallenged(16))
-        {
-            k = j + 10;
-            i = 1;
-        }
-        j = i;
-        i = k;
-        if(Dungeon.isChallenged(32))
-        {
-            i = k + 10;
-            j = 1;
-        }
-        k = j;
-        j = i;
-        if(Dungeon.isChallenged(64))
-        {
-            j = i + 10;
-            k = 1;
-        }
-        if(Dungeon.isChallenged(128))
-        {
-            j += 10;
-            i = ((flag) ? 1 : 0);
-        } else
-        {
-            i = k;
-        }
     }
 
     public int drRoll()
@@ -752,8 +695,10 @@ public class DM920 extends Mob
 
         if(arraylist.size() > 0)
         {
-            DM75 dm75 = new DM75();
+            DM300AttackMode dm75 = new   DM300AttackMode();
             dm75.pos = ((Integer)Random.element(arraylist)).intValue();
+            GameScene.add(dm75);
+            Actor.addDelayed(new Pushing(dm75, i, dm75.pos), -1F);
         }
         Iterator iterator = Dungeon.level.mobs.iterator();
         do

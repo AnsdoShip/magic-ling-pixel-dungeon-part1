@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
@@ -111,9 +113,12 @@ public class CityLevel extends RegularLevel {
 	
 	@Override
 	protected void createMobs() {
-		Imp.Quest.spawn( this );
-		
-		super.createMobs();
+		if (Dungeon.isChallenged(RLPT)) {
+			super.createMobs();
+		} else {
+			Imp.Quest.spawn(this);
+			super.createMobs();
+		}
 	}
 	
 	@Override

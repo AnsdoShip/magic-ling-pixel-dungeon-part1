@@ -1,6 +1,7 @@
-[**返回**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
+[**注意:因为Fork问题，这个库将会在下半段废弃！**]("#")
+# ReadMe
+[**返回旧库**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # 魔绫像素地牢
-
 [**加入官方QQ群**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
 * **ROGUELIKE类RPG**，完全随机生成的地牢！基于[**破碎的像素地牢**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE)。
@@ -17,4 +18,25 @@ Prohonor
 JDSA Ling、碳酸天剑、Daniel_Clan、REN、冷群怪 & 奈亚子
 
 # 许可证
+* [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
+[**Note: Due to Fork issues, this library will be deprecated in the second half! **]("#")
+#ReadMe
+[**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
+# Magic Ling Pixel Dungeon
+[**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
+
+* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Broken Pixel Dungeon**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE).
+
+# Producer list
+
+* **Planning**</br>
+JDSA Ling
+* **Program**</br>
+JDSA Ling & Carbonated Heaven Sword
+* **Music**</br>
+Prohonor
+* **Artwork**</br>
+JDSA Ling, Carbonated Heavenly Sword, Daniel_Clan, REN, Leng Qunwei & Naiyazi
+
+# license
 * [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**

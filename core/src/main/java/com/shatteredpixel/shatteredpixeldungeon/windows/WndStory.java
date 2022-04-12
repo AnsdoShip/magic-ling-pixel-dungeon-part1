@@ -58,7 +58,8 @@ public class WndStory extends Window {
 	public static final int ID_HALLSBOOS		= 9;
 	public static final int ID_CHAPTONEEND		= 10;
 	public static final int ID_ICEBOSS		= 11;
-	public static final int ID_PRISONBOSS2 = 12;
+	public static final int ID_GAME = 12;
+	public static final int ID_DM920 = 12;
 	
 	private static final SparseArray<String> CHAPTERS = new SparseArray<>();
 	
@@ -76,7 +77,8 @@ public class WndStory extends Window {
 		CHAPTERS.put( ID_HALLSBOOS, "hallsboss" );
 		CHAPTERS.put( ID_CHAPTONEEND, "new" );
 		CHAPTERS.put( ID_ICEBOSS, "icedead" );
-		CHAPTERS.put( ID_PRISONBOSS2, "dkse" );
+		CHAPTERS.put( ID_GAME, "gamehappy" );
+		CHAPTERS.put( ID_DM920, "dm920" );
 	}
 
 	private IconTitle ttl;

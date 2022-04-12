@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
@@ -57,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
@@ -73,8 +76,8 @@ public class MagicGirlDead extends Boss {
         initProperty();
         initBaseStatus(16, 22, 28, 16, 400, 4, 8);
         initStatus(76);
-        HP=800;
-        HT=800;
+        HP=600;
+        HT=600;
         viewDistance = 18;
     }
 
@@ -190,16 +193,33 @@ public class MagicGirlDead extends Boss {
 
         if (Dungeon.level.map[step] == Terrain.WATER && state == HUNTING) {
 
-            if (Dungeon.level.heroFOV[step]) {
+            if (Dungeon.level.heroFOV[step] && HP < 200) {
+                if (buff(Haste.class) == null) {
+                    Buff.affect(this, RoseShiled.class, 15f);
+                    Buff.affect(this, Haste.class, 5f);
+                    Buff.affect(this, ArcaneArmor.class).set(Dungeon.hero.lvl + 10, 10);
+                    Buff.affect(this, Healing.class).setHeal(40, 0f, 6);
+                    new SRPDICLRPRO().spawnAround(pos);
+                    Buff.affect(this, Adrenaline.class, 20f);
+                    yell( Messages.get(this, "arise2") );
+                    GLog.b(Messages.get(this, "shield2"));
+                    Music.INSTANCE.play(Assets.BGM_BOSSE3, true);
+                    enemy.sprite.showStatus(0x00ffff, ("游戏开始！！！"));
+                }
+                sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
+            } else if (Dungeon.level.heroFOV[step]) {
                 if (buff(Haste.class) == null) {
                     Buff.affect(this, Haste.class, 10f);
                     Buff.affect(this, Healing.class).setHeal(42, 0f, 6);
                     new SRPDICLRPRO().spawnAround(pos);
                     yell( Messages.get(this, "arise") );
                     GLog.b(Messages.get(this, "shield"));
+                    enemy.sprite.showStatus(0x00ffff, ("不自量力！！！"));
                 }
                 sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
             }
+
+
 
             if (Dungeon.level.water[pos] && HP < HT) {
                 if (Dungeon.level.heroFOV[pos] ){
@@ -239,6 +259,11 @@ public class MagicGirlDead extends Boss {
         if (damage >= 30){
             damage = 30 + (int)(Math.sqrt(4*(damage - 14) + 1) - 1)/2;
         }
+
+        if (HP <= 50){
+            damage = 5;
+        }
+
         if(buff(RageAndFire.class)!=null) damage = Math.round(damage*0.1f);
 
         int preHP = HP;
@@ -273,12 +298,18 @@ public class MagicGirlDead extends Boss {
         Badges.KILLMG();
         Badges.validateBossSlain();
 
+        WandOfGodIce woc = new WandOfGodIce();
+        woc.level(9);
+        woc.identify();
+
+        Dungeon.level.drop(woc, pos).sprite.drop();
+
         Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 3200)), pos).sprite.drop();
         Dungeon.level.drop(new PotionOfHealing().quantity(Random.Int(4, 7)), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfMagicMapping().quantity(2).identify(), pos).sprite.drop();
         Dungeon.level.drop(new ScrollOfUpgrade().quantity(Random.Int(3, 5)).identify(), pos).sprite.drop();
 
-        Dungeon.level.drop(new WandOfGodIce().quantity(1).identify(), pos).sprite.drop();
+
     }
 
     @Override

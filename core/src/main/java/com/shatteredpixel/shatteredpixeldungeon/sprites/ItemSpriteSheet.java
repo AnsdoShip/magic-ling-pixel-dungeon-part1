@@ -331,6 +331,7 @@ public class ItemSpriteSheet {
 	public static final int HOLY_DART       = TIPPED_DARTS+9;
 	public static final int DISPLACING_DART = TIPPED_DARTS+10;
 	public static final int BLINDING_DART   = TIPPED_DARTS+11;
+	public static final int HALO_DART   = TIPPED_DARTS+12;
 	static {
 		for (int i = TIPPED_DARTS; i < TIPPED_DARTS+16; i++)
 			assignItemRect(i, 15, 15);
@@ -347,9 +348,9 @@ public class ItemSpriteSheet {
 	public static final int ARMOR_ROGUE     = ARMOR+7;
 	public static final int ARMOR_HUNTRESS  = ARMOR+8;
 	static{
-		assignItemRect(ARMOR_CLOTH,     16, 16);
-		assignItemRect(ARMOR_LEATHER,   16, 16);
-		assignItemRect(ARMOR_MAIL,      16, 16);
+		assignItemRect(ARMOR_CLOTH,     14, 14);
+		assignItemRect(ARMOR_LEATHER,   15, 15);
+		assignItemRect(ARMOR_MAIL,      15, 15);
 		assignItemRect(ARMOR_SCALE,     16, 16);
 		assignItemRect(ARMOR_PLATE,     16, 16);
 		assignItemRect(ARMOR_WARRIOR,   16, 16);

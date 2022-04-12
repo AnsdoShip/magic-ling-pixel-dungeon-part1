@@ -181,7 +181,7 @@ public class RedLunar extends Mob {
                 }
             }
         }
-        chainsUsed = true;
+        //chainsUsed = true;
         return true;
     }
 
@@ -259,7 +259,7 @@ public class RedLunar extends Mob {
                             Dungeon.level.distance(newPos, enemy.pos) < 3 ||
                             Actor.findChar(newPos) != null);
             if (Random.Int(1000) <= 500) {
-                OldDM300  rat = new OldDM300();
+                SRPDICLR  rat = new SRPDICLR();
                 rat.state = rat.WANDERING;
                 rat.pos = newPos;
                 GameScene.add(rat);
@@ -319,7 +319,13 @@ public class RedLunar extends Mob {
         Dungeon.level.drop( new SkeletonKey( Dungeon.depth ), pos ).sprite.drop();
 
         //60% chance of 2 blobs, 30% chance of 3, 10% chance for 4. Average of 2.5
+        for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+            if (	mob instanceof OldDM300) {
+                mob.die( cause );
+            }
+        }
     }
+
 
     private class Hunting extends Mob.Hunting{
         @Override

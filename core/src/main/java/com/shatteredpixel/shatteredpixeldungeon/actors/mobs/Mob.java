@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -838,9 +839,12 @@ public abstract class Mob extends Char {
 	}
 	
 	public void notice() {
-		sprite.showAlert();
 		if (Dungeon.hero.buff(LockedFloor.class) != null) {
-			BGMPlayer.playBoss();
+			if (Dungeon.isChallenged(ALLBOSS)) {
+				sprite.showAlert();
+			} else {
+				BGMPlayer.playBoss();
+			}
 			return;
 		}
 	}

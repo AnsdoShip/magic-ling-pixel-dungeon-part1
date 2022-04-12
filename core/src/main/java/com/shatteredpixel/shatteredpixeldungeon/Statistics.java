@@ -27,6 +27,9 @@ import com.watabou.utils.Bundle;
 public class Statistics {
 	public static long real_seconds = 0;
 	public static int goldCollected;
+
+	public static int naiyaziCollected;
+
 	public static int deepestFloor;
 	public static int enemiesSlain;
 	public static int foodEaten;

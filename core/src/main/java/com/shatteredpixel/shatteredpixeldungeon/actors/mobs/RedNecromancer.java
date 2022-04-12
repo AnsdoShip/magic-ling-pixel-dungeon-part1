@@ -48,7 +48,7 @@ public class RedNecromancer extends Mob {
     {
         spriteClass = RedNecromancerSprite.class;
 
-        HP = HT = 120000000;
+        HP = HT = 1;
         defenseSkill = 14;
 
         EXP = 7;
@@ -57,6 +57,11 @@ public class RedNecromancer extends Mob {
         properties.add(Property.UNDEAD);
         properties.add(Property.MINIBOSS);
         HUNTING = new Hunting();
+    }
+
+    @Override
+    public void damage( int dmg, Object src ) {
+        //flee();
     }
 
     public boolean summoning = false;

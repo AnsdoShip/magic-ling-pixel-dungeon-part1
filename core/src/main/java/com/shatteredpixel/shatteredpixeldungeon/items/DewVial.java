@@ -30,9 +30,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HalomethaneBurning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
@@ -227,10 +227,8 @@ public class DewVial extends MeleeWeapon {
 				if (Dewdrop.consumeDew(dropsNeeded, hero)){
 					volume -= dropsNeeded;
 					GLog.b( Messages.get(this, "dead") );
-					int count = 0;
-					Mob affected = null;
 					for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-						Buff.affect( mob, HalomethaneBurning.class ).reignite( mob, 7f );
+						Buff.affect(mob, Burning.class).reignite(mob, 8f);
 						Buff.prolong(mob, Vertigo.class, 9f);
 						Buff.affect( mob, Levitation.class, Levitation.DURATION/5 );
 						new Flare( 5, 32 ).color( 0x00FFFF, true ).show( curUser.sprite, 2f );

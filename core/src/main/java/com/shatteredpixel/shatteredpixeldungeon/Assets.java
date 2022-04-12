@@ -38,6 +38,7 @@ public class Assets {
 	public static final String BGM_BOSSE = "music/Boss5.ogg";
 	public static final String BGM_BOSSE3 = "music/Yogdead.ogg";
 	public static final String RUN = "music/Run.ogg";
+	public static final String NYZSHOP = "music/nyzshop2.ogg";
 
 	public static class Effects {
 		public static final String EFFECTS		= "effects/effects.png";
@@ -296,6 +297,7 @@ public class Assets {
 		public static final String LARVA	= "sprites/larva.png";
 		public static final String GHOST	= "sprites/ghost.png";
 		public static final String MAKER	= "sprites/wandmaker.png";
+		public static final String NYZD	= "Npcs/nyz.png";
 		public static final String TROLL	= "sprites/blacksmith.png";
 		public static final String IMP		= "sprites/demon.png";
 		public static final String RATKING	= "sprites/ratking.png";
@@ -314,6 +316,7 @@ public class Assets {
 		public static final String RIPPER	= "sprites/ripper.png";
 		public static final String SPAWNER	= "sprites/spawner.png";
 		public static final String DM100	= "sprites/dm100.png";
+		public static final String DM275	= "mobs/dm300special.png";
 		public static final String PYLON	= "sprites/pylon.png";
 		public static final String PYLONCS	= "sprites/pylonks.png";
 		public static final String CRSTAL	= "sprites/crstal.png";

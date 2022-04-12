@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -20,9 +21,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunB
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndNyzShop;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Callback;
 
 public class Nyz extends NPC {
@@ -33,19 +36,38 @@ public class Nyz extends NPC {
 
         properties.add(Property.IMMOVABLE);
     }
+    private boolean seenBefore = false;
+
     protected boolean act() {
+        if (!seenBefore && Dungeon.level.heroFOV[pos]) {
+            GLog.p(Messages.get(this, "greetings", Dungeon.hero.name()));
+            //TODO 诡异奈亚子 早上好 中午好 晚上好
+            Music.INSTANCE.play(Assets.NYZSHOP, true);
+            seenBefore = true;
+        } else if (seenBefore && !Dungeon.level.heroFOV[pos] && Dungeon.depth == 0) {
+            Music.INSTANCE.play(Assets.TOWN, true);
+            seenBefore = false;
+        } else if (seenBefore && !Dungeon.level.heroFOV[pos] && Dungeon.depth == 12) {
+            Music.INSTANCE.play(Assets.BGM_2,true);
+            seenBefore = false;
+        }
+        throwItem();
+
+        sprite.turnTo( pos, Dungeon.hero.pos );
+        spend( TICK );
+
         shop6 = new YellowSunBooks();
         shop5 = new BrokenBooks();
         shop4 = new IceCityBooks();
         shop3 = new NoKingMobBooks();
         shop2 = new DeepBloodBooks();
         shop1 = new MagicGirlBooks();
-        bomb1 = (Bomb) new Flashbang().quantity(4);
-        bomb2 = (Bomb) new Noisemaker().quantity(4);
-        bomb3 = (Bomb) new RegrowthBomb().quantity(4);
-        bomb4 = (Bomb) new HolyBomb().quantity(4);
-        bomb5 = (Bomb) new Firebomb().quantity(4);
-        bomb6 = (Bomb) new FrostBomb().quantity(4);
+        bomb1 = (Bomb) new Flashbang().quantity(1);
+        bomb2 = (Bomb) new Noisemaker().quantity(1);
+        bomb3 = (Bomb) new RegrowthBomb().quantity(1);
+        bomb4 = (Bomb) new HolyBomb().quantity(1);
+        bomb5 = (Bomb) new Firebomb().quantity(1);
+        bomb6 = (Bomb) new FrostBomb().quantity(1);
         throwItem();
         return Nyz.super.act();
     }
@@ -89,16 +111,14 @@ public class Nyz extends NPC {
 
     public boolean interact(Char c) {
         this.sprite.turnTo(this.pos, Dungeon.hero.pos);
-        Game.runOnRenderThread(new Callback() {
-            @Override
-            public void call() {
-                if(Dungeon.nyzbuy != 0) {
+        if (seenBefore && Dungeon.level.heroFOV[pos]) {
+            Game.runOnRenderThread(new Callback() {
+                @Override
+                public void call() {
                     GameScene.show(new WndNyzShop(this));
-                } else {
-                    tell(Messages.get(WndNyzShop.class,"maxbuy"));
                 }
-            }
-        });
-        return false;
+            });
+        }
+        return true;
     }
 }

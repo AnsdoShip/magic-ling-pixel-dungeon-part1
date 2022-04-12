@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NxhyNpc;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nyz;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.REN;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Slyl;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.obSir;
@@ -157,6 +158,14 @@ public class ZeroLevel extends Level {
         NxhyNpc npc3= new NxhyNpc();
         npc3.pos = (this.width * 18 + 20);
         mobs.add(npc3);
+
+
+
+        if ( Badges.isUnlocked(Badges.Badge.NYZ_SHOP)){
+            Nyz npc4= new Nyz();
+            npc4.pos = (this.width * 28 + 7);
+            mobs.add(npc4);
+       }
     }
 
     public int randomRespawnCell() {

@@ -46,7 +46,7 @@ import java.util.ArrayList;
 public class StartScene extends PixelScene {
 	
 	private static final int SLOT_WIDTH = 120;
-	private static final int SLOT_HEIGHT = 30;
+	private static final int SLOT_HEIGHT = 25;
 	
 	@Override
 	public void create() {
@@ -130,12 +130,12 @@ public class StartScene extends PixelScene {
 		
 		private int slot;
 		private boolean newGame;
-		
+
 		@Override
 		protected void createChildren() {
 			super.createChildren();
 			
-			bg = Chrome.get(Chrome.Type.GEM);
+			bg = Chrome.get(Chrome.Type.SCROLL);
 			add( bg);
 			
 			name = PixelScene.renderTextBlock(9);
@@ -195,9 +195,9 @@ public class StartScene extends PixelScene {
 				level.measure();
 				
 				if (info.challenges > 0){
-					name.hardlight(Window.TITLE_COLOR);
+					name.hardlight(Window.WHITE);
 					depth.hardlight(Window.TITLE_COLOR);
-					level.hardlight(Window.TITLE_COLOR);
+					level.hardlight(Window.WATA_COLOR);
 				} else {
 					name.resetColor();
 					depth.resetColor();

@@ -5,9 +5,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.particles.Emitter;
 
 public class DM300DeathBallSprite extends MobSprite
 {

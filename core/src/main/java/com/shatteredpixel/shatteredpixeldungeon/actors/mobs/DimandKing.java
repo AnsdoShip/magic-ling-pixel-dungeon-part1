@@ -539,7 +539,7 @@ public class DimandKing extends Boss {
         return super.isImmune(effect);
     }
 
-    public static class DKGhoul extends Skeleton {
+    public static class DKGhoul extends OGPDLLS {
         {
             state = HUNTING;
             immunities.add(Corruption.class);

@@ -108,7 +108,7 @@ public class FlameC01 extends Mob {
     {
         spriteClass = FlameC01Sprite.class;
         properties.add(Property.INORGANIC);
-
+        properties.add(Property.FIERY);
         HP = HT = 120;
         defenseSkill = 23;
 
@@ -121,6 +121,7 @@ public class FlameC01 extends Mob {
     @Override
     protected boolean canAttack( Char enemy ) {
         return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+
     }
 
     @Override

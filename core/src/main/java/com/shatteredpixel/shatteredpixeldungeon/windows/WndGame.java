@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
@@ -94,7 +93,7 @@ public class WndGame extends Window {
 				@Override
 				protected void onClick() {
 					GamesInProgress.selectedClass = Dungeon.hero.heroClass;
-					InterlevelScene.noStory = true;
+					InterlevelScene.noStory = false;
 					GameScene.show(new WndStartGame(GamesInProgress.firstEmpty()));
 				}
 			} );
@@ -116,10 +115,6 @@ public class WndGame extends Window {
 				new RedButton( Messages.get(this, "menu") ) {
 					@Override
 					protected void onClick() {
-						if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() || Dungeon.shopOnLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
-							Dungeon.deleteGame(GamesInProgress.curSlot, true);
-							Game.switchScene(TitleScene.class);
-						} else {
 							try {
 								Dungeon.saveAll();
 							} catch (IOException e) {
@@ -127,17 +122,13 @@ public class WndGame extends Window {
 							}
 							Game.switchScene(TitleScene.class);
 						}
-					}
 				},
 				// Quit
 				new RedButton( Messages.get(this, "exit") ) {
 					@Override
 					protected void onClick() {
 						//抢劫期间 退出游戏 存档给你说拜拜
-						if (Dungeon.hero.buff(LockedFloor.class) != null && Dungeon.NxhyshopOnLevel() || Dungeon.shopOnLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
-							Dungeon.deleteGame( GamesInProgress.curSlot, true );
 							Game.switchScene( TitleScene.class );
-						} else {
 							try {
 								Dungeon.saveAll();
 							} catch (IOException e) {
@@ -145,7 +136,6 @@ public class WndGame extends Window {
 							}
 							Game.instance.finish();
 						}
-					}
 				}
 
 		);

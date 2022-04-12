@@ -4,10 +4,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
 
 public class DM300SpiderSprite extends MobSprite
 {
@@ -41,10 +45,43 @@ public class DM300SpiderSprite extends MobSprite
         return -120;
     }
 
-    public void onComplete(com.watabou.noosa.MovieClip.Animation animation)
+    public void onComplete(Animation animation,Animation anim)
     {
         super.onComplete(animation);
+        if (anim == zap) {
+            play( run );
+        }
         if(animation == die)
             emitter().burst(Speck.factory(7), 15);
+    }
+
+    @Override
+    public void link(Char ch) {
+        super.link(ch);
+        if (parent != null) {
+            parent.sendToBack(this);
+            if (aura != null){
+                parent.sendToBack(aura);
+            }
+        }
+        renderShadow = false;
+    }
+
+    public void zap( int cell ) {
+
+        turnTo( ch.pos , cell );
+        play( zap );
+
+        MagicMissile.boltFromChar( parent,
+                MagicMissile.MAGIC_MISSILE,
+                this,
+                cell,
+                new Callback() {
+                    @Override
+                    public void call() {
+                        ((Spinner)ch).shootWeb();
+                    }
+                } );
+        Sample.INSTANCE.play( Assets.Sounds.MISS );
     }
 }

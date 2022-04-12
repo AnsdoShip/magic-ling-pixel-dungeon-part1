@@ -21,11 +21,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
+
+
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.BGMPlayer;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -83,10 +88,12 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Banner;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BusyIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CharHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.LootIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ResumeIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
+import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toast;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
@@ -101,8 +108,10 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoMob;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoPlant;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoTrap;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndStartGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndStory;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.Camera;
@@ -123,6 +132,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class GameScene extends PixelScene {
+
+	private static final String[] DIED = {
+			Messages.get(GameScene.class,"died_1"),
+			Messages.get(GameScene.class,"died_2"),
+			Messages.get(GameScene.class,"died_3"),
+			Messages.get(GameScene.class,"died_4"),
+			Messages.get(GameScene.class,"died_5"),};
 
     public static boolean logActorThread;
     static GameScene scene;
@@ -369,46 +385,47 @@ public class GameScene extends PixelScene {
 			ScrollOfTeleportation.appear(  Dungeon.hero, Dungeon.hero.pos );
 			break;
 		case DESCEND:
+			if (Dungeon.isChallenged(ALLBOSS)){
+				switch (Dungeon.depth) {
+					case 0:
+						WndStory.showChapter( WndStory.ID_GAME );
+					case 3:
+						WndStory.showChapter( WndStory.ID_DM920 );
+				}
+			} else {
 			switch (Dungeon.depth) {
 				case 0:
 					WndStory.showChapter( WndStory.ID_FOREST );
 					break;
-			case 1:
-				WndStory.showChapter( WndStory.ID_SEWERS );
-				break;
+				case 1:
+					WndStory.showChapter( WndStory.ID_SEWERS );
+					break;
 				case 5:
 					WndStory.showChapter( WndStory.ID_SEWERSBOSS );
 					break;
-			case 6:
-				WndStory.showChapter( WndStory.ID_PRISON );
-				break;
-				//case 10:
-				//	if(Statistics.spawnersDK > 0){
-				//		WndStory.showChapter(WndStory.ID_PRISONBOSS2);
-				//	} else {
-				//		WndStory.showChapter(WndStory.ID_PRISONBOSS);
-				//	}
-				//	break;
+				case 6:
+					WndStory.showChapter( WndStory.ID_PRISON );
+					break;
 				case 11:
-				WndStory.showChapter( WndStory.ID_CAVES );
-				break;
+					WndStory.showChapter( WndStory.ID_CAVES );
+					break;
 				case 15:
-				if(Statistics.spawnersIce > 0) {
+					if(Statistics.spawnersIce > 0) {
 						WndStory.showChapter(WndStory.ID_ICEBOSS);
 						break;
-				} else {
-					WndStory.showChapter(WndStory.ID_CAVESBOSS);
-					break;
-				}
+					} else {
+						WndStory.showChapter(WndStory.ID_CAVESBOSS);
+						break;
+					}
 				case 16:
-				WndStory.showChapter( WndStory.ID_CITY );
-				break;
+					WndStory.showChapter( WndStory.ID_CITY );
+					break;
 				case 20:
 					WndStory.showChapter( WndStory.ID_CITYSBOSS );
 					break;
 				case 21:
-				WndStory.showChapter( WndStory.ID_HALLS );
-				break;
+					WndStory.showChapter( WndStory.ID_HALLS );
+					break;
 				case 25:
 					WndStory.showChapter( WndStory.ID_HALLSBOOS );
 					break;
@@ -416,6 +433,7 @@ public class GameScene extends PixelScene {
 					WndStory.showChapter( WndStory.ID_CHAPTONEEND );
 					break;
 			}
+		}
 			if (Dungeon.hero.isAlive()) {
 				Badges.validateNoKilling();
 			}
@@ -1076,10 +1094,76 @@ public class GameScene extends PixelScene {
 
 	public static void gameOver() {
 		Banner gameOver = new Banner( BannerSprites.get( BannerSprites.Type.GAME_OVER ) );
-		gameOver.show( 0x000000, 1f );
+		gameOver.show( 0x000000, 2f );
 		scene.showBanner( gameOver );
-		
-		Sample.INSTANCE.play( Assets.DEATHA);
+
+		StyledButton restart = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(StartScene.class, "new"), 9){
+			@Override
+			protected void onClick() {
+				InterlevelScene.noStory = true;
+				GamesInProgress.selectedClass = Dungeon.hero.heroClass;
+				GamesInProgress.curSlot = GamesInProgress.firstEmpty();
+				GameScene.show(new WndStartGame(GamesInProgress.firstEmpty()));
+			}
+
+			@Override
+			public void update() {
+				alpha(gameOver.am);
+				super.update();
+			}
+		};
+		restart.icon(Icons.get(Icons.ENTER));
+		restart.alpha(0);
+		restart.camera = uiCamera;
+		restart.setSize(Math.max(80, restart.reqWidth()), 20);
+		restart.setPos(
+				align(uiCamera, (restart.camera.width - restart.width()) / 2),
+				align(uiCamera, (restart.camera.height - restart.height()) / 2 + restart.height()/2 + 16)
+		);
+		scene.add(restart);
+
+		StyledButton menu = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(WndKeyBindings.class, "menu"), 9){
+			@Override
+			protected void onClick() {
+				GameScene.show(new WndGame());
+			}
+
+			@Override
+			public void update() {
+				alpha(gameOver.am);
+				super.update();
+			}
+		};
+		menu.icon(Icons.get(Icons.PREFS));
+		menu.alpha(0);
+		menu.camera = uiCamera;
+		menu.setSize(Math.max(80, menu.reqWidth()), 20);
+		menu.setPos(
+				align(uiCamera, (menu.camera.width - menu.width()) / 2),
+				restart.bottom() + 10
+		);
+		scene.add(menu);
+
+		StyledButton info = new StyledButton(Chrome.Type.SCROLL, (DIED[Random.Int(DIED.length)]), 5){
+			@Override
+			protected void onClick() {
+				//GameScene.show(new WndGame());
+			}
+
+			@Override
+			public void update() {
+				alpha(gameOver.am);
+				super.update();
+			}
+		};
+		info.alpha(0);
+		info.camera = uiCamera;
+		info.setSize(Math.max(125, info.reqWidth()), 40);
+		info.setPos(
+				align(uiCamera, (info.camera.width - info.width()) / 2),
+				restart.bottom() - 65
+		);
+		scene.add(info);
 	}
 	
 	public static void bossSlain() {

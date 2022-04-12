@@ -53,10 +53,11 @@ public class Challenges {
 	//public static final int BOSS = 8192;
 	public static final int SBSG = 1024;
 	public static final int EXSG = 2048;
-	public static final int PRO = 4096;
+	public static final int ALLBOSS = 4096;
+	public static final int PRO = 8192;
 
 
-	public static final int MAX_VALUE = 8192;
+	public static final int MAX_VALUE = 16384;
 
 	public static final String[] NAME_IDS = {
 			"no_food",
@@ -72,15 +73,16 @@ public class Challenges {
 			//"jgsf",
 			//"lysl",
 			"rlpt",
-			//"boss",
+			//
 			"sbsg",
 			"exsg",
+			"boss",
 			"pro",
 	};
 
 	public static final int[] MASKS = {
 			NO_FOOD, NO_ARMOR, NO_HEALING, NO_HERBALISM, SWARM_INTELLIGENCE, DARKNESS, NO_SCROLLS
-			, AQUAPHOBIA, CHAMPION_ENEMIES,RLPT,SBSG,EXSG,PRO,
+			, AQUAPHOBIA, CHAMPION_ENEMIES,RLPT,SBSG,EXSG,ALLBOSS,PRO,
 	};
 	public String name;
 

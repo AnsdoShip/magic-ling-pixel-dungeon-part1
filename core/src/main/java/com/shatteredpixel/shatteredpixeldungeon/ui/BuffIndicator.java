@@ -99,7 +99,8 @@ public class BuffIndicator extends Component {
 	public static final int MOMENTUM    = 51;
 	public static final int ROSEBARRIER    = 52;
 	public static final int HALOMETHANEBURNING = 53;
-	public static final int BUTTER      = 54;
+	public static final int RANDOM = 54;
+	public static final int BUTTER      = 55;
 
 	public static final int SIZE	= 7;
 	

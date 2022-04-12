@@ -29,10 +29,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FlameC01;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MoloHR;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardEye;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -48,7 +49,9 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 public class Shopkeeper extends NPC {
 
@@ -58,11 +61,19 @@ public class Shopkeeper extends NPC {
 		properties.add(Property.IMMOVABLE);
 	}
 	private boolean seenBefore = false;
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+	}
+
 	@Override
 	protected boolean act() {
 		if (!seenBefore && Dungeon.level.heroFOV[pos]) {
 			yell(Messages.get(this, "greetings", Dungeon.hero.name()));
 			seenBefore = true;
+			//Buff.affect(this, ChampionEnemy.AntiMagic.class);
+			//Buff.affect(this, ChampionEnemy.Halo.class);
 		}
 		throwItem();
 
@@ -73,42 +84,64 @@ public class Shopkeeper extends NPC {
 
 	@Override
 	public void damage( int dmg, Object src ) {
-		flee();
 	}
-	
+
 	@Override
-	public void add( Buff buff ) {
-		flee();
+	public int defenseSkill( Char enemy ) {
+		return INFINITE_EVASION;
 	}
 
 	public void flee() {
 		destroy();
-
+		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
+		GLog.negative(Messages.get(this, "guards"));
+		sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
+		Sample.INSTANCE.play(Assets.Sounds.ALERT);
+		Music.INSTANCE.play(Assets.RUN, true);
+		hero.sprite.burst(15597568, 9);
 		sprite.killAndErase();
-		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
-		GLog.negative(Messages.get(this,"guards"));
-			sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
-			Sample.INSTANCE.play( Assets.Sounds.ALERT );
-			Music.INSTANCE.play(Assets.RUN, true);
-			hero.sprite.burst(15597568, 9);
-		sprite.killAndErase();
-		CellEmitter.get( pos ).burst( ElmoParticle.FACTORY, 6 );
-		GLog.negative(Messages.get(this,"guards"));
-		Buff.prolong( Dungeon.hero, Blindness.class, Blindness.DURATION*4f );
+		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
+		GLog.negative(Messages.get(this, "guards"));
+		Buff.prolong(Dungeon.hero, Blindness.class, Blindness.DURATION * 4f);
 		GameScene.flash(0x80FFFFFF);
-		Buff.affect(hero, Burning.class ).reignite( hero, 15f );
+		Buff.affect(hero, Burning.class).reignite(hero, 15f);
 		Dungeon.level.seal();
-		Mob mob = new MoloHR();
-		mob.pos = pos;
-		GameScene.add(mob);
-		new FlameC01().spawnAround(pos);
-		new ShopGuardDead().spawnAround(pos);
-			yell( Messages.get(this, "arise") );
-		next();
+		Mob moa = new MoloHR();
+		moa.pos = pos;
+		GameScene.add(moa);
+		yell(Messages.get(this, "arise"));
+		new ShopGuardEye().spawnAround(pos);
+		new ShopGuard().spawnAround(pos);
+		Buff.affect(moa, ChampionEnemy.Growing.class);
+		for (Mob mob : Dungeon.level.mobs) {
+			switch (Random.Int(7)) {
+				case 0:
+				default:
+					Buff.affect(mob, ChampionEnemy.Blazing.class);
+					break;
+				case 1:
+					Buff.affect(mob, ChampionEnemy.Projecting.class);
+					break;
+				case 2:
+					Buff.affect(mob, ChampionEnemy.AntiMagic.class);
+					break;
+				case 3:
+					Buff.affect(mob, ChampionEnemy.Giant.class);
+					break;
+				case 4:
+					Buff.affect(mob, ChampionEnemy.Blessed.class);
+					break;
+				case 5:
+					Buff.affect(mob, ChampionEnemy.Growing.class);
+					break;
+				case 6:
+					Buff.affect(mob, ChampionEnemy.Halo.class);
+					break;
+			}
+		}
+		yell(Messages.get(this, "dead"));
 	}
 
-
-	@Override
 	public void destroy() {
 		super.destroy();
 		for (Heap heap: Dungeon.level.heaps.valueList()) {
@@ -118,7 +151,7 @@ public class Shopkeeper extends NPC {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean reset() {
 		return true;
@@ -141,7 +174,7 @@ public class Shopkeeper extends NPC {
 		return true;
 	}
 	
-	private static WndBag.Listener itemSelector = new WndBag.Listener() {
+	public static WndBag.Listener itemSelector = new WndBag.Listener() {
 		@Override
 		public void onSelect( Item item ) {
 			if (item != null) {

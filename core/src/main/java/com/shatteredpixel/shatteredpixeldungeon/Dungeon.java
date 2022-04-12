@@ -21,6 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -53,9 +54,11 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.CaveTwoBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.DM920BossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DimandKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.ItemLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastShopLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -63,7 +66,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.OldCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SLMKingLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
@@ -165,6 +167,7 @@ public class Dungeon {
 	}
 
 	public static int challenges;
+	public static int hard;
 	public static int mobsToChampion;
 	public static DewVial View;
 	public static Hero hero;
@@ -233,8 +236,7 @@ public class Dungeon {
 
 		depth = -1;
 		gold = 0;
-		nyzbuy = 5;
-		//TODO 奈亚子购买次数
+		nyzbuy = 1;
 		droppedItems = new SparseArray<>();
 		portedItems = new SparseArray<>();
 
@@ -277,8 +279,26 @@ public class Dungeon {
 		}
 
 		Level level;
-
-		if (Dungeon.isChallenged(RLPT)) {
+		if (Dungeon.isChallenged(ALLBOSS)) {
+			//Boss Rush
+			switch (depth) {
+				case 0:
+					level = new ZeroLevel();
+					break;
+				case 1:
+					level = new ItemLevel();
+					break;
+				case 2:
+					level = new SewerBossLevel();
+					break;
+				case 3:
+					level = new DM920BossLevel();
+					break;
+				default:
+					level = new DeadEndLevel();
+					Statistics.deepestFloor--;
+			}
+		} else if (Dungeon.isChallenged(RLPT)) {
 			switch (depth) {
 				case 0:
 					level = new ZeroLevel();
@@ -333,7 +353,7 @@ public class Dungeon {
 					}
 					break;
 				case 15:
-						level = new OldCavesBossLevel();
+						level = new CaveTwoBossLevel();
 						break;
 				case 16:
 				case 17:
@@ -418,16 +438,16 @@ public class Dungeon {
 				level = new PrisonLevel();
 				break;
 			case 10:
-				switch (Random.Int(2)) {
+				switch (Random.Int(6)) {
 					case 0:
 					default:
 						level = new NewPrisonBossLevel();
 						//Statistics.spawnersDK++;
 						break;
-					case 1:
+					case 1:case 2:case 3:
 						level = new NewPrisonBossLevel();
 						break;
-					case 2:
+					case 4:case 5:case 6:
 						level =  new DimandKingLevel();
 						break;
 				}
@@ -558,11 +578,11 @@ public class Dungeon {
 	//冰雪结界
 
 	public static boolean NxhyshopOnLevel() {
-		return depth == 9 || depth == 16;
+		return depth == 9 || depth == 18;
 	}
 
 	public static boolean NyzshopOnLevel() {
-		return depth == 14 || depth == 18;
+		return depth == 12;
 	}
 
 	public static boolean BlueS() {
@@ -598,6 +618,18 @@ public class Dungeon {
 	}
 	
 	public static boolean bossLevel( int depth ) {
+		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+	}
+
+	/*
+	=======================================================================
+	 */
+
+	public static boolean rushbossLevel() {
+		return rushbossLevel( depth );
+	}
+
+	public static boolean rushbossLevel( int depth ) {
 		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
 	}
 	

@@ -75,8 +75,11 @@ public enum Talent {
 	HOLD_FAST(9, 3), STRONGMAN(10, 3),
 	//Berserker T3
 	ENDLESS_RAGE(11, 3), BERSERKING_STAMINA(12, 3), ENRAGED_CATALYST(13, 3),
-	//Gladiator T3
+
 	CLEAVE(14, 3), LETHAL_DEFENSE(15, 3), ENHANCED_COMBO(16, 3),
+
+	//狂战士觉醒技能-狂暴战神
+	DIED_GOD(17,4),
 
 	//Mage T1
 	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), TESTED_HYPOTHESIS(34), BACKUP_BARRIER(35),
@@ -124,7 +127,7 @@ public enum Talent {
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21
 	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
-
+	public static int[] FourTevel = new int[]{20};
 	Talent( int icon ){
 		this(icon, 2);
 	}
@@ -181,6 +184,8 @@ public enum Talent {
 
 	public static class CachedRationsDropped extends CounterBuff{};
 	public static class NatureBerriesAvailable extends CounterBuff{};
+
+	//狂暴战神-伤害加成
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
 		if (hero.hasTalent(HEARTY_MEAL)){
@@ -373,7 +378,7 @@ public enum Talent {
 	public static class SuckerPunchTracker extends Buff{};
 	public static class FollowupStrikeTracker extends Buff{};
 
-	public static final int MAX_TALENT_TIERS = 3;
+	public static final int MAX_TALENT_TIERS = 4;
 
 	public static void initClassTalents( Hero hero ){
 		initClassTalents( hero.heroClass, hero.talents );
@@ -495,6 +500,16 @@ public enum Talent {
 		}
 		tierTalents.clear();
 
+
+		/*switch (cls) {
+			case BERSERKER:
+			default:
+				Collections.addAll(tierTalents, DIED_GOD);
+		}
+		for (Talent talent : tierTalents){
+			talents.get(3).put(talent, 0);
+		}
+		tierTalents.clear();*/
 		//tier4
 		//TBD
 	}

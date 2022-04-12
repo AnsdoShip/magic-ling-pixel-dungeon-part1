@@ -1,5 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -61,9 +62,13 @@ public class KAmuletScene extends PixelScene {
         RedButton btnExit = new RedButton( Messages.get(this, "exit") ) {
             @Override
             protected void onClick() {
-                Game.switchScene( GameScene.class );
-                for (Item item : items)
-                    Dungeon.quickslot.clearItem(item);
+                InterlevelScene.mode = InterlevelScene.Mode.RETURN;
+                InterlevelScene.returnDepth = Math.max(1, (Dungeon.depth - 1 - (Dungeon.depth-2)));
+                InterlevelScene.returnPos = -1;
+                hero.lvl = 1;
+                hero.STR = 10;
+                hero.HP = 15;
+                Game.switchScene( InterlevelScene.class );
                 updateQuickslot();
                 tell(Messages.get("新的冒险在等着你！"));
             }

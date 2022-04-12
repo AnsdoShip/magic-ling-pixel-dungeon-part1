@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
@@ -226,7 +227,7 @@ public class TitleScene extends PixelScene {
 		add(btnAbout);
 
 		StyledButton btnNews = new NewsButton(GREY_TR, Messages.get(this, "news"));
-		btnNews.icon(new IceGolemSprite());
+		btnNews.icon(new SlylSprite());
 		add(btnNews);
 
 		final int BTN_HEIGHT = 20;
@@ -316,7 +317,8 @@ public class TitleScene extends PixelScene {
 			}
 
 			if (unreadCount > 0){
-				textColor(ColorMath.interpolate( 0xFFFFFF, Window.SHPX_COLOR, 0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
+				textColor(ColorMath.interpolate( 0xFFFFFF, Window.TITLE_COLOR,
+						0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
 			}
 		}
 

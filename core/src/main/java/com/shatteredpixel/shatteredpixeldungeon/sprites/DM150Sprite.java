@@ -16,7 +16,7 @@ public class DM150Sprite extends MobSprite
         TextureFilm var1 = new TextureFilm(this.texture, 22, 20);
         Integer var2 = 2;
         Integer var3 = 1;
-        this.idle = new Animation(2, true);
+        this.idle = new Animation(10, true);
         Animation var4 = this.idle;
         Integer var5 = 0;
         var4.frames(var1, new Object[]{var5, var5, var5, var3, var5, var5, var3, var3});

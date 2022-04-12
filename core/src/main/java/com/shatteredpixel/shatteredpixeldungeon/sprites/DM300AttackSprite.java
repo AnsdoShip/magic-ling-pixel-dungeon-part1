@@ -4,10 +4,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.bosses.DM920;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
 
 public class DM300AttackSprite extends MobSprite
 {
@@ -46,5 +49,23 @@ public class DM300AttackSprite extends MobSprite
         super.onComplete(animation);
         if(animation == die)
             emitter().burst(Speck.factory(7), 15);
+    }
+
+    public void zap( int cell ) {
+
+        turnTo( ch.pos , cell );
+        play( zap );
+
+        MagicMissile.boltFromChar( parent,
+                MagicMissile.CORROSION,
+                this,
+                cell,
+                new Callback() {
+                    @Override
+                    public void call() {
+                        ((DM920.DM300AttackMode)ch).onZapComplete();
+                    }
+                } );
+        Sample.INSTANCE.play( Assets.Sounds.ZAP );
     }
 }

@@ -10,9 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BlueNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM150Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM275Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300DeathBallSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300SpiderSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DM75Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
@@ -74,6 +79,191 @@ public class vM0_5_X_Changes {
         ChangeInfo changes = new ChangeInfo("风暴袭来，未完待续", true, "");
         changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
+
+        ChangeInfo changes21= new ChangeInfo("V0.5.X.X-ENDUPDATE", true, "");
+        changes21.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes21);
+
+        changes = new ChangeInfo("新模式：BossRush!!!", true, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes = new ChangeInfo("新BOSS:DM920", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        Image dm920 = new DM300Sprite();
+        dm920.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(dm920, (Messages.get(vM0_5_X_Changes.class,
+                "dm920")),
+                Messages.get(vM0_5_X_Changes.class, "dm920logs")));
+
+        Image dm9201 = new DM300AttackSprite();
+        dm9201.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(dm9201, (Messages.get(vM0_5_X_Changes.class,
+                "dm9201")),
+                Messages.get(vM0_5_X_Changes.class, "dm9201logs")));
+
+        Image dm9202 = new DM300SpiderSprite();
+        dm9202.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(dm9202, (Messages.get(vM0_5_X_Changes.class,
+                "dm9202")),
+                Messages.get(vM0_5_X_Changes.class, "dm9202logs")));
+
+        Image dm9203 = new DM300DeathBallSprite();
+        dm9203.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(dm9203, (Messages.get(vM0_5_X_Changes.class,
+                "dm9203")),
+                Messages.get(vM0_5_X_Changes.class, "dm9203logs")));
+
+        Image dm9204 = new DM275Sprite();
+        dm9204.scale.set(PixelScene.align(0.75f));
+        changes.addButton(new ChangeButton(dm9204, (Messages.get(vM0_5_X_Changes.class,
+                "dm9204")),
+                Messages.get(vM0_5_X_Changes.class, "dm9204logs")));
+
+        changes.addButton(new ChangeButton(new DM75Sprite(), (Messages.get(vM0_5_X_Changes.class,
+                "dm75")),
+                Messages.get(vM0_5_X_Changes.class, "dm75logs")));
+
+        changes.addButton(new ChangeButton(new DM150Sprite(), (Messages.get(vM0_5_X_Changes.class,
+                "dm150")),
+                Messages.get(vM0_5_X_Changes.class, "dm150logs")));
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "dm920")),
+                Messages.get(vM0_5_X_Changes.class, "dm920logos")));
+
+        ChangeInfo changes20= new ChangeInfo("V0.5.X.9.6-Complete!", true, "");
+        changes20.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes20);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SAI,
+                new ItemSprite.Glowing( 0xFF0000 )), ("吸血鬼刀改善"),
+                ("1.吸血鬼刀改进 感谢@A神 的建议\n" +
+                        "公式为：角色最大血量*0.01+武器等级*0.5+0.8\n" +
+                        "温馨提示：是取整 6.9=9 而不是四舍五入\n\n" +
+                        "举例：0级武器 1级角色\n" +
+                        "20x0.01+0*0.5+0.8=0.2+0+0.8=1\n" +
+                        "10级武器 10级角色\n" +
+                        "70x0.01+10x0.5+0.8=0.7+5+0.8=6.5=6")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X18")));
+
+        ChangeInfo changes19 = new ChangeInfo("V0.5.X.9.5-ReFixed", true, "");
+        changes19.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes19);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(Icons.get(Icons.NEWS), ("动态情报"),
+                ("动态情报追加按钮，以后大家可以在这里面获取最新版！！！")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SAI,
+                new ItemSprite.Glowing( 0xFF0000 )), ("吸血鬼刀"),
+                ("原3阶武器，现在迁移到4阶武器")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X17")));
+
+        ChangeInfo changes18 = new ChangeInfo("V0.5.X.9.3-ReFixed", true, "");
+        changes18.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes18);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.AMULET,
+                new ItemSprite.Glowing( 0x00FFFF )), ("护身符调整"),
+                ("结束游戏改为返回主城！")));
+
+
+        changes.addButton(new ChangeButton(new NyzSprites(), ("奈亚子商店正式入驻"),
+               ("看脸还是运气？这是个问题！随机购买商店奈亚子已入驻！并且修复卡顿问题！")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X16")));
+
+        ChangeInfo changes17 = new ChangeInfo("V0.5.X.9-ReFixed", true, "");
+        changes17.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes17);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+
+        changes.addButton(new ChangeButton(new NyzSprites(), ("奈亚子商店正式入驻"),
+                ("看脸还是运气？这是个问题！随机购买商店奈亚子已入驻！")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X15")));
+
+        ChangeInfo changes16 = new ChangeInfo("V0.5.X.8-ReFixed", true, "");
+        changes16.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes16);
+
+        changes = new ChangeInfo("改动", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+
+
+        changes.addButton(new ChangeButton(new MagicGirlSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "wids2")),
+                Messages.get(vM0_5_X_Changes.class, "wids2logs")));
+
+        changes.addButton(new ChangeButton(new ShopkeeperSprite(), (Messages.get(vM0_5_X_Changes.class, "shop12")),
+                Messages.get(vM0_5_X_Changes.class, "shop12logs")));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X14")));
+
+        ChangeInfo changes15 = new ChangeInfo("V0.5.X.7-FV", true, "");
+        changes15.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes15);
+
+        changes = new ChangeInfo("新内容", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREATAXE,
+                new ItemSprite.Glowing( 0x00FFFF )), "新附魔：鬼磷",
+                "这个附魔会使磷火从武器中喷薄而出，能够使用点燃敌人并对正在燃烧的敌人造成中毒的额外伤害。"));
+
+        changes = new ChangeInfo("修复", false, null);
+        changes.hardlight(Window.RED_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new Image("sprites/spinner.png", 144, 0, 16, 16), (Messages.get(ChangesScene.class, "bugfixes")),
+                Messages.get(vM0_5_X_Changes.class, "bug_05X13")));
 
         ChangeInfo changes14 = new ChangeInfo("V0.5.X.6-FV", true, "");
         changes14.hardlight(Window.SKYBULE_COLOR);

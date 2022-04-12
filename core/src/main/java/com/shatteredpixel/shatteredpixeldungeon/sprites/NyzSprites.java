@@ -5,33 +5,51 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.effects.ShieldHalo;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.particles.PixelParticle;
+import com.watabou.noosa.audio.Sample;
 
 public class NyzSprites extends MobSprite {
-    private PixelParticle coin;
+    private ShieldHalo shield;
 
     public NyzSprites() {
-        this.texture("Npcs/nyz.png");
-        TextureFilm var1 = new TextureFilm(this.texture, 16, 16);
-        Integer var2 = 1;
-        this.idle = new Animation(10, true);
-        Animation var3 = this.idle;
-        Integer var4 = 0;
-        var3.frames(var1, new Object[]{var2, var2, var2, var2, var2, var4, var4, var4, var4});
-        this.die = new Animation(20, false);
-        this.die.frames(var1, new Object[]{var4});
-        this.run = this.idle.clone();
-        this.attack = this.idle.clone();
-        this.idle();
+        super();
+
+        texture( Assets.Sprites.NYZD );
+
+        TextureFilm frames = new TextureFilm( texture, 16, 16 );
+
+        idle = new Animation( 10, true );
+        idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 1,1,1,1,1 );
+
+        run = new Animation( 10, true );
+        run.frames( frames, 0 );
+
+        die = new Animation( 10, false );
+        die.frames( frames, 0 );
+
+        play( idle );
     }
 
-    public void onComplete(Animation var1) {
-        super.onComplete(var1);
-        if (this.visible && var1 == this.idle) {
-            if (this.coin == null) {
-                this.coin = new PixelParticle();
-                this.parent.add(this.coin);
-            }}
+    @Override
+    public void link( Char ch ) {
+        super.link( ch );
+        add(State.SHIELDED);
     }
+
+    @Override
+    public void die() {
+        super.die();
+
+        remove(State.SHIELDED);
+        emitter().start( ElmoParticle.FACTORY, 0.03f, 60 );
+
+        if (visible) {
+            Sample.INSTANCE.play( Assets.Sounds.BURNING );
+        }
+    }
+
 }

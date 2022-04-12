@@ -25,8 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nxhy;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nyz;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RenShop;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -34,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 
 public class WndTradeItem extends WndInfoItem {
@@ -119,6 +118,26 @@ public class WndTradeItem extends WndInfoItem {
 
 		pos = btnBuy.bottom();
 
+		RedButton btnStole = new RedButton( Messages.get(this, "stole", price) ) {
+			@Override
+			protected void onClick() {
+				hide();
+				for (Mob mob : Dungeon.level.mobs) {
+					if (mob instanceof Shopkeeper) {
+						GameScene.show(new WndGoShop(this));
+						break;
+					} else if (mob instanceof Nxhy) {
+						mob.yell(Messages.get(mob, "why"));
+						break;
+					}
+				}
+			}
+		};
+		btnStole.setRect( 0, pos + GAP, width, BTN_HEIGHT );
+		add( btnStole );
+
+		pos = btnStole.bottom();
+
 		final MasterThievesArmband.Thievery thievery = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
 		if (thievery != null && !thievery.isCursed()) {
 			final float chance = thievery.stealChance(price);
@@ -135,11 +154,13 @@ public class WndTradeItem extends WndInfoItem {
 						}
 					} else {
 						for (Mob mob : Dungeon.level.mobs) {
-							if (mob instanceof Shopkeeper || mob instanceof Nyz|| mob instanceof RenShop|| mob instanceof Nxhy) {
+							if ( mob instanceof Nxhy) {
+								mob.yell(Messages.get(mob, "thief"));
+								((Nxhy) mob).flee();
+								break;
+							} else if (mob instanceof Shopkeeper) {
 								mob.yell(Messages.get(mob, "thief"));
 								((Shopkeeper) mob).flee();
-								((RenShop) mob).flee();
-								((Nxhy) mob).flee();
 								break;
 							}
 						}

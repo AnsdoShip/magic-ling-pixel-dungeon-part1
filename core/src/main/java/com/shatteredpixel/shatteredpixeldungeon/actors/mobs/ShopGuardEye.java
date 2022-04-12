@@ -49,7 +49,8 @@ public class ShopGuardEye extends Statue {
         maxLvl = -200;
         state = HUNTING;
         spriteClass = ShopGuardianRedSprite.class;
-        HP=HT=Random.Int(30, 40);
+        HP=HT=Random.Int(60, 80);
+        properties.add(Property.FIERY);
     }
 
     protected Armor armor;
@@ -63,8 +64,8 @@ public class ShopGuardEye extends Statue {
 
         weapon.enchant( Weapon.Enchantment.random() );
 
-        HP = HT = 15 + Dungeon.depth * 5;
-        defenseSkill = 4 + Dungeon.depth;
+        //HP = HT = 15 + Dungeon.depth * 5;
+        //defenseSkill = 4 + Dungeon.depth;
 
         do {
             armor = new PlateArmor();

@@ -30,6 +30,7 @@ public class MoloHR extends Mob {
         this.spriteClass = MolotovHuntsmanSprite.class;
         this.HT = 180;
         this.HP = 180;
+        HUNTING = new Hunting();
         this.defenseSkill = 10;
         this.EXP = 15;
         this.state = this.SLEEPING;
@@ -40,6 +41,7 @@ public class MoloHR extends Mob {
                 "扬了你的骨灰！", "啊！", "烧死你"};
         this.combo = 0;
         properties.add(Property.MINIBOSS);
+        properties.add(Property.FIERY);
     }
 
     public int attackProc(Char var1, int var2) {
@@ -91,6 +93,7 @@ public class MoloHR extends Mob {
     @Override
     public void die( Object cause ) {
         super.die( cause );
+        Dungeon.level.unseal();
     }
 
     protected boolean getCloser(int var1) {
@@ -118,6 +121,7 @@ public class MoloHR extends Mob {
 
     @Override
     public void notice() {
+
         super.notice();
     }
 

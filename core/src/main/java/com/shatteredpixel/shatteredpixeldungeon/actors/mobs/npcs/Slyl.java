@@ -14,7 +14,7 @@ import com.watabou.utils.Random;
 
 public class Slyl extends NPC {
 
-    private static final String[] TXT_RANDOM = {"事情过了很久了，或许我们都有错","地牢异变确实很久了","新年快乐！祝你每一次下地牢都能有新发现！"};
+    private static final String[] TXT_RANDOM = {"始作俑者是……","继续调查，她快来了","风暴正在袭来，何处才有我们的结局？"};
 
     {
         spriteClass = SlylSprite.class;

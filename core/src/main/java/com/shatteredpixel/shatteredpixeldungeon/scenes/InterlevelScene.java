@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -90,7 +92,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE,KO
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE,KO,GOBACK
 	}
 	public static Mode mode;
 
@@ -172,7 +174,7 @@ public class InterlevelScene extends PixelScene {
 			fadeTime += 0.9f; //adds 1 second total
 		//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.1f;
+			fadeTime = 0.9f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
@@ -278,6 +280,9 @@ public class InterlevelScene extends PixelScene {
 								break;
 							case RETURN:
 								returnTo();
+								break;
+							case GOBACK:
+								returnPO();
 								break;
 							case FALL:
 								fall();
@@ -439,6 +444,16 @@ public class InterlevelScene extends PixelScene {
 		Dungeon.switchLevel( level, returnPos );
 	}
 
+	private void returnPO() throws IOException {
+		Mob.holdAllies( Dungeon.level );
+		hero.STR = 10;
+		hero.lvl = 1;
+		InterlevelScene.returnDepth = Math.max(1, (Dungeon.depth - 1 - (Dungeon.depth-2)%5));
+		InterlevelScene.returnPos = -1;
+		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		Dungeon.switchLevel( level, returnPos );
+	}
+
 	private void returnTx() throws IOException {
 
 		Mob.holdAllies( Dungeon.level );
@@ -483,7 +498,7 @@ public class InterlevelScene extends PixelScene {
 	private void reset() throws IOException {
 
 		Mob.holdAllies( Dungeon.level );
-
+		hero.HP += 20;
 		SpecialRoom.resetPitRoom(Dungeon.depth+1);
 
 		Dungeon.depth--;

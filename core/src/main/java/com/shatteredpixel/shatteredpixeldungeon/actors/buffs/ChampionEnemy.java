@@ -36,7 +36,7 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public abstract class ChampionEnemy extends Buff {
-
+	public static final float shopDURATION	= 2000000000f;
 	{
 		type = buffType.POSITIVE;
 	}

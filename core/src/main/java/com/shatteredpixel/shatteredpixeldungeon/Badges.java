@@ -165,7 +165,8 @@ public class Badges {
 		CHAMPION_2                  ( 113 ),
 		CHAMPION_3                  ( 114 ),
 		CHAMPION_4                  ( 115 ),
-		CHAMPION_5                  ( 116 );
+		CHAMPION_5                  ( 116 ),
+		NYZ_SHOP                    ( 117 );
 
 		public boolean meta;
 
@@ -330,6 +331,17 @@ public class Badges {
 			local.add( badge );
 		}
 		
+		displayBadge( badge );
+	}
+
+	public static void nyzvalidateGoldCollected() {
+		Badge badge = null;
+
+		if (!local.contains( Badge.NYZ_SHOP ) && Statistics.naiyaziCollected >= 50) {
+			badge = Badge.NYZ_SHOP;
+			local.add( badge );
+		}
+
 		displayBadge( badge );
 	}
 	

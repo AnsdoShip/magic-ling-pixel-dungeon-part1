@@ -53,7 +53,7 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class SlimeKing extends SRPDICLR implements Callback {
+public class SlimeKing extends Golem implements Callback {
 
 	private static final String COMBO = "combo";
 	private String[] attackCurse = {"雕虫小技", "班门弄斧",
@@ -136,8 +136,9 @@ public class SlimeKing extends SRPDICLR implements Callback {
 		}
 		int damage2 = SlimeKing.super.attackProc(enemy, this.combo + damage);
 		this.combo++;
+		int effect = Random.Int(2)+combo;
 		if (enemy.buff(Poison.class) == null) {
-			Buff.affect(enemy, Poison.class).set(15.0f);
+			Buff.affect( enemy, Poison.class).set((effect-2) );
 		}
 		if (this.combo > 3) {
 			this.combo = 1;
@@ -215,7 +216,7 @@ public class SlimeKing extends SRPDICLR implements Callback {
 				}
 			}
 		}
-		chainsUsed = true;
+		//chainsUsed = true;
 		return true;
 	}
 
@@ -255,6 +256,8 @@ public class SlimeKing extends SRPDICLR implements Callback {
 		yell( Messages.get(this, "notice") );
 		//summon();
 	}
+
+
 
 		@Override
 	public void die( Object cause ) {

@@ -32,6 +32,7 @@ import com.watabou.utils.Random;
 
 public abstract class ChampionHero extends FlavourBuff {
     public static final float DURATION	= 200f;
+    public static final float shopDURATION	= 2000000000f;
     {
         type = buffType.POSITIVE;
     }
@@ -251,6 +252,7 @@ public abstract class ChampionHero extends FlavourBuff {
 
         @Override
         public boolean act() {
+            detach();
             multiplier += 0.01f;
             spend(3*TICK);
             return true;
@@ -268,6 +270,7 @@ public abstract class ChampionHero extends FlavourBuff {
 
         @Override
         public float evasionAndAccuracyFactor() {
+
             return multiplier;
         }
 

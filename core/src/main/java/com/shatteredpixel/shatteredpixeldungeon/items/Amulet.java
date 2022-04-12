@@ -21,17 +21,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.AmuletScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.Game;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Amulet extends Item {
@@ -63,30 +59,11 @@ public class Amulet extends Item {
 
 		super.execute( hero, action );
 
-		//if (action.equals(AC_ENDS)) {
-		//	showAmuletScene( false );
-		//}
-	}
-
-	private void showAmuletScene( boolean showText ) {
-		try {
-			Dungeon.saveAll();
-			AmuletScene.noText = !showText;
-			Game.switchScene( AmuletScene.class, new Game.SceneChangeCallback() {
-				@Override
-				public void beforeCreate() {
-
-				}
-
-				@Override
-				public void afterCreate() {
-					Badges.validateVictory();
-					Badges.validateChampion(Challenges.activeChallenges());
-					Badges.saveGlobal();
-				}
-			});
-		} catch (IOException e) {
-			ShatteredPixelDungeon.reportException(e);
+		if (action.equals(AC_ENDS)) {
+			InterlevelScene.mode = InterlevelScene.Mode.RETURN;
+			InterlevelScene.returnDepth = Math.max(1, (Dungeon.depth - 1 - (Dungeon.depth-2)));
+			InterlevelScene.returnPos = -1;
+			Game.switchScene( InterlevelScene.class );
 		}
 	}
 

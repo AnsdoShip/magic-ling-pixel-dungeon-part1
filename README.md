@@ -1,5 +1,6 @@
+
 # Magic Ling Pixel Dungeon
-[**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
+[![](https://img.shields.io/badge/QQ%20Group-Join-brightgreen)](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
 **ROGUELIKE RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon)'s open source.
 
@@ -16,7 +17,7 @@ JDSA Ling, Tianscar, Daniel_Clan, REN, Leng Qunwei & Naiyazi
 
 
 ## Special Thanks
-[IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
+[IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages.
 
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 

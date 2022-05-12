@@ -1,27 +1,24 @@
-
-## Special Thanks
-> [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
-
-> [**中文介绍**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/README_ZH.md)
-
-[<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
-
-> [**Return to old library**](https://github.com/AnsdoShip/MagicLingPixelDungeon)
 # Magic Ling Pixel Dungeon
-> [**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
+[**Join the official QQ group**](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-* **ROGUELIKE-like RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon).
+**ROGUELIKE RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon)'s open source.
 
-# Producer list
+## Producers
 
 * **Planning**</br>
 JDSA Ling
 * **Program**</br>
-JDSA Ling & Carbonated Heaven Sword
+JDSA Ling & Tianscar
 * **Music**</br>
 Prohonor
 * **Artwork**</br>
-JDSA Ling, Carbonated Heavenly Sword, Daniel_Clan, REN, Leng Qunwei & Naiyazi
+JDSA Ling, Tianscar, Daniel_Clan, REN, Leng Qunwei & Naiyazi
 
-# license
-* [**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
+
+## Special Thanks
+[IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages。
+
+[<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
+
+## LICENSE
+[**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**

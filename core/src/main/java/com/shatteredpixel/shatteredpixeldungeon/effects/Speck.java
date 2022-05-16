@@ -68,6 +68,8 @@ public class Speck extends Image {
 	public static final int STORM       = 117;
 	public static final int INFERNO     = 118;
 	public static final int BLIZZARD    = 119;
+	//New Blobs
+	public static final int DIED        = 120;
 	
 	private static final int SIZE = 7;
 	
@@ -126,6 +128,7 @@ public class Speck extends Image {
 			break;
 		case JET:
 		case TOXIC:
+			case DIED:
 		case CORROSION:
 		case PARALYSIS:
 		case STENCH:
@@ -308,6 +311,13 @@ public class Speck extends Image {
 			lifespan = Random.Float( 1f, 3f );
 			break;
 
+			case DIED:
+				hardlight(0xff5060);
+				angularSpeed = 30;
+				angle =Random.Float( 360 );
+				lifespan = Random.Float( 1f,3f);
+				break;
+
 		case CORROSION:
 			hardlight( 0xAAAAAA );
 			angularSpeed = 30;
@@ -472,6 +482,7 @@ public class Speck extends Image {
 			case STEAM:
 			case TOXIC:
 			case PARALYSIS:
+				case DIED:
 			case CONFUSION:
 			case STORM:
 			case BLIZZARD:

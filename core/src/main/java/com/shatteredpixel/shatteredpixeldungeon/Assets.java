@@ -59,6 +59,7 @@ public class Assets {
 		public static final String TILES_CAVES	= "environment/Reload.png";
 		public static final String TILES_CITY	= "environment/tiles_city.png";
 		public static final String TILES_HALLS	= "environment/tiles_halls.png";
+		public static final String TILES_DIED	= "environment/tiles_died.png";
 
 		public static final String WATER_COLD= "environment/water-1.png";
 		public static final String WATER_SEWERS	= "environment/water0.png";
@@ -243,6 +244,9 @@ public class Assets {
 		public static final String ITEM_ICONS   = "sprites/item_icons.png";
 
 		public static final String MGAS	= "sprites/icemagicgirl.png";
+
+		public static final String FRAS	= "sprites/FireMagicGirl.png";
+
 		public static final String WARRIOR	= "sprites/warrior.png";
 		public static final String MAGE		= "sprites/mage.png";
 		public static final String ROGUE	= "sprites/rogue.png";

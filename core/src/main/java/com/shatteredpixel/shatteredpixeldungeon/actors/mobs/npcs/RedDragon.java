@@ -78,10 +78,10 @@ public class RedDragon extends NPC {
 
     @Override
     protected boolean act() {
-        if (Quest.processed()) {
-            target = hero.pos;
+        if (RedDragon.Quest.processed()) {
+            target = Dungeon.hero.pos;
         }
-        if (Dungeon.level.heroFOV[pos] && !Quest.completed()){
+        if (Dungeon.level.heroFOV[pos] && !RedDragon.Quest.completed()){
             Notes.add( Notes.Landmark.REDAGRON );
         }
         return super.act();
@@ -237,6 +237,7 @@ public class RedDragon extends NPC {
         public static Artifact armor;
         public static Armor food;
         public static ExoticScroll scrolls;
+
         public static Weapon.Enchantment enchant;
         public static Armor.Glyph glyph;
 
@@ -260,6 +261,8 @@ public class RedDragon extends NPC {
         private static final String DEPTH		= "depth";
         private static final String WEAPON		= "weapon";
         private static final String ARMOR		= "armor";
+        private static final String FOOD		= "food";
+        private static final String SCROLLS		= "scrolls";
         private static final String ENCHANT		= "enchant";
         private static final String GLYPH		= "glyph";
 
@@ -279,6 +282,8 @@ public class RedDragon extends NPC {
 
                 node.put( WEAPON, weapon );
                 node.put( ARMOR, armor );
+                node.put( FOOD, food );
+                node.put( SCROLLS, scrolls);
 
                 if (enchant != null) {
                     node.put(ENCHANT, enchant);
@@ -303,6 +308,8 @@ public class RedDragon extends NPC {
 
                 weapon	= (Ring)node.get( WEAPON );
                 armor	= (Artifact) node.get( ARMOR );
+                food	= (Armor) node.get( FOOD );
+                scrolls	= (ExoticScroll) node.get( SCROLLS );
 
                 if (node.contains(ENCHANT)) {
                     enchant = (Weapon.Enchantment) node.get(ENCHANT);
@@ -399,7 +406,7 @@ public class RedDragon extends NPC {
         }
 
         public static boolean completed(){
-            return processed() && weapon == null && armor == null;
+            return processed() && weapon == null && armor == null && food == null && scrolls == null;
         }
     }
 }

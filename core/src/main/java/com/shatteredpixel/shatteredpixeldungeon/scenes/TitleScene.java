@@ -262,7 +262,8 @@ public class TitleScene extends PixelScene {
 
 		BitmapText version = new BitmapText( "v" + Game.version, pixelFont);
 		version.measure();
-		version.hardlight( 0x888888);
+		int nickColor = hashCode();
+		version.hardlight( nickColor);
 		version.x = w - version.width() - 4;
 		version.y = h - version.height() - 2;
 		add( version );

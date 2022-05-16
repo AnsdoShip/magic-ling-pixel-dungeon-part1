@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM75Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireMagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceCryStalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceFireScorpioSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
@@ -79,6 +80,12 @@ public class vM0_5_X_Changes {
         ChangeInfo changes = new ChangeInfo("风暴袭来，未完待续", true, "");
         changes.hardlight(Window.RED_COLOR);
         changeInfos.add(changes);
+
+        Image fr = new FireMagicGirlSprite();
+        fr.scale.set(PixelScene.align(1f));
+        changes.addButton(new ChangeButton(fr, (Messages.get(vM0_5_X_Changes.class,
+                "fr")),
+                Messages.get(vM0_5_X_Changes.class, "frlogs")));
 
         ChangeInfo changes21= new ChangeInfo("V0.5.X.X-ENDUPDATE", true, "");
         changes21.hardlight(Window.SKYBULE_COLOR);
@@ -545,7 +552,6 @@ public class vM0_5_X_Changes {
 
         changes.addButton(new ChangeButton(new ShieldHuntsmanSprite(), (Messages.get(vM0_5_X_Changes.class, "hxblr")),
                 Messages.get(vM0_5_X_Changes.class, "hxblrlogs")));
-
         changes.addButton(new ChangeButton(new SRPDHBLRTT(), (Messages.get(vM0_5_X_Changes.class, "hblr")),
                 Messages.get(vM0_5_X_Changes.class, "hblrlogs")));
 

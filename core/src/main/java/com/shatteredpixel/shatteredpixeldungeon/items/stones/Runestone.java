@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
 public abstract class Runestone extends Item {
-	
+
 	{
 		stackable = true;
 		defaultAction = AC_THROW;

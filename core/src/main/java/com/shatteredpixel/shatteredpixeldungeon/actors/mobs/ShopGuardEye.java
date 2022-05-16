@@ -48,6 +48,7 @@ public class ShopGuardEye extends Statue {
     {
         maxLvl = -200;
         state = HUNTING;
+        flying = true;
         spriteClass = ShopGuardianRedSprite.class;
         HP=HT=Random.Int(60, 80);
         properties.add(Property.FIERY);
@@ -200,8 +201,6 @@ public class ShopGuardEye extends Statue {
 
     @Override
     public void die( Object cause ) {
-        armor.identify();
-        Dungeon.level.drop( armor, pos ).sprite.drop();
         super.die( cause );
     }
 

@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
 public class RandomBuff extends Buff {
@@ -98,4 +100,35 @@ public class RandomBuff extends Buff {
         interval = bundle.getInt( INTERVAL );
         level = bundle.getInt( LEVEL );
     }
+
+    public static class DiedBuff extends RandomBuff{
+        private int interval = 1;
+        @Override
+        public void tintIcon(Image icon) {
+            icon.hardlight(0xFF0000);
+        }
+        @Override
+        public boolean act() {
+            if (target.isAlive()) {
+
+                spend( interval );
+                if (--level <= 0) {
+                    detach();
+                }
+
+            } else {
+
+                detach();
+
+            }
+
+            return true;
+        }
+        @Override
+        public int icon() {
+            return BuffIndicator.CORRUPT;
+        }
+    }
+
+
 }

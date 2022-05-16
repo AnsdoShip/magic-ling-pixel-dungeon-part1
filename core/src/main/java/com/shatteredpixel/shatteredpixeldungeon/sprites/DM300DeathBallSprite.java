@@ -14,19 +14,19 @@ public class DM300DeathBallSprite extends MobSprite
     {
         texture("mobs/dm300deathballmode.png");
         TextureFilm texturefilm = new TextureFilm(texture, 21, 21);
-        idle = new com.watabou.noosa.MovieClip.Animation(10, true);
+        idle = new Animation(10, true);
         idle.frames(texturefilm, new Object[] {
             Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)
         });
-        run = new com.watabou.noosa.MovieClip.Animation(10, true);
+        run = new Animation(10, true);
         run.frames(texturefilm, new Object[] {
             Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(1)
         });
-        attack = new com.watabou.noosa.MovieClip.Animation(15, false);
+        attack = new Animation(15, false);
         attack.frames(texturefilm, new Object[] {
             Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)
         });
-        die = new com.watabou.noosa.MovieClip.Animation(20, false);
+        die = new Animation(20, false);
         die.frames(texturefilm, new Object[] {
             Integer.valueOf(4), Integer.valueOf(5), Integer.valueOf(4), Integer.valueOf(5), Integer.valueOf(4), Integer.valueOf(5), Integer.valueOf(4), Integer.valueOf(5)
         });
@@ -38,7 +38,7 @@ public class DM300DeathBallSprite extends MobSprite
         return -120;
     }
 
-    public void onComplete(com.watabou.noosa.MovieClip.Animation animation)
+    public void onComplete(Animation animation)
     {
         super.onComplete(animation);
         if(animation == die)

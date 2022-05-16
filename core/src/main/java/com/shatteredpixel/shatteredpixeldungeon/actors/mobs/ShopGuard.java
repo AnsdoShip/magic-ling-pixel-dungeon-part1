@@ -58,7 +58,7 @@ public class ShopGuard extends Statue {
         super();
 
         do {
-            weapon = (MeleeWeapon) Generator.random(Generator.Category.WEP_T5);
+            weapon = (MeleeWeapon) Generator.random(Generator.Category.WEP_T3);
         } while (weapon.cursed);
 
         weapon.enchant( Weapon.Enchantment.random() );
@@ -178,7 +178,8 @@ public class ShopGuard extends Statue {
 
     @Override
     public void die( Object cause ) {
-        ShopGuard.super.die(cause);
+        super.die(cause);
+        //Dungeon.level.drop( weapon, pos ).sprite.drop();
     }
 
     @Override

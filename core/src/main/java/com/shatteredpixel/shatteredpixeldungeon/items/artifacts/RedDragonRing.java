@@ -12,10 +12,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FireGhostDead;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RedDragon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
@@ -42,7 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBlacksmith;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
@@ -84,7 +84,7 @@ public class RedDragonRing extends Artifact {
     @Override
     public ArrayList<String> actions(Hero hero ) {
         ArrayList<String> actions = super.actions( hero );
-        if (!Ghost.Quest.completed()){
+        if (!RedDragon.Quest.completed()){
             actions.remove(AC_EQUIP);
             return actions;
         }
@@ -108,7 +108,7 @@ public class RedDragonRing extends Artifact {
 
         if (action.equals(AC_SUMMON)) {
 
-            if (!Ghost.Quest.completed())   GameScene.show(new WndUseItem(null, this));
+            if (!RedDragon.Quest.completed())   GameScene.show(new WndUseItem(null, this));
             else if (ghost != null)         GLog.i( Messages.get(this, "spawned") );
             else if (!isEquipped( hero ))   GLog.i( Messages.get(Artifact.class, "need_to_equip") );
             else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
@@ -489,7 +489,7 @@ public class RedDragonRing extends Artifact {
 
     }
 
-    public static class RedKing extends NPC {
+    public static class RedKing extends FireGhostDead {
 
         {
             spriteClass = RedDragonSprite.class;
@@ -717,7 +717,7 @@ public class RedDragonRing extends Artifact {
                 Game.runOnRenderThread(new Callback() {
                     @Override
                     public void call() {
-                        GameScene.show(new WndQuest(RedKing.this, Messages.get(RedKing.this, "introduce") ));
+                       GLog.p("再次相遇！！！");
                     }
                 });
                 return true;

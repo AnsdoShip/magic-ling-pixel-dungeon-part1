@@ -26,20 +26,13 @@ import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MoloHR;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuard;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardEye;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.ShopDiedBook;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
@@ -51,16 +44,15 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 public class Shopkeeper extends NPC {
 
 	{
 		spriteClass = ShopkeeperSprite.class;
-
+		properties.add(Property.BOSS);
 		properties.add(Property.IMMOVABLE);
 	}
-	private boolean seenBefore = false;
+	public static boolean seenBefore = false;
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -74,6 +66,9 @@ public class Shopkeeper extends NPC {
 			seenBefore = true;
 			//Buff.affect(this, ChampionEnemy.AntiMagic.class);
 			//Buff.affect(this, ChampionEnemy.Halo.class);
+		} else if(seenBefore && !Dungeon.level.heroFOV[pos]) {
+			seenBefore = false;
+			yell(Messages.get(this, "goodbye", Dungeon.hero.name()));
 		}
 		throwItem();
 
@@ -91,17 +86,7 @@ public class Shopkeeper extends NPC {
 		return INFINITE_EVASION;
 	}
 
-	public void flee() {
-		destroy();
-		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
-		GLog.negative(Messages.get(this, "guards"));
-		sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
-		Sample.INSTANCE.play(Assets.Sounds.ALERT);
-		Music.INSTANCE.play(Assets.RUN, true);
-		hero.sprite.burst(15597568, 9);
-		sprite.killAndErase();
-		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
-		GLog.negative(Messages.get(this, "guards"));
+	/*
 		Buff.prolong(Dungeon.hero, Blindness.class, Blindness.DURATION * 4f);
 		GameScene.flash(0x80FFFFFF);
 		Buff.affect(hero, Burning.class).reignite(hero, 15f);
@@ -113,6 +98,11 @@ public class Shopkeeper extends NPC {
 		new ShopGuardEye().spawnAround(pos);
 		new ShopGuard().spawnAround(pos);
 		Buff.affect(moa, ChampionEnemy.Growing.class);
+		Buff.affect(moa, ChampionEnemy.Projecting.class);
+		Buff.affect(moa, ChampionEnemy.AntiMagic.class);
+		Buff.affect(moa, ChampionEnemy.Giant.class);
+		Buff.affect(moa, ChampionEnemy.Blessed.class);
+		Buff.affect(moa, ChampionEnemy.Halo.class);
 		for (Mob mob : Dungeon.level.mobs) {
 			switch (Random.Int(7)) {
 				case 0:
@@ -139,7 +129,20 @@ public class Shopkeeper extends NPC {
 					break;
 			}
 		}
-		yell(Messages.get(this, "dead"));
+		yell(Messages.get(this, "dead"));*/
+
+	public void flee() {
+		destroy();
+		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
+		Sample.INSTANCE.play(Assets.Sounds.ALERT);
+		Music.INSTANCE.play(Assets.RUN, true);
+		hero.sprite.burst(15597568, 9);
+		sprite.killAndErase();
+		new ShopDiedBook().quantity(1).identify().collect();
+		CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
+		GLog.negative(Messages.get(this, "guards"));
+		GLog.n( Messages.get( ShopDiedBook.class, "chill") );
+		Buff.affect(hero, ShopDiedBook.ShopSpawner.class);
 	}
 
 	public void destroy() {

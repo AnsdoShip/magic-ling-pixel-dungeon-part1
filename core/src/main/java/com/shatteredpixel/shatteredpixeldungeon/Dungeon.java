@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RedDragon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.custom.utils.CustomGameSettings;
 import com.shatteredpixel.shatteredpixeldungeon.custom.utils.SeedUtil;
@@ -62,7 +63,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.ItemLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastShopLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
@@ -245,6 +245,7 @@ public class Dungeon {
 		chapters = new HashSet<>();
 
 		Ghost.Quest.reset();
+		RedDragon.Quest.reset();
 		Wandmaker.Quest.reset();
 		Blacksmith.Quest.reset();
 		Imp.Quest.reset();
@@ -291,7 +292,7 @@ public class Dungeon {
 				case 2:
 					level = new SewerBossLevel();
 					break;
-				case 3:
+				case 13:
 					level = new DM920BossLevel();
 					break;
 				default:
@@ -463,19 +464,11 @@ public class Dungeon {
 				if (Statistics.spawnersIce > 0) {
 					level = new CavesGirlDeadLevel();
 					break;
-				} else
-				switch (Random.Int(2)) {
-					case 0:
-					default:
-						level = new CaveTwoBossLevel();
-						//DM720 T0
-						break;
-					case 1:
-						//新版本的DM300
-						level = new NewCavesBossLevel();
-						break;
+				} else {
+					level = new CaveTwoBossLevel();
+					break;
+
 				}
-				break;
 			case 16:
 			case 17:
 			case 18:
@@ -779,6 +772,7 @@ public class Dungeon {
 			
 			Bundle quests = new Bundle();
 			Ghost		.Quest.storeInBundle( quests );
+			RedDragon	.Quest.storeInBundle( quests );
 			Wandmaker	.Quest.storeInBundle( quests );
 			Blacksmith	.Quest.storeInBundle( quests );
 			Imp			.Quest.storeInBundle( quests );
@@ -872,11 +866,13 @@ public class Dungeon {
 			Bundle quests = bundle.getBundle( QUESTS );
 			if (!quests.isNull()) {
 				Ghost.Quest.restoreFromBundle( quests );
+				RedDragon.Quest.restoreFromBundle( quests );
 				Wandmaker.Quest.restoreFromBundle( quests );
 				Blacksmith.Quest.restoreFromBundle( quests );
 				Imp.Quest.restoreFromBundle( quests );
 			} else {
 				Ghost.Quest.reset();
+				RedDragon.Quest.reset();
 				Wandmaker.Quest.reset();
 				Blacksmith.Quest.reset();
 				Imp.Quest.reset();

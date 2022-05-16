@@ -109,7 +109,7 @@ public class HallsLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.Environment.TILES_HALLS;
+		return Assets.Environment.TILES_DIED;
 	}
 	
 	@Override

@@ -23,8 +23,13 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FireGhostDead;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
+
 //红龙
 public class RedDragonSprite extends MobSprite {
 
@@ -48,6 +53,24 @@ public class RedDragonSprite extends MobSprite {
         die.frames( frames, 12,13,14 );
 
         play( idle );
+    }
+
+    public void zap( int cell ) {
+
+        turnTo( ch.pos , cell );
+        play( zap );
+
+        MagicMissile.boltFromChar( parent,
+                MagicMissile.FIRE,
+                this,
+                cell,
+                new Callback() {
+                    @Override
+                    public void call() {
+                        ((FireGhostDead)ch).onZapComplete();
+                    }
+                } );
+        Sample.INSTANCE.play( Assets.Sounds.ZAP );
     }
 
     @Override

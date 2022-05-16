@@ -38,7 +38,7 @@ public class FlameC02 extends FlameC01 {
     }
 
     public void die(Object cause) {
-        FlameC02.super.die(cause);
+        super.die( cause );
         RedDragon.Quest.process();
         //赋予红龙权限
     }

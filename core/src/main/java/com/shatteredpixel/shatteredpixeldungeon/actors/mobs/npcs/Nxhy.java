@@ -20,7 +20,7 @@ public class Nxhy extends NPC {
 
     {
         spriteClass = NxhySprite.class;
-
+        properties.add(Property.BOSS);
         properties.add(Property.IMMOVABLE);
     }
     private boolean seenBefore = false;

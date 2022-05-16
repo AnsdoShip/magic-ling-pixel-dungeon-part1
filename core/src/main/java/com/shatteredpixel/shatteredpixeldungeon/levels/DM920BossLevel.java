@@ -46,7 +46,7 @@ public class DM920BossLevel extends Level {
 		color1 = 0x534f3e;
 		color2 = 0xb9d661;
 
-		viewDistance = Math.min(6, viewDistance);
+		viewDistance = Math.min(12, viewDistance);
 	}
 
 	private static final int WIDTH = 43;
@@ -240,12 +240,6 @@ public class DM920BossLevel extends Level {
 		}
 
 		return super.drop( item, cell );
-	}
-
-	private boolean outsideEntraceRoom( int cell ) {
-		int cx = cell % width();
-		int cy = cell / width();
-		return cx < ROOM_LEFT-1 || cx > ROOM_RIGHT+1 || cy < ROOM_TOP-1 || cy > ROOM_BOTTOM+1;
 	}
 
 	@Override

@@ -20,15 +20,15 @@ public class DM300SpiderSprite extends MobSprite
     {
         texture("mobs/dm300spidermode.png");
         TextureFilm texturefilm = new TextureFilm(texture, 22, 20);
-        idle = new com.watabou.noosa.MovieClip.Animation(10, true);
+        idle = new Animation(10, true);
         idle.frames(texturefilm, new Object[] {
             Integer.valueOf(0), Integer.valueOf(1)
         });
-        run = new com.watabou.noosa.MovieClip.Animation(10, true);
+        run = new Animation(10, true);
         run.frames(texturefilm, new Object[] {
             Integer.valueOf(2), Integer.valueOf(3)
         });
-        attack = new com.watabou.noosa.MovieClip.Animation(15, false);
+        attack = new Animation(15, false);
         attack.frames(texturefilm, new Object[] {
             Integer.valueOf(4), Integer.valueOf(5), Integer.valueOf(6)
         });

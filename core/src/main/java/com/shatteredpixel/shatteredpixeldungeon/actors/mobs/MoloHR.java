@@ -31,9 +31,10 @@ public class MoloHR extends Mob {
         this.HT = 180;
         this.HP = 180;
         HUNTING = new Hunting();
+        state = HUNTING;
         this.defenseSkill = 10;
+        flying = true;
         this.EXP = 15;
-        this.state = this.SLEEPING;
         this.baseSpeed = 0.5625F;
         this.deathCurse = new String[]{"！！！"};
         this.attackCurse = new String[]{"就你？还想打我？", "让火焰净化一切！", "那个幽灵太看得起你了！", "我说，为什么要让我承担？",

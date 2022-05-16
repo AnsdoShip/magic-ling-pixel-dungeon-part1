@@ -74,6 +74,7 @@ public class Scorpio extends Mob {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE);
 		return !Dungeon.level.adjacent( pos, enemy.pos ) && attack.collisionPos == enemy.pos;
 	}
+
 	
 	@Override
 	public int attackProc( Char enemy, int damage ) {

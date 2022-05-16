@@ -52,9 +52,8 @@ public class PointerEvent {
 		down = false;
 		return this;
 	}
-	
-	// **********************
-	// *** Static members ***
+		// **********************
+	// *** Static members ***W
 	// **********************
 	
 	private static Signal<PointerEvent> pointerSignal = new Signal<>( true );

@@ -74,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.AquaBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAffection;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
@@ -102,7 +103,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.SkyBlueFireBloom;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.DeviceCompat;
 
@@ -150,6 +150,8 @@ public enum HeroClass {
 		}
 
 	}
+
+
 
 	private static void initCommon( Hero hero ) {
 		Item i = new ClothArmor().identify();
@@ -205,7 +207,7 @@ public enum HeroClass {
 			new Gauntlet().quantity(1).identify().collect();
 			new Firebloom.Seed().quantity(50).identify().collect();
 			new Blindweed.Seed().quantity(50).identify().collect();
-			new Stormvine.Seed().quantity(50).identify().collect();
+			new StoneOfFlock().quantity(50).identify().collect();
 			new PotionOfMindVision().quantity(50).identify().collect();
 			new PotionOfStrength().quantity(50).identify().collect();
 			new PotionOfHealing().quantity(50).identify().collect();

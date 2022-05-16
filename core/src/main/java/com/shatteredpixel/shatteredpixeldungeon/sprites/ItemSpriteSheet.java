@@ -719,6 +719,7 @@ public class ItemSpriteSheet {
 	public static final int	DRAGONKINGHALOFIRE				= BAGS+44;
 	public static final int	ICEFISHSWORD				= BAGS+45;
 	public static final int	FIREFISHSWORD				= BAGS+46;
+	public static final int	ENDDIED				= BAGS+47;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

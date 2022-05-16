@@ -100,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.ShopDiedBook;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
@@ -547,6 +548,11 @@ public class Hero extends Char {
 
 		if (belongings.armor != null) {
 			speed = belongings.armor.speedFactor(this, speed);
+		}
+
+		ShopDiedBook shop = Dungeon.hero.belongings.getItem( ShopDiedBook.class );
+		if (shop != null) {
+			speed /= 2;
 		}
 
 		Momentum momentum = buff(Momentum.class);
@@ -1204,6 +1210,9 @@ public class Hero extends Char {
 	public void damage( int dmg, Object src ) {
 		if (buff(TimekeepersHourglass.timeStasis.class) != null)
 			return;
+
+
+
 
 		if (!(src instanceof Hunger || src instanceof Viscosity.DeferedDamage) && damageInterrupt) {
 			interrupt();

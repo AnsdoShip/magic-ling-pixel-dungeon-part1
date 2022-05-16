@@ -532,7 +532,6 @@ public class NewDM720 extends MolotovHuntsman {
         Badges.KILLSDM720();
         GameScene.bossSlain();
         Dungeon.level.unseal();
-
         //60% chance of 2 shards, 30% chance of 3, 10% chance for 4. Average of 2.5
         int shards = Random.chances(new float[]{0, 0, 6, 3, 1});
         for (int i = 0; i < shards; i++) {
@@ -542,17 +541,7 @@ public class NewDM720 extends MolotovHuntsman {
             } while (!Dungeon.level.passable[pos + ofs]);
             Dungeon.level.drop(new MetalShard(), pos + ofs).sprite.drop(pos);
         }
-
         Badges.validateBossSlain();
-
-        spend(attackDelay() * 3f);
-        boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];
-        if (visible) {
-            sprite.attack(enemy.pos);
-            spend(TIME_TO_BURN);
-        }
-
-
 
         yell( Messages.get(this, "defeated") );
     }

@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
@@ -40,7 +41,7 @@ public class FireFishSword extends MeleeWeapon{
     public void bolt(Integer target, final Mob mob){
         if (target != null) {
 
-            final Ballistica shot = new Ballistica( curUser.pos, target, Ballistica.PROJECTILE);
+            final Ballistica shot = new Ballistica( Dungeon.hero.pos, target, Ballistica.PROJECTILE);
 
             fx(shot, new Callback() {
                 public void call() {
@@ -65,7 +66,8 @@ public class FireFishSword extends MeleeWeapon{
     }
 
     protected void fx(Ballistica bolt, Callback callback) {
-        MagicMissile.boltFromChar( curUser.sprite.parent, MagicMissile.FORCE, curUser.sprite, bolt.collisionPos, callback);
+        MagicMissile.boltFromChar( Dungeon.hero.sprite.parent, MagicMissile.FORCE, Dungeon.hero.sprite, bolt.collisionPos,
+                callback);
     }
 
     public int proc(Char attacker, Char defender, int damage) {

@@ -5,21 +5,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardDead;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ShopGuardEye;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.FireBallMobSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.NyzSprites;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.SlylSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ViewASprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DiedMonkSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite_EX;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -186,7 +180,7 @@ public class TitleScene extends PixelScene {
 				return super.onLongClick();
 			}
 		};
-		btnPlay.icon(new ViewASprite());
+		btnPlay.icon(new ItemSprite(ItemSpriteSheet.ENDDIED, null));
 		add(btnPlay);
 
 		StyledButton btnRankings = new StyledButton(GREY_TR,Messages.get(this, "rankings")) {
@@ -195,7 +189,7 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade(RankingsScene.class);
 			}
 		};
-		btnRankings.icon(new FireBallMobSprite());
+		btnRankings.icon(new ItemSprite(ItemSpriteSheet.ANKH, null));
 		add(btnRankings);
 
 		StyledButton btnBadges = new StyledButton(GREY_TR, Messages.get(this, "badges")) {
@@ -204,14 +198,14 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade(BadgesScene.class);
 			}
 		};
-		btnBadges.icon(new NyzSprites());
+		btnBadges.icon(new ItemSprite(ItemSpriteSheet.DG12, null));
 		add(btnBadges);
 
 		StyledButton btnSupport = new SupportButton(GREY_TR, Messages.get(this, "support"));
 		add(btnSupport);
 
 		StyledButton btnChanges = new ChangesButton(GREY_TR, Messages.get(this, "changes"));
-		btnChanges.icon(new ShopGuardDead.ShopGuardianRedSprite());
+		btnChanges.icon(new ItemSprite(ItemSpriteSheet.ICEBOOK, null));
 		add(btnChanges);
 
 		StyledButton btnSettings = new SettingsButton(GREY_TR, Messages.get(this, "settings"));
@@ -223,11 +217,11 @@ public class TitleScene extends PixelScene {
 				ShatteredPixelDungeon.switchNoFade( AboutSelectScene.class );
 			}
 		};
-		btnAbout.icon(new PoltergeistSprite.WraithSpriteRed());
+		btnAbout.icon(new ItemSprite(ItemSpriteSheet.MAGICGIRLBOOKS, null));
 		add(btnAbout);
 
 		StyledButton btnNews = new NewsButton(GREY_TR, Messages.get(this, "news"));
-		btnNews.icon(new SlylSprite());
+		btnNews.icon(new ItemSprite(ItemSpriteSheet.YELLOWBOOKS, null));
 		add(btnNews);
 
 		final int BTN_HEIGHT = 20;
@@ -262,8 +256,7 @@ public class TitleScene extends PixelScene {
 
 		BitmapText version = new BitmapText( "v" + Game.version, pixelFont);
 		version.measure();
-		int nickColor = hashCode();
-		version.hardlight( nickColor);
+		version.alpha( 0.4f);
 		version.x = w - version.width() - 4;
 		version.y = h - version.height() - 2;
 		add( version );
@@ -278,13 +271,13 @@ public class TitleScene extends PixelScene {
 	}
 
 	private void placeTorch2( float x, float y ) {
-		Image fb = (new IceGolemSprite());
+		Image fb = (new RedNecromancerSprite_EX());
 		fb.setPos( x, y );
 		add( fb );
 	}
 
 	private void placeTorch3( float x, float y ) {
-		Image fb = (new BatSprite.BatEDSprite());
+		Image fb = (new DiedMonkSprite());
 		fb.setPos( x, y );
 		add( fb );
 	}
@@ -347,7 +340,7 @@ public class TitleScene extends PixelScene {
 
 		public SettingsButton(Chrome.Type type, String label){
 			super(type, label);
-			icon(new BombGnollTricksterSprites());
+			icon(new ItemSprite(ItemSpriteSheet.BREDBOOK, null));
 			textColor(Window.Pink_COLOR);
 		}
 
@@ -366,7 +359,7 @@ public class TitleScene extends PixelScene {
 
 		public SupportButton( Chrome.Type type, String label ){
 			super(type, label);
-			icon(new ShopGuardEye.ShopGuardianBlueSprite());
+			icon(new ItemSprite(ItemSpriteSheet.NOKING, null));
 			textColor(Window.TITLE_COLOR);
 		}
 

@@ -213,6 +213,7 @@ public class ItemSpriteSheet {
 	public static final int SPEAR           = WEP_TIER2+2;
 	public static final int QUARTERSTAFF    = WEP_TIER2+3;
 	public static final int DIRK            = WEP_TIER2+4;
+	public static final int	ENDDIED			= WEP_TIER2+5;
 	static{
 		assignItemRect(SHORTSWORD,      13, 13);
 		assignItemRect(HAND_AXE,        12, 14);
@@ -719,7 +720,7 @@ public class ItemSpriteSheet {
 	public static final int	DRAGONKINGHALOFIRE				= BAGS+44;
 	public static final int	ICEFISHSWORD				= BAGS+45;
 	public static final int	FIREFISHSWORD				= BAGS+46;
-	public static final int	ENDDIED				= BAGS+47;
+	public static final int	SKELETONGOLD				= BAGS+47;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

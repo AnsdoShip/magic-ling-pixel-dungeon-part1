@@ -60,28 +60,6 @@ import java.io.IOException;
 
 public class InterlevelScene extends PixelScene {
 
-	private static final String[] LOADINGDIALOG = {
-			Messages.get( InterlevelScene.class,"dialog_1"),
-			Messages.get( InterlevelScene.class,"dialog_2"),
-			Messages.get( InterlevelScene.class,"dialog_3"),
-			Messages.get( InterlevelScene.class,"dialog_4"),
-			Messages.get( InterlevelScene.class,"dialog_5"),
-			Messages.get( InterlevelScene.class,"dialog_6"),
-			Messages.get( InterlevelScene.class,"dialog_7"),
-			Messages.get( InterlevelScene.class,"dialog_8"),
-			Messages.get( InterlevelScene.class,"dialog_9"),
-			Messages.get( InterlevelScene.class,"dialog_10"),
-			Messages.get( InterlevelScene.class,"dialog_11"),
-			Messages.get( InterlevelScene.class,"dialog_12"),
-			Messages.get( InterlevelScene.class,"dialog_13"),
-			Messages.get( InterlevelScene.class,"dialog_14"),
-			Messages.get( InterlevelScene.class,"dialog_15"),
-			Messages.get( InterlevelScene.class,"dialog_16"),
-			Messages.get( InterlevelScene.class,"dialog_17"),
-			Messages.get( InterlevelScene.class,"dialog_18"),
-			Messages.get( InterlevelScene.class,"dialog_19"),
-			Messages.get( InterlevelScene.class,"dialog_20"),};
-
 	//slow fade on entering a new region
 	private static final float SLOW_FADE = 1f; //.33 in, 1.33 steady, .33 out, 2 seconds total
 	//norm fade when loading, falling, returning, or descending to a new floor
@@ -174,7 +152,7 @@ public class InterlevelScene extends PixelScene {
 			fadeTime += 0.9f; //adds 1 second total
 		//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.1f;
+			fadeTime = 0.4f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
@@ -215,7 +193,47 @@ public class InterlevelScene extends PixelScene {
 		im.scale.y = Camera.main.width;
 		add(im);
 
-		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(LOADINGDIALOG[Random.Int(LOADINGDIALOG.length)]);
+		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(new String[]{
+				Messages.get(InterlevelScene.class, "dialog_1"),
+				Messages.get(InterlevelScene.class, "dialog_2"),
+				Messages.get(InterlevelScene.class, "dialog_3"),
+				Messages.get(InterlevelScene.class, "dialog_4"),
+				Messages.get(InterlevelScene.class, "dialog_5"),
+				Messages.get(InterlevelScene.class, "dialog_6"),
+				Messages.get(InterlevelScene.class, "dialog_7"),
+				Messages.get(InterlevelScene.class, "dialog_8"),
+				Messages.get(InterlevelScene.class, "dialog_9"),
+				Messages.get(InterlevelScene.class, "dialog_10"),
+				Messages.get(InterlevelScene.class, "dialog_11"),
+				Messages.get(InterlevelScene.class, "dialog_12"),
+				Messages.get(InterlevelScene.class, "dialog_13"),
+				Messages.get(InterlevelScene.class, "dialog_14"),
+				Messages.get(InterlevelScene.class, "dialog_15"),
+				Messages.get(InterlevelScene.class, "dialog_16"),
+				Messages.get(InterlevelScene.class, "dialog_17"),
+				Messages.get(InterlevelScene.class, "dialog_18"),
+				Messages.get(InterlevelScene.class, "dialog_19"),
+				Messages.get(InterlevelScene.class, "dialog_20"),}[Random.Int(new String[]{
+				Messages.get(InterlevelScene.class, "dialog_1"),
+				Messages.get(InterlevelScene.class, "dialog_2"),
+				Messages.get(InterlevelScene.class, "dialog_3"),
+				Messages.get(InterlevelScene.class, "dialog_4"),
+				Messages.get(InterlevelScene.class, "dialog_5"),
+				Messages.get(InterlevelScene.class, "dialog_6"),
+				Messages.get(InterlevelScene.class, "dialog_7"),
+				Messages.get(InterlevelScene.class, "dialog_8"),
+				Messages.get(InterlevelScene.class, "dialog_9"),
+				Messages.get(InterlevelScene.class, "dialog_10"),
+				Messages.get(InterlevelScene.class, "dialog_11"),
+				Messages.get(InterlevelScene.class, "dialog_12"),
+				Messages.get(InterlevelScene.class, "dialog_13"),
+				Messages.get(InterlevelScene.class, "dialog_14"),
+				Messages.get(InterlevelScene.class, "dialog_15"),
+				Messages.get(InterlevelScene.class, "dialog_16"),
+				Messages.get(InterlevelScene.class, "dialog_17"),
+				Messages.get(InterlevelScene.class, "dialog_18"),
+				Messages.get(InterlevelScene.class, "dialog_19"),
+				Messages.get(InterlevelScene.class, "dialog_20"),}.length)]);
 
 		message = PixelScene.renderTextBlock( text, 6 );
 		message.setPos(

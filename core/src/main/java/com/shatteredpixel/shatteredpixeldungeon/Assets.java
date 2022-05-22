@@ -289,6 +289,7 @@ public class Assets {
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String REDDRAGONPET = "sprites/petreddragon.png";
 		public static final String MONK		= "sprites/monk.png";
+		public static final String MONKDIED	= "sprites/monkdied.png";
 		public static final String WARLOCK	= "sprites/warlock.png";
 		public static final String GOLEM	= "sprites/golem.png";
 		public static final String ICEGOLEM	= "sprites/icegolem.png";
@@ -316,6 +317,7 @@ public class Assets {
 		public static final String SNAKE	= "sprites/snake.png";
 		public static final String NECRO	= "sprites/necromancer.png";
 		public static final String NECRORED	= "sprites/rednecromancer.png";
+		public static final String NECROREDEX	= "sprites/rednecromancer_ex.png";
 		public static final String GHOUL	= "sprites/ghoul.png";
 		public static final String RIPPER	= "sprites/ripper.png";
 		public static final String SPAWNER	= "sprites/spawner.png";

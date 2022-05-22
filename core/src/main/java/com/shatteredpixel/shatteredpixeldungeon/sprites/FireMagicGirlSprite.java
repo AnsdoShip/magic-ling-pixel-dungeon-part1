@@ -37,7 +37,7 @@ public class FireMagicGirlSprite extends MobSprite {
         TextureFilm frames = new TextureFilm( texture, 12, 16 );
 
         idle = new MovieClip.Animation( 4, true );
-        idle.frames( frames,c+5, c+4, c+3,2,1,0 );
+        idle.frames( frames, c+0, c+1 );
 
         run = new MovieClip.Animation(  6, true );
         run.frames( frames, c+0, c+1 );

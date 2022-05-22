@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
@@ -27,7 +28,7 @@ public class IceFishSword extends MeleeWeapon{
     public void bolt(Mob mob){
         if (mob.buff(Burning.class) != null){
 
-            final Ballistica shot = new Ballistica( curUser.pos, Ballistica.IGNORE_SOFT_SOLID);
+            final Ballistica shot = new Ballistica( Dungeon.hero.pos, Ballistica.IGNORE_SOFT_SOLID);
             Buff.affect( mob, Burning.class ).reignite( mob, 7f );
             fx(shot, () -> onHit(shot, mob));
         }
@@ -47,7 +48,8 @@ public class IceFishSword extends MeleeWeapon{
     }
 
     protected void fx(Ballistica bolt, Callback callback) {
-        MagicMissile.boltFromChar( curUser.sprite.parent, MagicMissile.WIND, curUser.sprite, bolt.collisionPos, callback);
+        MagicMissile.boltFromChar( Dungeon.hero.sprite.parent, MagicMissile.WIND, Dungeon.hero.sprite, bolt.collisionPos,
+                callback);
     }
 
     public int proc(Char attacker, Char defender, int damage) {

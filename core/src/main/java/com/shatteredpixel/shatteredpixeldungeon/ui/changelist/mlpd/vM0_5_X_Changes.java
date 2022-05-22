@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300SpiderSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM75Sprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.DiedMonkSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
@@ -38,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedDragonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite_EX;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
@@ -73,27 +75,49 @@ public class vM0_5_X_Changes {
 
     public static void add_v0_6_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
 
-        ChangeInfo changes2 = new ChangeInfo("即将推出-下半段更新", true, "");
-        changes2.hardlight(Window.GREEN_COLOR);
-        changeInfos.add(changes2);
-
-        ChangeInfo changes = new ChangeInfo("风暴袭来，未完待续", true, "");
-        changes.hardlight(Window.RED_COLOR);
+        ChangeInfo changes = new ChangeInfo("V0.6.0.0-上半段最终版", true, "");
+        changes.hardlight(Window.TITLE_COLOR);
         changeInfos.add(changes);
+
+        changes = new ChangeInfo("新物品", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SKELETONGOLD, null), ("吸血鬼刀"),
+                ("原3阶武器，现在迁移到4阶武器")));
+
+        changes = new ChangeInfo("新武器", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ICEFISHSWORD, null), ("吸血鬼刀"),
+                ("原3阶武器，现在迁移到4阶武器")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ENDDIED, null), ("吸血鬼刀"),
+                ("原3阶武器，现在迁移到4阶武器")));
+
+        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FIREFISHSWORD, null), ("吸血鬼刀"),
+                ("原3阶武器，现在迁移到4阶武器")));
+
+        changes = new ChangeInfo("新BOSS:浊焰魔女", false, null);
+        changes.hardlight(Window.SKYBULE_COLOR);
+        changeInfos.add(changes);
+
+        changes.addButton(new ChangeButton(new DiedMonkSprite(), (Messages.get(vM0_5_X_Changes.class,
+                "mkdied")),
+                Messages.get(vM0_5_X_Changes.class,
+                        "mkdied_desc")));
+
+        changes.addButton(new ChangeButton(new RedNecromancerSprite_EX(), (Messages.get(vM0_5_X_Changes.class,
+                "rmkdied")),
+                Messages.get(vM0_5_X_Changes.class,
+                        "rmkdied_desc")));
 
         Image fr = new FireMagicGirlSprite();
         fr.scale.set(PixelScene.align(1f));
         changes.addButton(new ChangeButton(fr, (Messages.get(vM0_5_X_Changes.class,
                 "fr")),
                 Messages.get(vM0_5_X_Changes.class, "frlogs")));
-
-        ChangeInfo changes21= new ChangeInfo("V0.5.X.X-ENDUPDATE", true, "");
-        changes21.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes21);
-
-        changes = new ChangeInfo("新模式：BossRush!!!", true, null);
-        changes.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes);
 
         changes = new ChangeInfo("新BOSS:DM920", false, null);
         changes.hardlight(Window.SKYBULE_COLOR);

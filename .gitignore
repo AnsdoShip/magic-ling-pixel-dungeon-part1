@@ -83,3 +83,12 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$1.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$2.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$3.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$4.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$5.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$6.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$Mode.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene$Phase.smali
+core/src/main/java/com/shatteredpixel/shatteredpixeldungeon/scenes/InterlevelScene.smali

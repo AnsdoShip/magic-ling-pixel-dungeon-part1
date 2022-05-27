@@ -721,6 +721,7 @@ public class ItemSpriteSheet {
 	public static final int	ICEFISHSWORD				= BAGS+45;
 	public static final int	FIREFISHSWORD				= BAGS+46;
 	public static final int	SKELETONGOLD				= BAGS+47;
+	public static final int	ANTILIGHT				= BAGS+51;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);
@@ -740,6 +741,7 @@ public class ItemSpriteSheet {
 	public static final int MAGICGIRLBOOKS=		MAINBOOKINDEX+6;
 	public static final int NOKING=		MAINBOOKINDEX+7;
 	public static final int FIRELIYD=		MAINBOOKINDEX+8;
+	public static final int FBK=		MAINBOOKINDEX+9;
 
 	private static final int MAINPALYBOOKS     = xy(1, 40);
 	public static final int MONEYBOOKS=		MAINPALYBOOKS+1;

@@ -451,7 +451,7 @@ public class NewDM300 extends Mob {
 			if (lock != null && !isImmune(src.getClass())) lock.addTime(dmgTaken*1.5f);
 		}
 
-		int threshold = HT/3 * (2- pylonsActivated);
+		int threshold = HT/4 * (4- pylonsActivated);
 
 		if (HP < threshold){
 			HP = threshold;
@@ -485,7 +485,7 @@ public class NewDM300 extends Mob {
 							Dungeon.level.distance(newPos, hero.pos) < 12 ||
 							Actor.findChar(newPos) != null);
 			if (Random.Int(1000) <= 500){
-				FlameB01 rat = new FlameB01();
+				RedSwarm rat = new RedSwarm();
 				rat.state = rat.WANDERING;
 				rat.pos = newPos;
 				GameScene.add(rat);
@@ -497,7 +497,7 @@ public class NewDM300 extends Mob {
 				GameScene.add(rat);
 				rat.beckon(pos );
 			}else if(Random.Int(250) <= 125){
-				FetidRat rat = new FetidRat ();
+				GnollShiled rat = new GnollShiled ();
 				rat.state = rat.WANDERING;
 				rat.pos = newPos;
 				GameScene.add(rat);
@@ -546,7 +546,7 @@ public class NewDM300 extends Mob {
 		supercharged = false;
 		((DM300Sprite)sprite).updateChargeState(false);
 
-		if (pylonsActivated < 2){
+		if (pylonsActivated < 4){
 			yell(Messages.get(this, "charge_lost"));
 		} else {
 			yell(Messages.get(this, "pylons_destroyed"));
@@ -556,15 +556,15 @@ public class NewDM300 extends Mob {
 
 	@Override
 	public boolean isAlive() {
-		return HP > 0 || pylonsActivated < 2;
+		return HP > 0 || pylonsActivated < 4;
 	}
 
 	@Override
 	public void die( Object cause ) {
 		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
-			if (mob instanceof MolotovHuntsman || mob instanceof FlameB01||
+			if (mob instanceof MolotovHuntsman || mob instanceof RedSwarm||
 					mob instanceof DM100|| mob instanceof FireGhost||mob instanceof BlackHost||
-			mob instanceof FetidRat||mob instanceof Spinner) {
+			mob instanceof GnollShiled||mob instanceof Spinner) {
 				mob.die( cause );
 			}
 		}

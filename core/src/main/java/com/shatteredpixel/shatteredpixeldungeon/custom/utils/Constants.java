@@ -20,8 +20,8 @@ public class Constants {
     //############################## UI STUFF ##############################
     //
 
-    public static final int MAX_QUICKSLOTS = 12;
-    public static final int MIN_QUICKSLOTS = 4;
+    public static final int MAX_QUICKSLOTS = 7;
+    public static final int MIN_QUICKSLOTS = 3;
 
     public static boolean gameIsAndroid(){
         return Game.platform.getClass().getSimpleName().contains("Android");

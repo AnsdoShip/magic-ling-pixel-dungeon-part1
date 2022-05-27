@@ -55,7 +55,7 @@ import java.util.Iterator;
 * This is DM920 Boss
 * Total 4 Read……
 */
-@SuppressWarnings("ALL")
+
 public class DM920 extends Mob
 {
     public static class DM150 extends Mob

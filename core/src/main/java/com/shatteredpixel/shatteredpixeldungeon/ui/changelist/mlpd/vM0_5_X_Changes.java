@@ -10,19 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BlueNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BombGnollTricksterSprites;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CausticSlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM150Sprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM275Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300AttackSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300DeathBallSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300SpiderSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM720Sprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DM75Sprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DiedMonkSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FireGhostSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.FireMagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceCryStalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceFireScorpioSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
@@ -39,7 +32,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PylonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedDragonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite_EX;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RenSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
@@ -75,98 +67,9 @@ public class vM0_5_X_Changes {
 
     public static void add_v0_6_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
 
-        ChangeInfo changes = new ChangeInfo("V0.6.0.0-上半段最终版", true, "");
-        changes.hardlight(Window.TITLE_COLOR);
-        changeInfos.add(changes);
-
-        changes = new ChangeInfo("新物品", false, null);
+        ChangeInfo changes= new ChangeInfo("V0.5.X.9.6-Complete!", true, "");
         changes.hardlight(Window.SKYBULE_COLOR);
         changeInfos.add(changes);
-
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SKELETONGOLD, null), ("吸血鬼刀"),
-                ("原3阶武器，现在迁移到4阶武器")));
-
-        changes = new ChangeInfo("新武器", false, null);
-        changes.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes);
-
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ICEFISHSWORD, null), ("吸血鬼刀"),
-                ("原3阶武器，现在迁移到4阶武器")));
-
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ENDDIED, null), ("吸血鬼刀"),
-                ("原3阶武器，现在迁移到4阶武器")));
-
-        changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.FIREFISHSWORD, null), ("吸血鬼刀"),
-                ("原3阶武器，现在迁移到4阶武器")));
-
-        changes = new ChangeInfo("新BOSS:浊焰魔女", false, null);
-        changes.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes);
-
-        changes.addButton(new ChangeButton(new DiedMonkSprite(), (Messages.get(vM0_5_X_Changes.class,
-                "mkdied")),
-                Messages.get(vM0_5_X_Changes.class,
-                        "mkdied_desc")));
-
-        changes.addButton(new ChangeButton(new RedNecromancerSprite_EX(), (Messages.get(vM0_5_X_Changes.class,
-                "rmkdied")),
-                Messages.get(vM0_5_X_Changes.class,
-                        "rmkdied_desc")));
-
-        Image fr = new FireMagicGirlSprite();
-        fr.scale.set(PixelScene.align(1f));
-        changes.addButton(new ChangeButton(fr, (Messages.get(vM0_5_X_Changes.class,
-                "fr")),
-                Messages.get(vM0_5_X_Changes.class, "frlogs")));
-
-        changes = new ChangeInfo("新BOSS:DM920", false, null);
-        changes.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes);
-
-        Image dm920 = new DM300Sprite();
-        dm920.scale.set(PixelScene.align(0.75f));
-        changes.addButton(new ChangeButton(dm920, (Messages.get(vM0_5_X_Changes.class,
-                "dm920")),
-                Messages.get(vM0_5_X_Changes.class, "dm920logs")));
-
-        Image dm9201 = new DM300AttackSprite();
-        dm9201.scale.set(PixelScene.align(0.75f));
-        changes.addButton(new ChangeButton(dm9201, (Messages.get(vM0_5_X_Changes.class,
-                "dm9201")),
-                Messages.get(vM0_5_X_Changes.class, "dm9201logs")));
-
-        Image dm9202 = new DM300SpiderSprite();
-        dm9202.scale.set(PixelScene.align(0.75f));
-        changes.addButton(new ChangeButton(dm9202, (Messages.get(vM0_5_X_Changes.class,
-                "dm9202")),
-                Messages.get(vM0_5_X_Changes.class, "dm9202logs")));
-
-        Image dm9203 = new DM300DeathBallSprite();
-        dm9203.scale.set(PixelScene.align(0.75f));
-        changes.addButton(new ChangeButton(dm9203, (Messages.get(vM0_5_X_Changes.class,
-                "dm9203")),
-                Messages.get(vM0_5_X_Changes.class, "dm9203logs")));
-
-        Image dm9204 = new DM275Sprite();
-        dm9204.scale.set(PixelScene.align(0.75f));
-        changes.addButton(new ChangeButton(dm9204, (Messages.get(vM0_5_X_Changes.class,
-                "dm9204")),
-                Messages.get(vM0_5_X_Changes.class, "dm9204logs")));
-
-        changes.addButton(new ChangeButton(new DM75Sprite(), (Messages.get(vM0_5_X_Changes.class,
-                "dm75")),
-                Messages.get(vM0_5_X_Changes.class, "dm75logs")));
-
-        changes.addButton(new ChangeButton(new DM150Sprite(), (Messages.get(vM0_5_X_Changes.class,
-                "dm150")),
-                Messages.get(vM0_5_X_Changes.class, "dm150logs")));
-
-        changes.addButton(new ChangeButton(Icons.get(Icons.INFO), (Messages.get(vM0_5_X_Changes.class, "dm920")),
-                Messages.get(vM0_5_X_Changes.class, "dm920logos")));
-
-        ChangeInfo changes20= new ChangeInfo("V0.5.X.9.6-Complete!", true, "");
-        changes20.hardlight(Window.SKYBULE_COLOR);
-        changeInfos.add(changes20);
 
         changes = new ChangeInfo("改动", false, null);
         changes.hardlight(Window.SKYBULE_COLOR);

@@ -225,36 +225,25 @@ public class Bestiary {
 						Necromancer.class,Necromancer.class));
 			case 11:
 				return new ArrayList<>(Arrays.asList(Bat.class,
-						Spinner.class, Spinner.class,
-						DM200.class, SRPDHBLR.class,
-						Brute.class,DM200.class,DM201.class,
-						SRPDHBLR.class, FireGhost.class,ColdMagicRat.class,ColdMagicRat.class));
+						Spinner.class, Spinner.class,ColdMagicRat.class,ColdMagicRat.class));
 			case 12:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
-						GnollTrickster.class,
-						Shaman.random(), SRPDHBLR.class,
-						Spinner.class, Spinner.class,
-						DM200.class, SRPDHBLR.class,
-						Brute.class,
 						SRPDHBLR.class,ColdMagicRat.class,FireGhost.class,ColdMagicRat.class));
 			case 13:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
-						Brute.class,
-						MolotovHuntsman.class, Spinner.class,FlameB01.class,
-						DM201.class, FlameB01.class,
-						Brute.class,FlameB01.class,SRPDHBLR.class,ColdMagicRat.class,RedSwarm.class));
+						Brute.class,FlameB01.class,
+						DM201.class,RedSwarm.class));
 
 			case 14:
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
 						MolotovHuntsman.class,
 						Spinner.class,
-						SRPDHBLR.class, MolotovHuntsman.class,
-						Brute.class,SRPDHBLR.class,FireGhost.class,ColdMagicRat.class,RedSwarm.class));
+						SRPDHBLR.class,ColdMagicRat.class,RedSwarm.class));
 				case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
@@ -262,7 +251,7 @@ public class Bestiary {
 						MolotovHuntsman.class,
 						Spinner.class,
 						SRPDHBLR.class, MolotovHuntsman.class,
-						Brute.class, FlameB01.class,SRPDHBLR.class,FireGhost.class,ColdMagicRat.class,RedSwarm.class));
+						Brute.class,SRPDHBLR.class,FireGhost.class,ColdMagicRat.class,RedSwarm.class));
 
 			// City
 			case 16:

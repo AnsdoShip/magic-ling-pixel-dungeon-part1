@@ -428,15 +428,15 @@ public class DimandKing extends Boss {
             int dmgTaken = preHP - HP;
             abilityCooldown -= dmgTaken/8f;
             summonCooldown -= dmgTaken/8f;
-            if (HP <= 120) {
-                HP = 120;
+            if (HP <= 80) {
+                HP = 80;
                 sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
                 ScrollOfTeleportation.appear(this, DimandKingLevel.throne);
                 properties.add(Property.IMMOVABLE);
                 phase = 2;
                 summonsMade = 0;
                 sprite.idle();
-                Buff.affect(this, DKBarrior.class).setShield(25*24);
+                Buff.affect(this, DKBarrior.class).setShield(10*25);
                 for (Summoning s : buffs(Summoning.class)) {
                     s.detach();
                 }
@@ -455,12 +455,9 @@ public class DimandKing extends Boss {
         } else if (phase == 2 && shielding() == 0) {
             properties.remove(Property.IMMOVABLE);
             phase = 3;
-            summonsMade = 3;
             sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
             Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
             yell(  Messages.get(this, "enraged", Dungeon.hero.name()) );
-            Buff.affect(this, Healing.class).setHeal(42, 0f, 6);
-
         } else if (phase == 3 && preHP > 30 && HP <= 30){
             yell( Messages.get(this, "losing") );
         }
@@ -575,7 +572,7 @@ public class DimandKing extends Boss {
         }
     }
 
-    public static class DKWarlock extends FireGhostDead {
+    public static class DKWarlock extends DimandMimic {
         {
             state = HUNTING;
             immunities.add(Corruption.class);

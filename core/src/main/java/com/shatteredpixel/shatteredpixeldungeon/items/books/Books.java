@@ -19,8 +19,6 @@ public class Books extends MainBooks {
         return false;
     }
 
-
-    public String title = Messages.get(this, "title");
     public String author = Messages.get(this, "author");
     public Integer age;
     public String desc = Messages.get(this, "desc");

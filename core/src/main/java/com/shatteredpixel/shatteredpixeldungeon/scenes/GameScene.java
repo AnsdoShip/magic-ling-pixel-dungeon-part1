@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
 
-
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.BGMPlayer;
@@ -409,14 +408,6 @@ public class GameScene extends PixelScene {
 				case 11:
 					WndStory.showChapter( WndStory.ID_CAVES );
 					break;
-				case 15:
-					if(Statistics.spawnersIce > 0) {
-						WndStory.showChapter(WndStory.ID_ICEBOSS);
-						break;
-					} else {
-						WndStory.showChapter(WndStory.ID_CAVESBOSS);
-						break;
-					}
 				case 16:
 					WndStory.showChapter( WndStory.ID_CITY );
 					break;
@@ -582,6 +573,10 @@ public class GameScene extends PixelScene {
 				case LARGE:     GLog.w(Messages.get(this, "large"));    break;
 				case TRAPS:     GLog.w(Messages.get(this, "traps"));    break;
 				case SECRETS:   GLog.w(Messages.get(this, "secrets"));  break;
+			}
+
+			if(Dungeon.selectbossLevel()){
+				GLog.p(Messages.get(this, "gold_sketelon"));
 			}
 
 			for (Mob mob : Dungeon.level.mobs) {

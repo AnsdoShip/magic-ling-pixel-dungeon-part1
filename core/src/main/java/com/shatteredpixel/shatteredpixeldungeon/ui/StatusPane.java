@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -128,8 +129,35 @@ public class StatusPane extends Component {
 		level.hardlight( 0xFFFFAA );
 		add( level );
 
-		depth = new BitmapText( Integer.toString( Dungeon.depth ), PixelScene.pixelFont);
-		depth.hardlight( 0xCACFC2 );
+		depth = new BitmapText( Integer.toString( Dungeon.depth ), PixelScene.pixelFont)
+		{
+			private float time;
+
+			@Override
+			public void update() {
+				super.update();
+				am = 1f + 0.01f*Math.max(0f, (float)Math.sin( time += Game.elapsed/5 ));
+				time += Game.elapsed / 3.5f;
+				float r = 0.33f+0.57f*Math.max(0f, (float)Math.sin( time));
+				float g = 0.53f+0.57f*Math.max(0f, (float)Math.sin( time + 2*Math.PI/3 ));
+				float b = 0.63f+0.57f*Math.max(0f, (float)Math.sin( time + 4*Math.PI/3 ));
+
+				if(Dungeon.bossLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
+					depth.hardlight(r, g, b);
+				} else {
+					depth.hardlight(0xCACFC2);
+				}
+				if (time >= 2f * Math.PI) time = 0;
+			}
+
+			@Override
+			public void draw() {
+				Blending.setLightMode();
+				super.draw();
+				Blending.setNormalMode();
+			}
+		};
+		depth.alpha(1f);
 		depth.measure();
 		add( depth );
 
@@ -152,8 +180,11 @@ public class StatusPane extends Component {
 				float r = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time));
 				float g = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time + 2*Math.PI/3 ));
 				float b = 0.43f+0.57f*Math.max(0f, (float)Math.sin( time + 4*Math.PI/3 ));
-				float base = 0.65f;
-				version.hardlight(r, g, b);
+				if(Dungeon.bossLevel() && Dungeon.hero.buff(LockedFloor.class) != null) {
+					version.hardlight(r, g, b);
+				} else {
+					version.hardlight(0xCCCCCC);
+				}
 				if (time >= 2f * Math.PI) time = 0;
 			}
 

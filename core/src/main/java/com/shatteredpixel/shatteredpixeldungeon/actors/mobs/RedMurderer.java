@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.RedTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MurdererSprite;
@@ -154,7 +154,7 @@ public class RedMurderer extends Mob {
                 Dungeon.quickslot.convertToPlaceholder(toSteal);
             }
             Item.updateQuickslot();
-            TeleportationTrap run = new TeleportationTrap();
+            RedTrap run = new RedTrap();
             run.pos = super.pos;
             run.activate();
             item = toSteal.detach( hero.belongings.backpack );

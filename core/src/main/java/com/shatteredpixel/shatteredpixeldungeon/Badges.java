@@ -164,9 +164,13 @@ public class Badges {
 		GAMES_PLAYED_4              ( 112, true ),
 		CHAMPION_2                  ( 113 ),
 		CHAMPION_3                  ( 114 ),
-		CHAMPION_4                  ( 115 ),
-		CHAMPION_5                  ( 116 ),
-		NYZ_SHOP                    ( 117 );
+		NYZ_SHOP                    ( 117 ),
+
+		//rudy
+		FIREGIRL                    ( 128 ),
+		DM920                   	 ( 129 ),
+		DRAWF_HEAD                    ( 130 ),
+		SPICEALBOSS 				 ( 131);
 
 		public boolean meta;
 
@@ -337,7 +341,7 @@ public class Badges {
 	public static void nyzvalidateGoldCollected() {
 		Badge badge = null;
 
-		if (!local.contains( Badge.NYZ_SHOP ) && Statistics.naiyaziCollected >= 50) {
+		if (!local.contains( Badge.NYZ_SHOP ) && Statistics.naiyaziCollected >= 7) {
 			badge = Badge.NYZ_SHOP;
 			local.add( badge );
 		}
@@ -947,22 +951,6 @@ public class Badges {
 			}
 			badge = Badge.CHAMPION_3;
 		}
-		if (challenges >= 9 && (!(Dungeon.isChallenged(PRO)))){
-			if (!global.contains(badge)){
-				global.add(badge);
-				saveNeeded = true;
-			}
-			badge = Badge.CHAMPION_4;
-		}
-		if (challenges >= 10 && (!(Dungeon.isChallenged(PRO)))){
-			if (!global.contains(badge)){
-				global.add(badge);
-				saveNeeded = true;
-			}
-			badge = Badge.CHAMPION_5;
-		}
-		local.add(badge);
-		displayBadge( badge );
 	}
 	
 	private static void displayBadge( Badge badge ) {

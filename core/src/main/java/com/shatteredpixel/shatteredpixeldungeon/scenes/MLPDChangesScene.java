@@ -1,6 +1,5 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -13,10 +12,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.S_Changes;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.mlpd.vM0_5_X_Changes;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.mlpd.vM0_6_7_X_Changes;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.NinePatch;
-import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
@@ -69,9 +68,12 @@ public class MLPDChangesScene extends PixelScene {
 
         switch (changesSelected){
             case 0: default:
-                vM0_5_X_Changes.addAllChanges(changeInfos);
+                vM0_6_7_X_Changes.addAllChanges(changeInfos);
                 break;
             case 1:
+                vM0_5_X_Changes.addAllChanges(changeInfos);
+                break;
+            case 2:
                 S_Changes.addAllChanges(changeInfos);
                 break;
         }
@@ -128,7 +130,7 @@ public class MLPDChangesScene extends PixelScene {
                 panel.innerHeight() + 2);
         list.scrollTo(0, 0);
 
-        StyledButton btn0_9 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "_v0.5.X_"){
+        StyledButton btn0_9 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "_v0.6.X_"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -139,10 +141,10 @@ public class MLPDChangesScene extends PixelScene {
             }
         };
         if (changesSelected != 0) btn0_9.textColor( 0xBBBBBB );
-        btn0_9.setRect(list.left()-4f, list.bottom(), 72, changesSelected == 0 ? 19 : 15);
+        btn0_9.setRect(list.left()-4f, list.bottom(), 45, changesSelected == 0 ? 19 : 15);
         addToBack(btn0_9);
 
-        StyledButton btn0_8 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "_v0.0-4_"){
+        StyledButton btn0_18 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "_v0.5.X_"){
             @Override
             protected void onClick() {
                 super.onClick();
@@ -152,8 +154,22 @@ public class MLPDChangesScene extends PixelScene {
                 }
             }
         };
-        if (changesSelected != 1) btn0_8.textColor( 0xBBBBBB );
-        btn0_8.setRect(btn0_9.right() + 1, list.bottom(), 68, changesSelected == 1 ? 19 : 15);
+        if (changesSelected != 1) btn0_18.textColor( 0xBBBBBB );
+        btn0_18.setRect(btn0_9.right() + 1, list.bottom(), 46, changesSelected == 1 ? 19 : 15);
+        addToBack(btn0_18);
+
+        StyledButton btn0_8 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "_v0.0-4_"){
+            @Override
+            protected void onClick() {
+                super.onClick();
+                if (changesSelected != 2) {
+                    changesSelected = 2;
+                    ShatteredPixelDungeon.seamlessResetScene();
+                }
+            }
+        };
+        if (changesSelected != 2) btn0_8.textColor( 0xBBBBBB );
+        btn0_8.setRect(btn0_18.right() + 1, list.bottom(), 48, changesSelected == 2 ? 19 : 15);
         addToBack(btn0_8);
 
         Archs archs = new Archs();

@@ -64,8 +64,6 @@ public class DimandKingLevel extends Level {
         return Assets.Environment.WATER_PRISON;
     }
 
-    private static final String IMP_SHOP = "imp_shop";
-
     @Override
     public void storeInBundle( Bundle bundle ) {
         super.storeInBundle( bundle );

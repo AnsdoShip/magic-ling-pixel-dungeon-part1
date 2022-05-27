@@ -46,6 +46,14 @@ public class SRPDHBLR extends Mob {
             "啊...你这个怪物", "你这怪物", "神啊...帮帮我吧...",
             "四周好冷", "诅咒你这怪物", "相信我的同伴今晚会为我复仇"};
 
+    public int generation	= 0;
+    private SRPDHBLR split() {
+        SRPDHBLR clone = new SRPDHBLR();
+        clone.generation = generation + 1;
+        clone.EXP = 0;
+        return clone;
+    }
+
     public SRPDHBLR() {
         this.spriteClass = SRPDHBLRTT.class;
         this.HT = 25;

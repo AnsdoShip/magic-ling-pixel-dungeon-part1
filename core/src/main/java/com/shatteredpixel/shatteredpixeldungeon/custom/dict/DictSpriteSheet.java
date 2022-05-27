@@ -2,11 +2,15 @@ package com.shatteredpixel.shatteredpixeldungeon.custom.dict;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ColdRatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireAcidicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FlameBoiSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.IceFireScorpioSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.IceGolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KagenoNusujinSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MolotovHuntsmanSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MurdererSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDLLSTT;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDNQHZTT;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.OGPDZSLSTT;
@@ -14,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.PoltergeistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedSwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDHBLRTT;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SRPDICLRTT;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShieldHuntsmanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpectralNecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
@@ -77,6 +82,16 @@ public class DictSpriteSheet {
                 return new Image(Assets.Sprites.GNOLL, 0, 0, 12, 15);
             case XTG:
                  return new TenguSprite();
+            case XHDD:
+                return new MurdererSprite.RedMuderer();
+            case IAX:
+                return new IceFireScorpioSprite();
+            case FAX:
+                return new FireAcidicSprite();
+            case IAS:
+                return new IceGolemSprite();
+            case CAX:
+                return new SRPDICLRTT();
             case REDBS:
                 return new RedNecromancerSprite();
             case SLXJ:
@@ -272,6 +287,11 @@ public class DictSpriteSheet {
     public static final int REDBS      = 222 + 10000;
     public static final int SLXJ      = 223 + 10000;
     public static final int BMHR      = 224 + 10000;
+    public static final int XHDD      = 225 + 10000;
+    public static final int IAX      = 226 + 10000;
+    public static final int FAX      = 227 + 10000;
+    public static final int CAX      = 228 + 10000;
+    public static final int IAS      = 229 + 10000;
 
     public static final int THIEF           = 300 + 10000;
     public static final int BANDIT          = 301 + 10000;

@@ -18,6 +18,6 @@ public class OGPDNQHZ extends Rat {
     }
 
     public int attackProc(Char var1, int var2) {
-        return super.attackProc(var1, var2) + 3;
+        return super.attackProc(var1, var2) + 1;
     }
 }

@@ -48,15 +48,21 @@ import java.util.ArrayList;
 
 public class CloakOfShadows extends Artifact {
 
+	@Override
+	//transfers upgrades from another artifact, transfer level will equal the displayed level
+	public void transferUpgrade(int transferLvl) {
+		upgrade(Math.round((transferLvl*levelCap)/20f));
+	}
+
 	{
 		image = ItemSpriteSheet.ARTIFACT_CLOAK;
 
 		exp = 0;
 		levelCap = 10;
 
-		charge = Math.min(level()+3, 10);
+		charge = Math.min(level()+6, 20);
 		partialCharge = 0;
-		chargeCap = Math.min(level()+3, 10);
+		chargeCap = Math.min(level()+6, 20);
 
 		defaultAction = AC_STEALTH;
 
@@ -170,7 +176,7 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public void charge(Hero target, float amount) {
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.pointsInTalent(Talent.LIGHT_CLOAK)/10f;
+			if (!isEquipped(target)) amount *= target.pointsInTalent(Talent.LIGHT_CLOAK)/20f;
 			partialCharge += 0.25f*amount;
 			if (partialCharge >= 1){
 				partialCharge--;
@@ -187,7 +193,7 @@ public class CloakOfShadows extends Artifact {
 	
 	@Override
 	public Item upgrade() {
-		chargeCap = Math.min(chargeCap + 1, 10);
+		chargeCap = Math.min(chargeCap + 1, 20);
 		return super.upgrade();
 	}
 
@@ -318,9 +324,9 @@ public class CloakOfShadows extends Artifact {
 						lvlDiffFromTarget -= level()-6;
 					}
 					if (lvlDiffFromTarget >= 0){
-						exp += Math.round(10f * Math.pow(1.1f, lvlDiffFromTarget));
+						exp += Math.round(20f * Math.pow(1.1f, lvlDiffFromTarget));
 					} else {
-						exp += Math.round(10f * Math.pow(0.75f, -lvlDiffFromTarget));
+						exp += Math.round(20f * Math.pow(0.75f, -lvlDiffFromTarget));
 					}
 					
 					if (exp >= (level() + 1) * 50 && level() < levelCap) {

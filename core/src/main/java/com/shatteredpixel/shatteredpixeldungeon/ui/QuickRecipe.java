@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
@@ -73,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAffection;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlueFuck;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.IceFishSword;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
@@ -294,6 +296,10 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new PotionOfNoWater.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Blindweed.Seed(), new Firebloom.Seed())),
 						new PotionOfNoWater()));
+				result.add(new QuickRecipe( new IceFishSword.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new FrozenCarpaccio(), new MagicalInfusion(),
+								new AlchemicalCatalyst())),
+						new IceFishSword()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe( new Blandfruit.CookFruit(),

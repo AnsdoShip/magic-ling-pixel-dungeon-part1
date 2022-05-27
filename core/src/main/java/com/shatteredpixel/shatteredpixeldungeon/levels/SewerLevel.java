@@ -209,7 +209,7 @@ public class SewerLevel extends RegularLevel {
 			acc.y = 50;
 			am = 0.5f;
 
-			color( ColorMath.random( 0x00bbbb, 0x006666 ) );
+			color( ColorMath.random( 0x7b4533, 0x7b45ff ) );
 			size( 2 );
 		}
 

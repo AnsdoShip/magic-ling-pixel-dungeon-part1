@@ -49,7 +49,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.builders.LoopBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.IceCrystalLRRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NxhyShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.NyzBombAndBooksRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.PitRoom;
@@ -127,9 +126,6 @@ public abstract class RegularLevel extends Level {
 
 		if (Dungeon.BooksRTD() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new StudyRoom());
-
-		if (Dungeon.iceCursedLevel() && (!Dungeon.isChallenged(ALLBOSS)))
-			initRooms.add(new IceCrystalLRRoom());
 
 		if (Dungeon.NxhyshopOnLevel() && (!Dungeon.isChallenged(ALLBOSS)))
 			initRooms.add(new NxhyShopRoom());

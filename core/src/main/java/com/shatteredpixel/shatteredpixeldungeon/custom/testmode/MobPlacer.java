@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FetidRat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Fire_Scorpio;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.FlameB01;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Gnoll;
@@ -30,6 +31,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GreatCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.IceGolem;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ice_Scorpio;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.KagenoNusujin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MolotovHuntsman;
@@ -40,12 +43,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDNQHZ;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDZSLS;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedMurderer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedNecromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedSwarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotHeart;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.SRPDHBLR;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.SRPDICLR;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Scorpio;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Senior;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
@@ -172,7 +177,7 @@ public class MobPlacer extends TestItem{
             case 5: return DataPack.ACIDIC.ordinal() - DataPack.ELE_CHAOS.ordinal() - 1;
             case 6: return DataPack.PIRANHA.ordinal() - DataPack.ACIDIC.ordinal() - 1;
             case 7: return DataPack.NQHZ.ordinal() - DataPack.PIRANHA.ordinal() - 1;
-            case 8: default: return DataPack.XTG.ordinal() - DataPack.NQHZ.ordinal() - 1;
+            case 8: default: return DataPack.IAS.ordinal() - DataPack.NQHZ.ordinal() - 1;
         }
     }
     private int dataThreshold(int tier){
@@ -426,7 +431,12 @@ public class MobPlacer extends TestItem{
         REDBS(RedNecromancer.class, DictSpriteSheet.REDBS),
         SLXJ(SpectralNecromancer.class, DictSpriteSheet.SLXJ),
         BMHR(ShieldHuntsman.class, DictSpriteSheet.BMHR),
-        XTG(XTG100.class, DictSpriteSheet.XTG);
+        XTG(XTG100.class, DictSpriteSheet.XTG),
+        XHDD(RedMurderer.class, DictSpriteSheet.XHDD),
+        IAX(Ice_Scorpio.class, DictSpriteSheet.IAX),
+        FAX(Fire_Scorpio.class, DictSpriteSheet.FAX),
+        CAX(SRPDICLR.class, DictSpriteSheet.CAX),
+        IAS(IceGolem.class, DictSpriteSheet.IAS);
 
         private Class<? extends Mob> mobClass;
         private int imageId;

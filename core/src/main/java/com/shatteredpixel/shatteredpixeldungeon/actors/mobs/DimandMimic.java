@@ -4,7 +4,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
@@ -13,43 +12,33 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.GoldBAo;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class DimandMimic extends Mimic {
     private boolean chainsUsed = false;
     {
         spriteClass = MimicSprite.Dimand.class;
-        loot = GoldBAo.class;
-        lootChance = 1f;
         properties.add( Property.ICY );
     }
 
     public DimandMimic() {
         super();
 
-        HP = HT = 150;
+        HP = HT = 60;
         defenseSkill = 10;
 
         HUNTING = new DimandMimic.Hunting();
@@ -61,42 +50,6 @@ public class DimandMimic extends Mimic {
             return Messages.get(Heap.class, "locked_chest");
         } else {
             return super.name();
-        }
-    }
-    public boolean supercharged = false;
-    @Override
-    public void move(int step) {
-        super.move(step);
-
-        Camera.main.shake( supercharged ? 4 : 1, 0.75f );
-
-        if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP && state == HUNTING) {
-
-            //don't gain energy from cells that are energized
-            if (NewCavesBossLevel.PylonEnergy.volumeAt(pos, NewCavesBossLevel.PylonEnergy.class) > 0){
-                return;
-            }
-
-            if (Dungeon.level.heroFOV[step]) {
-                if (buff(Barrier.class) == null) {
-                    yell(Messages.get(this, "shield"));
-                }
-                Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
-                sprite.emitter().start(SparkParticle.STATIC, 0.05f, 6);
-            }
-
-            if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP && HP < HT) {
-
-                HP += Random.Int( 2, HT - HP );
-                sprite.emitter().burst( ElmoParticle.FACTORY, 5 );
-
-                if (Dungeon.level.heroFOV[step] && Dungeon.hero.isAlive()) {
-                    GLog.n(Messages.get(this, "repair"));
-                }
-            }
-
-            Buff.affect(this, Barrier.class).setShield( 10 + (HT - HP)/10);
-
         }
     }
 
@@ -177,7 +130,6 @@ public class DimandMimic extends Mimic {
             } else {
                 final int newPosFinal = newPos;
                 this.target = newPos;
-                yell( Messages.get(this, "scorpion") );
                 new Item().throwSound();
                 Sample.INSTANCE.play( Assets.Sounds.CHAINS );
                 sprite.parent.add(new Chains(sprite.center(), enemy.sprite.center(), new Callback() {
@@ -206,44 +158,6 @@ public class DimandMimic extends Mimic {
     @Override
     public void setLevel(int level) {
         super.setLevel(Math.round(level*1.33f));
-    }
-
-    private static Char throwingChar;
-    public static boolean throwBomb(final Char thrower, final Char target){
-
-        int targetCell = -1;
-
-        //Targets closest cell which is adjacent to target, and at least 3 tiles away
-        for (int i : PathFinder.NEIGHBOURS8){
-            int cell = target.pos + i;
-            if (Dungeon.level.distance(cell, thrower.pos) >= 3 && !Dungeon.level.solid[cell]){
-                if (targetCell == -1 ||
-                        Dungeon.level.trueDistance(cell, thrower.pos) < Dungeon.level.trueDistance(targetCell, thrower.pos)){
-                    targetCell = cell;
-                }
-            }
-        }
-
-        if (targetCell == -1){
-            return false;
-        }
-
-        final int finalTargetCell = targetCell;
-        throwingChar = thrower;
-        final NewTengu.BombAbility.BombItem item = new NewTengu.BombAbility.BombItem();
-        thrower.sprite.zap(finalTargetCell);
-        ((MissileSprite) thrower.sprite.parent.recycle(MissileSprite.class)).
-                reset(thrower.sprite,
-                        finalTargetCell,
-                        item,
-                        new Callback() {
-                            @Override
-                            public void call() {
-                                item.onThrow(finalTargetCell);
-                                thrower.next();
-                            }
-                        });
-        return true;
     }
 
     @Override

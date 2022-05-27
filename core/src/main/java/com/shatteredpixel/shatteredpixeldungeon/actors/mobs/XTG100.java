@@ -71,7 +71,7 @@ public class XTG100 extends Mob {
 
         gasTankPressure = 80;
     }
-    int generation	= 0;
+    public int generation	= 0;
     private XTG100 split() {
         XTG100 clone = new XTG100();
         clone.generation = generation + 1;

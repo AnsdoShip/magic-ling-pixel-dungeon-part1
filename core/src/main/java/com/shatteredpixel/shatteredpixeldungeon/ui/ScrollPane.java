@@ -104,7 +104,10 @@ public class ScrollPane extends Component {
 	public void onClick( float x, float y ) {
 	}
 
-	public class PointerController extends ScrollArea {
+    public void disableThumb() {
+    }
+
+    public class PointerController extends ScrollArea {
 
 		private float dragThreshold;
 

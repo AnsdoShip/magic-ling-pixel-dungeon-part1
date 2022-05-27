@@ -28,10 +28,9 @@ public class Ice_Scorpio extends Scorpio{
     @Override
     public int attackProc(Char enemy, int damage ) {
         damage = super.attackProc( enemy, damage );
-        if (Random.Int( 2 ) == 0) {
+        if (Random.Int( 3,6 ) >= 4) {
             Buff.prolong( enemy, Chill.class, Chill.DURATION );
         }
-
         return damage;
     }
 }

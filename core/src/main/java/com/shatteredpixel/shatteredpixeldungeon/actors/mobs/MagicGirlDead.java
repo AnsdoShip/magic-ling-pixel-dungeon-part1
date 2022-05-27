@@ -76,8 +76,8 @@ public class MagicGirlDead extends Boss {
         initProperty();
         initBaseStatus(16, 22, 28, 16, 400, 4, 8);
         initStatus(76);
-        HP=600;
-        HT=600;
+        HP=400;
+        HT=400;
         viewDistance = 18;
     }
 

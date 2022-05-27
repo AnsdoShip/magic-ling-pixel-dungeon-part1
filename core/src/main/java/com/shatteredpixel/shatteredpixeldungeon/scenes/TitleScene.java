@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.DiedMonkSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.FireMagicGirlSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RedNecromancerSprite_EX;
@@ -277,7 +277,7 @@ public class TitleScene extends PixelScene {
 	}
 
 	private void placeTorch3( float x, float y ) {
-		Image fb = (new DiedMonkSprite());
+		Image fb = (new FireMagicGirlSprite());
 		fb.setPos( x, y );
 		add( fb );
 	}

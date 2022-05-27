@@ -58,11 +58,13 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DM920BossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DeadEndLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DimandKingLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.DwarfMasterBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.ItemLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastShopLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewHallsBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewPrisonBossLevel;
@@ -179,6 +181,7 @@ public class Dungeon {
 	public static int gold;
 	public static int cycle;
 	public static int nyzbuy;
+	public static int boss;
 
 	public static int escalatingDepth() {
 		switch (cycle) {
@@ -235,6 +238,7 @@ public class Dungeon {
 		QuickSlotButton.reset();
 
 		depth = -1;
+		boss = -1;
 		gold = 0;
 		nyzbuy = 1;
 		droppedItems = new SparseArray<>();
@@ -284,7 +288,7 @@ public class Dungeon {
 			//Boss Rush
 			switch (depth) {
 				case 0:
-					level = new ZeroLevel();
+					level = new DwarfMasterBossLevel();
 					break;
 				case 1:
 					level = new ItemLevel();
@@ -421,13 +425,13 @@ public class Dungeon {
 				level = new SewerLevel();
 				break;
 			case 5:
-				switch (Random.Int(2)) {
-					case 0:
+				switch (boss) {
+					case 0:case 1:
 					default:
 						level = new SewerBossLevel();
 						//天痕粘咕
 						break;
-					case 1:
+					case 2:case 3:
 						//史莱姆王
 						level = new SLMKingLevel();
 				}
@@ -439,18 +443,13 @@ public class Dungeon {
 				level = new PrisonLevel();
 				break;
 			case 10:
-				switch (Random.Int(6)) {
-					case 0:
+				switch (boss) {
+					case 1:
 					default:
 						level = new NewPrisonBossLevel();
-						//Statistics.spawnersDK++;
 						break;
-					case 1:case 2:case 3:
-						level = new NewPrisonBossLevel();
-						break;
-					case 4:case 5:case 6:
-						level =  new DimandKingLevel();
-						break;
+					case 2:
+						level = new DimandKingLevel();
 				}
 				break;
 			case 11:
@@ -459,16 +458,20 @@ public class Dungeon {
 			case 14:
 				level = new CavesLevel();
 				break;
-				//没有摧毁冰雪结晶必定刷魔女层
 			case 15:
-				if (Statistics.spawnersIce > 0) {
-					level = new CavesGirlDeadLevel();
-					break;
-				} else {
-					level = new CaveTwoBossLevel();
-					break;
-
+				switch (boss) {
+					case 1:
+					default:
+						level = new NewCavesBossLevel();
+						break;
+					case 2:
+						level = new CaveTwoBossLevel();
+						break;
+					case 3:
+						level =  new CavesGirlDeadLevel();
+						break;
 				}
+				break;
 			case 16:
 			case 17:
 			case 18:
@@ -476,7 +479,7 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				level = new NewCityBossLevel();
+				level = new DwarfMasterBossLevel();
 				break;
 			case 21:
 				//logic for old city boss levels, need to spawn a shop on floor 21
@@ -499,17 +502,16 @@ public class Dungeon {
 				level = new HallsLevel();
 				break;
 			case 25:
-				if (Statistics.spawnersAlive > 0) {
-					level = new YogGodHardBossLevel();
-					break;
-				} else
-					switch (Random.Int(2)) {
-						case 0:
-						default:
-							level = new NewHallsBossLevel();
-							//YOG EAYS
-							break;
-					}
+				switch (boss) {
+					case 1:
+					default:
+						level = new YogGodHardBossLevel();
+						//天痕粘咕
+						break;
+					case 2:
+						//史莱姆王
+						level = new  NewHallsBossLevel();
+				}
 				break;
 			case 26:
 				level = new LastLevel();
@@ -578,10 +580,6 @@ public class Dungeon {
 		return depth == 12;
 	}
 
-	public static boolean BlueS() {
-		return depth == 19;
-	}
-
 	//圣域保护
 	public static boolean GodWaterLevel() {
 		return depth == 1 ||depth == 2||depth == 3||depth == 4;
@@ -604,6 +602,14 @@ public class Dungeon {
 
 	public static boolean MagicStonePark() {
 		return depth == 15;
+	}
+
+	public static boolean selectbossLevel() {
+		return selectbossLevel( depth );
+	}
+
+	public static boolean selectbossLevel( int depth ) {
+		return depth == 4 || depth == 9 || depth == 14 || depth == 19 || depth == 24;
 	}
 	
 	public static boolean bossLevel() {

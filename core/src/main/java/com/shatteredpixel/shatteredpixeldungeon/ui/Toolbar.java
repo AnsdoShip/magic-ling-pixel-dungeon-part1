@@ -183,7 +183,7 @@ public class Toolbar extends Component {
 
 	@Override
 	protected void layout() {
-		final int maxHorizontalQuickslots = PixelScene.landscape() ? 8 : 4;
+		final int maxHorizontalQuickslots = PixelScene.landscape() ? 5 : 3;
 
 		for (int i = 0; i < btnQuick.length; i++) {
 			if (i < SPDSettings.quickslots()) {

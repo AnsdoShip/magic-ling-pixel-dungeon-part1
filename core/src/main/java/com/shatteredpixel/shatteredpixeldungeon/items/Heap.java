@@ -43,7 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -62,6 +61,7 @@ public class Heap implements Bundlable {
 		LOCKED_CHEST,
 		CRYSTAL_CHEST,
 		TOMB,
+		BLACK,
 		SKELETON,
 		REMAINS,
 		MIMIC //remains for pre-0.8.0 compatibility. There are converted to mimics on level load
@@ -367,6 +367,8 @@ public class Heap implements Bundlable {
 				return Messages.get(this, "locked_chest");
 			case CRYSTAL_CHEST:
 				return Messages.get(this, "crystal_chest");
+			case BLACK:
+				return Messages.get(this, "black_chest");
 			case TOMB:
 				return Messages.get(this, "tomb");
 			case SKELETON:
@@ -385,6 +387,8 @@ public class Heap implements Bundlable {
 				return Messages.get(this, "chest_desc");
 			case LOCKED_CHEST:
 				return Messages.get(this, "locked_chest_desc");
+			case BLACK:
+				return Messages.get(this, "black_chest_desc");
 			case CRYSTAL_CHEST:
 				if (peek() instanceof Artifact)
 					return Messages.get(this, "crystal_chest_desc", Messages.get(this, "artifact") );

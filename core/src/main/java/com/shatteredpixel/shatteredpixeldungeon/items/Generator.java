@@ -399,7 +399,7 @@ public class Generator {
 					FireFishSword.class,
 					IceFishSword.class,
 			};
-			WEP_T6.probs = new float[]{ 0,0 };
+			WEP_T6.probs = new float[]{ 1,0 };
 			
 			//see Generator.randomArmor
 			ARMOR.classes = new Class<?>[]{

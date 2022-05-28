@@ -66,7 +66,7 @@ public class Effects {
 				icon.frame(icon.texture.uvRect(16, 30, 32, 38));
 				break;
 			case BLUE_RAY:
-				icon.frame(icon.texture.uvRect(16, 32, 32, 44));
+				icon.frame(icon.texture.uvRect(16, 37, 32, 46));
 				break;
 		}
 		return icon;

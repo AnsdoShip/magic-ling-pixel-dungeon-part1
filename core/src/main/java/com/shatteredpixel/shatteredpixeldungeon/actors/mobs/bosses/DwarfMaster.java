@@ -7,12 +7,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Boss;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
@@ -22,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM100;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM200;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM201;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DimandMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -30,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MolotovHuntsman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.NewTengu;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDLLS;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OGPDZSLS;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedMurderer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RedNecromancer;
@@ -55,14 +55,19 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFla
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ScanningBeam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.ArmorKit;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.BlackKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.levels.DwarfMasterBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -217,13 +222,9 @@ public class DwarfMaster extends Boss {
         @Override
         public int onHitProc(Char ch) {
             if(ch.alignment == Alignment.ENEMY) return 0;
-            ch.damage( Random.Int(30, 40), YogReal.class );
+            ch.damage( Random.Int(30, 50), YogReal.class );
             //ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 15, 10 ) );
             //ch.sprite.flash();
-            if(ch == Dungeon.hero){
-                Sample.INSTANCE.play(Assets.Sounds.BLAST, Random.Float(1.1f, 1.5f));
-                if(!ch.isAlive()) Dungeon.fail(getClass());
-            }
             return 1;
         }
 
@@ -254,15 +255,12 @@ public class DwarfMaster extends Boss {
                     Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
                     skillBalance[skill] /= 1.75f;
                     beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
-                    sprite.showStatus(0xff0000, "Dead");
+                    sprite.showStatus(0xff0000, Messages.get(this, "dead"));
                 } else {
-                    int count = 4 + (phase == 5 ? 3 : 0);
-                    YogReal.YogContinuousBeam b = Buff.affect(this, YogReal.YogContinuousBeam.class);
-                    b.setLeft(count);
-                    b.setRage(phase == 5);
-                    beamCD = 20 + count - (phase == 5?19:0);
-                    skillBalance[skill] /= 2.25f;
-                    sprite.showStatus(0xff0000, "Life");
+                    Buff.affect(this, YogReal.YogScanRound.class).setPos(pos);
+                    skillBalance[skill] /= 2f;
+                    beamCD = 20 + 10 - (phase == 5?19:0);
+                    sprite.showStatus(0x00ff00, Messages.get(this, "life"));
 
                 }
             }
@@ -562,9 +560,13 @@ public class DwarfMaster extends Boss {
         }
     }
 
+
+
     @Override
     public void damage(int dmg, Object src) {
-
+        if(dmg > 125) {
+            dmg = 25;
+        }
         if (isInvulnerable(src.getClass())){
             super.damage(dmg, src);
             return;
@@ -588,23 +590,24 @@ public class DwarfMaster extends Boss {
 
 
         if (phase == 1) {
+
             int dmgTaken = preHP - HP;
             abilityCooldown -= dmgTaken/8f;
             summonCooldown -= dmgTaken/8f;
-            if (HP <= 80) {
-                HP = 80;
+            if (HP <= 200) {
+                HP = 200;
                 sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
                 ScrollOfTeleportation.appear(this, DwarfMasterBossLevel.throne);
                 properties.add(Property.IMMOVABLE);
                 phase = 2;
                 summonsMade = 0;
                 sprite.idle();
-                Buff.affect(this, DwarfMaster.DKBarrior.class).setShield(10*25);
+                Buff.affect(this, DwarfMaster.DKBarrior.class).setShield(12*25);
                 for (DwarfMaster.Summoning s : buffs(DwarfMaster.Summoning.class)) {
                     s.detach();
                 }
                 for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])) {
-                    if (m instanceof Ghoul || m instanceof Monk || m instanceof Warlock) {
+                    if (m instanceof DKGhoul || m instanceof DKMonk || m instanceof DKWarlock) {
                         m.die(null);
                     }
                 }
@@ -614,14 +617,33 @@ public class DwarfMaster extends Boss {
                     }
                 }
                 Buff.detach(this, DwarfMaster.SacrificeSubjectListener.class);
+                Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
+                int w = Dungeon.level.width();
+                int dx = enemy.pos % w - pos % w;
+                int dy = enemy.pos / w - pos / w;
+                int direction = 2 * (Math.abs(dx) > Math.abs(dy) ? 0 : 1);
+                direction += (direction > 0 ? (dy > 0 ? 1 : 0) : (dx > 0 ? 1 : 0));
+                Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
+                beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
+                sprite.showStatus(0xff0000, Messages.get(this, "dead"));
             }
         } else if (phase == 2 && shielding() == 0) {
             properties.remove(Property.IMMOVABLE);
-            phase = 3;
             sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
             Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
+            phase = 3;
             yell(  Messages.get(this, "enraged", Dungeon.hero.name()) );
-        } else if (phase == 3 && preHP > 30 && HP <= 30){
+            Buff.detach(this, DwarfMaster.SacrificeSubjectListener.class);
+            Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
+            int w = Dungeon.level.width();
+            int dx = enemy.pos % w - pos % w;
+            int dy = enemy.pos / w - pos / w;
+            int direction = 2 * (Math.abs(dx) > Math.abs(dy) ? 0 : 1);
+            direction += (direction > 0 ? (dy > 0 ? 1 : 0) : (dx > 0 ? 1 : 0));
+            Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
+            beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
+            sprite.showStatus(0xff0000, Messages.get(this, "dead"));
+        } else if (phase == 3 && preHP > 50 && HP <= 50){
             yell( Messages.get(this, "losing") );
         }
     }
@@ -1253,6 +1275,14 @@ public class DwarfMaster extends Boss {
             summonSubject(1, DwarfMaster.DKGhoul.class);
             summonSubject(5, DwarfMaster.DKMonk.class);
             ++wave;
+            Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
+            int w = Dungeon.level.width();
+            int dx = enemy.pos % w - pos % w;
+            int dy = enemy.pos / w - pos / w;
+            int direction = 2 * (Math.abs(dx) > Math.abs(dy) ? 0 : 1);
+            direction += (direction > 0 ? (dy > 0 ? 1 : 0) : (dx > 0 ? 1 : 0));
+            Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
+            beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
             spend(TICK*12);
         }else if(wave == 2){
             summonSubject(1, DwarfMaster.DKGhoul.class);
@@ -1269,6 +1299,14 @@ public class DwarfMaster extends Boss {
             summonSubject(11, DwarfMaster.DKMonk.class);
             summonSubject(5, OGPDZSLS.class);
             summonSubject(7, SRPDHBLR.class);
+            Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
+            int w = Dungeon.level.width();
+            int dx = enemy.pos % w - pos % w;
+            int dy = enemy.pos / w - pos / w;
+            int direction = 2 * (Math.abs(dx) > Math.abs(dy) ? 0 : 1);
+            direction += (direction > 0 ? (dy > 0 ? 1 : 0) : (dx > 0 ? 1 : 0));
+            Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
+            beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
             ++wave;
             spend(TICK*15);
         }else if(wave == 4){
@@ -1288,9 +1326,20 @@ public class DwarfMaster extends Boss {
             summonSubject(4, DwarfMaster.DKMonk.class);
             summonSubject(8, DwarfMaster.DKMonk.class);
             summonSubject(2, DwarfMaster.DKGhoul.class);
-            summonSubject(5, OGPDZSLS.class);
-            summonSubject(7, SRPDHBLR.class);
-            summonSubject(5, DM100.class);
+            summonSubject(4, OGPDZSLS.class);
+            summonSubject(4, SRPDHBLR.class);
+            summonSubject(3, DM100.class);
+            Buff.affect(this, Haste.class, 5f);
+            Buff.affect(this, ArcaneArmor.class).set(Dungeon.hero.lvl + 10, 10);
+            Buff.affect(this, Healing.class).setHeal(20, 0f, 6);
+            Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
+            int w = Dungeon.level.width();
+            int dx = enemy.pos % w - pos % w;
+            int dy = enemy.pos / w - pos / w;
+            int direction = 2 * (Math.abs(dx) > Math.abs(dy) ? 0 : 1);
+            direction += (direction > 0 ? (dy > 0 ? 1 : 0) : (dx > 0 ? 1 : 0));
+            Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
+            beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
             ++wave;
             spend(TICK*13);
         }else if(wave == 6){
@@ -1304,10 +1353,10 @@ public class DwarfMaster extends Boss {
             summonSubject(5, DM100.class);
             summonSubject(2, DM201.class);
             summonSubject(5, DM200.class);
-            summonSubject(7, MolotovHuntsman.class);
-            summonSubject(5, Skeleton.class);
-            summonSubject(5, Necromancer.class);
-            summonSubject(5, RedNecromancer.class);
+            summonSubject(3, MolotovHuntsman.class);
+            summonSubject(3, Skeleton.class);
+            summonSubject(3, Necromancer.class);
+            summonSubject(3, RedNecromancer.class);
             ++wave;
             spend(TICK*12);
         }else{
@@ -1317,13 +1366,15 @@ public class DwarfMaster extends Boss {
         }
     }
 
-    public static class DKGhoul extends OGPDLLS {
+    public static class DKGhoul extends Guard {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
             resistances.add(Amok.class);
             lootChance=0f;
             maxLvl = -8848;
+
+            HP=HT=50;
         }
 
         @Override
@@ -1338,7 +1389,7 @@ public class DwarfMaster extends Boss {
         }
     }
 
-    public static class DKMonk extends Guard {
+    public static class DKMonk extends Monk {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
@@ -1376,7 +1427,7 @@ public class DwarfMaster extends Boss {
         }
     }
 
-    public static class DKWarlock extends DimandMimic {
+    public static class DKWarlock extends Warlock {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
@@ -1485,7 +1536,7 @@ public class DwarfMaster extends Boss {
 
             if (Dungeon.level.heroFOV[pos]) {
                 sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "!!!") );
-                GLog.n( Messages.get(this, "pumpup") );
+                yell( Messages.get(this, "pumpup") );
                 Sample.INSTANCE.play( Assets.Sounds.CHARGEUP, 1f, 0.8f );
             }
 
@@ -1518,19 +1569,31 @@ public class DwarfMaster extends Boss {
 
         Dungeon.level.unseal();
 
-        GameScene.bossSlain();
-        Dungeon.level.drop( new IronKey( Dungeon.depth ).quantity(2), pos ).sprite.drop();
-        Dungeon.level.drop( new GoldenKey( Dungeon.depth ), pos ).sprite.drop();
+        for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
+            if (	mob instanceof DwarfMaster.DKMonk ||
+                    mob instanceof DwarfMaster.DKGhoul ||
+                    mob instanceof DwarfMaster.DKWarlock) {
+                mob.die( cause );
+            }
+        }
 
+        GameScene.bossSlain();
+        Dungeon.level.drop( new IronKey( Dungeon.depth ).quantity(5), pos ).sprite.drop();
+        Dungeon.level.drop( new GoldenKey( Dungeon.depth ).quantity(3), pos ).sprite.drop();
+        Dungeon.level.drop( new CrystalKey( Dungeon.depth ).quantity(2), pos ).sprite.drop();
+        Dungeon.level.drop( new BlackKey( Dungeon.depth ).quantity(3), pos ).sprite.drop();
+        Dungeon.level.drop( new SkeletonKey( Dungeon.depth ).quantity(1), pos ).sprite.drop();
         int blobs = Random.chances(new float[]{5, 4, 3, 2, 1}) + 3;
         for (int i = 0; i < blobs; i++){
             int ofs;
             do {
                 ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
             } while (!Dungeon.level.passable[pos + ofs]);
-            Dungeon.level.drop( new GooBlob(), pos + ofs ).sprite.drop();
+            Dungeon.level.drop(new Gold().quantity(Random.Int(340, 450)), pos+ofs).sprite.drop();
         }
-
+        Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+        Dungeon.level.drop(new PotionOfHealing().quantity(Random.NormalIntRange(2,4)), pos).sprite.drop();
+        Badges.KILLDWARF();
         Badges.validateBossSlain();
 
         yell( Messages.get(this, "defeated") );

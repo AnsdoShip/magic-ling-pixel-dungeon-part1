@@ -288,7 +288,7 @@ public class Dungeon {
 			//Boss Rush
 			switch (depth) {
 				case 0:
-					level = new DwarfMasterBossLevel();
+					level = new ZeroLevel();
 					break;
 				case 1:
 					level = new ItemLevel();
@@ -479,23 +479,19 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				level = new DwarfMasterBossLevel();
-				break;
-			case 21:
-				//logic for old city boss levels, need to spawn a shop on floor 21
-				try {
-					Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.depthFile(GamesInProgress.curSlot, 20));
-					Class cls = bundle.getBundle(LEVEL).getClass("__className");
-					if (cls == NewCityBossLevel.class) {
-						level = new HallsLevel();
-					} else {
-						level = new LastShopLevel();
-					}
-				} catch (Exception e) {
-					ShatteredPixelDungeon.reportException(e);
-					level = new HallsLevel();
+				switch (boss) {
+					case 1:
+					default:
+						level = new NewCityBossLevel();
+						break;
+					case 2:
+						level = new DwarfMasterBossLevel();
+						break;
 				}
 				break;
+			case 21:
+						level = new HallsLevel();
+						break;
 			case 22:
 			case 23:
 			case 24:

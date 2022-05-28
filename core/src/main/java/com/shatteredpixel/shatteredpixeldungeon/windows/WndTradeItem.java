@@ -24,6 +24,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.ImpShopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nxhy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
@@ -127,6 +128,9 @@ public class WndTradeItem extends WndInfoItem {
 						GameScene.show(new WndGoShop(this));
 						break;
 					} else if (mob instanceof Nxhy) {
+						mob.yell(Messages.get(mob, "why"));
+						break;
+					}else if (mob instanceof ImpShopkeeper) {
 						mob.yell(Messages.get(mob, "why"));
 						break;
 					}

@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.boss;
 
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -412,7 +413,16 @@ public class GameScene extends PixelScene {
 					WndStory.showChapter( WndStory.ID_CITY );
 					break;
 				case 20:
-					WndStory.showChapter( WndStory.ID_CITYSBOSS );
+					switch (boss) {
+						case 1:
+						default:
+							WndStory.showChapter( WndStory.ID_CITYSBOSS );
+							break;
+						case 2:
+							WndStory.showChapter( WndStory.ID_DWADA );
+
+							break;
+					}
 					break;
 				case 21:
 					WndStory.showChapter( WndStory.ID_HALLS );

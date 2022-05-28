@@ -155,10 +155,7 @@ public class Badges {
 		KILL_SLMKING				(101),
 		KILL_DM720				(102),
 		RLPT				(103),
-		SBDJS				(104),
-		KILL_MG			(105),
-		BIG_X				(106),
-		EXSG                (107),
+
 
 		//diamond
 		GAMES_PLAYED_4              ( 112, true ),
@@ -170,7 +167,11 @@ public class Badges {
 		FIREGIRL                    ( 128 ),
 		DM920                   	 ( 129 ),
 		DRAWF_HEAD                    ( 130 ),
-		SPICEALBOSS 				 ( 131);
+		SPICEALBOSS 				 ( 131),
+		SBDJS				(132),
+		KILL_MG			(133),
+		BIG_X				(134),
+		EXSG                (135);
 
 		public boolean meta;
 
@@ -910,6 +911,11 @@ public class Badges {
 	public static void KILLSDM720() {
 		displayBadge( Badge.KILL_DM720 );
 	}
+
+	public static void KILLDWARF() {
+		displayBadge( Badge.DRAWF_HEAD );
+	}
+
 	public static void KILLMG() {
 		displayBadge( Badge.KILL_MG );
 	}

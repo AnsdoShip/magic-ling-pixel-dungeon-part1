@@ -12,7 +12,7 @@ public class Fire_Scorpio extends Scorpio{
     {
         spriteClass = FireAcidicSprite.class;
 
-        HP = HT = 80;
+        HP = HT = 50;
         defenseSkill = 24;
         viewDistance = Light.DISTANCE;
 
@@ -28,7 +28,7 @@ public class Fire_Scorpio extends Scorpio{
     @Override
     public int attackProc(Char enemy, int damage ) {
         damage = super.attackProc( enemy, damage );
-        if (Random.Int( 2 ) == 0) {
+        if (Random.Int( 2,5 ) > 3) {
             Buff.affect( enemy, Burning.class ).reignite( enemy, 4f );
         }
 

@@ -12,7 +12,7 @@ public class Ice_Scorpio extends Scorpio{
     {
         spriteClass = IceFireScorpioSprite.class;
 
-        HP = HT =100;
+        HP = HT =60;
         defenseSkill = 24;
         viewDistance = Light.DISTANCE;
 
@@ -28,7 +28,7 @@ public class Ice_Scorpio extends Scorpio{
     @Override
     public int attackProc(Char enemy, int damage ) {
         damage = super.attackProc( enemy, damage );
-        if (Random.Int( 3,6 ) >= 4) {
+        if (Random.Int( 3,6 ) > 2) {
             Buff.prolong( enemy, Chill.class, Chill.DURATION );
         }
         return damage;

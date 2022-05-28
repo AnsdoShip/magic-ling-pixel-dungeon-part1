@@ -21,15 +21,21 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper.sell;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
+import com.watabou.noosa.Game;
+import com.watabou.utils.Callback;
 
-public class ImpShopkeeper extends Shopkeeper {
+public class ImpShopkeeper extends NPC {
 
 	{
 		spriteClass = ImpSprite.class;
@@ -47,8 +53,32 @@ public class ImpShopkeeper extends Shopkeeper {
 		
 		return super.act();
 	}
-	
+
 	@Override
+	public boolean interact(Char c) {
+		if (c != Dungeon.hero) {
+			return true;
+		}
+		Game.runOnRenderThread(new Callback() {
+			@Override
+			public void call() {
+				sell();
+			}
+		});
+		return true;
+	}
+
+	@Override
+	public void damage( int dmg, Object src ) {
+		//flee();
+	}
+
+	@Override
+	public void add( Buff buff ) {
+		//lee();
+	}
+
+
 	public void flee() {
 		for (Heap heap: Dungeon.level.heaps.valueList()) {
 			if (heap.type == Heap.Type.FOR_SALE) {

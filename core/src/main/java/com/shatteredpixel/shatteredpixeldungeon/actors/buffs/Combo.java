@@ -374,7 +374,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 
 			if (target.buff(FireImbue.class) != null)   target.buff(FireImbue.class).proc(enemy);
 			if (target.buff(FrostImbue.class) != null)  target.buff(FrostImbue.class).proc(enemy);
-
+			if (target.buff(FrostImbueEX.class) != null)  target.buff(FrostImbueEX.class).proc(enemy);
 			target.hitSound(Random.Float(0.87f, 1.15f));
 			if (moveBeingUsed != ComboMove.FURY) Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 			enemy.sprite.bloodBurstA(target.sprite.center(), dmg);

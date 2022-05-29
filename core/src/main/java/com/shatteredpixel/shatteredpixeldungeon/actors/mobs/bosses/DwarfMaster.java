@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.bosses;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -13,19 +15,26 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HaloFireImBlue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Timer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.BlackHost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM100;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM200;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM201;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollShiled;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.MolotovHuntsman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
@@ -62,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.BlackKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
@@ -222,7 +232,13 @@ public class DwarfMaster extends Boss {
         @Override
         public int onHitProc(Char ch) {
             if(ch.alignment == Alignment.ENEMY) return 0;
-            ch.damage( Random.Int(30, 50), YogReal.class );
+            ch.damage( Random.Int(50, 80), YogReal.class );
+            if(ch == Dungeon.hero){
+                Sample.INSTANCE.play(Assets.Sounds.BLAST, Random.Float(1.1f, 1.5f));
+                Buff.affect( ch, Poison.class ).set( (5f)+(ch.HP/8f) );
+                if(!ch.isAlive()) Dungeon.fail(getClass());
+            }
+
             //ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 15, 10 ) );
             //ch.sprite.flash();
             return 1;
@@ -255,10 +271,12 @@ public class DwarfMaster extends Boss {
                     Buff.affect(this, DwarfMaster.YogScanHalf.class).setPos(pos, direction);
                     skillBalance[skill] /= 1.75f;
                     beamCD = 20 + 8 - (phase == 5 ? 19 : 0);
+                    Buff.affect(this, Healing.class).setHeal(5, 0f, 6);
                     sprite.showStatus(0xff0000, Messages.get(this, "dead"));
                 } else {
                     Buff.affect(this, YogReal.YogScanRound.class).setPos(pos);
                     skillBalance[skill] /= 2f;
+                    Buff.affect(this, Healing.class).setHeal(5, 0f, 6);
                     beamCD = 20 + 10 - (phase == 5?19:0);
                     sprite.showStatus(0x00ff00, Messages.get(this, "life"));
 
@@ -294,6 +312,7 @@ public class DwarfMaster extends Boss {
             if (target.alignment != Alignment.ENEMY){
                 detach();
             }
+
             spend( TICK );
             return true;
         }
@@ -348,9 +367,24 @@ public class DwarfMaster extends Boss {
         @Override
         public boolean act() {
 
+
+
             delay--;
             if (delay <= 0){
-
+                for (Buff buff : hero.buffs()) {
+                    if (buff instanceof RoseShiled) {
+                        buff.detach();
+                        GLog.b(Messages.get(DwarfMaster.class,"no_rose"));
+                    }
+                    if (buff instanceof HaloFireImBlue ||buff instanceof FireImbue ) {
+                        buff.detach();
+                        GLog.w(Messages.get(DwarfMaster.class,"no_fire"));
+                    }
+                    if (buff instanceof Invisibility) {
+                        buff.detach();
+                        GLog.p(Messages.get(DwarfMaster.class,"no_inst"));
+                    }
+                }
                 if (summon == DwarfMaster.DKWarlock.class){
                     particles.burst(ShadowParticle.CURSE, 10);
                     Sample.INSTANCE.play(Assets.Sounds.CURSED);
@@ -564,17 +598,19 @@ public class DwarfMaster extends Boss {
 
     @Override
     public void damage(int dmg, Object src) {
-        if(dmg > 125) {
-            dmg = 25;
+
+        if (HP > 200 && HP <= 500 && dmg > 0){
+            dmg = 10;
+        } else  {
+            super.damage(dmg, src);
         }
+
         if (isInvulnerable(src.getClass())){
             super.damage(dmg, src);
             return;
         } else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
-
             if(src instanceof DwarfMaster.KingDamager) dmg = 1;
-
-            if (dmg >= 0) {
+            if (dmg >= 10) {
                 Viscosity.DeferedDamage deferred = Buff.affect( this, Viscosity.DeferedDamage.class );
                 deferred.prolong( dmg );
 
@@ -1257,6 +1293,7 @@ public class DwarfMaster extends Boss {
             Buff.append(furthest, LifeLink.class, 100f).object = id();
             Buff.append(this, LifeLink.class, 100f).object = furthest.id();
             yell(Messages.get(this, "lifelink_" + Random.IntRange(1, 2)));
+            Buff.affect(this, Healing.class).setHeal(5, 0f, 6);
             sprite.parent.add(new Beam.HealthRay(sprite.destinationCenter(), furthest.sprite.destinationCenter()));
             return true;
 
@@ -1267,6 +1304,7 @@ public class DwarfMaster extends Boss {
     private void actPhaseTwoSummon(){
         if(wave == 0){
             yell(Messages.get(this, "wave_1"));
+            new GnollShiled().spawnAround(pos);
             summonSubject(2, DwarfMaster.DKGhoul.class);
             summonSubject(3, DwarfMaster.DKGhoul.class);
             ++wave;
@@ -1293,6 +1331,7 @@ public class DwarfMaster extends Boss {
             spend(TICK*15);
         }else if(wave == 3){
             yell(Messages.get(this, "wave_2"));
+            new Eye().spawnAround(pos);
             summonSubject(1, DwarfMaster.DKGhoul.class);
             summonSubject(2, DwarfMaster.DKWarlock.class);
             summonSubject(2, DwarfMaster.DKGhoul.class);
@@ -1330,7 +1369,6 @@ public class DwarfMaster extends Boss {
             summonSubject(4, SRPDHBLR.class);
             summonSubject(3, DM100.class);
             Buff.affect(this, Haste.class, 5f);
-            Buff.affect(this, ArcaneArmor.class).set(Dungeon.hero.lvl + 10, 10);
             Buff.affect(this, Healing.class).setHeal(20, 0f, 6);
             Char enemy = (this.enemy == null ? Dungeon.hero : this.enemy);
             int w = Dungeon.level.width();
@@ -1357,6 +1395,10 @@ public class DwarfMaster extends Boss {
             summonSubject(3, Skeleton.class);
             summonSubject(3, Necromancer.class);
             summonSubject(3, RedNecromancer.class);
+            Buff.affect(this, RoseShiled.class, 20f);
+            Buff.affect(this, Haste.class, 5f);
+            Buff.affect(this, ArcaneArmor.class).set(Dungeon.hero.lvl + 10, 10);
+            Buff.affect(this, Healing.class).setHeal(40, 0f, 6);
             ++wave;
             spend(TICK*12);
         }else{
@@ -1366,7 +1408,7 @@ public class DwarfMaster extends Boss {
         }
     }
 
-    public static class DKGhoul extends Guard {
+    public static class DKGhoul extends BlackHost {
         {
             state = HUNTING;
             immunities.add(Corruption.class);
@@ -1374,7 +1416,7 @@ public class DwarfMaster extends Boss {
             lootChance=0f;
             maxLvl = -8848;
 
-            HP=HT=50;
+            HP=HT=10;
         }
 
         @Override
@@ -1572,7 +1614,9 @@ public class DwarfMaster extends Boss {
         for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
             if (	mob instanceof DwarfMaster.DKMonk ||
                     mob instanceof DwarfMaster.DKGhoul ||
-                    mob instanceof DwarfMaster.DKWarlock) {
+                    mob instanceof DwarfMaster.DKWarlock||
+                    mob instanceof GnollShiled ||
+                    mob instanceof Eye || mob instanceof RedMurderer) {
                 mob.die( cause );
             }
         }
@@ -1593,6 +1637,7 @@ public class DwarfMaster extends Boss {
         }
         Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
         Dungeon.level.drop(new PotionOfHealing().quantity(Random.NormalIntRange(2,4)), pos).sprite.drop();
+        Dungeon.level.drop(new MeatPie().quantity(Random.NormalIntRange(1,2)), pos).sprite.drop();
         Badges.KILLDWARF();
         Badges.validateBossSlain();
 

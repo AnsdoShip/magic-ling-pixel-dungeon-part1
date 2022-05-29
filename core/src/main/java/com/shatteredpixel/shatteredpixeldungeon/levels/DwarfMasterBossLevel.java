@@ -215,38 +215,41 @@ public class DwarfMasterBossLevel extends Level {
         w2.identify();
         drop(w2, 20 + WIDTH * 36).type = Heap.Type.LOCKED_CHEST;
 
-        MissileWeapon w4;
+        Ring w5;
         do {
-            w4 = (MissileWeapon) Generator.random(Generator.Category.MIS_T5);
+            w5 = (Ring) Generator.random(Generator.Category.RING);
         }while(Challenges.isItemBlocked(w));
-        w4.level(Random.Int(4));
-        w4.cursed = false;
-        w4.identify();
-        drop(w4,  26 + WIDTH * 24).type = Heap.Type.BLACK;
+        w5.level(Random.Int(4));
+        w5.cursed = false;
+        w5.identify();
+        drop(w5,  26 + WIDTH * 24).type = Heap.Type.BLACK;
+
+        Potion w45;
+        Weapon w4;
+        do {
+            w45 = (Potion) Generator.random(Generator.Category.POTION);
+        }while(Challenges.isItemBlocked(w));
+        w45.quantity(Random.NormalIntRange(1,6));
+        w45.cursed = false;
+        w45.identify();
+        drop(w45,  28 + WIDTH * 24).type = Heap.Type.BLACK;
 
         do {
-            w4 = (MissileWeapon) Generator.random(Generator.Category.MIS_T3);
-        }while(Challenges.isItemBlocked(w));
-        w4.level(Random.Int(4));
-        w4.cursed = false;
-        w4.identify();
-        drop(w4,  28 + WIDTH * 24).type = Heap.Type.BLACK;
-
-        do {
-            w4 = (MissileWeapon) Generator.random(Generator.Category.MIS_T2);
+            w4 = (Weapon) Generator.random(Generator.Category.WEP_T4);
         }while(Challenges.isItemBlocked(w));
         w4.level(Random.Int(5));
         w4.cursed = false;
         w4.identify();
         drop(w4,  30 + WIDTH * 24).type = Heap.Type.BLACK;
 
+        Scroll w41;
         do {
-            w4 = (MissileWeapon) Generator.random(Generator.Category.MIS_T4);
+            w41 = (Scroll) Generator.random(Generator.Category.SCROLL);
         }while(Challenges.isItemBlocked(w));
-        w4.level(Random.Int(2));
-        w4.cursed = false;
-        w4.identify();
-        drop(w4,  32 + WIDTH * 24).type = Heap.Type.BLACK;
+        w41.quantity(Random.NormalIntRange(1,4));
+        w41.cursed = false;
+        w41.identify();
+        drop(w41,  32 + WIDTH * 24).type = Heap.Type.BLACK;
 
         do {
             w4 = (MissileWeapon) Generator.random(Generator.Category.MIS_T1);
@@ -254,16 +257,17 @@ public class DwarfMasterBossLevel extends Level {
         w4.level(Random.Int(6));
         w4.cursed = false;
         w4.identify();
+        w4.quantity(Random.NormalIntRange(1,4));
         drop(w4,  34 + WIDTH * 24).type = Heap.Type.BLACK;
 
         //TWO
-        Wand w5;
+        Wand w51;
         do {
-            w5 = (Wand) Generator.random(Generator.Category.WAND);
+            w51 = (Wand) Generator.random(Generator.Category.WAND);
         }while(Challenges.isItemBlocked(w));
-        w5.level(Random.Int(3));
-        w5.cursed = false;
-        w5.identify();
+        w51.level(Random.Int(3));
+        w51.cursed = false;
+        w51.identify();
         drop(w5,  26 + WIDTH * 30).type = Heap.Type.LOCKED_CHEST;
 
         Scroll w6;
@@ -337,13 +341,13 @@ public class DwarfMasterBossLevel extends Level {
     public String tileName(int tile) {
         switch (tile) {
             case Terrain.WATER:
-                return M.L(SewerLevel.class, "water_name");
+                return M.L(CityLevel.class, "water_name");
             case Terrain.GRASS:
-                return M.L(SewerLevel.class, "grass_name");
+                return M.L(CityLevel.class, "grass_name");
             case Terrain.HIGH_GRASS:
-                return M.L(SewerLevel.class, "high_grass_name");
+                return M.L(CityLevel.class, "high_grass_name");
             case Terrain.STATUE:
-                return M.L(SewerLevel.class, "statue_name");
+                return M.L(CityLevel.class, "statue_name");
             default:
                 return super.tileName(tile);
         }
@@ -353,12 +357,12 @@ public class DwarfMasterBossLevel extends Level {
     public String tileDesc(int tile) {
         switch (tile) {
             case Terrain.WATER:
-                return M.L(HallsLevel.class, "water_desc");
+                return M.L(CityLevel.class, "water_desc");
             case Terrain.STATUE:
             case Terrain.STATUE_SP:
-                return M.L(HallsLevel.class, "statue_desc");
+                return M.L(CityLevel.class, "statue_desc");
             case Terrain.BOOKSHELF:
-                return M.L(HallsLevel.class, "bookshelf_desc");
+                return M.L(CityLevel.class, "bookshelf_desc");
             default:
                 return super.tileDesc(tile);
         }
@@ -389,24 +393,24 @@ public class DwarfMasterBossLevel extends Level {
             A,R,A,R,L,L,L,R,R,A,A,A,L,P,L,L,L,L,L,L,L,L,L,L,P,L,A,A,A,R,R,L,L,L,R,A,R,A,
             A,R,A,R,L,L,R,R,A,A,L,L,L,L,S,S,S,S,S,S,S,S,S,S,L,L,L,L,A,A,R,L,L,L,R,A,R,A,
             A,R,A,R,L,L,R,A,A,L,L,L,L,L,S,F,F,F,F,F,F,F,F,S,L,L,L,L,L,A,R,R,L,L,R,A,R,A,
-            A,R,A,R,L,R,R,A,A,L,L,L,L,L,S,F,F,F,F,F,F,F,F,S,L,L,L,L,L,A,A,R,R,L,R,A,R,A,
-            A,R,A,R,L,R,A,A,L,L,S,S,L,L,S,F,F,F,F,F,F,F,F,S,L,L,S,S,L,L,A,A,R,L,R,A,R,A,
-            A,R,A,R,L,R,A,L,L,S,L,L,S,L,S,F,F,F,F,F,F,F,F,S,L,S,L,L,S,L,L,A,R,L,R,A,R,A,
-            A,R,A,R,R,R,A,L,L,S,L,L,S,L,S,F,F,F,F,F,F,F,F,S,L,S,L,L,S,L,L,A,R,R,R,A,R,A,
+            A,R,A,R,L,R,R,A,A,L,L,L,L,L,S,F,F,A,F,F,A,F,F,S,L,L,L,L,L,A,A,R,R,L,R,A,R,A,
+            A,R,A,R,L,R,A,A,L,L,S,S,L,L,S,F,F,A,F,F,A,F,F,S,L,L,S,S,L,L,A,A,R,L,R,A,R,A,
+            A,R,A,R,L,R,A,L,L,S,L,L,S,L,S,F,F,A,F,F,A,F,F,S,L,S,L,L,S,L,L,A,R,L,R,A,R,A,
+            A,R,A,R,R,R,A,L,L,S,L,L,S,L,S,F,F,A,F,F,A,F,F,S,L,S,L,L,S,L,L,A,R,R,R,A,R,A,
             A,R,A,R,R,A,A,L,L,L,S,S,L,L,J,S,F,F,F,F,F,F,S,J,L,L,S,S,L,L,L,A,A,R,R,A,R,A,
             A,R,A,R,R,A,L,L,L,L,L,L,L,L,L,L,S,F,F,F,F,S,L,L,L,L,L,L,L,L,L,L,A,R,R,A,R,A,
             A,R,A,R,R,A,L,L,L,L,L,L,L,L,L,L,L,S,F,F,S,L,L,L,L,L,L,L,L,L,L,L,A,R,R,A,R,A,
             A,R,A,R,A,A,L,L,L,L,L,L,L,L,L,L,L,L,S,S,L,L,L,L,L,L,L,L,L,L,L,L,A,A,R,A,R,A,
             A,R,A,L,L,A,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,A,L,L,A,R,A,
             A,R,A,A,A,A,O,L,L,L,L,L,L,L,L,L,L,L,S,S,L,L,L,L,L,L,L,L,L,L,L,O,A,A,A,A,R,A,
-            A,R,A,A,A,A,L,L,L,L,L,L,L,L,L,L,L,S,L,L,S,L,L,L,L,L,L,L,L,L,L,L,A,A,A,A,R,A,
+            A,R,A,A,A,A,L,L,L,L,A,A,A,A,A,L,L,S,L,L,S,L,L,A,A,A,A,A,L,L,L,L,A,A,A,A,R,A,
             A,R,A,A,A,A,L,L,L,L,L,L,L,L,L,L,S,L,L,L,L,S,L,L,L,L,L,L,L,L,L,L,A,A,A,A,R,A,
             A,R,A,A,A,A,A,A,A,A,A,A,A,A,J,S,L,L,L,L,L,L,S,J,A,A,A,A,A,A,A,X,A,A,A,A,A,A,
-            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,L,L,L,S,S,L,L,L,S,A,L,L,L,L,L,L,L,L,L,L,L,A,A,
-            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,L,S,L,S,S,L,S,L,S,A,L,L,L,L,L,L,L,L,L,L,L,A,A,
-            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,L,S,L,S,S,L,S,L,S,A,L,L,L,L,L,L,L,L,L,L,L,R,A,
-            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,L,S,L,S,S,L,S,L,S,A,A,A,A,A,A,A,A,A,A,A,A,R,A,
-            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,L,S,L,S,S,L,S,L,S,A,A,A,A,A,A,A,A,A,A,R,R,R,A,
+            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,A,L,A,S,S,A,L,A,S,A,L,L,L,L,L,L,L,L,L,L,L,A,A,
+            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,A,S,A,S,S,A,S,A,S,A,L,L,L,L,L,L,L,L,L,L,L,A,A,
+            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,A,S,A,S,S,A,S,A,S,A,L,L,L,L,L,L,L,L,L,L,L,R,A,
+            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,A,S,A,S,S,A,S,A,S,A,A,A,A,A,A,A,A,A,A,A,A,R,A,
+            A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,A,S,A,S,S,A,S,A,S,A,A,A,A,A,A,A,A,A,A,R,R,R,A,
             A,R,L,L,L,L,L,L,L,L,L,L,L,A,S,S,S,S,S,S,S,S,S,S,A,A,A,A,A,A,A,A,A,A,X,A,A,A,
             A,R,L,L,L,L,L,L,L,L,L,L,L,A,L,L,L,L,L,L,L,L,L,L,A,L,L,L,L,L,L,L,L,L,L,L,A,A,
             A,R,L,L,L,L,L,L,L,L,L,L,L,A,L,L,L,L,L,L,L,L,L,L,A,L,L,L,L,L,L,L,L,L,L,L,A,A,

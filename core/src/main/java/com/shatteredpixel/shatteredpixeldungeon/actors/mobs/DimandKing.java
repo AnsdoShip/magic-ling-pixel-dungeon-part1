@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EnergyParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TomeOfMastery;
@@ -508,13 +507,12 @@ public class DimandKing extends Boss {
         }else {
             Dungeon.level.drop(fire, dropPos).sprite.drop();
          }
-        Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 3200)), pos).sprite.drop();
+
         //Dungeon.level.drop(new KingsCrown(), dropPos).sprite.drop();
         Dungeon.level.drop(new ScrollOfRecharging().quantity(3),  dropPos).sprite.drop(pos);
         Ankh ankh = new Ankh();
         ankh.bless();
         Dungeon.level.drop(new Ankh(), dropPos).sprite.drop(pos);
-        Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 3200)), pos).sprite.drop();
         Dungeon.level.drop(new GoldBAo().quantity(1),  dropPos).sprite.drop(pos);
         Badges.validateBossSlain();
 

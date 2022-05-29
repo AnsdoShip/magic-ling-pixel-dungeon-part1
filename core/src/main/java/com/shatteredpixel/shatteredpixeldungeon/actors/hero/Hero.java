@@ -47,11 +47,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbueEX;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
@@ -1829,28 +1829,16 @@ public class Hero extends Char {
 
 		//矿洞之水 诅咒效果
 		if (Dungeon.ColdWaterLevel()&& Dungeon.level.water[pos]){
-			Buff.affect(this, Chill.class, 3f);
+			Buff.affect(this, FrostImbueEX.class, FrostImbueEX.DURATION*0.3f);
 		} else if(Dungeon.ColdWaterLevel()&& !Dungeon.level.water[pos])
 			for (Buff buff : hero.buffs()) {
-				if (buff instanceof Chill) {
+				if (buff instanceof FrostImbueEX) {
 					buff.detach();
 				}
 			}
 
 		//矮人之水 诅咒效果
-		if (Dungeon.DeadLevel()&& Dungeon.level.water[pos]){
-			if (Dungeon.level.water[pos] && this.HP < this.HT) {
-				if (Dungeon.level.heroFOV[pos] ){
-					sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-				}
-				this.HP--;
-			}
-			Buff.affect(this, Blindness.class, 3f);
-		} else if(Dungeon.DeadLevel()&& !Dungeon.level.water[pos])
-			for (Buff buff : hero.buffs()) {
-		if (buff instanceof Blindness) {
-			buff.detach();
-		}}
+
 
 		//祝福之门
 		if (Dungeon.MagicStonePark() && Dungeon.level.map[pos] == CavesGirlDeadLevel.D && Dungeon.level.water[pos] && (spawnersIce > 0)){

@@ -110,7 +110,7 @@ public class DemonSpawner extends Mob {
 					Actor.addDelayed(new Pushing(spawn, pos, spawn.pos), -1);
 				}
 
-				spawnCooldown += 60;
+				spawnCooldown += 120;
 				if (Dungeon.depth > 21){
 					//60/53.33/46.67/40 turns to spawn on floor 21/22/23/24
 					spawnCooldown -= Math.min(20, (Dungeon.depth-21)*6.67);

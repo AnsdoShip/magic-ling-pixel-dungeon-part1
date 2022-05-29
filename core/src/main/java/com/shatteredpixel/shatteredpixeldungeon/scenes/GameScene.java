@@ -512,14 +512,6 @@ public class GameScene extends PixelScene {
 							spawnersIce--;
 						}
 					}
-
-					if (spawnersIce > 0) {
-						if (Dungeon.iceCursedLevel()) {
-							GLog.b(Messages.get(this, "ice_spawner_warn"));
-						} else if (Dungeon.iceCursedLevelBoss()) {
-							GLog.b(Messages.get(this, "ice_spawner_warn_final"));
-						}
-					}
 				}
 
 				//恶魔血巢

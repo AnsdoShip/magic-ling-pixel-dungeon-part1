@@ -299,15 +299,15 @@ public class MagicGirlDead extends Boss {
         Badges.validateBossSlain();
 
         WandOfGodIce woc = new WandOfGodIce();
-        woc.level(9);
+        woc.level(Random.NormalIntRange(2,6));
         woc.identify();
 
         Dungeon.level.drop(woc, pos).sprite.drop();
 
-        Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 3200)), pos).sprite.drop();
-        Dungeon.level.drop(new PotionOfHealing().quantity(Random.Int(4, 7)), pos).sprite.drop();
-        Dungeon.level.drop(new ScrollOfMagicMapping().quantity(2).identify(), pos).sprite.drop();
-        Dungeon.level.drop(new ScrollOfUpgrade().quantity(Random.Int(3, 5)).identify(), pos).sprite.drop();
+        Dungeon.level.drop(new Gold().quantity(Random.Int(1800, 1200)), pos).sprite.drop();
+        Dungeon.level.drop(new PotionOfHealing().quantity(Random.NormalIntRange(1, 2)), pos).sprite.drop();
+        Dungeon.level.drop(new ScrollOfMagicMapping().quantity(1).identify(), pos).sprite.drop();
+        Dungeon.level.drop(new ScrollOfUpgrade().quantity(1).identify(), pos).sprite.drop();
 
 
     }

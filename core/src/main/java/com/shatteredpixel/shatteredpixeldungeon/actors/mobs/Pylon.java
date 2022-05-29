@@ -125,7 +125,7 @@ public class Pylon extends Mob {
 									Dungeon.level.distance(newPos, enemy.pos) < 12 ||
 									Actor.findChar(newPos) != null);
 					if (Random.Int(1000) <= 500){
-						FlameB01 rat = new FlameB01();
+						Rat rat = new Rat();
 						rat.state = rat.WANDERING;
 						rat.pos = newPos;
 						GameScene.add(rat);

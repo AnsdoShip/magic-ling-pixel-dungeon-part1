@@ -47,7 +47,7 @@ public class RedMurderer extends Mob {
     {
         spriteClass = MurdererSprite.RedMuderer.class;
 
-        HP = HT = 70;
+        HP = HT = 50;
         defenseSkill = 24;
 
         EXP = 18;

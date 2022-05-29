@@ -218,7 +218,6 @@ public class Wandmaker extends NPC {
 		
 		public static Wand wand1;
 		public static Wand wand2;
-		public static Wand wand3;
 		
 		public static void reset() {
 			spawned = false;
@@ -226,7 +225,6 @@ public class Wandmaker extends NPC {
 
 			wand1 = null;
 			wand2 = null;
-			wand3 =	null;
 		}
 		
 		private static final String NODE		= "wandmaker";
@@ -254,7 +252,6 @@ public class Wandmaker extends NPC {
 				
 				node.put( WAND1, wand1 );
 				node.put( WAND2, wand2 );
-				node.put( WAND3, wand3 );
 
 				if (type == 2){
 					node.put( RITUALPOS, CeremonialCandle.ritualPos );
@@ -277,7 +274,6 @@ public class Wandmaker extends NPC {
 				
 				wand1 = (Wand)node.get( WAND1 );
 				wand2 = (Wand)node.get( WAND2 );
-				wand3 = (Wand)node.get( WAND3 );
 
 				if (type == 3){
 					CeremonialCandle.ritualPos = node.getInt( RITUALPOS );
@@ -326,12 +322,6 @@ public class Wandmaker extends NPC {
 				wand2 = (Wand) Generator.random(Generator.Category.WAND);
 				wand2.cursed = false;
 				wand2.upgrade();
-
-				given = false;
-				wand3 = (Wand) Generator.random(Generator.Category.WAND);
-				wand3.cursed = false;
-				wand3.upgrade();
-				
 			}
 		}
 		

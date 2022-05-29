@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.boss;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.watabou.noosa.audio.Music;
 
@@ -58,7 +60,14 @@ public class BGMPlayer {
         } else if (Dungeon.bossLevel() && t == 15) {
             Music.INSTANCE.play(Assets.BGM_BOSSC, true);
         } else if (Dungeon.bossLevel() && t == 20) {
-            Music.INSTANCE.play(Assets.BGM_BOSSD, true);
+            switch (boss) {
+                case 1:
+                    Music.INSTANCE.play(Assets.BGM_BOSSD, true);
+                    break;
+                case 2:
+                    Music.INSTANCE.play(Assets.BGM_BOSSD2, true);
+                    break;
+            }
         } else if (Dungeon.bossLevel() && t == 25 && (Statistics.spawnersAlive > 0)) {
             Music.INSTANCE.play(Assets.BGM_BOSSE3, true);
         }else if (Dungeon.bossLevel() && t == 25){

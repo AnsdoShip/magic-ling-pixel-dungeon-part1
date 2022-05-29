@@ -36,14 +36,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -166,21 +164,11 @@ public class ImpShopRoom extends ShopRoom {
 				break;
 
 			case 20: case 21:
-				w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
-				itemsToSpawn.add( Generator.random(Generator.misTiers[4]).quantity(2).identify() );
-				itemsToSpawn.add( new PlateArmor().identify() );
-				itemsToSpawn.add( new Torch() );
 				itemsToSpawn.add( new Torch() );
 				itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.POTION));
 				itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.WAND));
-				itemsToSpawn.add(Generator.randomUsingDefaults(Generator.Category.WAND));
 				break;
 		}
-		w.enchant(null);
-		w.cursed = false;
-		w.level(0);
-		w.identify();
-		itemsToSpawn.add(w);
 
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
@@ -192,11 +180,9 @@ public class ImpShopRoom extends ShopRoom {
 
 		itemsToSpawn.add( new PotionOfHealing() );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
 		itemsToSpawn.add( new ScrollOfIdentify() );
 		itemsToSpawn.add( new ScrollOfRemoveCurse() );
-		itemsToSpawn.add( new ScrollOfMagicMapping() );
 
 		for (int i=0; i < 2; i++)
 			itemsToSpawn.add( Random.Int(2) == 0 ?

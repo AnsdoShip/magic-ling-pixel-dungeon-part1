@@ -24,12 +24,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AntiLightShiled;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionHero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -70,11 +69,10 @@ public class PotionOfLightningShiled extends Item {
 
             satisfy(hero);
             GLog.i( Messages.get(this, "look_msg") );
-            Buff.affect(hero, AntiLightShiled.class).set( (50), 1 );
+            Buff.affect(hero, ChampionHero.Light.class, ChampionHero.DURATION/10);
             hero.sprite.operate( hero.pos );
             hero.busy();
-            SpellSprite.show( hero, SpellSprite.FOOD );
-            Sample.INSTANCE.play( Assets.Sounds.EAT );
+            Sample.INSTANCE.play( Assets.Sounds.DRINK );
 
             hero.spend( eatingTime() );
         }

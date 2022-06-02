@@ -238,7 +238,7 @@ public class Dungeon {
 		QuickSlotButton.reset();
 
 		depth = -1;
-		boss = -1;
+
 		gold = 0;
 		nyzbuy = 1;
 		droppedItems = new SparseArray<>();
@@ -444,11 +444,11 @@ public class Dungeon {
 				break;
 			case 10:
 				switch (boss) {
-					case 1:
+					case 0:case 1:
 					default:
 						level = new NewPrisonBossLevel();
 						break;
-					case 2:
+					case 2:case 3:
 						level = new DimandKingLevel();
 				}
 				break;
@@ -501,12 +501,12 @@ public class Dungeon {
 				switch (boss) {
 					case 1:
 					default:
-						level = new YogGodHardBossLevel();
-						//天痕粘咕
+						level = new NewHallsBossLevel();
+						//Yog古神
 						break;
 					case 2:
-						//史莱姆王
-						level = new  NewHallsBossLevel();
+						//EX古神
+						level = new  YogGodHardBossLevel();
 				}
 				break;
 			case 26:
@@ -552,21 +552,6 @@ public class Dungeon {
 	public static boolean shopOnLevel() {
 		return depth == 6 || depth == 11 || depth == 16;
 	}
-	//图书馆
-	public static boolean BooksRTD() {
-		return depth == 3 ||  depth == 7 || depth == 12 || depth == 18;
-	}
-
-
-	//冰雪结界
-	public static boolean iceCursedLevel() {
-		return depth == 11 || depth == 12|| depth == 13|| depth == 14;
-	}
-
-	public static boolean iceCursedLevelBoss() {
-		return depth == 15;
-	}
-	//冰雪结界
 
 	public static boolean NxhyshopOnLevel() {
 		return depth == 9 || depth == 18;

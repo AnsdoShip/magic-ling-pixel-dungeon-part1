@@ -50,7 +50,7 @@ import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
 
 public class WndStartGame extends Window {
-	
+
 	private static final int WIDTH    = 120;
 	private static final int HEIGHT   = 160;
 
@@ -65,7 +65,7 @@ public class WndStartGame extends Window {
 		PixelScene.align(title);
 		add(title);
 		
-		float heroBtnSpacing = (WIDTH - 4*HeroBtn.WIDTH)/5f;
+		float heroBtnSpacing = (WIDTH - 5*HeroBtn.WIDTH)/5f;
 		
 		float curX = heroBtnSpacing;
 		for (HeroClass cl : HeroClass.values()){

@@ -23,7 +23,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
-import static com.shatteredpixel.shatteredpixeldungeon.Statistics.spawnersIce;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.DIED_GOD;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent.IRON_STOMACH;
 
@@ -64,6 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RoseShiled;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SelectFoor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
@@ -118,7 +118,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocki
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
-import com.shatteredpixel.shatteredpixeldungeon.levels.CavesGirlDeadLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -130,7 +129,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.KAmuletScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -1016,9 +1014,14 @@ public class Hero extends Char {
 			return false;
 			//there can be multiple exit tiles, so descend on any of them
 			//TODO this is slightly brittle, it assumes there are no disjointed sets of exit tiles
-		} else if (Dungeon.hero.buff(LockedFloor.class) != null) {
-			Game.switchScene( KAmuletScene.class );
-			//删除存档 提出警告
+		} else if (Dungeon.hero.buff(SelectFoor.class) != null && Dungeon.selectbossLevel()) {
+			Game.runOnRenderThread(new Callback() {
+				@Override
+				public void call() {
+					GameScene.show(new WndMessage(Messages.get(Hero.this, "no_select")));
+				}
+			});
+			ready();
 			return false;
 		} else if ((Dungeon.level.map[pos] == Terrain.EXIT || Dungeon.level.map[pos] == Terrain.UNLOCKED_EXIT)) {
 
@@ -1066,7 +1069,6 @@ public class Hero extends Char {
 						}
 					});
 					ready();
-
 				} else {
 					Badges.silentValidateHappyEnd();
 					Badges.UP_PALF();
@@ -1075,10 +1077,6 @@ public class Hero extends Char {
 					Game.switchScene( SurfaceScene.class );
 					ready();
 				}
-			} else if (Dungeon.hero.buff(LockedFloor.class) != null) {
-				Game.switchScene( KAmuletScene.class );
-				//删除存档 提出警告
-				return false;
 			} else {
 
 				curAction = null;
@@ -1826,8 +1824,7 @@ public class Hero extends Char {
 			}
 		}
 
-
-		//矿洞之水 诅咒效果
+		//矿洞之水 祝福效果
 		if (Dungeon.ColdWaterLevel()&& Dungeon.level.water[pos]){
 			Buff.affect(this, FrostImbueEX.class, FrostImbueEX.DURATION*0.3f);
 		} else if(Dungeon.ColdWaterLevel()&& !Dungeon.level.water[pos])
@@ -1836,18 +1833,6 @@ public class Hero extends Char {
 					buff.detach();
 				}
 			}
-
-		//矮人之水 诅咒效果
-
-
-		//祝福之门
-		if (Dungeon.MagicStonePark() && Dungeon.level.map[pos] == CavesGirlDeadLevel.D && Dungeon.level.water[pos] && (spawnersIce > 0)){
-			Buff.affect(hero, Barkskin.class).set( 6 + hero.lvl/4, 10 );
-			Buff.prolong(this, Bless.class, Bless.GODSPOERF);
-
-			//Buff.prolong(hero, RoseShiled.class, RoseShiled.DURATION/10f-4f);
-		}
-
 
 		super.move( step );
 

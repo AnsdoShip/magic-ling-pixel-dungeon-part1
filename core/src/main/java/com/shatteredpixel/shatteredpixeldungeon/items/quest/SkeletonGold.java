@@ -1,13 +1,16 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.quest;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.boss;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SelectFoor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Slyl;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.SPS;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
@@ -19,13 +22,15 @@ import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
-public class SkeletonGold extends Item {
+public class SkeletonGold extends SPS {
 
     {
         image = ItemSpriteSheet.SKELETONGOLD;
 
         unique = true;
     }
+
+
 
     public void execute( Hero hero, String action ) {
 
@@ -41,18 +46,24 @@ public class SkeletonGold extends Item {
 
         //TODO A面赋Boss=1，下一层成为A面
         if (action.equals(AC_SELECT_ONE)){
-            Dungeon.boss=1;
+            boss=1;
             GLog.p( Messages.get(this, "wow") );
             new Flare( 5, 32 ).color( 0xFF0000, true ).show( curUser.sprite, 2f );
             Buff.prolong(hero, Paralysis.class, Paralysis.DURATION);
             Sample.INSTANCE.play( Assets.Sounds.READ );
+            if (Dungeon.hero.buff(SelectFoor.class) != null){
+                Dungeon.hero.buff(SelectFoor.class).detach();
+            }
         } else if (action.equals(AC_SELECT_TWO)) {
         //TODO B面赋Boss=2，下一层成为B面
-            Dungeon.boss = 2;
+            boss = 2;
             GLog.p( Messages.get(this, "wow") );
             new Flare( 5, 32 ).color( 0x00FFFF, true ).show( curUser.sprite, 2f );
             Buff.prolong(hero, Paralysis.class, Paralysis.DURATION);
             Sample.INSTANCE.play( Assets.Sounds.READ );
+            if (Dungeon.hero.buff(SelectFoor.class) != null){
+                Dungeon.hero.buff(SelectFoor.class).detach();
+            }
             //TODO 使用方法按钮
         } else if (action.equals(AC_SELECT_HOW)){
             tell(Messages.get(Slyl.class, "howuse"));
@@ -60,10 +71,13 @@ public class SkeletonGold extends Item {
             //TODO C面赋Boss=3，下一层成为C面
         } else if(action.equals(AC_SELECT_THREE)) {
             Sample.INSTANCE.play( Assets.Sounds.READ );
-            Dungeon.boss = 3;
+            boss = 3;
             GLog.p( Messages.get(this, "wow") );
             new Flare( 5, 32 ).color( 0x00FF00, true ).show( curUser.sprite, 2f );
             Buff.prolong(hero, Paralysis.class, Paralysis.DURATION);
+            if (Dungeon.hero.buff(SelectFoor.class) != null){
+                Dungeon.hero.buff(SelectFoor.class).detach();
+            }
         }
     }
 
@@ -84,7 +98,7 @@ public class SkeletonGold extends Item {
 
     @Override
     public ArrayList<String> actions(Hero hero) {
-        ArrayList<String> actions = super.actions( hero );
+        ArrayList<String> actions = new ArrayList<>();
         if (Dungeon.selectbossLevel())
         actions.add( AC_SELECT_ONE );
         if (Dungeon.selectbossLevel())
@@ -92,6 +106,10 @@ public class SkeletonGold extends Item {
         if (Dungeon.depth == 14)
             actions.add(AC_SELECT_THREE);
         actions.add( AC_SELECT_HOW );
+        if (Dungeon.depth == 114514) {
+            actions.add(AC_DROP);
+            actions.add(AC_THROW);
+        }
         return actions;
     }
 

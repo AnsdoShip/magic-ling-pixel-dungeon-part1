@@ -65,6 +65,7 @@ public enum Icons {
 	MAGE,
 	ROGUE,
 	HUNTRESS,
+	FOOD,
 
 	//main menu icons
 	ENTER,
@@ -193,6 +194,9 @@ public enum Icons {
 			case HUNTRESS:
 				icon.frame( icon.texture.uvRect( 64, 48, 80, 64 ) );
 				break;
+			case FOOD:
+				icon.frame( icon.texture.uvRect( 80, 48, 96, 64 ) );
+				break;
 
 			case ENTER:
 				icon.frame( icon.texture.uvRect( 0, 64, 16, 80 ) );
@@ -268,6 +272,8 @@ public enum Icons {
 			case ROGUE:
 				return get( ROGUE );
 			case HUNTRESS:
+				return get( HUNTRESS );
+			case COMINGSOON:
 				return get( HUNTRESS );
 			default:
 				return null;

@@ -68,6 +68,7 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_GRID 	    = "visual_grid";
 	private static final String KEY_DARK	= "dark_ui";
 	//暗色系统
+	private static final String KEY_SKIN	= "skin_ui";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 		
@@ -356,8 +357,18 @@ public class SPDSettings extends GameSettings {
 		put( KEY_DARK, value );
 	}
 
+
+
 	public static boolean ClassUI() {
 		return getBoolean(KEY_DARK, false);
+	}
+
+	public static void ClassSkin(boolean value) {
+		put( KEY_SKIN, value );
+	}
+
+	public static boolean ClassSkin() {
+		return getBoolean(KEY_SKIN, false);
 	}
 
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2012-2015 Oleg Dolya
  *
  * Shattered Pixel Dungeon
- * Copyright (C) 2014-2021 Evan Debenham
+ * Copyright (C) 2014-2019 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,27 +19,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
+package com.shatteredpixel.shatteredpixeldungeon.items.bags;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.SPS;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 
-public class WornShortsword extends MeleeWeapon {
+import java.util.ArrayList;
 
-	{
-		image = ItemSpriteSheet.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.1f;
-		RCH = 3;    //lots of extra reach
-		tier = 1;
-		
-		bones = false;
-	}
+public class LingBag extends Bag {
 
-	//@Override
-	//public int proc(Char attacker, Char defender, int damage ) {
-	//	Buff.affect(defender, Bleeding.class).set(damage);
-	//	return super.proc(attacker, defender, damage);
-	//}
+    {
+        image = ItemSpriteSheet.DG12;
+    }
+
+    @Override
+    public boolean canHold( Item item ) {
+        if (item instanceof SPS){
+            return super.canHold(item);
+        } else {
+            return false;
+        }
+    }
+
+    public int capacity(){
+        return 1;
+    }
+
+    @Override
+    public ArrayList<String> actions(Hero hero) {
+        return new ArrayList<>(); //yup, no dropping this one
+    }
 
 }

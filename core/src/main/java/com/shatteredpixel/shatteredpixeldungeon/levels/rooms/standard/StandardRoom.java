@@ -108,45 +108,6 @@ public abstract class StandardRoom extends Room {
 	}
 
 	//FIXME this is a very messy way of handing variable standard rooms
-	/*[GAME] java.lang.RuntimeException: fatal error occured while moving between floors. Seed
-:920131581372 depth:22
-        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.update(Interl
-evelScene.java:352)
-        at com.watabou.noosa.Game.update(Game.java:267)
-        at com.watabou.noosa.Game.step(Game.java:233)
-        at com.watabou.noosa.Game.render(Game.java:163)
-        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window.update(Lwjgl3Window.java:399)
-        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.loop(Lwjgl3Application.jav
-a:137)
-        at com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application.<init>(Lwjgl3Application.j
-ava:111)
-        at com.shatteredpixel.shatteredpixeldungeon.desktop.DesktopLauncher.main(Desktop
-Launcher.java:155)
-Caused by: java.lang.IndexOutOfBoundsException: Index 25 out of bounds for length 25
-        at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:64)
-        at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions
-.java:70)
-        at java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:248)
-        at java.base/java.util.Objects.checkIndex(Objects.java:372)
-        at java.base/java.util.ArrayList.get(ArrayList.java:458)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom.c
-reateRoom(StandardRoom.java:169)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel.initRooms(Regula
-rLevel.java:116)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel.initRooms(HallsLev
-el.java:70)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel.build(RegularLev
-el.java:88)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.Level.create(Level.java:264)
-        at com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel.create(HallsLevel.
-java:107)
-        at com.shatteredpixel.shatteredpixeldungeon.Dungeon.newLevel(Dungeon.java:529)
-        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.descend(Inter
-levelScene.java:397)
-        at com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene.access$300(In
-terlevelScene.java:59)
-Delete Room Crash
-*/
 	private static ArrayList<Class<?extends StandardRoom>> rooms = new ArrayList<>();
 	static {
 		rooms.add(EmptyRoom.class);

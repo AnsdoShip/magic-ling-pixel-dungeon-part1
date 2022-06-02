@@ -918,6 +918,7 @@ public class WndSettings extends WndTabbed {
 		ColorBlock sep1;
 		OptionSlider quickslots;
 		CheckBox ClassUI;
+		CheckBox ClassSkin;
 
 		@Override
 		protected void createChildren() {
@@ -949,6 +950,16 @@ public class WndSettings extends WndTabbed {
 			ClassUI.checked(SPDSettings.ClassUI());
 			add(ClassUI);
 
+			ClassSkin = new CheckBox( Messages.get(this, "skin_ui") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.ClassSkin(checked());
+				}
+			};
+			ClassSkin.checked(SPDSettings.ClassSkin());
+			add(ClassSkin);
+
 		}
 
 		@Override
@@ -971,20 +982,26 @@ public class WndSettings extends WndTabbed {
 					ClassUI.setRect(quickslots.left(), quickslots.bottom(), width - GAP / 2, SLIDER_HEIGHT);
 				}
 				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {
-					quickslots.setRect(ClassUI.right() + GAP, ClassUI.top(), width / 2 - GAP / 2, SLIDER_HEIGHT);
+					quickslots.setRect(ClassUI.right(), ClassUI.top(), width / 2 - GAP / 2, SLIDER_HEIGHT);
 				} else {
 					quickslots.setRect(0 ,9000+GAP, width, SLIDER_HEIGHT);
+				}
+				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {
+					ClassSkin.setRect(ClassUI.left(), ClassUI.bottom(), width-1, SLIDER_HEIGHT);
+				} else {
+					ClassSkin.setRect(ClassUI.left(), ClassUI.bottom(), width-1, SLIDER_HEIGHT);
 				}
 				//竖屏布局
 			} else {
 				quickslots.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
-				ClassUI.setRect(0, quickslots.bottom() + GAP, width, SLIDER_HEIGHT);
+				ClassUI.setRect(0, quickslots.bottom() + GAP, width-1, SLIDER_HEIGHT);
 				//GameScene
 				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class){
 					quickslots.setRect(ClassUI.left(), ClassUI.bottom(), width  - GAP / 2, SLIDER_HEIGHT);
-
+					ClassSkin.setRect(0, quickslots.bottom(), width-1, SLIDER_HEIGHT);
 				} else {
 					quickslots.setRect(0, 9000 + GAP, width, SLIDER_HEIGHT);
+					ClassSkin.setRect(0, 9000 + GAP, width, SLIDER_HEIGHT);
 				}
 
 			}

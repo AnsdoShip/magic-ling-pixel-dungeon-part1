@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionHero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -89,8 +90,14 @@ public class DM100 extends Mob implements Callback {
 			spend( TIME_TO_ZAP );
 			
 			if (hit( this, enemy, true )) {
-				int dmg = Random.NormalIntRange(3, 10);
-				enemy.damage( dmg, new LightningBolt() );
+				if(Dungeon.hero.buff(ChampionHero.Light.class) != null) {
+					int dmg = Random.NormalIntRange(0, 0);
+					enemy.damage( dmg, new LightningBolt() );
+				} else {
+					int dmg = Random.NormalIntRange(3, 10);
+					enemy.damage( dmg, new LightningBolt() );
+				}
+
 
 				if (enemy.sprite.visible) {
 					enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);

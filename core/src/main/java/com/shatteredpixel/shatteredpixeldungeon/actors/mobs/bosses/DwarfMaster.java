@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EnergyParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.HalomethaneFlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ScanningBeam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
@@ -238,9 +239,7 @@ public class DwarfMaster extends Boss {
                 Buff.affect( ch, Poison.class ).set( (5f)+(ch.HP/8f) );
                 if(!ch.isAlive()) Dungeon.fail(getClass());
             }
-
-            //ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 15, 10 ) );
-            //ch.sprite.flash();
+            ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 15, 10 ) );ch.sprite.flash();
             return 1;
         }
 
@@ -305,6 +304,7 @@ public class DwarfMaster extends Boss {
     private static final int SUMMON = 6;
 
     private int phase = 1;
+
     public static class KingDamager extends Buff {
 
         @Override
@@ -322,7 +322,7 @@ public class DwarfMaster extends Boss {
             super.detach();
             for (Mob m : Dungeon.level.mobs){
                 if (m instanceof DwarfMaster){
-                    m.damage(24, this);
+                    m.damage(20, this);
                 }
             }
         }
@@ -422,7 +422,7 @@ public class DwarfMaster extends Boss {
                     Char ch = Actor.findChar(pos);
                     ch.damage(Random.NormalIntRange(20, 40), summon);
                     if (((DwarfMaster)target).phase == 2){
-                        target.damage(24, new DwarfMaster.KingDamager());
+                        target.damage(20, new DwarfMaster.KingDamager());
                     }
                 }
 
@@ -546,7 +546,7 @@ public class DwarfMaster extends Boss {
                 charge = target.sprite.emitter();
                 charge.autoKill = false;
                 charge.pour( HalomethaneFlameParticle.FACTORY, 0.06f );
-                //charge.on = false;
+                charge.on = false;
             }else{
                 if(charge != null) {
                     charge.on = false;
@@ -599,8 +599,8 @@ public class DwarfMaster extends Boss {
     @Override
     public void damage(int dmg, Object src) {
 
-        if (HP > 200 && HP <= 500 && dmg > 0){
-            dmg = 10;
+        if (HP > 199 && HP <= 500 && dmg >= 9){
+            dmg = 15+ (int)(Math.sqrt(8*(dmg - 4) + 1) - 1)/2;
         } else  {
             super.damage(dmg, src);
         }
@@ -902,12 +902,6 @@ public class DwarfMaster extends Boss {
 
     private static final float SPLIT_DELAY	= 4f;
     public int generation	= 0;
-    private SRPDHBLR split() {
-        SRPDHBLR clone = new SRPDHBLR();
-        clone.generation = generation + 1;
-        clone.EXP = 0;
-        return clone;
-    }
 
     public static boolean throwBomb(final Char thrower, final Char target){
 

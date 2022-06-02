@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfNoWater;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.PotionOfLightningShiled;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CaveTwoBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -154,9 +154,9 @@ public class PylonCS extends Mob {
         for (int i = 0; i < blobs; i++){
             int ofs;
             do {
-                ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+                ofs = PathFinder.NEIGHBOURS8[Random.NormalIntRange(1,3)];
             } while (!Dungeon.level.passable[pos + ofs]);
-            Dungeon.level.drop( new PotionOfNoWater(), pos + ofs ).sprite.drop( pos );
+            Dungeon.level.drop( new PotionOfLightningShiled(), pos + ofs ).sprite.drop( pos );
         }
     }
 

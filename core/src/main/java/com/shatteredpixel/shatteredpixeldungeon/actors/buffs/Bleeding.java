@@ -21,6 +21,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import static com.watabou.utils.Random.NormalFloat;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -29,38 +31,37 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
 
-import static com.watabou.utils.Random.NormalFloat;
-
 public class Bleeding extends Buff {
 
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
 	}
-	
+
 	protected float level;
 
 	public float level(){
 		return level;
 	}
-	
+
 	private static final String LEVEL	= "level";
-	
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( LEVEL, level );
-		
+
 	}
-	
+
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
 	}
-	
-	public void set( float level ) {
+
+	public int set(float level ) {
 		this.level = Math.max(this.level, level);
+		return 0;
 	}
 	
 	@Override

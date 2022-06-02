@@ -28,10 +28,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RandomBuff;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.LevelTeleporter;
 import com.shatteredpixel.shatteredpixeldungeon.custom.testmode.MobPlacer;
+import com.shatteredpixel.shatteredpixeldungeon.items.ArmorKit;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.DewVial;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -41,12 +43,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.BookBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.LingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.BrokenBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.DeepBloodBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.GrassKingBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.HellFireBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IceCityBooks;
 import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.IndexBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.MagicGirlBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.NoKingMobBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.books.bookslist.YellowSunBooks;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
@@ -105,18 +118,20 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKn
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.AikeLaier;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.SkyBlueFireBloom;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
 
 	WARRIOR( "warrior", HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR ),
 	MAGE( "mage", HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	ROGUE( "rogue", HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
-	HUNTRESS( "huntress", HeroSubClass.SNIPER, HeroSubClass.WARDEN );
+	HUNTRESS( "huntress", HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
+
+	COMINGSOON( "huntress", HeroSubClass.SNIPER, HeroSubClass.WARDEN );
 
 	private String title;
 	private HeroSubClass[] subClasses;
@@ -152,6 +167,10 @@ public enum HeroClass {
 				initHuntress( hero );
 				break;
 
+			case COMINGSOON:
+				initHuntress( hero );
+				break;
+
 		}
 
 	}
@@ -168,9 +187,11 @@ public enum HeroClass {
 		}
 		new SkeletonGold().quantity(1).collect();
 		i = new Food();
+		Dungeon.boss = 0;
 		DewVial.View = 3;
 		new HerbBag().quantity(1).identify().collect();
 		new PotionOfHealing().quantity(3).identify().collect();
+		new LingBag().quantity(1).identify().collect();
 		new ScrollOfUpgrade().quantity(1).identify().collect();
 		new DewVial().quantity(1).identify().collect();
 		new IndexBooks().quantity(1).identify().collect();
@@ -195,6 +216,18 @@ public enum HeroClass {
 		}
 
 		if (Dungeon.isChallenged(Challenges.PRO)){
+			new Blandfruit().quantity(11).identify().collect();
+			new ArmorKit().quantity(1).identify().collect();
+			new YellowSunBooks().quantity(1).identify().collect();
+			new BrokenBooks().quantity(1).identify().collect();
+			new DeepBloodBooks().quantity(1).identify().collect();
+			new BookBag().quantity(1).identify().collect();
+			new HellFireBooks().quantity(1).identify().collect();
+			new IceCityBooks().quantity(1).identify().collect();
+			new MagicGirlBooks().quantity(1).identify().collect();
+			new NoKingMobBooks().quantity(1).identify().collect();
+			new GrassKingBooks().quantity(1).identify().collect();
+			new AikeLaier.Seed().quantity(10).identify().collect();
 			new IceFishSword().quantity(1).identify().collect();
 			new FireFishSword().quantity(1).identify().collect();
 			new EndingBlade().quantity(1).identify().collect();
@@ -355,7 +388,12 @@ public enum HeroClass {
 		return subClasses;
 	}
 
-	public String spritesheet() {
+	public String spritesheet2() {
+
+		if (SPDSettings.ClassSkin()) {
+			return Assets.Sprites.COMINGSOON;
+		}
+
 		switch (this) {
 			case WARRIOR: default:
 				return Assets.Sprites.WARRIOR;
@@ -365,6 +403,24 @@ public enum HeroClass {
 				return Assets.Sprites.ROGUE;
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
+			case COMINGSOON:
+				return Assets.Sprites.COMINGSOON;
+		}
+	}
+
+	public String spritesheet() {
+
+		switch (this) {
+			case WARRIOR: default:
+				return Assets.Sprites.WARRIOR;
+			case MAGE:
+				return Assets.Sprites.MAGE;
+			case ROGUE:
+				return Assets.Sprites.ROGUE;
+			case HUNTRESS:
+				return Assets.Sprites.HUNTRESS;
+			case COMINGSOON:
+				return Assets.Sprites.COMINGSOON;
 		}
 	}
 
@@ -419,18 +475,18 @@ public enum HeroClass {
 	}
 	
 	public boolean isUnlocked(){
-		//always unlock on debug builds
-		if (DeviceCompat.isDebug()) return true;
-		
 		switch (this){
 			case WARRIOR: default:
 				return true;
 			case MAGE:
-				return Badges.isUnlocked(Badges.Badge.UNLOCK_MAGE);
+				return true;
 			case ROGUE:
-				return Badges.isUnlocked(Badges.Badge.UNLOCK_ROGUE);
+				return true;
 			case HUNTRESS:
-				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
+				return true;
+			case COMINGSOON:
+				return false;
+				//敬请期待
 		}
 	}
 	
@@ -444,6 +500,8 @@ public enum HeroClass {
 				return Messages.get(HeroClass.class, "rogue_unlock");
 			case HUNTRESS:
 				return Messages.get(HeroClass.class, "huntress_unlock");
+			case COMINGSOON:
+				return Messages.get(HeroClass.class, "slime_unlock");
 		}
 	}
 

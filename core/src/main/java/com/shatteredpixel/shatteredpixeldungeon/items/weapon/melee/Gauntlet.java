@@ -61,7 +61,7 @@ public class Gauntlet extends MeleeWeapon {
 		switch (Random.Int(2)) {
 			case 0:
 			default:
-				return Random.NormalIntRange( 1, 6 );
+				return max(buffedLvl());
 			case 1:
 				Buff.affect(defender, Burning.class).reignite(defender);
 				Buff.affect(hero, Cripple.class, Degrade.ADURATION);

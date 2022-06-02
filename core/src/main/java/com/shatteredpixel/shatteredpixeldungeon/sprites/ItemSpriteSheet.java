@@ -335,6 +335,7 @@ public class ItemSpriteSheet {
 	public static final int DISPLACING_DART = TIPPED_DARTS+10;
 	public static final int BLINDING_DART   = TIPPED_DARTS+11;
 	public static final int HALO_DART   = TIPPED_DARTS+12;
+	public static final int LIGT_DART   = TIPPED_DARTS+13;
 	static {
 		for (int i = TIPPED_DARTS; i < TIPPED_DARTS+16; i++)
 			assignItemRect(i, 15, 15);
@@ -355,7 +356,7 @@ public class ItemSpriteSheet {
 		assignItemRect(ARMOR_LEATHER,   15, 15);
 		assignItemRect(ARMOR_MAIL,      15, 15);
 		assignItemRect(ARMOR_SCALE,     16, 16);
-		assignItemRect(ARMOR_PLATE,     16, 16);
+		assignItemRect(ARMOR_PLATE,     15, 15);
 		assignItemRect(ARMOR_WARRIOR,   16, 16);
 		assignItemRect(ARMOR_MAGE,      16, 16);
 		assignItemRect(ARMOR_ROGUE,     16, 16);
@@ -564,6 +565,7 @@ public class ItemSpriteSheet {
 	public static final int SEED_FADELEAF       = SEEDS+10;
 	public static final int SEED_BLINDWEED      = SEEDS+11;
 	public static final int SEED_SKYBLUEFIRE      = SEEDS+12;
+	public static final int SEED_AIKELAIER      = SEEDS+13;
 	static{
 		for (int i = SEEDS; i < SEEDS+16; i++)
 			assignItemRect(i, 10, 10);
@@ -634,6 +636,7 @@ public class ItemSpriteSheet {
 	public static final int BLANDFRUIT  = FOOD+10;
 	public static final int BLAND_CHUNKS= FOOD+11;
 	public static final int BERRY =       FOOD+12;
+	public static final int LSPDA =       FOOD+13;
 	static{
 		assignItemRect(MEAT,        15, 11);
 		assignItemRect(STEAK,       15, 11);
@@ -724,6 +727,7 @@ public class ItemSpriteSheet {
 	public static final int	FIREFISHSWORD				= BAGS+46;
 	public static final int	SKELETONGOLD				= BAGS+47;
 	public static final int	ANTILIGHT				= BAGS+51;
+	public static final int	BOOKBAG				= BAGS+52;
 	static{
 		assignItemRect(VIAL,        16, 16);
 		assignItemRect(POUCH,       14, 15);

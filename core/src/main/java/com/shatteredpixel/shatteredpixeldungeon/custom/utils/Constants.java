@@ -20,22 +20,10 @@ public class Constants {
     //############################## UI STUFF ##############################
     //
 
-    public static final int MAX_QUICKSLOTS = 7;
+    public static final int MAX_QUICKSLOTS = 9;
     public static final int MIN_QUICKSLOTS = 3;
 
     public static boolean gameIsAndroid(){
         return Game.platform.getClass().getSimpleName().contains("Android");
-    }
-
-    public static class Colours {
-
-        public static final int PURE_RED   = 0xFF0000;
-        public static final int PURE_GREEN = 0x00FF00;
-        public static final int PURE_BLUE  = 0x0000FF;
-        public static final int YELLOW     = 0xFFFF00;
-        public static final int PURPLE     = 0xFF00FF;
-        public static final int LIGHT_BLUE = 0x6496FF;
-        public static final int PURE_WHITE = 0xFFFFFF;
-
     }
 }

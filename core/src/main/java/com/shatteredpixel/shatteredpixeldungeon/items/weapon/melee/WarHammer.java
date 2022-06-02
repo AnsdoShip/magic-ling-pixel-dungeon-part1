@@ -56,7 +56,7 @@ public class WarHammer extends MeleeWeapon {
 		switch (Random.Int(2)) {
 			case 0:
 			default:
-				return Random.NormalIntRange( 1, 6 );
+				return max(buffedLvl());
 			case 1:
 				Buff.prolong(defender, Vertigo.class, 6f);
 				Buff.prolong(defender, Terror.class, 18f);

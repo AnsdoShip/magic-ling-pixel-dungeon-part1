@@ -34,8 +34,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.BookBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.HerbBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.KingBag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.LingBag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -177,6 +179,8 @@ public class WndBag extends WndTabbed {
 			stuff.getItem( VelvetPouch.class ),
 			stuff.getItem( ScrollHolder.class ),
 				stuff.getItem( HerbBag.class ),
+				stuff.getItem( LingBag.class ),
+				stuff.getItem( BookBag.class ),
 				stuff.getItem( KingBag.class ),
 			stuff.getItem( PotionBandolier.class ),
 			stuff.getItem( MagicalHolster.class )};
@@ -335,7 +339,11 @@ public class WndBag extends WndTabbed {
 		} else if (bag instanceof PotionBandolier) {
 			return Icons.get( Icons.POTION_BANDOLIER );
 		} else if (bag instanceof HerbBag) {
-			return Icons.get(Icons.TALENT);
+			return Icons.get(Icons.FOOD);
+		} else if (bag instanceof LingBag) {
+			return Icons.get(Icons.LING);
+		} else if (bag instanceof BookBag) {
+			return Icons.get(Icons.NEWS);
 		} else {
 			return Icons.get( Icons.BACKPACK );
 		}

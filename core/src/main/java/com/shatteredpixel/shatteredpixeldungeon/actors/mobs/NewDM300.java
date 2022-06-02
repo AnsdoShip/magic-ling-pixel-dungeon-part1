@@ -474,62 +474,8 @@ public class NewDM300 extends Mob {
 		((NewCavesBossLevel)Dungeon.level).activatePylon();
 		pylonsActivated++;
 
-		spend(3f);
+		spend(2.5f);
 		yell(Messages.get(this, "charging"));
-		for(int i = 0;i <= (6 + (1 -(float)HP/HT)) ; i++){
-			int newPos = 0;
-			do {
-				newPos = Random.Int(Dungeon.level.length());
-			} while (
-					Dungeon.level.solid[newPos] ||
-							Dungeon.level.distance(newPos, hero.pos) < 12 ||
-							Actor.findChar(newPos) != null);
-			if (Random.Int(1000) <= 500){
-				RedSwarm rat = new RedSwarm();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(500) <= 250){
-				MolotovHuntsman rat = new MolotovHuntsman();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(250) <= 125){
-				GnollShiled rat = new GnollShiled ();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(125) <= 75){
-				Spinner rat = new Spinner();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(75) <= 37){
-				DM100 rat = new DM100();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else if(Random.Int(37) <= 18){
-				BlackHost rat = new BlackHost();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}else{
-				FireGhost rat = new FireGhost();
-				rat.state = rat.WANDERING;
-				rat.pos = newPos;
-				GameScene.add(rat);
-				rat.beckon(pos );
-			}
-		}
-
-		yell( Messages.get(this, "arise") );
 
 		sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
 		((DM300Sprite)sprite).updateChargeState(true);

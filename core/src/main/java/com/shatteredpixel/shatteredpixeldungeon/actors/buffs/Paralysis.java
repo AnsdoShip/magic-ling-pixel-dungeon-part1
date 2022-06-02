@@ -108,7 +108,7 @@ public class Paralysis extends FlavourBuff {
 			type = buffType.POSITIVE;
 		}
 		
-		private int damage;
+		public int damage;
 		
 		@Override
 		public boolean act() {

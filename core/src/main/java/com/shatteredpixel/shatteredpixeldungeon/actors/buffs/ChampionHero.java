@@ -24,7 +24,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
@@ -108,6 +110,7 @@ public abstract class ChampionHero extends FlavourBuff {
                 case 4:             Buff.affect(m, ChampionHero.Blessed.class);      break;
                 case 5:             Buff.affect(m, ChampionHero.Growing.class);      break;
                 case 6:             Buff.affect(m, ChampionHero.Halo.class);      break;
+                case 7:             Buff.affect(m, ChampionHero.Light.class);      break;
             }
             m.state = m.WANDERING;
         }
@@ -134,6 +137,28 @@ public abstract class ChampionHero extends FlavourBuff {
 
         {
             immunities.add(Burning.class);
+        }
+    }
+
+    public static class Light extends ChampionHero {
+
+        {
+            color = 0x007777;
+        }
+        @Override
+        public void fx(boolean on) {
+            //
+        }
+
+        @Override
+        public float meleeDamageFactor() {
+            return 1.25f;
+        }
+
+        {
+            immunities.add(Light.class);
+            immunities.add(Electricity.class);
+            immunities.add(WandOfLightning.class);
         }
     }
 

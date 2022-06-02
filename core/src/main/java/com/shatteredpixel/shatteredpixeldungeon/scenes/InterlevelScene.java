@@ -24,7 +24,6 @@ package com.shatteredpixel.shatteredpixeldungeon.scenes;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -38,10 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
-import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndStory;
 import com.watabou.gltextures.TextureCache;
@@ -57,6 +53,7 @@ import com.watabou.utils.Random;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class InterlevelScene extends PixelScene {
 
@@ -81,6 +78,18 @@ public class InterlevelScene extends PixelScene {
 
 	public static boolean fallIntoPit;
 
+	private static final int NUM_TIPS = 32;
+
+	private static ArrayList<Integer> tipset;
+	private RenderedTextBlock tip;
+
+	private void newTipSet()
+	{
+		tipset = new ArrayList<>();
+		for(int i = 1; i <= NUM_TIPS; i++)
+			tipset.add(i);
+	}
+
 	private enum Phase {
 		FADE_IN, STATIC, FADE_OUT
 	}
@@ -96,6 +105,17 @@ public class InterlevelScene extends PixelScene {
 	@Override
 	public void create() {
 		super.create();
+
+		if(tipset == null || tipset.isEmpty())
+			newTipSet();
+
+		int tip_i = tipset.remove(Random.Int(tipset.size()));
+
+		tip = PixelScene.renderTextBlock(Messages.get(this, "dialog_" + tip_i), 9);
+		tip.maxWidth((int)Math.round(Camera.main.width * 0.8));
+		tip.setPos((Camera.main.width - tip.width()) / 2, (Camera.main.height - tip.height()) / 2);
+		align(tip);
+		add(tip);
 
 		String loadingAsset;
 		int loadingDepth;
@@ -152,7 +172,7 @@ public class InterlevelScene extends PixelScene {
 			fadeTime += 0.9f; //adds 1 second total
 		//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.8f;
+			fadeTime = 0.1f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
@@ -192,81 +212,21 @@ public class InterlevelScene extends PixelScene {
 		im.scale.x = Camera.main.height/5f;
 		im.scale.y = Camera.main.width;
 		add(im);
-
-		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(new String[]{
-				Messages.get(InterlevelScene.class, "dialog_1"),
-				Messages.get(InterlevelScene.class, "dialog_2"),
-				Messages.get(InterlevelScene.class, "dialog_3"),
-				Messages.get(InterlevelScene.class, "dialog_4"),
-				Messages.get(InterlevelScene.class, "dialog_5"),
-				Messages.get(InterlevelScene.class, "dialog_6"),
-				Messages.get(InterlevelScene.class, "dialog_7"),
-				Messages.get(InterlevelScene.class, "dialog_8"),
-				Messages.get(InterlevelScene.class, "dialog_9"),
-				Messages.get(InterlevelScene.class, "dialog_10"),
-				Messages.get(InterlevelScene.class, "dialog_11"),
-				Messages.get(InterlevelScene.class, "dialog_12"),
-				Messages.get(InterlevelScene.class, "dialog_13"),
-				Messages.get(InterlevelScene.class, "dialog_14"),
-				Messages.get(InterlevelScene.class, "dialog_15"),
-				Messages.get(InterlevelScene.class, "dialog_16"),
-				Messages.get(InterlevelScene.class, "dialog_17"),
-				Messages.get(InterlevelScene.class, "dialog_18"),
-				Messages.get(InterlevelScene.class, "dialog_19"),
-				Messages.get(InterlevelScene.class, "dialog_20"),}[Random.Int(new String[]{
-				Messages.get(InterlevelScene.class, "dialog_1"),
-				Messages.get(InterlevelScene.class, "dialog_2"),
-				Messages.get(InterlevelScene.class, "dialog_3"),
-				Messages.get(InterlevelScene.class, "dialog_4"),
-				Messages.get(InterlevelScene.class, "dialog_5"),
-				Messages.get(InterlevelScene.class, "dialog_6"),
-				Messages.get(InterlevelScene.class, "dialog_7"),
-				Messages.get(InterlevelScene.class, "dialog_8"),
-				Messages.get(InterlevelScene.class, "dialog_9"),
-				Messages.get(InterlevelScene.class, "dialog_10"),
-				Messages.get(InterlevelScene.class, "dialog_11"),
-				Messages.get(InterlevelScene.class, "dialog_12"),
-				Messages.get(InterlevelScene.class, "dialog_13"),
-				Messages.get(InterlevelScene.class, "dialog_14"),
-				Messages.get(InterlevelScene.class, "dialog_15"),
-				Messages.get(InterlevelScene.class, "dialog_16"),
-				Messages.get(InterlevelScene.class, "dialog_17"),
-				Messages.get(InterlevelScene.class, "dialog_18"),
-				Messages.get(InterlevelScene.class, "dialog_19"),
-				Messages.get(InterlevelScene.class, "dialog_20"),}.length)]);
-
-		message = PixelScene.renderTextBlock( text, 6 );
-		message.setPos(
-				(Camera.main.width - message.width()) / 2,
-				(Camera.main.height - message.height()) / 2
-		);
+		String text = Messages.get(Mode.class, mode.name());
+		message = PixelScene.renderTextBlock(text, 9);
+		message.x = (Camera.main.width - message.width()) / 2;
+		message.y = (Camera.main.height - message.height()) / 4;
 		align(message);
-		add( message );
+		add(message);
 
+		if(tipset == null || tipset.isEmpty())
+			newTipSet();
 
-		if (Updates.isInstallable()){
-			StyledButton install = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "install")){
-				@Override
-				public void update() {
-					super.update();
-					float p = timeLeft / fadeTime;
-					if (phase == Phase.FADE_IN)         alpha(1 - p);
-					else if (phase == Phase.FADE_OUT)   alpha(p);
-					else                                alpha(1);
-				}
-
-				@Override
-				protected void onClick() {
-					super.onClick();
-					Updates.launchInstall();
-				}
-			};
-			install.icon(Icons.get(Icons.CHANGES));
-			install.textColor(Window.SHPX_COLOR);
-			install.setSize(install.reqWidth()+5, 20);
-			install.setPos((Camera.main.width - install.width())/2, (Camera.main.height - message.bottom())/3 + message.bottom());
-			add(install);
-		}
+		tip = PixelScene.renderTextBlock(Messages.get(this, "dialog_" + tip_i), 7);
+		tip.maxWidth((int)Math.round(Camera.main.width * 0.8));
+		tip.setPos((Camera.main.width - tip.width()) / 2, (Camera.main.height - tip.height()) / 2);
+		align(tip);
+		add(tip);
 
 		phase = Phase.FADE_IN;
 		timeLeft = fadeTime;
@@ -485,7 +445,6 @@ public class InterlevelScene extends PixelScene {
 	private void restore() throws IOException {
 
 		Mob.clearHeldAllies();
-
 		GameLog.wipe();
 
 		Dungeon.loadGame( GamesInProgress.curSlot );

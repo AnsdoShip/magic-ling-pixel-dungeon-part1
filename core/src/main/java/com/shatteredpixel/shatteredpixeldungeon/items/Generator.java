@@ -163,6 +163,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSp
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
+import com.shatteredpixel.shatteredpixeldungeon.plants.AikeLaier;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Dreamfoil;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
@@ -283,8 +284,9 @@ public class Generator {
 					Stormvine.Seed.class,
 					Earthroot.Seed.class,
 					Dreamfoil.Seed.class,
-					Starflower.Seed.class};
-			SEED.defaultProbs = new float[]{ 0, 5, 5, 5, 5, 9, 5, 5, 5, 5, 5, 5, 2 };
+					Starflower.Seed.class,
+					AikeLaier.Seed.class,};
+			SEED.defaultProbs = new float[]{ 0, 5, 5, 5, 5, 9, 5, 5, 5, 5, 5, 5, 4,3 };
 			SEED.probs = SEED.defaultProbs.clone();
 			
 			SCROLL.classes = new Class<?>[]{

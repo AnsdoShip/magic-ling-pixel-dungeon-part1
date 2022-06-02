@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionHero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.NewDM720;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.OldDM300;
@@ -767,7 +768,11 @@ public class CaveTwoBossLevel extends Level {
                         Char ch = Actor.findChar(cell);
                         if (ch != null && !(ch instanceof NewDM720)) {
                             Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-                            ch.damage( Random.NormalIntRange(6, 12), Electricity.class);
+                            if(Dungeon.hero.buff(ChampionHero.Light.class) != null){
+                                ch.damage( Random.NormalIntRange(0, 0), Electricity.class);
+                            } else {
+                                ch.damage(Random.NormalIntRange(6, 12), Electricity.class);
+                            }
                             ch.sprite.flash();
 
                             if (ch == Dungeon.hero && !ch.isAlive()) {

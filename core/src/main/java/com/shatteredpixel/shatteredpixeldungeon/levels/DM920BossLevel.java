@@ -96,7 +96,7 @@ public class DM920BossLevel extends Level {
 	private static final int G = Terrain.PEDESTAL;
 
 	private static final int T = Terrain.WATER;
-	private static final int O = Terrain.INACTIVE_TRAP;
+	private static final int O = Terrain.WATER;
 	private static final int L = Terrain.EMPTY;
 	private static final int E = Terrain.EMPTY_SP;
 	private static final int X = Terrain.WATER;

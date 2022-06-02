@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RandomBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ReloadShop;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Nyz;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -153,6 +154,7 @@ public class WndNyzShop extends Window {
                         WndNyzShop.this.selectReward( item );
                         if (RandomBuff.level-- >= 0) {
                         }
+                        Buff.prolong( hero, ReloadShop.class, 1f);
                         Statistics.naiyaziCollected += 1;
                         WndNyzShop.RewardWindow.this.hide();
                         Badges.nyzvalidateGoldCollected();
@@ -195,6 +197,7 @@ public class WndNyzShop extends Window {
                         }
                     } else if(Dungeon.gold > 270) {
                         Dungeon.gold-=270*Random.Int(3);
+                        Buff.prolong( hero, ReloadShop.class, 1f);
                         WndNyzShop.this.selectReward( item );
                         if (RandomBuff.level-- >= 0) {
                         }

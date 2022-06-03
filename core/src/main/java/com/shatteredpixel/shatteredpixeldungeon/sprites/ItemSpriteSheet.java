@@ -525,7 +525,8 @@ public class ItemSpriteSheet {
 	public static final int POTION_SILVER   = POTIONS+10;
 	public static final int POTION_IVORY    = POTIONS+11;
 	public static final int POTION_SKYBLUE  = POTIONS+12;
-	public static final int POTION_CATALYST = POTIONS+13;
+	public static final int POTION_DEEPYELLOW = POTIONS+13;
+	public static final int POTION_CATALYST  = POTIONS+14;
 	static {
 		for (int i = POTIONS; i < POTIONS+16; i++)
 			assignItemRect(i, 12, 14);
@@ -726,6 +727,12 @@ public class ItemSpriteSheet {
 	public static final int	ICEFISHSWORD				= BAGS+45;
 	public static final int	FIREFISHSWORD				= BAGS+46;
 	public static final int	SKELETONGOLD				= BAGS+47;
+
+	public static final int	ICEDVS				= BAGS+48;
+	public static final int	FIREDVS			= BAGS+49;
+	public static final int	DIEDVS				= BAGS+50;
+
+
 	public static final int	ANTILIGHT				= BAGS+51;
 	public static final int	BOOKBAG				= BAGS+52;
 	static{
@@ -738,7 +745,7 @@ public class ItemSpriteSheet {
 		assignItemRect(REDDRAGON, 14, 14);
 	}
 
-	private static final int MAINBOOKINDEX    	 = xy(1, 35);  //16 slots
+	private static final int MAINBOOKINDEX    	 = xy(1, 37);  //16 slots
 	public static final int ICEBOOK=			MAINBOOKINDEX+1;
 	public static final int BREDBOOK=			MAINBOOKINDEX+2;
 	public static final int GREENBOOKS=			MAINBOOKINDEX+3;
@@ -876,6 +883,7 @@ public class ItemSpriteSheet {
 		public static final int POTION_PURITY   = POTIONS+10;
 		public static final int POTION_EXP      = POTIONS+11;
 		public static final int POTION_BLUE     = POTIONS+12;
+		public static final int POTION_DEPS     = POTIONS+13;
 		static {
 			assignIconRect( POTION_STRENGTH,    7, 7 );
 			assignIconRect( POTION_HEALING,     6, 7 );
@@ -889,7 +897,7 @@ public class ItemSpriteSheet {
 			assignIconRect( POTION_PARAGAS,     7, 7 );
 			assignIconRect( POTION_PURITY,      5, 7 );
 			assignIconRect( POTION_EXP,         7, 7 );
-			assignIconRect( POTION_BLUE,         7, 7 );
+			assignIconRect( POTION_DEPS,         7, 7 );
 		}
 
 		private static final int EXOTIC_POTIONS =                            xy(1, 7);  //16 slots

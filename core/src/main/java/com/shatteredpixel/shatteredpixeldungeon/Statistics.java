@@ -27,7 +27,7 @@ import com.watabou.utils.Bundle;
 public class Statistics {
 	public static long real_seconds = 0;
 	public static int goldCollected;
-
+	public static int boss_enhance = 0;
 	public static int naiyaziCollected;
 
 	public static int deepestFloor;
@@ -62,7 +62,7 @@ public class Statistics {
 		potionsCooked	= 0;
 		piranhasKilled	= 0;
 		ankhsUsed		= 0;
-		
+		boss_enhance = 0;
 		upgradesUsed    = 0;
 		sneakAttacks    = 0;
 		thrownAssists   = 0;

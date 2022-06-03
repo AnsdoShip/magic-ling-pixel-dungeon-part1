@@ -45,8 +45,6 @@ public class Amulet extends Item {
 		return new ItemSprite.Glowing(0x008888, 6f);
 	}
 
-
-
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );

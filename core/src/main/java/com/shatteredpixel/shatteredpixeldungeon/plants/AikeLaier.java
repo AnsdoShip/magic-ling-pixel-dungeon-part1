@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionHero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -53,12 +52,8 @@ public class AikeLaier extends Plant {
             } else if (ch instanceof Hero){
                 GLog.i( Messages.get(this, "refreshed") );
                 PotionOfHealing.cure(ch);
-
-                if (((Hero) ch).subClass == HeroSubClass.WARDEN){
-                    Buff.affect(ch, ChampionHero.Light.class, ChampionHero.DURATION/10);
-                    Buff.affect(ch, Healing.class).setHeal(10, 5f, 6);
-                }
-
+                Buff.affect(ch, ChampionHero.Light.class, ChampionHero.DURATION/5);
+                Buff.affect(ch, Healing.class).setHeal(10, 5f, 6);
             }
         }
     }

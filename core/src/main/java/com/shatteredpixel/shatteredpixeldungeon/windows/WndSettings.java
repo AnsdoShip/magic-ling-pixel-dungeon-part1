@@ -984,6 +984,7 @@ public class WndSettings extends WndTabbed {
 				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {
 					quickslots.setRect(ClassUI.right(), ClassUI.top(), width / 2 - GAP / 2, SLIDER_HEIGHT);
 				} else {
+					//TODO 不满足条件移动到9000坐标
 					quickslots.setRect(0 ,9000+GAP, width, SLIDER_HEIGHT);
 				}
 				if(Game.scene()!=null && Game.scene().getClass() == GameScene.class) {

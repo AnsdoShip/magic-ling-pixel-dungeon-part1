@@ -57,7 +57,9 @@ public class StatusPane extends Component {
 	private DangerIndicator danger;
 	private BuffIndicator buffs;
 	private Compass compass;
-
+	public MainHandIndicator mainhand;
+	public BossSelectIndicator bossselect;
+	public JoinIndicator joinxxx;
 	private JournalButton btnJournal;
 	private MenuButton btnMenu;
 
@@ -118,6 +120,15 @@ public class StatusPane extends Component {
 		hgText = new BitmapText(PixelScene.pixelFont);
 		hgText.alpha(0.6f);
 		add(hgText);
+
+		mainhand=new MainHandIndicator();
+		add(mainhand);
+
+		bossselect=new BossSelectIndicator();
+		add(bossselect);
+
+		joinxxx=new JoinIndicator();
+		add(joinxxx);
 
 		exp = new Image( Assets.Interfaces.XP_BAR );
 		add( exp );
@@ -251,6 +262,10 @@ public class StatusPane extends Component {
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
 		PixelScene.align(version);
+
+		mainhand.setPos(0,52);
+		joinxxx.setPos(0,82);
+		bossselect.setPos(0,112);
 	}
 
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};

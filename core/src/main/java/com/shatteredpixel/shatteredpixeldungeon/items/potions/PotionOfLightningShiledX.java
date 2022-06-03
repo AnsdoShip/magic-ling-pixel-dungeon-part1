@@ -21,8 +21,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionHero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -32,23 +30,21 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
 public class PotionOfLightningShiledX extends Potion {
 
     {
-        icon = ItemSpriteSheet.Icons.POTION_HASTE;
+        icon = ItemSpriteSheet.Icons.POTION_DEPS;
     }
 
     @Override
     public String info() {
-        if(Dungeon.isChallenged(Challenges.EXSG)){
-            return isKnown() ? baddesc() : Messages.get(this, "unknown_desc");
-        } else {
+
             return isKnown() ? desc() : Messages.get(this, "unknown_desc");
-        }
+
     }
 
     @Override
     public void apply(Hero hero) {
         identify();
 
-        Buff.affect(hero, ChampionHero.Light.class, ChampionHero.DURATION);
+        Buff.affect(hero, ChampionHero.Light.class, ChampionHero.DURATION/4);
     }
 
     @Override

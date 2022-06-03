@@ -22,7 +22,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Challenges.ALLBOSS;
-import static com.shatteredpixel.shatteredpixeldungeon.Challenges.RLPT;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -31,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RandomBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SelectFoor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
@@ -120,10 +118,6 @@ public abstract class RegularLevel extends Level {
 			} while (!s.setSizeCat( standards-i ));
 			i += s.sizeCat.roomValue-1;
 			initRooms.add(s);
-		}
-
-		if (Dungeon.selectbossLevel() && (!Dungeon.isChallenged(ALLBOSS)) || (!Dungeon.isChallenged(RLPT)) && (Dungeon.selectbossLevel())){
-			Buff.affect(Dungeon.hero, SelectFoor.class);
 		}
 		
 		if (Dungeon.shopOnLevel() && (!Dungeon.isChallenged(ALLBOSS)))

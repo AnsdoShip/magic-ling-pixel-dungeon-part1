@@ -90,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.CharHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.LootIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.MainHandIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ResumeIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
@@ -575,10 +576,6 @@ public class GameScene extends PixelScene {
 				case LARGE:     GLog.w(Messages.get(this, "large"));    break;
 				case TRAPS:     GLog.w(Messages.get(this, "traps"));    break;
 				case SECRETS:   GLog.w(Messages.get(this, "secrets"));  break;
-			}
-
-			if(Dungeon.selectbossLevel()){
-				GLog.p(Messages.get(this, "gold_sketelon"));
 			}
 
 			for (Mob mob : Dungeon.level.mobs) {
@@ -1231,6 +1228,7 @@ public class GameScene extends PixelScene {
 	
 	public static void ready() {
 		selectCell( defaultCellListener );
+		MainHandIndicator.cancel();
 		QuickSlotButton.cancel();
 		if (scene != null && scene.toolbar != null) scene.toolbar.examining = false;
 	}

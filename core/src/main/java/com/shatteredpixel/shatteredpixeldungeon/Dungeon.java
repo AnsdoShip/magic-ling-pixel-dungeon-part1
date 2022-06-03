@@ -95,7 +95,8 @@ import java.util.HashSet;
 
 public class Dungeon {
 
-
+	// Hero's field of view
+	public static boolean[] visible;
 
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
@@ -425,16 +426,8 @@ public class Dungeon {
 				level = new SewerLevel();
 				break;
 			case 5:
-				switch (boss) {
-					case 0:case 1:
-					default:
-						level = new SewerBossLevel();
-						//天痕粘咕
-						break;
-					case 2:case 3:
-						//史莱姆王
-						level = new SLMKingLevel();
-				}
+				if((Statistics.boss_enhance & 0x1) != 0) level = new SLMKingLevel();
+				else level = new SewerBossLevel();
 				break;
 			case 6:
 			case 7:
@@ -443,15 +436,9 @@ public class Dungeon {
 				level = new PrisonLevel();
 				break;
 			case 10:
-				switch (boss) {
-					case 0:case 1:
-					default:
-						level = new NewPrisonBossLevel();
-						break;
-					case 2:case 3:
-						level = new DimandKingLevel();
-				}
-				break;
+					if((Statistics.boss_enhance & 0x2) != 0) level = new DimandKingLevel();
+					else level = new NewCavesBossLevel();
+					break;
 			case 11:
 			case 12:
 			case 13:
@@ -459,18 +446,18 @@ public class Dungeon {
 				level = new CavesLevel();
 				break;
 			case 15:
-				switch (boss) {
-					case 1:
-					default:
-						level = new NewCavesBossLevel();
-						break;
-					case 2:
-						level = new CaveTwoBossLevel();
-						break;
-					case 3:
-						level =  new CavesGirlDeadLevel();
-						break;
-				}
+				if((Statistics.boss_enhance & 0x2) != 0) level = new CavesGirlDeadLevel();
+
+				else
+					switch (Random.NormalIntRange(1,7)) {
+						case 1:case 2:case 3:
+						default:
+							level = new NewCavesBossLevel();
+							break;
+						case 4:case 5:
+							level = new CaveTwoBossLevel();
+							break;
+					}
 				break;
 			case 16:
 			case 17:
@@ -479,35 +466,18 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				switch (boss) {
-					case 1:
-					default:
-						level = new NewCityBossLevel();
-						break;
-					case 2:
-						level = new DwarfMasterBossLevel();
-						break;
-				}
+				if((Statistics.boss_enhance & 0x2) != 0) level = new DwarfMasterBossLevel();
+				else level = new NewCityBossLevel();
 				break;
 			case 21:
-						level = new HallsLevel();
-						break;
 			case 22:
 			case 23:
 			case 24:
 				level = new HallsLevel();
 				break;
 			case 25:
-				switch (boss) {
-					case 1:
-					default:
-						level = new NewHallsBossLevel();
-						//Yog古神
-						break;
-					case 2:
-						//EX古神
-						level = new  YogGodHardBossLevel();
-				}
+				if((Statistics.boss_enhance & 0x2) != 0) level = new YogGodHardBossLevel();
+				else level = new NewHallsBossLevel();
 				break;
 			case 26:
 				level = new LastLevel();

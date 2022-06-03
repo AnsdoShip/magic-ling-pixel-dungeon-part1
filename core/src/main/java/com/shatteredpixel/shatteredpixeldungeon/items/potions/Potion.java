@@ -104,6 +104,7 @@ public class Potion extends Item {
 			put("silver",ItemSpriteSheet.POTION_SILVER);
 			put("ivory",ItemSpriteSheet.POTION_IVORY);
 			put("skyblue",ItemSpriteSheet.POTION_SKYBLUE);
+			put("deepyellow",ItemSpriteSheet.POTION_DEEPYELLOW);
 		}
 	};
 	

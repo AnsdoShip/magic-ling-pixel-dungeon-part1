@@ -112,6 +112,7 @@ public class DwarfMaster extends Boss {
         initBaseStatus(3, 8, 14, 10, 500, 0, 2);
         initStatus(20);
 
+        properties.add(Property.FIERY);
         properties.add(Property.DEMONIC);
         properties.add(Property.ACIDIC);
         spriteClass = DiedMonkSprite.class;

@@ -212,10 +212,54 @@ public class InterlevelScene extends PixelScene {
 		im.scale.x = Camera.main.height/5f;
 		im.scale.y = Camera.main.width;
 		add(im);
-		String text = Messages.get(Mode.class, mode.name());
-		message = PixelScene.renderTextBlock(text, 9);
-		message.x = (Camera.main.width - message.width()) / 2;
-		message.y = (Camera.main.height - message.height()) / 4;
+
+		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(new String[]{
+				Messages.get(InterlevelScene.class, "dialog_1"),
+				Messages.get(InterlevelScene.class, "dialog_2"),
+				Messages.get(InterlevelScene.class, "dialog_3"),
+				Messages.get(InterlevelScene.class, "dialog_4"),
+				Messages.get(InterlevelScene.class, "dialog_5"),
+				Messages.get(InterlevelScene.class, "dialog_6"),
+				Messages.get(InterlevelScene.class, "dialog_7"),
+				Messages.get(InterlevelScene.class, "dialog_8"),
+				Messages.get(InterlevelScene.class, "dialog_9"),
+				Messages.get(InterlevelScene.class, "dialog_10"),
+				Messages.get(InterlevelScene.class, "dialog_11"),
+				Messages.get(InterlevelScene.class, "dialog_12"),
+				Messages.get(InterlevelScene.class, "dialog_13"),
+				Messages.get(InterlevelScene.class, "dialog_14"),
+				Messages.get(InterlevelScene.class, "dialog_15"),
+				Messages.get(InterlevelScene.class, "dialog_16"),
+				Messages.get(InterlevelScene.class, "dialog_17"),
+				Messages.get(InterlevelScene.class, "dialog_18"),
+				Messages.get(InterlevelScene.class, "dialog_19"),
+				Messages.get(InterlevelScene.class, "dialog_20"),}[Random.Int(new String[]{
+				Messages.get(InterlevelScene.class, "dialog_1"),
+				Messages.get(InterlevelScene.class, "dialog_2"),
+				Messages.get(InterlevelScene.class, "dialog_3"),
+				Messages.get(InterlevelScene.class, "dialog_4"),
+				Messages.get(InterlevelScene.class, "dialog_5"),
+				Messages.get(InterlevelScene.class, "dialog_6"),
+				Messages.get(InterlevelScene.class, "dialog_7"),
+				Messages.get(InterlevelScene.class, "dialog_8"),
+				Messages.get(InterlevelScene.class, "dialog_9"),
+				Messages.get(InterlevelScene.class, "dialog_10"),
+				Messages.get(InterlevelScene.class, "dialog_11"),
+				Messages.get(InterlevelScene.class, "dialog_12"),
+				Messages.get(InterlevelScene.class, "dialog_13"),
+				Messages.get(InterlevelScene.class, "dialog_14"),
+				Messages.get(InterlevelScene.class, "dialog_15"),
+				Messages.get(InterlevelScene.class, "dialog_16"),
+				Messages.get(InterlevelScene.class, "dialog_17"),
+				Messages.get(InterlevelScene.class, "dialog_18"),
+				Messages.get(InterlevelScene.class, "dialog_19"),
+				Messages.get(InterlevelScene.class, "dialog_20"),}.length)]);
+
+		message = PixelScene.renderTextBlock( text, 6 );
+		message.setPos(
+				(Camera.main.width - message.width()) / 2,
+				(Camera.main.height - message.height()) / 2
+		);
 		align(message);
 		add(message);
 

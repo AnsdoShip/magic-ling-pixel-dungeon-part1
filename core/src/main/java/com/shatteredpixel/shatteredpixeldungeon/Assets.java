@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 public class Assets {
+	public static final String PIXELFONT = "font/pixel_font.ttf";
 	public static final String BGM_1 = "music/Level1.ogg";
 	public static final String BGM_2 = "music/Level2.ogg";
 	public static final String BGM_3 = "music/Level3.ogg";

@@ -57,6 +57,8 @@ public class StatusPane extends Component {
 	private DangerIndicator danger;
 	private BuffIndicator buffs;
 	private Compass compass;
+	public PageIndicator page;
+	public PageIndicatorB pageb;
 	public MainHandIndicator mainhand;
 	public BossSelectIndicator bossselect;
 	public JoinIndicator joinxxx;
@@ -120,6 +122,12 @@ public class StatusPane extends Component {
 		hgText = new BitmapText(PixelScene.pixelFont);
 		hgText.alpha(0.6f);
 		add(hgText);
+
+		page=new PageIndicator();
+		add(page);
+
+		pageb=new PageIndicatorB();
+		add(pageb);
 
 		mainhand=new MainHandIndicator();
 		add(mainhand);
@@ -262,10 +270,6 @@ public class StatusPane extends Component {
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
 		PixelScene.align(version);
-
-		mainhand.setPos(0,52);
-		joinxxx.setPos(0,82);
-		bossselect.setPos(0,112);
 	}
 
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
@@ -295,6 +299,20 @@ public class StatusPane extends Component {
 			bg.texture = TextureCache.get(Assets.Interfaces.STATUS_DARK);
 		} else {
 			bg.texture = TextureCache.get(Assets.Interfaces.STATUS);
+		}
+
+		if (SPDSettings.ClassPage()) {
+			page.setPos(0, 40);
+			pageb.setPos(0, 9999);
+			mainhand.setPos(0, 51);
+			joinxxx.setPos(0, 78);
+			bossselect.setPos(0, 104);
+		} else {
+			page.setPos(0, 9999);
+			pageb.setPos(0, 40);
+			mainhand.setPos(0, 9999);
+			joinxxx.setPos(0, 9999);
+			bossselect.setPos(0, 9999);
 		}
 
 

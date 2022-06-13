@@ -80,7 +80,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfRoseShiled;
@@ -225,7 +225,7 @@ public enum HeroClass {
 			new IceCityBooks().quantity(1).identify().collect();
 			new MagicGirlBooks().quantity(1).identify().collect();
 			new NoKingMobBooks().quantity(1).identify().collect();
-			new GrassKingBooks().quantity(1).identify().collect();
+			new GrassKingBooks().quantity(100).identify().collect();
 			new AikeLaier.Seed().quantity(10).identify().collect();
 			new IceFishSword().quantity(1).identify().collect();
 			new FireFishSword().quantity(1).identify().collect();
@@ -241,7 +241,7 @@ public enum HeroClass {
 			new AlchemicalCatalyst().quantity(45).identify().collect();
 			new ScrollOfRoseShiled().quantity(45).identify().collect();
 			new ScrollOfIdentify().quantity(45).identify().collect();
-			new ScrollOfTerror().quantity(45).identify().collect();
+			new ScrollOfTransmutation().quantity(45).identify().collect();
 			new BeaconOfReturning().quantity(11).identify().collect();
 			new WarHammer().quantity(1).identify().collect();
 			new Gauntlet().quantity(1).identify().collect();

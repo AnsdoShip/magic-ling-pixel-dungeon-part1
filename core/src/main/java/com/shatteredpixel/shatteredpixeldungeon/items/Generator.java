@@ -122,7 +122,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dairikyan;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FireFishSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gauntlet;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Glaive;
@@ -402,10 +401,10 @@ public class Generator {
 			WEP_T5.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
 
 			WEP_T6.classes = new Class<?>[]{
-					FireFishSword.class,
+					IceFishSword.class,
 					IceFishSword.class,
 			};
-			WEP_T6.probs = new float[]{ 1,0 };
+			WEP_T6.probs = new float[]{ 1,1 };
 			
 			//see Generator.randomArmor
 			ARMOR.classes = new Class<?>[]{

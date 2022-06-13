@@ -62,7 +62,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.DwarfMasterBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.HallsLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.ItemLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.LastLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.LastShopLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.NewCityBossLevel;
@@ -288,9 +287,9 @@ public class Dungeon {
 		if (Dungeon.isChallenged(ALLBOSS)) {
 			//Boss Rush
 			switch (depth) {
-				case 0:
-					level = new ZeroLevel();
-					break;
+				//case 0:
+				//	level = new ZeroLevel();
+				//	break;
 				case 1:
 					level = new ItemLevel();
 					break;
@@ -316,14 +315,8 @@ public class Dungeon {
 					level = new SewerLevel();
 					break;
 				case 5:
-					switch (Random.Int(1)) {
-						case 0:
-						default:
-							level = new SewerBossLevel();
-							break;
-						case 1:
-							level = new SLMKingLevel();
-					}
+					if((Statistics.boss_enhance & 0x1) != 0) level = new SLMKingLevel();
+					else level = new SewerBossLevel();
 					break;
 				case 6:
 				case 7:
@@ -342,7 +335,8 @@ public class Dungeon {
 					}
 					break;
 				case 10:
-							level = new NewPrisonBossLevel();
+					if((Statistics.boss_enhance & 0x2) != 0) level = new DimandKingLevel();
+					else level = new NewPrisonBossLevel();
 					break;
 				case 11:
 				case 12:
@@ -359,8 +353,18 @@ public class Dungeon {
 					}
 					break;
 				case 15:
-						level = new CaveTwoBossLevel();
-						break;
+					if((Statistics.boss_enhance & 0x4) != 0) level = new CavesGirlDeadLevel();
+					else
+						switch (Random.NormalIntRange(1,7)) {
+							case 1:case 2:case 3:
+							default:
+								level = new NewCavesBossLevel();
+								break;
+							case 4:case 5:
+								level = new CaveTwoBossLevel();
+								break;
+						}
+					break;
 				case 16:
 				case 17:
 				case 18:
@@ -376,35 +380,18 @@ public class Dungeon {
 					}
 					break;
 				case 20:
-					level = new NewCityBossLevel();
+					if((Statistics.boss_enhance & 0x8) != 0) level = new DwarfMasterBossLevel();
+					else level = new NewCityBossLevel();
 					break;
 				case 21:
-					//logic for old city boss levels, need to spawn a shop on floor 21
-					try {
-						Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.depthFile(GamesInProgress.curSlot, 20));
-						Class cls = bundle.getBundle(LEVEL).getClass("__className");
-						if (cls == NewCityBossLevel.class) {
-							level = new HallsLevel();
-						} else {
-							level = new LastShopLevel();
-						}
-					} catch (Exception e) {
-						ShatteredPixelDungeon.reportException(e);
-						level = new HallsLevel();
-					}
-					break;
 				case 22:
 				case 23:
 				case 24:
-					switch (Random.Int(1)) {
-						case 0:
-						default:
 							level = new HallsLevel();
 							break;
-					}
-					break;
 				case 25:
-					level = new NewHallsBossLevel();
+					if((Statistics.boss_enhance & 0x10) != 0) level = new YogGodHardBossLevel();
+					else level = new NewHallsBossLevel();
 					break;
 				case 26:
 					level = new LastLevel();
@@ -437,7 +424,7 @@ public class Dungeon {
 				break;
 			case 10:
 					if((Statistics.boss_enhance & 0x2) != 0) level = new DimandKingLevel();
-					else level = new NewCavesBossLevel();
+					else level = new NewPrisonBossLevel();
 					break;
 			case 11:
 			case 12:
@@ -446,7 +433,7 @@ public class Dungeon {
 				level = new CavesLevel();
 				break;
 			case 15:
-				if((Statistics.boss_enhance & 0x2) != 0) level = new CavesGirlDeadLevel();
+				if((Statistics.boss_enhance & 0x4) != 0) level = new CavesGirlDeadLevel();
 
 				else
 					switch (Random.NormalIntRange(1,7)) {
@@ -466,7 +453,7 @@ public class Dungeon {
 				level = new CityLevel();
 				break;
 			case 20:
-				if((Statistics.boss_enhance & 0x2) != 0) level = new DwarfMasterBossLevel();
+				if((Statistics.boss_enhance & 0x8) != 0) level = new DwarfMasterBossLevel();
 				else level = new NewCityBossLevel();
 				break;
 			case 21:
@@ -476,7 +463,7 @@ public class Dungeon {
 				level = new HallsLevel();
 				break;
 			case 25:
-				if((Statistics.boss_enhance & 0x2) != 0) level = new YogGodHardBossLevel();
+				if((Statistics.boss_enhance & 0x10) != 0) level = new YogGodHardBossLevel();
 				else level = new NewHallsBossLevel();
 				break;
 			case 26:

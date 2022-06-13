@@ -47,11 +47,7 @@ public class IceFishSword extends MeleeWeapon{
 
             final Ballistica shot = new Ballistica( Dungeon.hero.pos, target, Ballistica.PROJECTILE);
 
-            fx(shot, new Callback() {
-                public void call() {
-                    onHit(shot, mob);
-                }
-            });
+            fx(shot, () -> onHit(shot, mob));
         }
     }
 

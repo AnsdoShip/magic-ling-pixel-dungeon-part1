@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.FireFishSword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -206,14 +207,11 @@ public class DwarfMasterBossLevel extends Level {
         w3.identify();
         drop(w3, 18 + WIDTH * 36).type = Heap.Type.CRYSTAL_CHEST;
 
-        MeleeWeapon w2;
-        do {
-            w2 = (MeleeWeapon) Generator.random(Generator.Category.WEP_T6);
-        }while(Challenges.isItemBlocked(w));
-        w2.level(2);
-        w2.cursed = false;
-        w2.identify();
-        drop(w2, 20 + WIDTH * 36).type = Heap.Type.LOCKED_CHEST;
+
+        mw.level(Random.NormalIntRange(1,4));
+        mw.cursed = false;
+        mw.identify();
+        drop(new FireFishSword(), 20 + WIDTH * 36).type = Heap.Type.LOCKED_CHEST;
 
         Ring w5;
         do {

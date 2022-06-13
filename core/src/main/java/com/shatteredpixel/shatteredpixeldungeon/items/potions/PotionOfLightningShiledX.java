@@ -44,7 +44,7 @@ public class PotionOfLightningShiledX extends Potion {
     public void apply(Hero hero) {
         identify();
 
-        Buff.affect(hero, ChampionHero.Light.class, ChampionHero.DURATION/4);
+        Buff.affect(hero, ChampionHero.Light.class, ChampionHero.DURATION/2);
     }
 
     @Override

@@ -65,6 +65,7 @@ public class NewsScene extends PixelScene {
 		int fullWidth = PixelScene.landscape() ? 202 : 100;
 		int left = (w - fullWidth)/2;
 
+
 		Archs archs = new Archs();
 		archs.setSize(w, h);
 		add(archs);

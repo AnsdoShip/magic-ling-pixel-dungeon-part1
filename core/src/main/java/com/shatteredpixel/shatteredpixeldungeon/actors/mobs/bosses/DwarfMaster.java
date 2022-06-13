@@ -321,7 +321,7 @@ public class DwarfMaster extends Boss {
         @Override
         public void detach() {
             super.detach();
-            for (Mob m : Dungeon.level.mobs){
+            for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
                 if (m instanceof DwarfMaster){
                     m.damage(20, this);
                 }
@@ -1261,7 +1261,7 @@ public class DwarfMaster extends Boss {
 
     private HashSet<Mob> getSubjects(){
         HashSet<Mob> subjects = new HashSet<>();
-        for (Mob m : Dungeon.level.mobs){
+        for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
             if (m.alignment == alignment && (m instanceof Ghoul || m instanceof Monk || m instanceof Warlock)){
                 subjects.add(m);
             }

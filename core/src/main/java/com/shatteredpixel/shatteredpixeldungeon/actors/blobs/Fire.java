@@ -41,7 +41,7 @@ public class Fire extends Blob {
 		boolean[] flamable = Dungeon.level.flamable;
 		int cell;
 		int fire;
-		
+
 		Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
 
 		boolean observe = false;

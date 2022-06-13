@@ -6,13 +6,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.LingBag;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.windows.BossSettingWindows;
+import com.shatteredpixel.shatteredpixeldungeon.windows.PageWindows;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.ui.Button;
 
-public class BossSelectIndicator extends Button {
+public class PageIndicator extends Button {
 
     public static Char lastTarget = null;
 
@@ -41,7 +41,7 @@ public class BossSelectIndicator extends Button {
 
     private static Item item = null;
 
-    public BossSelectIndicator() {
+    public PageIndicator() {
 
         int color=0x7C8072;
         this.r = (color >> 16) / 255f;
@@ -53,7 +53,7 @@ public class BossSelectIndicator extends Button {
         bg.gm = ((0x7C8072 >> 8) & 0xFF) / 255f;
         bg.bm = (0x7C8072 & 0xFF) / 255f;
 
-        setSize( 21, 21 );
+        setSize( 21, 12 );
 
         visible=false;
     }
@@ -67,14 +67,13 @@ public class BossSelectIndicator extends Button {
         bg.hardlight(0x00ffff);
         add(bg);
 
-        add(slot = new Toolbar.Tool(24, 26, 24, 26) {
+        add(slot = new Toolbar.Tool(24, 52, 24, 12) {
 
             @Override
             protected void onClick() {
                 super.onClick();
-                GameScene.show(new BossSettingWindows());
+                GameScene.show(new PageWindows());
             }
-
         });
 
     }
@@ -133,4 +132,5 @@ public class BossSelectIndicator extends Button {
         }
     }
 }
+
 

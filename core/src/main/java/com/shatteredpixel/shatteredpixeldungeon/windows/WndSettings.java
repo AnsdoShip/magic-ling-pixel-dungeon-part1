@@ -25,13 +25,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.custom.utils.Constants;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CheckBox;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
@@ -205,6 +203,7 @@ public class WndSettings extends WndTabbed {
 
 		RenderedTextBlock title;
 		ColorBlock sep1;
+		CheckBox chkFullscreen;
 		OptionSlider optScale;
 		CheckBox chkSaver;
 		RedButton btnOrientation;
@@ -220,6 +219,39 @@ public class WndSettings extends WndTabbed {
 
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
+
+			chkFullscreen = new CheckBox( Messages.get(this, "fullscreen") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.fullscreen(checked());
+				}
+			};
+			if (DeviceCompat.supportsFullScreen()){
+				chkFullscreen.checked(SPDSettings.fullscreen());
+			} else {
+				chkFullscreen.checked(true);
+				chkFullscreen.enable(false);
+			}
+			add(chkFullscreen);
+
+			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
+				optScale = new OptionSlider(Messages.get(this, "scale"),
+						(int)Math.ceil(2* Game.density)+ "X",
+						PixelScene.maxDefaultZoom + "X",
+						(int)Math.ceil(2* Game.density),
+						PixelScene.maxDefaultZoom ) {
+					@Override
+					protected void onChange() {
+						if (getSelectedValue() != SPDSettings.scale()) {
+							SPDSettings.scale(getSelectedValue());
+							ShatteredPixelDungeon.seamlessResetScene();
+						}
+					}
+				};
+				optScale.setSelectedValue(PixelScene.defaultZoom);
+				add(optScale);
+			}
 
 			if (!DeviceCompat.isDesktop() && PixelScene.maxScreenZoom >=1) {
 				chkSaver = new CheckBox(Messages.get(this, "saver")) {
@@ -250,7 +282,7 @@ public class WndSettings extends WndTabbed {
 				add( chkSaver );
 			}
 
-			if (!DeviceCompat.isDesktop()) {
+			if (DeviceCompat.isDesktop()) {
 				btnOrientation = new RedButton(PixelScene.landscape() ?
 						Messages.get(this, "portrait")
 						: Messages.get(this, "landscape")) {
@@ -298,25 +330,28 @@ public class WndSettings extends WndTabbed {
 
 			bottom = sep1.y + 1;
 
-			if (optScale != null){
-				optScale.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
-				bottom = optScale.bottom();
-			}
-
-			if (width > 200 && chkSaver != null && btnOrientation != null) {
-				chkSaver.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
-				btnOrientation.setRect(chkSaver.right()+ GAP, bottom + GAP, width/2-1, BTN_HEIGHT);
-				bottom = btnOrientation.bottom();
+			if (width > 200 && chkSaver != null) {
+				chkFullscreen.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
+				chkSaver.setRect(chkFullscreen.right()+ GAP, bottom + GAP, width/2-1, BTN_HEIGHT);
+				bottom = chkFullscreen.bottom();
 			} else {
+				chkFullscreen.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkFullscreen.bottom();
+
 				if (chkSaver != null) {
 					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 					bottom = chkSaver.bottom();
 				}
+			}
 
-				if (btnOrientation != null) {
-					btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-					bottom = btnOrientation.bottom();
-				}
+			if (btnOrientation != null) {
+				btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = btnOrientation.bottom();
+			}
+
+			if (optScale != null){
+				optScale.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
+				bottom = optScale.bottom();
 			}
 
 			sep2.size(width, 1);
@@ -522,7 +557,6 @@ public class WndSettings extends WndTabbed {
 		RenderedTextBlock title;
 		ColorBlock sep1;
 		CheckBox chkNews;
-		CheckBox chkUpdates;
 		CheckBox chkWifi;
 
 		@Override
@@ -545,17 +579,6 @@ public class WndSettings extends WndTabbed {
 			chkNews.checked(SPDSettings.news());
 			add(chkNews);
 
-			chkUpdates = new CheckBox(Messages.get(this, "updates")){
-				@Override
-				protected void onClick() {
-					super.onClick();
-					SPDSettings.updates(checked());
-					Updates.clearUpdate();
-				}
-			};
-			chkUpdates.checked(SPDSettings.updates());
-			add(chkUpdates);
-
 			if (!DeviceCompat.isDesktop()){
 				chkWifi = new CheckBox(Messages.get(this, "wifi")){
 					@Override
@@ -577,13 +600,13 @@ public class WndSettings extends WndTabbed {
 
 			if (width > 200){
 				chkNews.setRect(0, sep1.y + 1 + GAP, width/2-1, BTN_HEIGHT);
-				chkUpdates.setRect(chkNews.right() + GAP, chkNews.top(), width/2-1, BTN_HEIGHT);
+				//chkUpdates.setRect(chkNews.right() + GAP, chkNews.top(), width/2-1, BTN_HEIGHT);
 			} else {
 				chkNews.setRect(0, sep1.y + 1 + GAP, width, BTN_HEIGHT);
-				chkUpdates.setRect(0, chkNews.bottom()+ GAP, width, BTN_HEIGHT);
+				//chkUpdates.setRect(0, chkNews.bottom()+ GAP, width, BTN_HEIGHT);
 			}
 
-			float pos = chkUpdates.bottom();
+			float pos = chkNews.bottom();
 			if (chkWifi != null){
 				chkWifi.setRect(0, pos + GAP, width, BTN_HEIGHT);
 				pos = chkWifi.bottom();
@@ -916,7 +939,7 @@ public class WndSettings extends WndTabbed {
 
 		RenderedTextBlock title;
 		ColorBlock sep1;
-		OptionSlider quickslots;
+		CheckBox quickslots;
 		CheckBox ClassUI;
 		CheckBox ClassSkin;
 
@@ -929,16 +952,34 @@ public class WndSettings extends WndTabbed {
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
 
-			quickslots = new OptionSlider(Messages.get(this, "quickslots"), "" + Constants.MIN_QUICKSLOTS,
-					"" + Constants.MAX_QUICKSLOTS, Constants.MIN_QUICKSLOTS, Constants.MAX_QUICKSLOTS) {
-				@Override
-				protected void onChange() {
-					SPDSettings.quickslots(getSelectedValue());
-					Toolbar.updateLayout();
-				}
-			};
-			quickslots.setSelectedValue(SPDSettings.quickslots());
-			add(quickslots);
+			if (!DeviceCompat.isDesktop() && PixelScene.maxScreenZoom >=1) {
+				quickslots = new CheckBox(Messages.get(this, "saver")) {
+					@Override
+					protected void onClick() {
+						super.onClick();
+						if (checked()) {
+							checked(!checked());
+							ShatteredPixelDungeon.scene().add(new WndOptions(
+									Messages.get(DisplayTab.class, "saver"),
+									Messages.get(DisplayTab.class, "saver_desc"),
+									Messages.get(DisplayTab.class, "okay"),
+									Messages.get(DisplayTab.class, "cancel")) {
+								@Override
+								protected void onSelect(int index) {
+									if (index == 0) {
+										checked(!checked());
+										SPDSettings.powerSaver(checked());
+									}
+								}
+							});
+						} else {
+							SPDSettings.powerSaver(checked());
+						}
+					}
+				};
+				quickslots.checked( SPDSettings.powerSaver() );
+				add( quickslots );
+			}
 
 			ClassUI = new CheckBox( Messages.get(this, "dark_ui") ) {
 				@Override
@@ -950,7 +991,7 @@ public class WndSettings extends WndTabbed {
 			ClassUI.checked(SPDSettings.ClassUI());
 			add(ClassUI);
 
-			ClassSkin = new CheckBox( Messages.get(this, "skin_ui") ) {
+			ClassSkin = new CheckBox( Messages.get(this, "pc_ui") ) {
 				@Override
 				protected void onClick() {
 					super.onClick();

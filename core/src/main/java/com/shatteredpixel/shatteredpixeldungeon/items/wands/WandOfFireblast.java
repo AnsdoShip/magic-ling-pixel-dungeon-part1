@@ -76,6 +76,7 @@ public class WandOfFireblast extends DamageWand {
 
 			//ignore caster cell
 			if (cell == bolt.sourcePos){
+
 				continue;
 			}
 
@@ -90,10 +91,12 @@ public class WandOfFireblast extends DamageWand {
 				adjacentCells.add(cell);
 			} else {
 				GameScene.add( Blob.seed( cell, 1+chargesPerCast(), Fire.class ) );
+
 			}
 
 			Char ch = Actor.findChar( cell );
 			if (ch != null) {
+
 				affectedChars.add(ch);
 			}
 		}

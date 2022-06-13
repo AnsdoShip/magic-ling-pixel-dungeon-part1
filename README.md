@@ -22,4 +22,4 @@ JDSA Ling, Tianscar, Daniel_Clan, REN, Leng Qunwei & Naiyazi
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
 ## LICENSE
-[**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
+[**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE) (c) **AnsdoShip Studio**

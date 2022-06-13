@@ -170,9 +170,9 @@ public class InterlevelScene extends PixelScene {
 		//slow down transition when displaying an install prompt
 		if (Updates.isInstallable()){
 			fadeTime += 0.9f; //adds 1 second total
-		//speed up transition when debugging
+			//speed up transition when debugging
 		} else if (DeviceCompat.isDebug()){
-			fadeTime = 0.1f;
+			fadeTime = 0.9f;
 		}
 
 		SkinnedBlock bg = new SkinnedBlock(Camera.main.width, Camera.main.height, loadingAsset ){
@@ -212,54 +212,10 @@ public class InterlevelScene extends PixelScene {
 		im.scale.x = Camera.main.height/5f;
 		im.scale.y = Camera.main.width;
 		add(im);
-
-		String text = Messages.get(Mode.class, mode.name())+("\n\n")+(new String[]{
-				Messages.get(InterlevelScene.class, "dialog_1"),
-				Messages.get(InterlevelScene.class, "dialog_2"),
-				Messages.get(InterlevelScene.class, "dialog_3"),
-				Messages.get(InterlevelScene.class, "dialog_4"),
-				Messages.get(InterlevelScene.class, "dialog_5"),
-				Messages.get(InterlevelScene.class, "dialog_6"),
-				Messages.get(InterlevelScene.class, "dialog_7"),
-				Messages.get(InterlevelScene.class, "dialog_8"),
-				Messages.get(InterlevelScene.class, "dialog_9"),
-				Messages.get(InterlevelScene.class, "dialog_10"),
-				Messages.get(InterlevelScene.class, "dialog_11"),
-				Messages.get(InterlevelScene.class, "dialog_12"),
-				Messages.get(InterlevelScene.class, "dialog_13"),
-				Messages.get(InterlevelScene.class, "dialog_14"),
-				Messages.get(InterlevelScene.class, "dialog_15"),
-				Messages.get(InterlevelScene.class, "dialog_16"),
-				Messages.get(InterlevelScene.class, "dialog_17"),
-				Messages.get(InterlevelScene.class, "dialog_18"),
-				Messages.get(InterlevelScene.class, "dialog_19"),
-				Messages.get(InterlevelScene.class, "dialog_20"),}[Random.Int(new String[]{
-				Messages.get(InterlevelScene.class, "dialog_1"),
-				Messages.get(InterlevelScene.class, "dialog_2"),
-				Messages.get(InterlevelScene.class, "dialog_3"),
-				Messages.get(InterlevelScene.class, "dialog_4"),
-				Messages.get(InterlevelScene.class, "dialog_5"),
-				Messages.get(InterlevelScene.class, "dialog_6"),
-				Messages.get(InterlevelScene.class, "dialog_7"),
-				Messages.get(InterlevelScene.class, "dialog_8"),
-				Messages.get(InterlevelScene.class, "dialog_9"),
-				Messages.get(InterlevelScene.class, "dialog_10"),
-				Messages.get(InterlevelScene.class, "dialog_11"),
-				Messages.get(InterlevelScene.class, "dialog_12"),
-				Messages.get(InterlevelScene.class, "dialog_13"),
-				Messages.get(InterlevelScene.class, "dialog_14"),
-				Messages.get(InterlevelScene.class, "dialog_15"),
-				Messages.get(InterlevelScene.class, "dialog_16"),
-				Messages.get(InterlevelScene.class, "dialog_17"),
-				Messages.get(InterlevelScene.class, "dialog_18"),
-				Messages.get(InterlevelScene.class, "dialog_19"),
-				Messages.get(InterlevelScene.class, "dialog_20"),}.length)]);
-
-		message = PixelScene.renderTextBlock( text, 6 );
-		message.setPos(
-				(Camera.main.width - message.width()) / 2,
-				(Camera.main.height - message.height()) / 2
-		);
+		String text = Messages.get(Mode.class, mode.name());
+		message = PixelScene.renderTextBlock(text, 9);
+		message.x = (Camera.main.width - message.width()) / 2;
+		message.y = (Camera.main.height - message.height()) / 4;
 		align(message);
 		add(message);
 
@@ -346,61 +302,61 @@ public class InterlevelScene extends PixelScene {
 
 		switch (phase) {
 
-		case FADE_IN:
-			message.alpha( 1 - p );
-			if ((timeLeft -= Game.elapsed) <= 0) {
-				if (!thread.isAlive() && error == null) {
-					phase = Phase.FADE_OUT;
-					timeLeft = fadeTime;
-				} else {
-					phase = Phase.STATIC;
-				}
-			}
-			break;
-
-		case FADE_OUT:
-			message.alpha( p );
-
-			if ((timeLeft -= Game.elapsed) <= 0) {
-				Game.switchScene( GameScene.class );
-				thread = null;
-				error = null;
-			}
-			break;
-
-		case STATIC:
-			if (error != null) {
-				String errorMsg;
-				if (error instanceof FileNotFoundException)     errorMsg = Messages.get(this, "file_not_found");
-				else if (error instanceof IOException)          errorMsg = Messages.get(this, "io_error");
-				else if (error.getMessage() != null &&
-						error.getMessage().equals("old save")) errorMsg = Messages.get(this, "io_error");
-
-				else throw new RuntimeException("fatal error occured while moving between floors. " +
-							"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth, error);
-
-				add( new WndError( errorMsg ) {
-					public void onBackPressed() {
-						super.onBackPressed();
-						Game.switchScene( StartScene.class );
+			case FADE_IN:
+				message.alpha( 1 - p );
+				if ((timeLeft -= Game.elapsed) <= 0) {
+					if (!thread.isAlive() && error == null) {
+						phase = Phase.FADE_OUT;
+						timeLeft = fadeTime;
+					} else {
+						phase = Phase.STATIC;
 					}
-				} );
-				thread = null;
-				error = null;
-			} else if (thread != null && (int)waitingTime == 10){
-				waitingTime = 11f;
-				String s = "";
-				for (StackTraceElement t : thread.getStackTrace()){
-					s += "\n";
-					s += t.toString();
 				}
-				ShatteredPixelDungeon.reportException(
-						new RuntimeException("waited more than 10 seconds on levelgen. " +
-								"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth + " trace:" +
-								s)
-				);
-			}
-			break;
+				break;
+
+			case FADE_OUT:
+				message.alpha( p );
+
+				if ((timeLeft -= Game.elapsed) <= 0) {
+					Game.switchScene( GameScene.class );
+					thread = null;
+					error = null;
+				}
+				break;
+
+			case STATIC:
+				if (error != null) {
+					String errorMsg;
+					if (error instanceof FileNotFoundException)     errorMsg = Messages.get(this, "file_not_found");
+					else if (error instanceof IOException)          errorMsg = Messages.get(this, "io_error");
+					else if (error.getMessage() != null &&
+							error.getMessage().equals("old save")) errorMsg = Messages.get(this, "io_error");
+
+					else throw new RuntimeException("fatal error occured while moving between floors. " +
+								"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth, error);
+
+					add( new WndError( errorMsg ) {
+						public void onBackPressed() {
+							super.onBackPressed();
+							Game.switchScene( StartScene.class );
+						}
+					} );
+					thread = null;
+					error = null;
+				} else if (thread != null && (int)waitingTime == 10){
+					waitingTime = 11f;
+					String s = "";
+					for (StackTraceElement t : thread.getStackTrace()){
+						s += "\n";
+						s += t.toString();
+					}
+					ShatteredPixelDungeon.reportException(
+							new RuntimeException("waited more than 10 seconds on levelgen. " +
+									"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth + " trace:" +
+									s)
+					);
+				}
+				break;
 		}
 	}
 

@@ -1,25 +1,25 @@
 
 # Magic Ling Pixel Dungeon
-[![](https://img.shields.io/badge/QQ%20Group-Join-brightgreen)](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
+[![](https://img.shields.io/badge/QQ%20group-Join-brightgreen)](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)
 
-**ROGUELIKE RPG**, completely randomly generated dungeons! Based on [**Shattered Pixel Dungeon**](https://github.com/00-Evan/shattered-pixel-dungeon)'s open source.
+A traditional roguelike game, with randomly generated levels, items, enemies, and traps! Based on the [source code of Shattered Pixel Dungeon](https://github.com/00-Evan/shattered-pixel-dungeon), by [ShatteredPixel](https://shatteredpixel.com).
 
 ## Producers
 
-* **Planning**</br>
+* Planning</br>
 JDSA Ling
-* **Program**</br>
+* Program</br>
 JDSA Ling & Tianscar
-* **Music**</br>
+* Music</br>
 Prohonor
-* **Artwork**</br>
+* Artwork</br>
 JDSA Ling, Tianscar, Daniel_Clan, REN, Leng Qunwei & Naiyazi
 
 
 ## Special Thanks
-[IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages.
+[IntelliJ IDEA](https://en.wikipedia.org/wiki/IntelliJ_IDEA) is an IDE that maximizes the productivity of developers in all aspects, and is suitable for JVM platform languages.
 
 [<img src="core/src/main/assets/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=mlpd)
 
 ## LICENSE
-[**GPL-3.0**](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE.txt) © **AnsdoShip Studio**
+[GPL-3.0](https://github.com/AnsdoShip/Magic-Ling-Pixel-Dungeon-Ling/blob/main/LICENSE) (c) AnsdoShip Studio

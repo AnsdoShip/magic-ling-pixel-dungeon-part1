@@ -1,7 +1,7 @@
 
 # WARNING:
-### 因为fork合并问题，这个库除修复bug外不再会有任何提交。新的库在这里：  
-### Because of the fork merge issue, this repository will no longer have any commits other than bug fixes. The new library is here:   
+#### 因为fork合并问题，这个库除修复bug外不再会有任何提交。新的库在这里：  
+#### Because of the fork merge issue, this repository will no longer have any commits other than bug fixes. The new repository is here:   
 # [New MLPD Repositories](https://github.com/LingASDJ/MagicLing-Pixel-Dungeon)
 
 # Magic Ling Pixel Dungeon

@@ -1,7 +1,7 @@
 
 # WARNING:
 **Because of the fork merge issue, this repository will no longer have any commits other than bug fixes. The new repository is here:**  
-https://github.com/AnsdoShip/magic-ling-pixel-dungeon-part2
+[Click Here](https://github.com/AnsdoShip/magic-ling-pixel-dungeon-part2)
 
 # Magic Ling Pixel Dungeon
 [![](https://img.shields.io/badge/QQ%20group-Join-brightgreen)](https://jq.qq.com/?_wv=1027&k=R7ZXeEQM)

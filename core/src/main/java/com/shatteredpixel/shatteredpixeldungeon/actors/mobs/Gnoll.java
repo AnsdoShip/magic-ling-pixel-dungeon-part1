@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
 import com.watabou.utils.Random;
 
@@ -53,6 +54,25 @@ public class Gnoll extends Mob {
 			GameScene.add(mob);
 		}
 	}*/
+
+	private String[] attackRandom = {"你们这些肮脏的人类", "扭曲的野兽", "滚开！", "你们毁了我的家园！", "你这个狡猾的人类！", "人类，肮脏的人类！", "去死吧！！！",
+			"300" +
+					"年前，这里曾经是一片祥和"};
+
+	private int combo = 0;
+	public int attackProc(Char enemy, int damage) {
+		//随机0-10 大于7返回下面的数据
+		//现在让他必定为true 且 是随机话语
+		if (1==1) {
+			//他将会返回attackRandom的随机字符串
+			this.sprite.showStatus( CharSprite.NEGATIVE,
+					this.attackRandom[Random.Int(this.attackRandom.length)] );
+			//this.sprite.showStatus( CharSprite.NEGATIVE, "你这怪物" );
+		}
+		int damage2 = Gnoll.super.attackProc(enemy, this.combo + damage);
+		this.combo++;
+		return damage2;
+	}
 
 	
 	@Override
